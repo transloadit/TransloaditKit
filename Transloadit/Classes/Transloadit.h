@@ -11,6 +11,7 @@
 #pragma mark - Resource Includes
 #import "Resources/API/APIObject.h"
 #import "Resources/Resources.h"
+#import "Support/Constant.h"
 
 @interface Transloadit : NSObject
 

@@ -15,10 +15,11 @@
     self = [super init];
     if(self) {
         NSLog(@"_init: %@", self);
-        
+        self.assemblyID = assembly_id;
     }
     return self;
 }
+
 
 - (id)initWithSteps:(AssemblyStep [])steps {
     self = [super init];
@@ -29,7 +30,8 @@
     return self;
 }
 
--(NSURL)url
+
+
 
 
 @end

@@ -74,7 +74,6 @@
 		28E665DD1D75E85D004BDE1B /* Transloadit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transloadit.h; sourceTree = "<group>"; };
 		28E665DE1D75E85D004BDE1B /* Transloadit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transloadit.m; sourceTree = "<group>"; };
 		28E665DF1D75E85D004BDE1B /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
-		28E665E01D75E85D004BDE1B /* Transloadit */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Transloadit; sourceTree = "<group>"; };
 		28E665E11D75E85D004BDE1B /* Support */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Support; sourceTree = "<group>"; };
 		2EECE81A9AEC1ED1057A9C3C88DBCEBE /* UIApplication+StrictKeyWindow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIApplication+StrictKeyWindow.m"; path = "FBSnapshotTestCase/Categories/UIApplication+StrictKeyWindow.m"; sourceTree = "<group>"; };
 		2F1B0A45F864B16BBE8E470C07F8F740 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -234,7 +233,6 @@
 				28E665DD1D75E85D004BDE1B /* Transloadit.h */,
 				28E665DE1D75E85D004BDE1B /* Transloadit.m */,
 				28E665DF1D75E85D004BDE1B /* Resources */,
-				28E665E01D75E85D004BDE1B /* Transloadit */,
 				28E665E11D75E85D004BDE1B /* Support */,
 				F6847E96600BE004F640D41A239EBD38 /* ReplaceMe.m */,
 			);

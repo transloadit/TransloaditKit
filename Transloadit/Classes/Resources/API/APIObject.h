@@ -10,7 +10,8 @@
 
 @interface APIObject : NSObject
 
+@property (nonatomic, strong)NSMutableURLRequest* callRequest;
 
-- (NSURL)url;
+- (NSURLRequest*)buildRequest;
 
 @end

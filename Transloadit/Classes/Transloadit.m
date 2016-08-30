@@ -22,7 +22,7 @@
 
 
 - (void) prefromAssebmly: (Assembly *)assembly {
-    
+    assembly.buildRequest;
 }
 
 @end

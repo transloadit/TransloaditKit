@@ -12,9 +12,17 @@
 
 @interface Assembly : APIObject
 
+@property (nonatomic, strong)NSString* urlString;
+
+@property (nonatomic, strong)NSString* assemblyID;
+
+
 - (id)initWithID:(NSString *)assembly_id;
 
 - (id)initWithSteps:(AssemblyStep *)steps;
+
+- (id)createWithParams:(NSString *)params andSteps:(NSArray*)steps andTemplateID:(NSString*)templateID andNotifyURL:(NSURL *)notifyURL;
+
 
 
 

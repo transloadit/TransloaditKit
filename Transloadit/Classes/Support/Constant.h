@@ -11,7 +11,16 @@
 
 #define TRANSLOADIT_API_DEFAULT_BASE_URL @"api2.transloadit.com"
 
-#define TRANSLOADIT_API_DEFAULT_PROCOL @"http"
+#define TRANSLOADIT_API_DEFAULT_PROCOL @"https"
 
+#pragma mark - ASSEMBLY
 
-#pragma Second
+#define TRANSLOADIT_API_ASSEMBLIES @"/assemblies"
+
+#define TRANSLOADIT_API_ASSEMBLIES_REPLAY @"/replay"
+
+#define TRANSLOADIT_API_ASSEMBLIES_NOTIFCIATIONS @"/assembly_notifications"
+
+#pragma mark - TEMPLATES
+
+#define TRANSLOADIT_API_TEMPLATES @"/templates"
