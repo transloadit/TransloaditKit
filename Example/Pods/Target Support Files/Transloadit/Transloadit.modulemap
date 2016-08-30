@@ -1,0 +1,6 @@
+framework module Transloadit {
+  umbrella header "Transloadit-umbrella.h"
+
+  export *
+  module * { export * }
+}

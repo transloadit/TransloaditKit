@@ -1,0 +1,23 @@
+PODS:
+  - FBSnapshotTestCase (2.1.2):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.2)
+  - FBSnapshotTestCase/Core (2.1.2)
+  - FBSnapshotTestCase/SwiftSupport (2.1.2):
+    - FBSnapshotTestCase/Core
+  - Transloadit (0.1.0)
+
+DEPENDENCIES:
+  - FBSnapshotTestCase
+  - Transloadit (from `../`)
+
+EXTERNAL SOURCES:
+  Transloadit:
+    :path: ../
+
+SPEC CHECKSUMS:
+  FBSnapshotTestCase: 918c55861356ee83aee7843d759f55a18ff6982b
+  Transloadit: 0ec0f46f35a8c21338866c70282e9e6d80d3816d
+
+PODFILE CHECKSUM: 1a9973dc2f08738457184e3a94aabd9dbc7a8e41
+
+COCOAPODS: 1.0.1
