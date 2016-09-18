@@ -9,7 +9,7 @@
     "file": "LICENSE"
   },
   "authors": {
-    "Mark R. Masterson": "mrobertmasterson@gmail.com"
+    "Mark R. Masterson": "mark@masterson.io"
   },
   "source": {
     "git": "https://github.com/<GITHUB_USERNAME>/Transloadit.git",
@@ -18,5 +18,10 @@
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "Transloadit/Classes/**/*"
+  "source_files": "Transloadit/Classes/**/*",
+  "dependencies": {
+    "TUSKit": [
+
+    ]
+  }
 }

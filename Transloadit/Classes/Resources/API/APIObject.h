@@ -8,10 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
-@interface APIObject : NSObject
+typedef enum : NSUInteger {
+    CREATE = 0,
+    STATUS = 1,
+} APIState;
+
+
+@protocol APIObject <NSObject>
+
 
 @property (nonatomic, strong)NSMutableURLRequest* callRequest;
 
-- (NSURLRequest*)buildRequest;
+@property (nonatomic, strong)NSString* params;
+
+- (NSURLRequest*)buildRequestFor:(APIState *)state;
+
+- (NSString*)buildParametersJSON;
+
 
 @end

@@ -84,8 +84,10 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/TUSKit/TUSKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Transloadit/Transloadit.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/TUSKit/TUSKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Transloadit/Transloadit.framework"
 fi

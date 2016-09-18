@@ -10,19 +10,33 @@
 
 @implementation Transloadit
 
-
 - (id)initWithKey:(NSString *)key andSecret:(NSString *)secret {
     self = [super init];
     if(self) {
         NSLog(@"_init: %@", self);
-        self.session = [NSURLSession sharedSession];
+        _secret = secret;
+        _key = key;
+        
+        NSURLSessionConfiguration *configuration = [[NSURLSessionConfiguration alloc] init];
+        [configuration setAllowsCellularAccess:true];
+        
+        _session = [NSURLSession sessionWithConfiguration:configuration];
+        
     }
     return self;
 }
 
-
-- (void) prefromAssebmly: (Assembly *)assembly {
-    assembly.buildRequest;
+- (TransloaditResponse *) prefromAssebmly: (Assembly *)assembly{
+    
+    
+    
 }
+
+- (TransloaditResponse *) createAssembly: (Assembly *)assembly{
+    
+    
+    
+}
+
 
 @end

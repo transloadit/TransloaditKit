@@ -7,7 +7,7 @@
 //
 
 #import "TransloaditViewController.h"
-
+#import <Transloadit/Transloadit.h>
 @interface TransloaditViewController ()
 
 @end
@@ -17,6 +17,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    Transloadit *T = [[Transloadit alloc] initWithKey:@"" andSecret:@""];
     
     
     
