@@ -24,6 +24,19 @@ pod "Transloadit"
 
 Mark R. Masterson, mrobertmasterson@gmail.com
 
+### Work Flow
+
+* Create An AssemblyStep Object With JSONString or Values
+* Create An Assembly With JSON Assembly Steps or an Array of AssemblyStep Objects
+* Generate the Params as JSON for an Assembly Object 
+* Create The Assembly Get A TransloaditResponse Object
+
+* Pass TransloaditResoinse Object To TUSWrapper to perfom Upload
+
+
+
+
+
 ## License
 
 Transloadit is available under the MIT license. See the LICENSE file for more info.

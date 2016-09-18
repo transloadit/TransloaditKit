@@ -31,6 +31,7 @@
 }
 
 
+//TODO: Add WithParams as NSDictionary
 - (NSString*)generateSignature {
     NSError *error;
     NSDate *date = [[NSDate alloc] init];
@@ -67,9 +68,6 @@
        NSString *signature = [self generateSignature];
     NSMutableURLRequest *request = [assembly createRequestWithSignature:signature];
 
-    
-   
-    
     [request setHTTPMethod:@"POST"];
     
     NSLog([[request URL] absoluteString]);
@@ -77,9 +75,6 @@
     [_session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         //
     }];
-    
-    
-    
 }
 
 

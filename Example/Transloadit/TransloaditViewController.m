@@ -18,7 +18,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-   Transloadit *T = [[Transloadit alloc] initWithKey:@"5ae6b9c0f10c11e594a0bfa14ca2ffe1" andSecret:@" a9d351b355bb47b21af79d89aa9d8a54a6f27a41"];
+   Transloadit *transloadit = [[Transloadit alloc] initWithKey:@"5ae6b9c0f10c11e594a0bfa14ca2ffe1" andSecret:@" a9d351b355bb47b21af79d89aa9d8a54a6f27a41"];
     
     //NSDictionary* params = @{};
     
@@ -26,12 +26,17 @@
     
     AssemblyStep *step = [[AssemblyStep alloc] initWithOperationName:@"encode" andBodyOperations:@{@"use":@"orignal", @"robot":@"/video/encode", @"result":@"true"}];
     
-    Assembly *A = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
+    [steps addObject:step];
+    
+    Assembly *TestAssemblyWithSteps = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
+    
+    Assembly *TestAssemblyWithJSONString = [[Assembly alloc] initWithStepsJSONString:@"" andNumberOfFiles:1];
+
     
     
-    
-    
-    [T createAssembly:A];
+    [transloadit createAssembly:TestAssemblyWithSteps];
+    [transloadit createAssembly:TestAssemblyWithJSONString];
+
     
 	// Do any additional setup after loading the view, typically from a nib.
 }
