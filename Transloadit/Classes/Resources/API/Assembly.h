@@ -24,8 +24,6 @@
 @property (nonatomic)int* numberOfFiles;
 
 
-
-
 - (id)init;
 
 - (id)initWithSteps:(NSMutableArray<AssemblyStep *>*)steps andNumberOfFiles:(int)numberOfFiles;

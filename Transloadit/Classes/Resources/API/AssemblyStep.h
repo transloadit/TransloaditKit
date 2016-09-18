@@ -12,10 +12,13 @@
 
 @property(nonatomic, strong)NSString* operationName;
 
-@property(nonatomic, strong)NSMutableDictionary* bodyOperations;
+@property(nonatomic, strong)NSDictionary* bodyOperations;
 
+@property(nonatomic, strong)NSString* jsonString;
 
--(id)initWithOperationName:(NSString *)name andBodyOperations:(NSMutableDictionary *)bodyOperations;
+-(id)initWithOperationName:(NSString *)name andBodyOperations:(NSDictionary *)bodyOperations;
+
+-(id)initWithJSON:(NSString *)jsonString;
 
 -(NSString *)asJSON;
 

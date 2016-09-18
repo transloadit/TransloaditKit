@@ -59,8 +59,6 @@
         return nil;
     } else {
         NSString *hash = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        NSLog(hash);
-        
         return [hash signWithKey:_key];
     }
 }

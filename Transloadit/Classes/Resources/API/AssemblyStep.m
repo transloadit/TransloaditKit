@@ -10,14 +10,24 @@
 
 @implementation AssemblyStep
 
--(id)initWithOperationName:(NSString *)operationName andBodyOperations:(NSMutableDictionary *)bodyOperations{
+-(id)initWithOperationName:(NSString *)operationName andBodyOperations:(NSDictionary *)bodyOperations{
     self = [super init];
     if(self) {
         [self setOperationName:operationName];
         [self setBodyOperations:bodyOperations];
+        [self setJsonString:[self asJSON]];
     }
     return self;
 }
+
+-(id)initWithJSON:(NSString *)jsonString{
+    self = [super init];
+    if(self) {
+        [self setJsonString:jsonString];
+    }
+    return self;
+}
+
 
 -(NSString *)asJSON{
     NSError *error;

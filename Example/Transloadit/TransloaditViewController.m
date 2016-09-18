@@ -24,8 +24,12 @@
     
     NSMutableArray<AssemblyStep *> *steps = [[NSMutableArray alloc] init];
     
+    AssemblyStep *step = [[AssemblyStep alloc] initWithOperationName:@"encode" andBodyOperations:@{@"use":@"orignal", @"robot":@"/video/encode", @"result":@"true"}];
     
     Assembly *A = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
+    
+    
+    
     
     [T createAssembly:A];
     
