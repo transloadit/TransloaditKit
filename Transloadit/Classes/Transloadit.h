@@ -32,9 +32,11 @@
 
 - (id)initWithKey:(NSString *)key andSecret:(NSString *)secret;
 
+- (NSData*)generateSignature;
 
 
-- (void) perfromAssebmly: (Assembly *)assembly;
+
+- (void) createAssembly: (Assembly *)assembly;
 
 //- (TransloaditResponse *) createAssembly: (Assembly *)assembly;
 

@@ -14,7 +14,7 @@
 
 @implementation Assembly
 
-
+@synthesize params;
 
 
 - (id)init {
@@ -31,7 +31,7 @@
     self = [super init];
     if(self) {
         NSLog(@"_init: %@", self);
- 
+        [self setParams:@{}];
     }
     return self;
 }

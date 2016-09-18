@@ -16,6 +16,7 @@
 
 @property (nonatomic, assign)APIObjectType* type;
 
+
 @property (nonatomic, strong)NSMutableURLRequest* callRequest;
 
 @property (nonatomic, strong)NSDictionary* params;
