@@ -11,6 +11,7 @@
 #import "Assembly.h"
 #import "APIState.h"
 #import "APIObjectType.h"
+#import "NSString+Utils.h"
 #import <TUSKit/TUSKit.h>
 
 #pragma mark - Resource Includes

@@ -37,7 +37,8 @@
 }
 
 
-- (NSMutableURLRequest*)createRequest{
+- (NSMutableURLRequest*)createRequestWithSignature:(NSString *)signature{
+
     NSString *methodType = [[NSString alloc] init];
 //    if (_template_id != nil) {
 //        [self.params setValue:_template_id forKey:@"template_id"];
@@ -48,7 +49,7 @@
 
    
     
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/%@/%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_ASSEMBLIES]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@%@?signature=%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_ASSEMBLIES,signature]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];
     
     
     

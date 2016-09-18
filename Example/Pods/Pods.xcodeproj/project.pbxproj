@@ -15,6 +15,8 @@
 		1A5D2397F3EB193A5AF2A1DFE239A5A1 /* TUSKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF222A5AC468E178C12D232B0541CA8 /* TUSKit-dummy.m */; };
 		23190E69C8B0A1CF0D0A5B68F99A86EF /* Transloadit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8902489DE0BBE680CE73F9CE01FDDFF3 /* Transloadit-dummy.m */; };
 		253BDB4B5684C32BEDA8E9838773AE09 /* TUSAssetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5199F005BEF18311136CC9A9029B00 /* TUSAssetData.m */; };
+		28AB28481D8E789B0094CC86 /* NSString+Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 28AB28461D8E789B0094CC86 /* NSString+Utils.h */; };
+		28AB284A1D8E789E0094CC86 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 28AB28471D8E789B0094CC86 /* NSString+Utils.m */; };
 		2C87E1788C8FA06AE3481A2226E3AF2D /* UIApplication+StrictKeyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 625BEF60BCA4C0D0C90830CDC3F7A404 /* UIApplication+StrictKeyWindow.m */; };
 		32C714A5579D8EC108EDF606DF85D010 /* TUSErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5D60B56EB700A956F9A9E46FEDE017 /* TUSErrors.m */; };
 		34A1C7E576C58A9D3F3101448308BF3E /* UIImage+Snapshot.h in Headers */ = {isa = PBXBuildFile; fileRef = 785963EC959968B9A7FDB1598E23A24B /* UIImage+Snapshot.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -125,6 +127,8 @@
 		234CD90EAFE3C75D2720BF68305EDB37 /* Pods-Transloadit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Transloadit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		2595BB609C53FE468A8DD9798F97A767 /* UIApplication+StrictKeyWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIApplication+StrictKeyWindow.h"; path = "FBSnapshotTestCase/Categories/UIApplication+StrictKeyWindow.h"; sourceTree = "<group>"; };
 		25A99BCF6CDF298299C111704E1E0E04 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		28AB28461D8E789B0094CC86 /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
+		28AB28471D8E789B0094CC86 /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utils.m"; sourceTree = "<group>"; };
 		2C1FE0C78C46434795DC3BD3A021F18A /* UIImage+Snapshot.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Snapshot.m"; path = "FBSnapshotTestCase/Categories/UIImage+Snapshot.m"; sourceTree = "<group>"; };
 		2FADB7EF0D41C6E2C30F2EA2FB679E8B /* APIState.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = APIState.h; sourceTree = "<group>"; };
 		33CFB7674CE21BB907395009ED4A11B9 /* Pods-Transloadit_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Transloadit_Example-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -446,6 +450,8 @@
 			children = (
 				2EE0DA560F2385296C769CEBBF413FAB /* Support Files */,
 				35DA9F6FD3AF400E3D4871C06755F169 /* Transloadit */,
+				28AB28461D8E789B0094CC86 /* NSString+Utils.h */,
+				28AB28471D8E789B0094CC86 /* NSString+Utils.m */,
 			);
 			name = Transloadit;
 			path = ../..;
@@ -601,6 +607,7 @@
 				8F6BE6F2B8B60A5106D617E7620124F5 /* TUSFileData.h in Headers */,
 				F456BF9B7B84D9797A7AFFD7D644422D /* TUSFileUploadStore.h in Headers */,
 				75B1028CAEF08231C615BA89785034A9 /* TUSKit-umbrella.h in Headers */,
+				28AB28481D8E789B0094CC86 /* NSString+Utils.h in Headers */,
 				8B06B17D6D857405650F982E7519C505 /* TUSKit.h in Headers */,
 				968127E4C60D5DC88D27EEB3CEAABD47 /* TUSResumableUpload+Private.h in Headers */,
 				E61FF4AF5E1CAEBEE100BBFC6CA79FCA /* TUSResumableUpload.h in Headers */,
@@ -791,6 +798,7 @@
 				23190E69C8B0A1CF0D0A5B68F99A86EF /* Transloadit-dummy.m in Sources */,
 				4B6FD5779D8189977B06B82435ABF7D6 /* Transloadit.m in Sources */,
 				B6CFDC90AC8FCB4545DDE33A78D9BDCE /* TransloaditResponse.m in Sources */,
+				28AB284A1D8E789E0094CC86 /* NSString+Utils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

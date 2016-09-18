@@ -7,7 +7,6 @@
 //
 
 #import "Transloadit.h"
-#import <CommonCrypto/CommonHMAC.h>
 
 @implementation Transloadit
 
@@ -62,17 +61,20 @@
         NSString *hash = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSLog(hash);
         
-        return [self signWithKey:_secret usingData:hash];
+        return [hash signWithKey:_key];
     }
 }
 
 - (void) createAssembly: (Assembly *)assembly{
+       NSString *signature = [self generateSignature];
+    NSMutableURLRequest *request = [assembly createRequestWithSignature:signature];
+
     
-    NSMutableURLRequest *request = [assembly createRequest];
-    NSString *signature = [self generateSignature];
-    NSLog(@"test hmac = %@",signature);
+   
+    
     [request setHTTPMethod:@"POST"];
-    //[request setHTTPBody:[[[assembly params ]description] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSLog([[request URL] absoluteString]);
     
     [_session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         //
@@ -83,18 +85,6 @@
 }
 
 
-- (NSString *)signWithKey:(NSString *)key usingData:(NSString *)data {
-    const char *cKey  = [key cStringUsingEncoding:NSASCIIStringEncoding];
-    const char *cData = [data cStringUsingEncoding:NSASCIIStringEncoding];
-    
-    unsigned char cHMAC[CC_SHA256_DIGEST_LENGTH];
-    
-    CCHmac(kCCHmacAlgSHA256, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
-    
-    NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC length:sizeof(cHMAC)];
-    
-    return [[HMAC.description stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]] stringByReplacingOccurrencesOfString:@" " withString:@""];
-}
 
 
 
