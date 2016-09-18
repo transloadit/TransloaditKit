@@ -10,9 +10,13 @@
 
 @interface AssemblyStep : NSObject
 
-@property(nonatomic, strong)NSString* name;
+@property(nonatomic, strong)NSString* operationName;
 
-@property(nonatomic, strong)NSMutableDictionary* operation;
+@property(nonatomic, strong)NSMutableDictionary* bodyOperations;
 
+
+-(id)initWithOperationName:(NSString *)name andBodyOperations:(NSMutableDictionary *)bodyOperations;
+
+-(NSString *)asJSON;
 
 @end

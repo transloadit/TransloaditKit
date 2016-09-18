@@ -10,4 +10,32 @@
 
 @implementation AssemblyStep
 
+-(id)initWithOperationName:(NSString *)operationName andBodyOperations:(NSMutableDictionary *)bodyOperations{
+    self = [super init];
+    if(self) {
+        [self setOperationName:operationName];
+        [self setBodyOperations:bodyOperations];
+    }
+    return self;
+}
+
+-(NSString *)asJSON{
+    NSError *error;
+    NSMutableDictionary* jsonDictionary = [[NSMutableDictionary alloc] init];
+    
+    [jsonDictionary setObject:[self bodyOperations] forKey:[self operationName]];
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDictionary
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    if (!jsonData) {
+        NSLog(@"Got an error: %@", error);
+        return nil;
+    } else {
+        return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+
+}
+
+
 @end
