@@ -15,7 +15,8 @@
     self = [super init];
     if(self) {
         NSLog(@"_init: %@", self);
-        _params = [[NSDictionary alloc] init];
+        self.params = [[NSDictionary alloc] init];
+        self.type = Assembly_API_Object;
     }
     return self;
 }
@@ -24,28 +25,28 @@
     self = [super init];
     if(self) {
         NSLog(@"_init: %@", self);
-        _params = params;
+        self.params = params;
+        self.type = Assembly_API_Object;
+
     }
     return self;
 }
 
 
-- (NSURLRequest*)buildRequestFor:(APIState *)state{
+- (NSURLRequest*)createRequest{
     NSString *methodType = [[NSString alloc] init];
     if (_template_id != nil) {
-        [_params setValue:_template_id forKey:@"template_id"];
+        [self.params setValue:_template_id forKey:@"template_id"];
     }
     if (_notify_url != nil) {
-        [_params setValue:_notify_url forKey:@"notify_url"];
+        [self.params setValue:_notify_url forKey:@"notify_url"];
     }
-    if (state == 0){
-        methodType = @"POST";
-    }else if (state == 1){
-        methodType = @"GET";
-    }
+
+   
+    
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/%@/%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_ASSEMBLIES]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];
     
     
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:<#(nonnull NSURL *)#> cachePolicy:<#(NSURLRequestCachePolicy)#> timeoutInterval:<#(NSTimeInterval)#>];
     
     return request;
 }

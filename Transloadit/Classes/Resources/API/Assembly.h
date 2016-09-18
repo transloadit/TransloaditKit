@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "APIObject.h"
 
+
 @interface Assembly : NSObject<APIObject>
 
 @property (nonatomic, strong)NSString* urlString;
@@ -18,7 +19,9 @@
 
 @property (nonatomic, strong)NSString* template_id;
 
-@property (nonatomic, strong)NSDictionary* params;
+
+
+
 
 
 - (id)init;

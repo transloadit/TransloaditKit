@@ -10,4 +10,6 @@
 
 @interface TransloaditResponse : NSObject
 
+@property (nonatomic, weak)NSURLRequest* request;
+
 @end

@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "TransloaditProtocol.h"
-#import "Resources/API/Assembly.h"
-#import "Resources/API/TransloaditResponse.h"
+#import "Assembly.h"
+#import "APIState.h"
+#import "APIObjectType.h"
+#import <TUSKit/TUSKit.h>
 
 #pragma mark - Resource Includes
 
@@ -23,13 +25,16 @@
 
 @property (nonatomic, strong) NSDictionary *headers;
 
+@property (nonatomic, strong) TUSResumableUpload *tus;
+
+@property (nonatomic, strong) TUSUploadStore *tusStore;
 
 
 - (id)initWithKey:(NSString *)key andSecret:(NSString *)secret;
 
 
 
-- (TransloaditResponse *) prefromAssebmly: (Assembly *)assembly;
+- (TransloaditResponse *) perfromAssebmly: (Assembly *)assembly;
 
 - (TransloaditResponse *) createAssembly: (Assembly *)assembly;
 

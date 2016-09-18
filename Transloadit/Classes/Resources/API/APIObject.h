@@ -7,21 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
-
-typedef enum : NSUInteger {
-    CREATE = 0,
-    STATUS = 1,
-} APIState;
-
+#import "TransloaditResponse.h"
+#import "APIState.h"
+#import "APIObjectType.h"
+#import "URLConstants.h"
 
 @protocol APIObject <NSObject>
 
+@property (nonatomic, assign)APIObjectType* type;
 
 @property (nonatomic, strong)NSMutableURLRequest* callRequest;
 
 @property (nonatomic, strong)NSString* params;
 
-- (NSURLRequest*)buildRequestFor:(APIState *)state;
+- (NSURLRequest*)createRequest;
 
 - (NSString*)buildParametersJSON;
 

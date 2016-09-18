@@ -10,6 +10,8 @@
 
 @implementation Transloadit
 
+
+
 - (id)initWithKey:(NSString *)key andSecret:(NSString *)secret {
     self = [super init];
     if(self) {
@@ -21,22 +23,27 @@
         [configuration setAllowsCellularAccess:true];
         
         _session = [NSURLSession sessionWithConfiguration:configuration];
+        _tus = [TUSResumableUpload alloc];
+        _tusStore = [TUSUploadStore alloc];
         
     }
     return self;
 }
 
-- (TransloaditResponse *) prefromAssebmly: (Assembly *)assembly{
+- (TransloaditResponse *) createAssembly: (Assembly *)assembly{
+    
+    NSMutableURLRequest *request = [assembly createRequest];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[[assembly params] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [_session dataTaskWithURL:[assembly createRequest]];
     
     
     
 }
 
-- (TransloaditResponse *) createAssembly: (Assembly *)assembly{
-    
-    
-    
-}
+
+
 
 
 @end
