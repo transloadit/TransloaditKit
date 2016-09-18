@@ -32,11 +32,13 @@
 }
 
 
-- (NSString*)generateSignature{
+- (NSString*)generateSignature {
     NSError *error;
     NSDate *date = [[NSDate alloc] init];
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"YYYY/MM/DD HH:mm:SS+00:00"];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+    [dateFormatter setTimeZone:timeZone];
+    [dateFormatter setDateFormat:@"YYYY/MM/dd HH:mm:SS+00:00"];
     
     
     
@@ -59,7 +61,8 @@
     } else {
         NSString *hash = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSLog(hash);
-        return hmacForKeyAndData(_secret, hash);
+        
+        return [self signWithKey:_secret usingData:hash];
     }
 }
 
@@ -80,15 +83,18 @@
 }
 
 
-NSData *hmacForKeyAndData(NSString *key, NSString *data)
-{
+- (NSString *)signWithKey:(NSString *)key usingData:(NSString *)data {
     const char *cKey  = [key cStringUsingEncoding:NSASCIIStringEncoding];
     const char *cData = [data cStringUsingEncoding:NSASCIIStringEncoding];
+    
     unsigned char cHMAC[CC_SHA256_DIGEST_LENGTH];
+    
     CCHmac(kCCHmacAlgSHA256, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
-    return [[NSData alloc] initWithBytes:cHMAC length:sizeof(cHMAC)];
+    
+    NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC length:sizeof(cHMAC)];
+    
+    return [[HMAC.description stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]] stringByReplacingOccurrencesOfString:@" " withString:@""];
 }
-
 
 
 

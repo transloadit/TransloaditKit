@@ -34,7 +34,7 @@
 
 - (NSData*)generateSignature;
 
-
+- (NSString *)signWithKey:(NSString *)key usingData:(NSString *)data;
 
 - (void) createAssembly: (Assembly *)assembly;
 
