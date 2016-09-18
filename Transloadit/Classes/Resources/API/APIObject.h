@@ -11,6 +11,7 @@
 #import "APIState.h"
 #import "APIObjectType.h"
 #import "URLConstants.h"
+#import "AssemblyStep.h"
 
 @protocol APIObject <NSObject>
 
@@ -20,6 +21,7 @@
 @property (nonatomic, strong)NSMutableURLRequest* callRequest;
 
 @property (nonatomic, strong)NSDictionary* params;
+
 
 - (NSURLRequest*)createRequestWithSignature:(NSString *)signature;
 

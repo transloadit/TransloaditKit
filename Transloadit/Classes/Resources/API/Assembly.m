@@ -27,25 +27,26 @@
     return self;
 }
 
-- (id)initWithParams:(NSDictionary *)params {
+- (id)initWithSteps:(NSMutableArray<AssemblyStep *>*)steps andNumberOfFiles:(int)numberOfFiles{
     self = [super init];
     if(self) {
         NSLog(@"_init: %@", self);
-        [self setParams:@{}];
+        [self setSteps:steps];
+        [self setNumberOfFiles:numberOfFiles];
     }
     return self;
 }
 
 
+-(void)addStep:(AssemblyStep *)step{
+    [[self steps] addObject:step];
+}
+
+
+
 - (NSMutableURLRequest*)createRequestWithSignature:(NSString *)signature{
 
     NSString *methodType = [[NSString alloc] init];
-//    if (_template_id != nil) {
-//        [self.params setValue:_template_id forKey:@"template_id"];
-//    }
-//    if (_notify_url != nil) {
-//        [self.params setValue:_notify_url forKey:@"notify_url"];
-//    }
 
    
     

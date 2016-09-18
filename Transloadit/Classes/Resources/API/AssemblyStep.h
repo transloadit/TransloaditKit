@@ -10,4 +10,9 @@
 
 @interface AssemblyStep : NSObject
 
+@property(nonatomic, strong)NSString* name;
+
+@property(nonatomic, strong)NSMutableDictionary* operation;
+
+
 @end

@@ -20,9 +20,12 @@
     [super viewDidLoad];
    Transloadit *T = [[Transloadit alloc] initWithKey:@"5ae6b9c0f10c11e594a0bfa14ca2ffe1" andSecret:@" a9d351b355bb47b21af79d89aa9d8a54a6f27a41"];
     
-    NSDictionary* params = @{};
+    //NSDictionary* params = @{};
     
-    Assembly *A = [[Assembly alloc] initWithParams:params];
+    NSMutableArray<AssemblyStep *> *steps = [[NSMutableArray alloc] init];
+    
+    
+    Assembly *A = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
     
     [T createAssembly:A];
     

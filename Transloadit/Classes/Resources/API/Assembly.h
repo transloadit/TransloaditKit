@@ -16,18 +16,21 @@
 
 @property (nonatomic, strong)NSString* notify_url;
 
+@property (nonatomic, strong)NSMutableArray* steps;
+
 
 @property (nonatomic, strong)NSString* template_id;
 
+@property (nonatomic)int* numberOfFiles;
 
 
 
 
 - (id)init;
 
-- (id)initWithParams:(NSDictionary *)assembly_id;
+- (id)initWithSteps:(NSMutableArray<AssemblyStep *>*)steps andNumberOfFiles:(int)numberOfFiles;
 
-
+- (void)addStep:(AssemblyStep *)step;
 
 
 

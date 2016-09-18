@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "TransloaditProtocol.h"
 #import "Assembly.h"
+#import "AssemblyStep.h"
 #import "APIState.h"
 #import "APIObjectType.h"
 #import "NSString+Utils.h"
@@ -39,6 +40,5 @@
 
 - (void) createAssembly: (Assembly *)assembly;
 
-//- (TransloaditResponse *) createAssembly: (Assembly *)assembly;
 
 @end
