@@ -18,7 +18,7 @@
 
 @property (nonatomic, strong)NSMutableURLRequest* callRequest;
 
-@property (nonatomic, strong)NSString* params;
+@property (nonatomic, strong)NSDictionary* params;
 
 - (NSURLRequest*)createRequest;
 

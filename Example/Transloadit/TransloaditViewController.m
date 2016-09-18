@@ -18,11 +18,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-  //  Transloadit *T = [[Transloadit alloc] initWithKey:@"" andSecret:@""];
+   Transloadit *T = [[Transloadit alloc] initWithKey:@"" andSecret:@""];
     
-    NSDictionary *params = [[NSDictionary alloc] init];
+    NSDictionary* params = @{};
     
- //   [T perfromAssebmly:[[Assembly alloc] initWithParams:params]];
+    Assembly *A = [[Assembly alloc] initWithParams:params];
+    
+    [T perfromAssebmly:A];
     
 	// Do any additional setup after loading the view, typically from a nib.
 }

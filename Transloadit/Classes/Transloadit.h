@@ -34,8 +34,8 @@
 
 
 
-- (TransloaditResponse *) perfromAssebmly: (Assembly *)assembly;
+- (void) perfromAssebmly: (Assembly *)assembly;
 
-- (TransloaditResponse *) createAssembly: (Assembly *)assembly;
+//- (TransloaditResponse *) createAssembly: (Assembly *)assembly;
 
 @end

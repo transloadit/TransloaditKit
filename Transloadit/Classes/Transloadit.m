@@ -19,7 +19,7 @@
         _secret = secret;
         _key = key;
         
-        NSURLSessionConfiguration *configuration = [[NSURLSessionConfiguration alloc] init];
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
         [configuration setAllowsCellularAccess:true];
         
         _session = [NSURLSession sessionWithConfiguration:configuration];
@@ -30,13 +30,15 @@
     return self;
 }
 
-- (TransloaditResponse *) createAssembly: (Assembly *)assembly{
+- (void) perfromAssebmly: (Assembly *)assembly{
     
     NSMutableURLRequest *request = [assembly createRequest];
     [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:[[assembly params] dataUsingEncoding:NSUTF8StringEncoding]];
+    //[request setHTTPBody:[[[assembly params ]description] dataUsingEncoding:NSUTF8StringEncoding]];
     
-    [_session dataTaskWithURL:[assembly createRequest]];
+    [_session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        //
+    }];
     
     
     
