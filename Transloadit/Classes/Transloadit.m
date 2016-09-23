@@ -10,7 +10,15 @@
 
 @implementation Transloadit
 
-
+-(NSURLSession *) session1{
+    // Lazily instantiate a session
+    if (_session == nil){
+        NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        sessionConfiguration.allowsCellularAccess = true;
+        _session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    }
+    return _session;
+}
 
 - (id)initWithKey:(NSString *)key andSecret:(NSString *)secret {
     self = [super init];
@@ -21,8 +29,10 @@
         
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
         [configuration setAllowsCellularAccess:true];
+        [configuration setHTTPMaximumConnectionsPerHost:10];
+        _session = [NSURLSession sessionWithConfiguration:configuration delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
         
-        _session = [NSURLSession sessionWithConfiguration:configuration];
+        
         _tus = [TUSResumableUpload alloc];
         _tusStore = [TUSUploadStore alloc];
         
@@ -72,11 +82,32 @@
     
     NSLog([[request URL] absoluteString]);
     
-    [_session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        //
+    
+    
+    NSURLSessionUploadTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
+            // Handle error...
+            return;
+        }
+        
+        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+            NSLog(@"Response HTTP Status code: %ld\n", (long)[(NSHTTPURLResponse *)response statusCode]);
+            NSLog(@"Response HTTP Headers:\n%@\n", [(NSHTTPURLResponse *)response allHeaderFields]);
+        }
+        
+        NSString* body = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"Response Body:\n%@\n", body);
     }];
+    
+    [assemblyTask resume];
 }
 
+
+-(void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask
+   didReceiveData:(NSData *)data {
+    
+    //[receivedData appendData:data];
+}
 
 
 

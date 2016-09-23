@@ -7,77 +7,77 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0171DFEE7EBC28A07D23966A8B6FE980 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 11661440E863A1A1826E7F3DADAB611E /* NSString+Utils.m */; };
+		06CCF7B64EEF40A062125D9613B84FB6 /* NSString+Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 32BA9535CFD9F08E70D13BCA76428809 /* NSString+Utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		09ADE253F76F272568CF3B4A56C5F7E6 /* Pods-Transloadit_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 05A47F73BA46A6A5ED6EE57B035694AB /* Pods-Transloadit_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0CCA5A917D507BE6080F224AAB093B64 /* Resources.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DF8CB387BA2895A6C0BEEFF43205F8C /* Resources.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0D7E79815C1E5FEBA138B17791F135E1 /* Transloadit.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F208C0C60F3A034400B1EC0499BDE8D /* Transloadit.m */; };
 		11C22C7B844DF31A5EBDC9AC132C5E94 /* UIImage+Compare.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B3D6B6D871AA10749B44C5E224FA61 /* UIImage+Compare.m */; };
-		12923025CD65E8B2C2E4282526EB6396 /* Template.h in Headers */ = {isa = PBXBuildFile; fileRef = BDCB17CBFC0D5A37A03D47A022D22D4D /* Template.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		130F048002A62769FAFCC66F2C79391A /* FBSnapshotTestController.h in Headers */ = {isa = PBXBuildFile; fileRef = F94190AFDFCA59CBBC8C5FC3ED8FDBA0 /* FBSnapshotTestController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		188EF6A77A9A1641398A93D5E89686F9 /* Assembly.h in Headers */ = {isa = PBXBuildFile; fileRef = ECDE4643C3552A24E54B96474AF7287F /* Assembly.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1A5D2397F3EB193A5AF2A1DFE239A5A1 /* TUSKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DF222A5AC468E178C12D232B0541CA8 /* TUSKit-dummy.m */; };
-		23190E69C8B0A1CF0D0A5B68F99A86EF /* Transloadit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8902489DE0BBE680CE73F9CE01FDDFF3 /* Transloadit-dummy.m */; };
+		1B2AC22A9DD3EA199CB85D9923BAFAB6 /* Transloadit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 14A9871AF94273585A7EE0A21EB888F6 /* Transloadit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21B1A1AD35DFC3FAEC961B77B7160D06 /* Template.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A663469A9EE640026747D2A6EA2350E /* Template.m */; };
 		253BDB4B5684C32BEDA8E9838773AE09 /* TUSAssetData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5199F005BEF18311136CC9A9029B00 /* TUSAssetData.m */; };
-		28AB28481D8E789B0094CC86 /* NSString+Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 28AB28461D8E789B0094CC86 /* NSString+Utils.h */; };
-		28AB284A1D8E789E0094CC86 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 28AB28471D8E789B0094CC86 /* NSString+Utils.m */; };
 		2C87E1788C8FA06AE3481A2226E3AF2D /* UIApplication+StrictKeyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 625BEF60BCA4C0D0C90830CDC3F7A404 /* UIApplication+StrictKeyWindow.m */; };
+		32A057A958357FBFBDAE4DFB54653337 /* Transloadit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8902489DE0BBE680CE73F9CE01FDDFF3 /* Transloadit-dummy.m */; };
 		32C714A5579D8EC108EDF606DF85D010 /* TUSErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = CD5D60B56EB700A956F9A9E46FEDE017 /* TUSErrors.m */; };
 		34A1C7E576C58A9D3F3101448308BF3E /* UIImage+Snapshot.h in Headers */ = {isa = PBXBuildFile; fileRef = 785963EC959968B9A7FDB1598E23A24B /* UIImage+Snapshot.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		3E20A9B0623A0F2379D0C14B05F316A5 /* TransloaditProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = E0B33E11EF94A5022D985FEE80024656 /* TransloaditProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		410C93BFC1C18D40012E8AD3AE781A06 /* TUSUploadStore.h in Headers */ = {isa = PBXBuildFile; fileRef = BB7C88B44AF17FA285D083D0BAFDA39A /* TUSUploadStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42D21AB48113E931CDB7502FBB3C5BBD /* TUSKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66747EF56EEC51CCC37BED8ADE6C62B5 /* TUSKit.framework */; };
 		438FD5F93A462C41137D17E90459D1EC /* TUSUploadStore.m in Sources */ = {isa = PBXBuildFile; fileRef = E647E835FF80C4C9C01D9A555F1B51BC /* TUSUploadStore.m */; };
 		443BB1A31DD62143BE6EB3EF41BC4297 /* TUSKit.xcconfig in Sources */ = {isa = PBXBuildFile; fileRef = 3CEE4E5569A6EDA2DA88CCD212231999 /* TUSKit.xcconfig */; };
-		488CDD66399BD5F4EA200B2CA60097A4 /* AssemblyStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D40B8C4175BC57F82A7DF9C125573F /* AssemblyStep.m */; };
+		4672DC81D45D0041239ED2E4B42FE33D /* Template.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AA0124DFA795D98AA92481A0F0B7F7E /* Template.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		497AA8816FC08215EF4C2431E1986992 /* FBSnapshotTestCase-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B12319E96A75A526A1076DA55C6181B /* FBSnapshotTestCase-dummy.m */; };
 		4A4D40B40D09192CFC77F87A10C7AA53 /* TUSSession.h in Headers */ = {isa = PBXBuildFile; fileRef = BB7756541EC8646F5AA353F9FF13EDFC /* TUSSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4B6FD5779D8189977B06B82435ABF7D6 /* Transloadit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4869B88B8D53104EB175B261BF7C9581 /* Transloadit.m */; };
 		4D705B551869DAF509DE678868D97BF4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB701C25D6615F0C20D414034D1829D7 /* Foundation.framework */; };
+		51BE0BB6C106CD27645E06546BD21F57 /* Transloadit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D39819415A2C9A8E228429B660F669C /* Transloadit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54679CCCAD3F6C558C4C6E72361A65D8 /* TUSSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 094C6F6B6251BAFCA4DCF956C64BE5E9 /* TUSSession.m */; };
 		5AC19509B64DD7C32D1E78C47050BCD9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB701C25D6615F0C20D414034D1829D7 /* Foundation.framework */; };
-		5B8140BD4AC2B29E2BDC7A74D089FB7A /* URLConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = E751070F316DCAD1C529199A6580CC3A /* URLConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		61EBC5CF0D5E065C88028B49C6B8D3B3 /* UIImage+Diff.h in Headers */ = {isa = PBXBuildFile; fileRef = EC211E0DC71A6918B24EA8ABF33B19A0 /* UIImage+Diff.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		634F47BE926500A64856A3232F731E48 /* Pods-Transloadit_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 986E9F1707C9D839E2FC6C8750592593 /* Pods-Transloadit_Example-dummy.m */; };
 		638BB07A6E6FD1A9F1DA77FE3D995782 /* TUSData.h in Headers */ = {isa = PBXBuildFile; fileRef = 904849A0018646FE73E064D4BB1EC62B /* TUSData.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6410CFE4B2FCA98D5B2AF19FF576014C /* Transloadit.h in Headers */ = {isa = PBXBuildFile; fileRef = 594C3FCAC12A955130521B850F78CF86 /* Transloadit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		68B245DB47CA60F8F9ADCA1E8CCDC324 /* UIApplication+StrictKeyWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 2595BB609C53FE468A8DD9798F97A767 /* UIApplication+StrictKeyWindow.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		68FFED33ABD678B72D892C03C568B8F1 /* TransloaditResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 600312453AE82C3802BC217AFC637D66 /* TransloaditResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6914EE43A9B8B8D30220B3B6B0D57523 /* FBSnapshotTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CEC51BC397C9046E61903DC4E0E3FF /* FBSnapshotTestCase.m */; };
 		69816E113B15ACFBCAE49354C7181EC8 /* TUSFileUploadStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 6227A52F335B60DA605783BE65829369 /* TUSFileUploadStore.m */; };
 		6E4A16BF4D27C48BB1FE1E1CF5E8B90E /* FBSnapshotTestCasePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC30A35F10CA0874D55E916CCA78716 /* FBSnapshotTestCasePlatform.m */; };
 		73B96724E9D2B03677BA3C2D24601D64 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDF724B24C1BFC163C3874316E23EFD8 /* XCTest.framework */; };
 		75B1028CAEF08231C615BA89785034A9 /* TUSKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 61619022CE2F7D656C5CBDE661A09671 /* TUSKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B3D43003825CC25C262810DDAAA3DF0 /* APIObjectType.h in Headers */ = {isa = PBXBuildFile; fileRef = 5127BDAEB623361A56EFBCC4D03167CE /* APIObjectType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7BF107143E9E57F6520B4C03F3AD4381 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB701C25D6615F0C20D414034D1829D7 /* Foundation.framework */; };
 		7D1762857761549D882642D2F52072B1 /* TUSErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 5522EF6FDAB3F5CC33004F1950DEF547 /* TUSErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		82B66D9ED741A360ADF82FE2EA0B0B38 /* Assembly.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE87B565420CEBA8E90011A9523784E /* Assembly.m */; };
 		85D178DFCA1BC67BBFB1188E34EC5B19 /* SwiftSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F4F42C86C33493E5D90481953E5A22 /* SwiftSupport.swift */; };
 		8ACF6A5515A175054E22414BF740EF14 /* FBSnapshotTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = EF2DCE54DF34D8D28AB6AFE56C2A4DA7 /* FBSnapshotTestCase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8B06B17D6D857405650F982E7519C505 /* TUSKit.h in Headers */ = {isa = PBXBuildFile; fileRef = CA6C2353280EFD9A12D791AB51A35389 /* TUSKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8E409F37A0752863309DA4A031C51F7E /* Assembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AF7042F8109EE298936CBFBF6FB205D /* Assembly.m */; };
 		8F6BE6F2B8B60A5106D617E7620124F5 /* TUSFileData.h in Headers */ = {isa = PBXBuildFile; fileRef = F87379DB71FDBE54BC9AC0AF43F8F8FF /* TUSFileData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		968127E4C60D5DC88D27EEB3CEAABD47 /* TUSResumableUpload+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A489E81D96E61A8AFA6A937CAABCC90 /* TUSResumableUpload+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9896EB6C9F9F9CBFFE045337FDF39794 /* Transloadit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 14A9871AF94273585A7EE0A21EB888F6 /* Transloadit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B5D8E7AF9B9ACF1891524D79C784544 /* TUSAssetData.h in Headers */ = {isa = PBXBuildFile; fileRef = 119DEFB77F54E8AAFF5C1EEFF1223A31 /* TUSAssetData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9FA3B93CE0ECAC3CDC30890659AACF82 /* FBSnapshotTestCasePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F0E5FDD9C38D931D5EE75FB49B13856 /* FBSnapshotTestCasePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A30B25436089B9E556F0C6F8471FCE3F /* TUSResumableUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F1FA621BD1C826174CA7CD90722EBD /* TUSResumableUpload.m */; };
+		A630745FD951432BE5BE9A1DFD082F3A /* TransloaditProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C0F79F88B4A50EBCA6E526D8752522F /* TransloaditProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A932B89F114B02D24B5FBF362FD0B9F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB701C25D6615F0C20D414034D1829D7 /* Foundation.framework */; };
+		AF246975E3F00C3E214E9928C2160D91 /* TransloaditResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 769B1D0F272E755E24E1F357523501C9 /* TransloaditResponse.m */; };
 		B6A67A3B998747E4290BF6010EC33806 /* FBSnapshotTestCase-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F06D9A601599782F749BC62F449D063F /* FBSnapshotTestCase-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B6CFDC90AC8FCB4545DDE33A78D9BDCE /* TransloaditResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF021D6BE14B0C4D80A8DC91DF07224 /* TransloaditResponse.m */; };
-		B7AE63104D7E748B4F17D7BF8D659C92 /* AssemblyStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 42E11867771A97AB08D0A9543A69721D /* AssemblyStep.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C03CA18E1367D4085A794EAAC5C40924 /* Resources.h in Headers */ = {isa = PBXBuildFile; fileRef = 824D79AC14BA219D38845B2BD4DAA709 /* Resources.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C08622B35D560813047B102D56C5E95C /* TUSFileData.m in Sources */ = {isa = PBXBuildFile; fileRef = A81FC919539DCD1E7BA73BEA0EA0E20E /* TUSFileData.m */; };
-		C0F81F171B0E2A28694371CFD4973011 /* APIObjectType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E17604903725F69A178C8B1A9F1A582 /* APIObjectType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C19F21C693AD27CCCDD2F50A6ED79D11 /* TUSData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D02E3B196F7301AA00F9B43C5CF60D8 /* TUSData.m */; };
 		C360952381641F725C15758993A0F665 /* UIImage+Diff.m in Sources */ = {isa = PBXBuildFile; fileRef = A139E45C6E9304C85ED2BF527121B7B3 /* UIImage+Diff.m */; };
 		CAEAC5145C98919FCE6B89AEBDB8873F /* Pods-Transloadit_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B32FE5A4648305297570C92CB6DB63F9 /* Pods-Transloadit_Tests-dummy.m */; };
-		CE0F108A46B7346697D87F0640472A28 /* APIState.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FADB7EF0D41C6E2C30F2EA2FB679E8B /* APIState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CF3414BE11CA752F3A1AA603BFA23037 /* Pods-Transloadit_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F6EF5BE69A2AA59A3EC055E9E184272E /* Pods-Transloadit_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D16F36038D6A66B38333C11B88DD8F66 /* Assembly.h in Headers */ = {isa = PBXBuildFile; fileRef = 03B05A8ACD080AA6B570708033267EC2 /* Assembly.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D1D8E182421D2639AA07F32F450076BC /* APIState.h in Headers */ = {isa = PBXBuildFile; fileRef = 43446A99881991221BD5A8A353CFC23D /* APIState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3302019CB59819AB493785C38B450FA /* APIObject.h in Headers */ = {isa = PBXBuildFile; fileRef = A9558DF58217C4ABA3961F820531C69D /* APIObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D5C30BC656C11AF60394E3180A217BB1 /* UIImage+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1FE0C78C46434795DC3BD3A021F18A /* UIImage+Snapshot.m */; };
 		D7AA7232C217BA34442CAFB8FA6EFC92 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB701C25D6615F0C20D414034D1829D7 /* Foundation.framework */; };
+		DC085C32967B55426D4D0CDAD67AD308 /* URLConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = E9AD35B095317D4187B7B2F33359BE64 /* URLConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E61FF4AF5E1CAEBEE100BBFC6CA79FCA /* TUSResumableUpload.h in Headers */ = {isa = PBXBuildFile; fileRef = 85C17DBCB2501E63E10367DE17B4C849 /* TUSResumableUpload.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAA652557B70F493923A3447B5D64E0D /* UIImage+Compare.h in Headers */ = {isa = PBXBuildFile; fileRef = DA3E19A63D24B1B29ACEF61FF3C260FC /* UIImage+Compare.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		F0B3BC4CE7B1074981F32DDD032E9539 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B293E825DF2F24ECF95575D7DC0105F /* UIKit.framework */; };
 		F366B775C22BBE1DBAC7BDB7DE8F0A26 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B19347FBD2810F487E655EC9C3C7310 /* QuartzCore.framework */; };
-		F3C1A86E2C957147079AB16F13697D26 /* Template.m in Sources */ = {isa = PBXBuildFile; fileRef = 89252D5EE20C729E113D519FBD9F7A60 /* Template.m */; };
 		F456BF9B7B84D9797A7AFFD7D644422D /* TUSFileUploadStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 52F6866F6ADBAE3A16D3B02E1DD8A837 /* TUSFileUploadStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F47158C234C50FFB069A1EF8AB26D9F1 /* FBSnapshotTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54C1E0A65F10AB4C81479E747C50025B /* FBSnapshotTestController.m */; };
-		FCAC114619F52C6B8760646767160835 /* APIObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 02399347F6B7CDE823F69D96D464F7D5 /* APIObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FEB0093DB769363F1E903E5BF9BF7DDB /* TransloaditResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C9D79F45C4D1E57D37CBDAA53C28B7F /* TransloaditResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FBC8B904B8C50340055F0CE0BA33EF6A /* AssemblyStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 52060579AA04041B404F0A91D08D18F6 /* AssemblyStep.m */; };
+		FF576DAB706E40CC287F8911B5B1D132 /* AssemblyStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BCCAF1E257DC3F207943C592C57DF1F /* AssemblyStep.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,33 +113,35 @@
 
 /* Begin PBXFileReference section */
 		00AF3E7620A56720A127E40FE17272DB /* Pods-Transloadit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Transloadit_Example.release.xcconfig"; sourceTree = "<group>"; };
-		02399347F6B7CDE823F69D96D464F7D5 /* APIObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = APIObject.h; sourceTree = "<group>"; };
+		03B05A8ACD080AA6B570708033267EC2 /* Assembly.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Assembly.h; sourceTree = "<group>"; };
 		04B3D6B6D871AA10749B44C5E224FA61 /* UIImage+Compare.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Compare.m"; path = "FBSnapshotTestCase/Categories/UIImage+Compare.m"; sourceTree = "<group>"; };
 		05A47F73BA46A6A5ED6EE57B035694AB /* Pods-Transloadit_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Transloadit_Example-umbrella.h"; sourceTree = "<group>"; };
 		064F0C525E197FE47C91AE6F138764DC /* Pods-Transloadit_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Transloadit_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		094C6F6B6251BAFCA4DCF956C64BE5E9 /* TUSSession.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TUSSession.m; path = Pod/Classes/TUSSession.m; sourceTree = "<group>"; };
 		0A5199F005BEF18311136CC9A9029B00 /* TUSAssetData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TUSAssetData.m; path = Pod/Classes/TUSAssetData.m; sourceTree = "<group>"; };
+		0F208C0C60F3A034400B1EC0499BDE8D /* Transloadit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Transloadit.m; sourceTree = "<group>"; };
+		11661440E863A1A1826E7F3DADAB611E /* NSString+Utils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utils.m"; sourceTree = "<group>"; };
 		119DEFB77F54E8AAFF5C1EEFF1223A31 /* TUSAssetData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TUSAssetData.h; path = Pod/Classes/TUSAssetData.h; sourceTree = "<group>"; };
 		1298087C5CEF4714FF5D59C9C4F31D58 /* Pods_Transloadit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Transloadit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		14A9871AF94273585A7EE0A21EB888F6 /* Transloadit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Transloadit-umbrella.h"; sourceTree = "<group>"; };
 		186BA49A820108C4E260B58382ECB312 /* TUSKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = TUSKit.modulemap; sourceTree = "<group>"; };
-		1FF021D6BE14B0C4D80A8DC91DF07224 /* TransloaditResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = TransloaditResponse.m; sourceTree = "<group>"; };
+		1A663469A9EE640026747D2A6EA2350E /* Template.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Template.m; sourceTree = "<group>"; };
+		1D39819415A2C9A8E228429B660F669C /* Transloadit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Transloadit.h; sourceTree = "<group>"; };
 		234CD90EAFE3C75D2720BF68305EDB37 /* Pods-Transloadit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Transloadit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		2595BB609C53FE468A8DD9798F97A767 /* UIApplication+StrictKeyWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIApplication+StrictKeyWindow.h"; path = "FBSnapshotTestCase/Categories/UIApplication+StrictKeyWindow.h"; sourceTree = "<group>"; };
 		25A99BCF6CDF298299C111704E1E0E04 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		28AB28461D8E789B0094CC86 /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
-		28AB28471D8E789B0094CC86 /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utils.m"; sourceTree = "<group>"; };
 		2C1FE0C78C46434795DC3BD3A021F18A /* UIImage+Snapshot.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Snapshot.m"; path = "FBSnapshotTestCase/Categories/UIImage+Snapshot.m"; sourceTree = "<group>"; };
-		2FADB7EF0D41C6E2C30F2EA2FB679E8B /* APIState.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = APIState.h; sourceTree = "<group>"; };
+		32BA9535CFD9F08E70D13BCA76428809 /* NSString+Utils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
 		33CFB7674CE21BB907395009ED4A11B9 /* Pods-Transloadit_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Transloadit_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		3A489E81D96E61A8AFA6A937CAABCC90 /* TUSResumableUpload+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "TUSResumableUpload+Private.h"; path = "Pod/Classes/TUSResumableUpload+Private.h"; sourceTree = "<group>"; };
 		3CEE4E5569A6EDA2DA88CCD212231999 /* TUSKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = TUSKit.xcconfig; path = Pod/Classes/TUSKit.xcconfig; sourceTree = "<group>"; };
-		42E11867771A97AB08D0A9543A69721D /* AssemblyStep.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AssemblyStep.h; sourceTree = "<group>"; };
 		42E5577FF824DE00A718C86BD34EBBC5 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4869B88B8D53104EB175B261BF7C9581 /* Transloadit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Transloadit.m; sourceTree = "<group>"; };
+		43446A99881991221BD5A8A353CFC23D /* APIState.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = APIState.h; sourceTree = "<group>"; };
 		4903D717D070484FB3BC850898D061B3 /* Pods-Transloadit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Transloadit_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		4BCCAF1E257DC3F207943C592C57DF1F /* AssemblyStep.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AssemblyStep.h; sourceTree = "<group>"; };
 		4C32B816BB1BF8C1F60E53D32E008496 /* FBSnapshotTestCase-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FBSnapshotTestCase-prefix.pch"; sourceTree = "<group>"; };
-		4E17604903725F69A178C8B1A9F1A582 /* APIObjectType.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = APIObjectType.h; sourceTree = "<group>"; };
+		5127BDAEB623361A56EFBCC4D03167CE /* APIObjectType.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = APIObjectType.h; sourceTree = "<group>"; };
+		52060579AA04041B404F0A91D08D18F6 /* AssemblyStep.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AssemblyStep.m; sourceTree = "<group>"; };
 		5269CFEEA4DF80A54EF9DCDB5900F9DA /* FBSnapshotTestCase.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = FBSnapshotTestCase.modulemap; sourceTree = "<group>"; };
 		52F6866F6ADBAE3A16D3B02E1DD8A837 /* TUSFileUploadStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TUSFileUploadStore.h; path = Pod/Classes/TUSFileUploadStore.h; sourceTree = "<group>"; };
 		54C1E0A65F10AB4C81479E747C50025B /* FBSnapshotTestController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSnapshotTestController.m; path = FBSnapshotTestCase/FBSnapshotTestController.m; sourceTree = "<group>"; };
@@ -147,26 +149,27 @@
 		5526BAC51DA3216817D9A31FF9DE1FFC /* Pods-Transloadit_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Transloadit_Example-resources.sh"; sourceTree = "<group>"; };
 		55CEC51BC397C9046E61903DC4E0E3FF /* FBSnapshotTestCase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSnapshotTestCase.m; path = FBSnapshotTestCase/FBSnapshotTestCase.m; sourceTree = "<group>"; };
 		58778CED3A2DD70E7FD035AD0691CACB /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		594C3FCAC12A955130521B850F78CF86 /* Transloadit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Transloadit.h; sourceTree = "<group>"; };
 		5A968B8798F33973CAF38BB2EE9D4356 /* Transloadit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Transloadit.modulemap; sourceTree = "<group>"; };
+		5AA0124DFA795D98AA92481A0F0B7F7E /* Template.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Template.h; sourceTree = "<group>"; };
+		600312453AE82C3802BC217AFC637D66 /* TransloaditResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = TransloaditResponse.h; sourceTree = "<group>"; };
 		61619022CE2F7D656C5CBDE661A09671 /* TUSKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TUSKit-umbrella.h"; sourceTree = "<group>"; };
 		6227A52F335B60DA605783BE65829369 /* TUSFileUploadStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TUSFileUploadStore.m; path = Pod/Classes/TUSFileUploadStore.m; sourceTree = "<group>"; };
 		625BEF60BCA4C0D0C90830CDC3F7A404 /* UIApplication+StrictKeyWindow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIApplication+StrictKeyWindow.m"; path = "FBSnapshotTestCase/Categories/UIApplication+StrictKeyWindow.m"; sourceTree = "<group>"; };
 		66747EF56EEC51CCC37BED8ADE6C62B5 /* TUSKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TUSKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		66F1FA621BD1C826174CA7CD90722EBD /* TUSResumableUpload.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TUSResumableUpload.m; path = Pod/Classes/TUSResumableUpload.m; sourceTree = "<group>"; };
+		6AF7042F8109EE298936CBFBF6FB205D /* Assembly.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Assembly.m; sourceTree = "<group>"; };
 		6B19347FBD2810F487E655EC9C3C7310 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		6B293E825DF2F24ECF95575D7DC0105F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		6B7E5A7BB5275C63B971F7B021AC4092 /* Pods-Transloadit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Transloadit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		6C0F79F88B4A50EBCA6E526D8752522F /* TransloaditProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = TransloaditProtocol.h; sourceTree = "<group>"; };
 		6D02E3B196F7301AA00F9B43C5CF60D8 /* TUSData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TUSData.m; path = Pod/Classes/TUSData.m; sourceTree = "<group>"; };
 		731548DC6E474949C0E9922631391A41 /* Transloadit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Transloadit-prefix.pch"; sourceTree = "<group>"; };
-		77D40B8C4175BC57F82A7DF9C125573F /* AssemblyStep.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AssemblyStep.m; sourceTree = "<group>"; };
+		769B1D0F272E755E24E1F357523501C9 /* TransloaditResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = TransloaditResponse.m; sourceTree = "<group>"; };
 		785963EC959968B9A7FDB1598E23A24B /* UIImage+Snapshot.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Snapshot.h"; path = "FBSnapshotTestCase/Categories/UIImage+Snapshot.h"; sourceTree = "<group>"; };
-		7C9D79F45C4D1E57D37CBDAA53C28B7F /* TransloaditResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = TransloaditResponse.h; sourceTree = "<group>"; };
+		7DF8CB387BA2895A6C0BEEFF43205F8C /* Resources.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Resources.h; sourceTree = "<group>"; };
 		7F0E5FDD9C38D931D5EE75FB49B13856 /* FBSnapshotTestCasePlatform.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSnapshotTestCasePlatform.h; path = FBSnapshotTestCase/FBSnapshotTestCasePlatform.h; sourceTree = "<group>"; };
-		824D79AC14BA219D38845B2BD4DAA709 /* Resources.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Resources.h; sourceTree = "<group>"; };
 		85C17DBCB2501E63E10367DE17B4C849 /* TUSResumableUpload.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TUSResumableUpload.h; path = Pod/Classes/TUSResumableUpload.h; sourceTree = "<group>"; };
 		8902489DE0BBE680CE73F9CE01FDDFF3 /* Transloadit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Transloadit-dummy.m"; sourceTree = "<group>"; };
-		89252D5EE20C729E113D519FBD9F7A60 /* Template.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Template.m; sourceTree = "<group>"; };
 		8B12319E96A75A526A1076DA55C6181B /* FBSnapshotTestCase-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FBSnapshotTestCase-dummy.m"; sourceTree = "<group>"; };
 		8EDC7EF386A049D13D27EC6360266116 /* TUSKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TUSKit-prefix.pch"; sourceTree = "<group>"; };
 		8F39BBEF992C9295368A99B1048AD1E9 /* FBSnapshotTestCase.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FBSnapshotTestCase.xcconfig; sourceTree = "<group>"; };
@@ -177,16 +180,15 @@
 		A042D4FF70BC9F3F573204B3CCCBC8A1 /* Pods_Transloadit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Transloadit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A139E45C6E9304C85ED2BF527121B7B3 /* UIImage+Diff.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Diff.m"; path = "FBSnapshotTestCase/Categories/UIImage+Diff.m"; sourceTree = "<group>"; };
 		A81FC919539DCD1E7BA73BEA0EA0E20E /* TUSFileData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TUSFileData.m; path = Pod/Classes/TUSFileData.m; sourceTree = "<group>"; };
+		A9558DF58217C4ABA3961F820531C69D /* APIObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = APIObject.h; sourceTree = "<group>"; };
 		AB701C25D6615F0C20D414034D1829D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		AEA91EBC1FCDEB687FE1C5A3699A7B0C /* Pods-Transloadit_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Transloadit_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		AEAE0ECE98BD7B8933CA42A11F7D15B1 /* Pods-Transloadit_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Transloadit_Example-frameworks.sh"; sourceTree = "<group>"; };
-		AEE87B565420CEBA8E90011A9523784E /* Assembly.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Assembly.m; sourceTree = "<group>"; };
 		B2F4F42C86C33493E5D90481953E5A22 /* SwiftSupport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftSupport.swift; path = FBSnapshotTestCase/SwiftSupport.swift; sourceTree = "<group>"; };
 		B32FE5A4648305297570C92CB6DB63F9 /* Pods-Transloadit_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Transloadit_Tests-dummy.m"; sourceTree = "<group>"; };
 		B54B3BD442B2426174F470A33EDC69F7 /* Pods-Transloadit_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Transloadit_Tests-resources.sh"; sourceTree = "<group>"; };
 		BB7756541EC8646F5AA353F9FF13EDFC /* TUSSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TUSSession.h; path = Pod/Classes/TUSSession.h; sourceTree = "<group>"; };
 		BB7C88B44AF17FA285D083D0BAFDA39A /* TUSUploadStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TUSUploadStore.h; path = Pod/Classes/TUSUploadStore.h; sourceTree = "<group>"; };
-		BDCB17CBFC0D5A37A03D47A022D22D4D /* Template.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Template.h; sourceTree = "<group>"; };
 		BFEFCEA6CD119B2ED1C78D12C7B59582 /* TUSKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TUSKit.xcconfig; sourceTree = "<group>"; };
 		C02F849AE04A2AD38F5A3F2C74349331 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA6C2353280EFD9A12D791AB51A35389 /* TUSKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TUSKit.h; path = Pod/Classes/TUSKit.h; sourceTree = "<group>"; };
@@ -197,13 +199,11 @@
 		DA3E19A63D24B1B29ACEF61FF3C260FC /* UIImage+Compare.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Compare.h"; path = "FBSnapshotTestCase/Categories/UIImage+Compare.h"; sourceTree = "<group>"; };
 		DEC30A35F10CA0874D55E916CCA78716 /* FBSnapshotTestCasePlatform.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSnapshotTestCasePlatform.m; path = FBSnapshotTestCase/FBSnapshotTestCasePlatform.m; sourceTree = "<group>"; };
 		E0400B661B8D8D4D0EB45A070AD9C81A /* Transloadit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Transloadit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E0B33E11EF94A5022D985FEE80024656 /* TransloaditProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = TransloaditProtocol.h; sourceTree = "<group>"; };
 		E1AD8C54067305C2F4D9185CAE00770D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E2BFA591C355B26992C835C101FA3D31 /* Pods-Transloadit_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Transloadit_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		E647E835FF80C4C9C01D9A555F1B51BC /* TUSUploadStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TUSUploadStore.m; path = Pod/Classes/TUSUploadStore.m; sourceTree = "<group>"; };
-		E751070F316DCAD1C529199A6580CC3A /* URLConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = URLConstants.h; sourceTree = "<group>"; };
+		E9AD35B095317D4187B7B2F33359BE64 /* URLConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = URLConstants.h; sourceTree = "<group>"; };
 		EC211E0DC71A6918B24EA8ABF33B19A0 /* UIImage+Diff.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Diff.h"; path = "FBSnapshotTestCase/Categories/UIImage+Diff.h"; sourceTree = "<group>"; };
-		ECDE4643C3552A24E54B96474AF7287F /* Assembly.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Assembly.h; sourceTree = "<group>"; };
 		EDF724B24C1BFC163C3874316E23EFD8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		EF2DCE54DF34D8D28AB6AFE56C2A4DA7 /* FBSnapshotTestCase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSnapshotTestCase.h; path = FBSnapshotTestCase/FBSnapshotTestCase.h; sourceTree = "<group>"; };
 		F06D9A601599782F749BC62F449D063F /* FBSnapshotTestCase-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FBSnapshotTestCase-umbrella.h"; sourceTree = "<group>"; };
@@ -271,6 +271,14 @@
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
+		2BFA8671C03C5CDC3CED034C4A0DF0E8 /* Transloadit */ = {
+			isa = PBXGroup;
+			children = (
+				CE607EC4CEF5832ADCEDB93145BA64FB /* Classes */,
+			);
+			path = Transloadit;
+			sourceTree = "<group>";
+		};
 		2D1D4DD1B3C7AB41BA62CD347B44A5FD /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,6 +307,15 @@
 			path = "Example/Pods/Target Support Files/Transloadit";
 			sourceTree = "<group>";
 		};
+		318DB47C1F9606DBD7D0ED8B2F5AD425 /* Template */ = {
+			isa = PBXGroup;
+			children = (
+				5AA0124DFA795D98AA92481A0F0B7F7E /* Template.h */,
+				1A663469A9EE640026747D2A6EA2350E /* Template.m */,
+			);
+			path = Template;
+			sourceTree = "<group>";
+		};
 		323FA188A5B934BC3A7FB9F854702BAC /* Pods-Transloadit_Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -315,14 +332,6 @@
 			);
 			name = "Pods-Transloadit_Tests";
 			path = "Target Support Files/Pods-Transloadit_Tests";
-			sourceTree = "<group>";
-		};
-		35DA9F6FD3AF400E3D4871C06755F169 /* Transloadit */ = {
-			isa = PBXGroup;
-			children = (
-				F0E8BEB7A48208E4A86B32B903CCBA48 /* Classes */,
-			);
-			path = Transloadit;
 			sourceTree = "<group>";
 		};
 		3855BBB9C0623CA3DBAB50D90D4A7516 /* Targets Support Files */ = {
@@ -350,6 +359,23 @@
 			);
 			name = "Pods-Transloadit_Example";
 			path = "Target Support Files/Pods-Transloadit_Example";
+			sourceTree = "<group>";
+		};
+		5C64B54A1CE41653D217C33CBA64032E /* API */ = {
+			isa = PBXGroup;
+			children = (
+				A9558DF58217C4ABA3961F820531C69D /* APIObject.h */,
+				5127BDAEB623361A56EFBCC4D03167CE /* APIObjectType.h */,
+				43446A99881991221BD5A8A353CFC23D /* APIState.h */,
+				03B05A8ACD080AA6B570708033267EC2 /* Assembly.h */,
+				6AF7042F8109EE298936CBFBF6FB205D /* Assembly.m */,
+				4BCCAF1E257DC3F207943C592C57DF1F /* AssemblyStep.h */,
+				52060579AA04041B404F0A91D08D18F6 /* AssemblyStep.m */,
+				600312453AE82C3802BC217AFC637D66 /* TransloaditResponse.h */,
+				769B1D0F272E755E24E1F357523501C9 /* TransloaditResponse.m */,
+				E9AD35B095317D4187B7B2F33359BE64 /* URLConstants.h */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		7BAE57334870A1002AC1A4A2AACC3AE6 /* Support Files */ = {
@@ -449,9 +475,7 @@
 			isa = PBXGroup;
 			children = (
 				2EE0DA560F2385296C769CEBBF413FAB /* Support Files */,
-				35DA9F6FD3AF400E3D4871C06755F169 /* Transloadit */,
-				28AB28461D8E789B0094CC86 /* NSString+Utils.h */,
-				28AB28471D8E789B0094CC86 /* NSString+Utils.m */,
+				2BFA8671C03C5CDC3CED034C4A0DF0E8 /* Transloadit */,
 			);
 			name = Transloadit;
 			path = ../..;
@@ -478,14 +502,17 @@
 			name = Core;
 			sourceTree = "<group>";
 		};
-		C6C409AAAFD4725386097827E109B9D2 /* Resources */ = {
+		CE607EC4CEF5832ADCEDB93145BA64FB /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				824D79AC14BA219D38845B2BD4DAA709 /* Resources.h */,
-				D64B70726C4732780DCCB57EB90295D8 /* API */,
-				DFD76465EFD3621B3D4DE5C4B4167896 /* Template */,
+				32BA9535CFD9F08E70D13BCA76428809 /* NSString+Utils.h */,
+				11661440E863A1A1826E7F3DADAB611E /* NSString+Utils.m */,
+				1D39819415A2C9A8E228429B660F669C /* Transloadit.h */,
+				0F208C0C60F3A034400B1EC0499BDE8D /* Transloadit.m */,
+				6C0F79F88B4A50EBCA6E526D8752522F /* TransloaditProtocol.h */,
+				E77E42DB12AB4A7BB386FD0083B85C99 /* Resources */,
 			);
-			path = Resources;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		D35B13543B637A2E5AB50DD0731D757E /* Pods */ = {
@@ -497,41 +524,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		D64B70726C4732780DCCB57EB90295D8 /* API */ = {
+		E77E42DB12AB4A7BB386FD0083B85C99 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				02399347F6B7CDE823F69D96D464F7D5 /* APIObject.h */,
-				4E17604903725F69A178C8B1A9F1A582 /* APIObjectType.h */,
-				2FADB7EF0D41C6E2C30F2EA2FB679E8B /* APIState.h */,
-				ECDE4643C3552A24E54B96474AF7287F /* Assembly.h */,
-				AEE87B565420CEBA8E90011A9523784E /* Assembly.m */,
-				42E11867771A97AB08D0A9543A69721D /* AssemblyStep.h */,
-				77D40B8C4175BC57F82A7DF9C125573F /* AssemblyStep.m */,
-				7C9D79F45C4D1E57D37CBDAA53C28B7F /* TransloaditResponse.h */,
-				1FF021D6BE14B0C4D80A8DC91DF07224 /* TransloaditResponse.m */,
-				E751070F316DCAD1C529199A6580CC3A /* URLConstants.h */,
+				7DF8CB387BA2895A6C0BEEFF43205F8C /* Resources.h */,
+				5C64B54A1CE41653D217C33CBA64032E /* API */,
+				318DB47C1F9606DBD7D0ED8B2F5AD425 /* Template */,
 			);
-			path = API;
-			sourceTree = "<group>";
-		};
-		DFD76465EFD3621B3D4DE5C4B4167896 /* Template */ = {
-			isa = PBXGroup;
-			children = (
-				BDCB17CBFC0D5A37A03D47A022D22D4D /* Template.h */,
-				89252D5EE20C729E113D519FBD9F7A60 /* Template.m */,
-			);
-			path = Template;
-			sourceTree = "<group>";
-		};
-		F0E8BEB7A48208E4A86B32B903CCBA48 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				594C3FCAC12A955130521B850F78CF86 /* Transloadit.h */,
-				4869B88B8D53104EB175B261BF7C9581 /* Transloadit.m */,
-				E0B33E11EF94A5022D985FEE80024656 /* TransloaditProtocol.h */,
-				C6C409AAAFD4725386097827E109B9D2 /* Resources */,
-			);
-			path = Classes;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		F602E356DEE482F95B7722F1FB29E8AE /* FBSnapshotTestCase */ = {
@@ -562,22 +562,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		838BBB9E083A0F2A9C65DBD011B2D3CA /* Headers */ = {
+		807622064ED0042055973F2682F99549 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCAC114619F52C6B8760646767160835 /* APIObject.h in Headers */,
-				C0F81F171B0E2A28694371CFD4973011 /* APIObjectType.h in Headers */,
-				CE0F108A46B7346697D87F0640472A28 /* APIState.h in Headers */,
-				188EF6A77A9A1641398A93D5E89686F9 /* Assembly.h in Headers */,
-				B7AE63104D7E748B4F17D7BF8D659C92 /* AssemblyStep.h in Headers */,
-				C03CA18E1367D4085A794EAAC5C40924 /* Resources.h in Headers */,
-				12923025CD65E8B2C2E4282526EB6396 /* Template.h in Headers */,
-				9896EB6C9F9F9CBFFE045337FDF39794 /* Transloadit-umbrella.h in Headers */,
-				6410CFE4B2FCA98D5B2AF19FF576014C /* Transloadit.h in Headers */,
-				3E20A9B0623A0F2379D0C14B05F316A5 /* TransloaditProtocol.h in Headers */,
-				FEB0093DB769363F1E903E5BF9BF7DDB /* TransloaditResponse.h in Headers */,
-				5B8140BD4AC2B29E2BDC7A74D089FB7A /* URLConstants.h in Headers */,
+				D3302019CB59819AB493785C38B450FA /* APIObject.h in Headers */,
+				7B3D43003825CC25C262810DDAAA3DF0 /* APIObjectType.h in Headers */,
+				D1D8E182421D2639AA07F32F450076BC /* APIState.h in Headers */,
+				D16F36038D6A66B38333C11B88DD8F66 /* Assembly.h in Headers */,
+				FF576DAB706E40CC287F8911B5B1D132 /* AssemblyStep.h in Headers */,
+				06CCF7B64EEF40A062125D9613B84FB6 /* NSString+Utils.h in Headers */,
+				0CCA5A917D507BE6080F224AAB093B64 /* Resources.h in Headers */,
+				4672DC81D45D0041239ED2E4B42FE33D /* Template.h in Headers */,
+				1B2AC22A9DD3EA199CB85D9923BAFAB6 /* Transloadit-umbrella.h in Headers */,
+				51BE0BB6C106CD27645E06546BD21F57 /* Transloadit.h in Headers */,
+				A630745FD951432BE5BE9A1DFD082F3A /* TransloaditProtocol.h in Headers */,
+				68FFED33ABD678B72D892C03C568B8F1 /* TransloaditResponse.h in Headers */,
+				DC085C32967B55426D4D0CDAD67AD308 /* URLConstants.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,7 +608,6 @@
 				8F6BE6F2B8B60A5106D617E7620124F5 /* TUSFileData.h in Headers */,
 				F456BF9B7B84D9797A7AFFD7D644422D /* TUSFileUploadStore.h in Headers */,
 				75B1028CAEF08231C615BA89785034A9 /* TUSKit-umbrella.h in Headers */,
-				28AB28481D8E789B0094CC86 /* NSString+Utils.h in Headers */,
 				8B06B17D6D857405650F982E7519C505 /* TUSKit.h in Headers */,
 				968127E4C60D5DC88D27EEB3CEAABD47 /* TUSResumableUpload+Private.h in Headers */,
 				E61FF4AF5E1CAEBEE100BBFC6CA79FCA /* TUSResumableUpload.h in Headers */,
@@ -658,9 +658,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E60136160B5158E3ABD3F1D1BFB7876C /* Build configuration list for PBXNativeTarget "Transloadit" */;
 			buildPhases = (
-				F21631C1CDB65051724FF47BBC50B600 /* Sources */,
+				0B92F0E1D287B086A92CE3B0FDADB706 /* Sources */,
 				49C7B94C75F8A120FFFE43D89DE09262 /* Frameworks */,
-				838BBB9E083A0F2A9C65DBD011B2D3CA /* Headers */,
+				807622064ED0042055973F2682F99549 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -739,6 +739,20 @@
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0B92F0E1D287B086A92CE3B0FDADB706 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E409F37A0752863309DA4A031C51F7E /* Assembly.m in Sources */,
+				FBC8B904B8C50340055F0CE0BA33EF6A /* AssemblyStep.m in Sources */,
+				0171DFEE7EBC28A07D23966A8B6FE980 /* NSString+Utils.m in Sources */,
+				21B1A1AD35DFC3FAEC961B77B7160D06 /* Template.m in Sources */,
+				32A057A958357FBFBDAE4DFB54653337 /* Transloadit-dummy.m in Sources */,
+				0D7E79815C1E5FEBA138B17791F135E1 /* Transloadit.m in Sources */,
+				AF246975E3F00C3E214E9928C2160D91 /* TransloaditResponse.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6A9A10585482BC40D33F3E5E4BB47660 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -788,20 +802,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F21631C1CDB65051724FF47BBC50B600 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				82B66D9ED741A360ADF82FE2EA0B0B38 /* Assembly.m in Sources */,
-				488CDD66399BD5F4EA200B2CA60097A4 /* AssemblyStep.m in Sources */,
-				F3C1A86E2C957147079AB16F13697D26 /* Template.m in Sources */,
-				23190E69C8B0A1CF0D0A5B68F99A86EF /* Transloadit-dummy.m in Sources */,
-				4B6FD5779D8189977B06B82435ABF7D6 /* Transloadit.m in Sources */,
-				B6CFDC90AC8FCB4545DDE33A78D9BDCE /* TransloaditResponse.m in Sources */,
-				28AB284A1D8E789E0094CC86 /* NSString+Utils.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -832,79 +832,13 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0ACDCBCB0B6796575F46FFA2F5410C6B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		1EAB35ACB452D210D5CF60F7847CD85B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8F39BBEF992C9295368A99B1048AD1E9 /* FBSnapshotTestCase.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/FBSnapshotTestCase/FBSnapshotTestCase-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/FBSnapshotTestCase/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/FBSnapshotTestCase/FBSnapshotTestCase.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = FBSnapshotTestCase;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		325A77F0872FD477579DE47858180C97 /* Debug */ = {
+		18754366FC6C2BA50FB71C944CB79459 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BFEFCEA6CD119B2ED1C78D12C7B59582 /* TUSKit.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -929,11 +863,75 @@
 			};
 			name = Debug;
 		};
-		3F044170D57A30BBE40F518A7CA98563 /* Release */ = {
+		1D33F473B15AC5EEE37AE0CE9E166B36 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F39BBEF992C9295368A99B1048AD1E9 /* FBSnapshotTestCase.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/FBSnapshotTestCase/FBSnapshotTestCase-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/FBSnapshotTestCase/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/FBSnapshotTestCase/FBSnapshotTestCase.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = FBSnapshotTestCase;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		2A22232EA7678CBBAD083FDB966327E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CAE858EFE052E21B08F5B7DBC4BA9998 /* Transloadit.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Transloadit/Transloadit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Transloadit/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Transloadit/Transloadit.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = Transloadit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		5A2359DAAB93DB3E072AE710DF5A4659 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AEA91EBC1FCDEB687FE1C5A3699A7B0C /* Pods-Transloadit_Tests.release.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -962,11 +960,13 @@
 			};
 			name = Release;
 		};
-		6F43D3CFBF3C2EAA02F284C25F8D2B9F /* Release */ = {
+		673AC1F84D520D68DB3E03A66C54991D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 00AF3E7620A56720A127E40FE17272DB /* Pods-Transloadit_Example.release.xcconfig */;
+			baseConfigurationReference = BFEFCEA6CD119B2ED1C78D12C7B59582 /* TUSKit.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -975,18 +975,14 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-Transloadit_Example/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/TUSKit/TUSKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/TUSKit/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Transloadit_Example/Pods-Transloadit_Example.modulemap";
+				MODULEMAP_FILE = "Target Support Files/TUSKit/TUSKit.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_Transloadit_Example;
+				PRODUCT_NAME = TUSKit;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -995,71 +991,13 @@
 			};
 			name = Release;
 		};
-		7EB05BFCC7863C884539DA4424E2595B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CAE858EFE052E21B08F5B7DBC4BA9998 /* Transloadit.xcconfig */;
-			buildSettings = {
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Transloadit/Transloadit-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Transloadit/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Transloadit/Transloadit.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = Transloadit;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		8189EBA1D4D1B706A856A84341996CF7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CAE858EFE052E21B08F5B7DBC4BA9998 /* Transloadit.xcconfig */;
-			buildSettings = {
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Transloadit/Transloadit-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Transloadit/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Transloadit/Transloadit.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = Transloadit;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		AE88F38EE12D53F5C1E29CCCD734CACD /* Debug */ = {
+		7E88575F62A882F0BB85FB11C8657E6C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6B7E5A7BB5275C63B971F7B021AC4092 /* Pods-Transloadit_Tests.debug.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -1089,7 +1027,7 @@
 			};
 			name = Debug;
 		};
-		D3E3D092A3FF7311A98E44BBA36FFD12 /* Debug */ = {
+		8DED8AD26D381A6ACFF202E5217EC498 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1107,6 +1045,47 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9E1E4E48AF2EAB23169E611BF694090A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1126,45 +1105,19 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
 		};
-		DBFF82F6F14720F4FD9259916DD73406 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = BFEFCEA6CD119B2ED1C78D12C7B59582 /* TUSKit.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/TUSKit/TUSKit-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/TUSKit/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/TUSKit/TUSKit.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = TUSKit;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		E20A2312539835AE2C46B433BDE7747C /* Debug */ = {
+		A603BA279DCAD2DE6307CA93D4C74DFB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4903D717D070484FB3BC850898D061B3 /* Pods-Transloadit_Example.debug.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -1193,13 +1146,81 @@
 			};
 			name = Debug;
 		};
-		F1966C59AF0C3A63F4C5A9E7987B3CB0 /* Release */ = {
+		B08C230752C0365F740189AA389D6AFC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CAE858EFE052E21B08F5B7DBC4BA9998 /* Transloadit.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Transloadit/Transloadit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Transloadit/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Transloadit/Transloadit.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = Transloadit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C70414CD257B5698E0503F6A5C16494E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00AF3E7620A56720A127E40FE17272DB /* Pods-Transloadit_Example.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Transloadit_Example/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Transloadit_Example/Pods-Transloadit_Example.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Transloadit_Example;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E85AEB07B3B8E8704AD1BD67C6CE8CE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8F39BBEF992C9295368A99B1048AD1E9 /* FBSnapshotTestCase.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1212,15 +1233,16 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/FBSnapshotTestCase/FBSnapshotTestCase.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = FBSnapshotTestCase;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1228,8 +1250,8 @@
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D3E3D092A3FF7311A98E44BBA36FFD12 /* Debug */,
-				0ACDCBCB0B6796575F46FFA2F5410C6B /* Release */,
+				9E1E4E48AF2EAB23169E611BF694090A /* Debug */,
+				8DED8AD26D381A6ACFF202E5217EC498 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1237,8 +1259,8 @@
 		8D492E06A9E9F494492A2A3B4D19493E /* Build configuration list for PBXNativeTarget "FBSnapshotTestCase" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1EAB35ACB452D210D5CF60F7847CD85B /* Debug */,
-				F1966C59AF0C3A63F4C5A9E7987B3CB0 /* Release */,
+				E85AEB07B3B8E8704AD1BD67C6CE8CE4 /* Debug */,
+				1D33F473B15AC5EEE37AE0CE9E166B36 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1246,8 +1268,8 @@
 		9BFAE571C2AC9F73D292E320E9EB9581 /* Build configuration list for PBXNativeTarget "Pods-Transloadit_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AE88F38EE12D53F5C1E29CCCD734CACD /* Debug */,
-				3F044170D57A30BBE40F518A7CA98563 /* Release */,
+				7E88575F62A882F0BB85FB11C8657E6C /* Debug */,
+				5A2359DAAB93DB3E072AE710DF5A4659 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1255,8 +1277,8 @@
 		AFF46CEB3FEFD9B19A107CC7888870C7 /* Build configuration list for PBXNativeTarget "Pods-Transloadit_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E20A2312539835AE2C46B433BDE7747C /* Debug */,
-				6F43D3CFBF3C2EAA02F284C25F8D2B9F /* Release */,
+				A603BA279DCAD2DE6307CA93D4C74DFB /* Debug */,
+				C70414CD257B5698E0503F6A5C16494E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1264,8 +1286,8 @@
 		DDFA23E936B00E9BAED439812392AB2B /* Build configuration list for PBXNativeTarget "TUSKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				325A77F0872FD477579DE47858180C97 /* Debug */,
-				DBFF82F6F14720F4FD9259916DD73406 /* Release */,
+				18754366FC6C2BA50FB71C944CB79459 /* Debug */,
+				673AC1F84D520D68DB3E03A66C54991D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1273,8 +1295,8 @@
 		E60136160B5158E3ABD3F1D1BFB7876C /* Build configuration list for PBXNativeTarget "Transloadit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7EB05BFCC7863C884539DA4424E2595B /* Debug */,
-				8189EBA1D4D1B706A856A84341996CF7 /* Release */,
+				B08C230752C0365F740189AA389D6AFC /* Debug */,
+				2A22232EA7678CBBAD083FDB966327E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

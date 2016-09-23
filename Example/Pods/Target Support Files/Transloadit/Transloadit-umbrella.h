@@ -1,5 +1,6 @@
 #import <UIKit/UIKit.h>
 
+#import "NSString+Utils.h"
 #import "APIObject.h"
 #import "APIObjectType.h"
 #import "APIState.h"

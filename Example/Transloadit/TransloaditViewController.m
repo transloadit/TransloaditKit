@@ -34,7 +34,7 @@
 
     
     
-    [transloadit createAssembly:TestAssemblyWithSteps];
+  //  [transloadit createAssembly:TestAssemblyWithSteps];
     [transloadit createAssembly:TestAssemblyWithJSONString];
 
     
