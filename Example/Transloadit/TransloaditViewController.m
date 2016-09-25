@@ -18,24 +18,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-   Transloadit *transloadit = [[Transloadit alloc] initWithKey:@"5ae6b9c0f10c11e594a0bfa14ca2ffe1" andSecret:@" a9d351b355bb47b21af79d89aa9d8a54a6f27a41"];
-    
-    //NSDictionary* params = @{};
+   Transloadit *transloadit = [[Transloadit alloc] initWithKey:@"5ae6b9c0f10c11e594a0bfa14ca2ffe1" andSecret:@"a9d351b355bb47b21af79d89aa9d8a54a6f27a41"];
+ 
     
     NSMutableArray<AssemblyStep *> *steps = [[NSMutableArray alloc] init];
     
-    AssemblyStep *step = [[AssemblyStep alloc] initWithOperationName:@"encode" andBodyOperations:@{@"use":@"orignal", @"robot":@"/video/encode", @"result":@"true"}];
+    AssemblyStep *step1 = [[AssemblyStep alloc] init];
+    [step1 setValue:@"/image/resize" forOption:@"robot"];
     
-    [steps addObject:step];
-    
+    [steps addObject:step1];
     Assembly *TestAssemblyWithSteps = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
     
-    Assembly *TestAssemblyWithJSONString = [[Assembly alloc] initWithStepsJSONString:@"" andNumberOfFiles:1];
+    [TestAssemblyWithSteps setNotify_url:@""];
 
     
     
   //  [transloadit createAssembly:TestAssemblyWithSteps];
-    [transloadit createAssembly:TestAssemblyWithJSONString];
+    [transloadit createAssembly:TestAssemblyWithSteps];
 
     
 	// Do any additional setup after loading the view, typically from a nib.

@@ -10,42 +10,19 @@
 
 @implementation AssemblyStep
 
--(id)initWithOperationName:(NSString *)operationName andBodyOperations:(NSDictionary *)bodyOperations{
+-(id)init{
+    
     self = [super init];
     if(self) {
-        [self setOperationName:operationName];
-        [self setBodyOperations:bodyOperations];
-        [self setJsonString:[self asJSON]];
+        self.options = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
--(id)initWithJSON:(NSString *)jsonString{
-    self = [super init];
-    if(self) {
-        [self setJsonString:jsonString];
-    }
-    return self;
-}
-
-
--(NSString *)asJSON{
-    NSError *error;
-    NSMutableDictionary* jsonDictionary = [[NSMutableDictionary alloc] init];
+-(void)setValue:(NSString *)value forOption:(NSString *)option{
     
-    [jsonDictionary setObject:[self bodyOperations] forKey:[self operationName]];
+    [self.options setValue:value forKey:option];
     
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonDictionary
-                                                       options:NSJSONWritingPrettyPrinted
-                                                         error:&error];
-    if (!jsonData) {
-        NSLog(@"Got an error: %@", error);
-        return nil;
-    } else {
-        return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    }
-
 }
-
 
 @end

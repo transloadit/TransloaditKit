@@ -22,11 +22,13 @@
 
 @property (nonatomic, strong)NSDictionary* params;
 
+@property (nonatomic, strong)NSData* data;
 
 - (NSURLRequest*)createRequestWithSignature:(NSString *)signature;
 
 - (NSString*)buildParametersJSON;
 
+//- (NSString*)getParams;
 
 
 

@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong)NSString* notify_url;
 
-@property (nonatomic, strong)NSMutableArray* stepsArray;
+@property (nonatomic, strong)NSMutableArray<AssemblyStep *>* stepsArray;
 
 @property (nonatomic, strong)NSString* stepsJSONString;
 
@@ -34,5 +34,6 @@
 
 - (void)addStepWithJSONString:(NSString *)step;
 
+-(NSMutableDictionary *)getSteps;
 
 @end

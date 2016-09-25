@@ -34,7 +34,7 @@
 
 - (id)initWithKey:(NSString *)key andSecret:(NSString *)secret;
 
-- (NSData*)generateSignature;
+- (NSString*)generateSignatureWithParams:(NSDictionary *)params;
 
 - (NSString *)signWithKey:(NSString *)key usingData:(NSString *)data;
 
