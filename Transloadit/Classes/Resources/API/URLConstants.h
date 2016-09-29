@@ -27,4 +27,4 @@
 
 #pragma mark - TUS INTERGATION
 
-#define TRANSLOADIT_API_TUS_RESUMABLE @"/resumable"
+#define TRANSLOADIT_API_TUS_RESUMABLE @"/resumable/files/"

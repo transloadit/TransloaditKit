@@ -123,14 +123,15 @@
         
         TransloaditResponse *assemblyResponse = [[TransloaditResponse alloc]initWithID:[json valueForKey:@"id"] AndStatusEndpoint:[json valueForKey:@"status_endpoint"] andAddFilesEndpoint:[json valueForKey:@"add_files_endpoint"]];
         NSLog([[assembly files] description]);
-        TUSResumableUpload *upload = [self.tusSession createUploadFromFile:[[assembly files] firstObject] headers:@{} metadata:@{@":assembly_id":[json valueForKey:@"id"], @"filename":@"test.jpg", @"fieldname":@"file-input"}];
+        
+        
+        
+        TUSResumableUpload *upload = [self.tusSession createUploadFromFile:[[assembly files] firstObject] headers:@{} metadata:@{@":assembly_id":[json valueForKey:@"id"], @"filename":@"test.jpg", @"fieldname":@"file-input", @"assembly_url":[json valueForKey:@"status_endpoint"]}];
 
-       // for (TUSResumableUpload * upload in [self.tusSession restoreAllUploads]){
             upload.progressBlock = _progressBlock;
             upload.resultBlock = _resultBlock;
             upload.failureBlock = _failureBlock;
-      //  }
-      //  [self.tusSession resumeAll];
+
         [upload resume];
         NSLog(@"Response Body:\n%@\n", body);
     }];
