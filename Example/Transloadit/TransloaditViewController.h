@@ -9,6 +9,6 @@
 @import UIKit;
 
 
-@interface TransloaditViewController : UIViewController
+@interface TransloaditViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @end

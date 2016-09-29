@@ -10,18 +10,19 @@
 
 @implementation AssemblyStep
 
--(id)init{
+-(id)initWithKey:(NSString *)key{
     
     self = [super init];
     if(self) {
-        self.options = [[NSMutableDictionary alloc] init];
+        _key = key;
+        self.options = @{_key:[[NSMutableDictionary alloc] init]};
     }
     return self;
 }
 
 -(void)setValue:(NSString *)value forOption:(NSString *)option{
     
-    [self.options setValue:value forKey:option];
+    [[self.options objectForKey:_key] setValue:value forKey:option];
     
 }
 

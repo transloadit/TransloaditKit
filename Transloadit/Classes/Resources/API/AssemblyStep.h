@@ -10,9 +10,13 @@
 
 @interface AssemblyStep : NSObject
 
+@property(nonatomic, strong)NSString* key;
+
 @property(nonatomic, strong)NSDictionary* options;
 
--(id)init;
+
+
+-(id)initWithKey:(NSString *)key;
 
 -(void)setValue:(NSString *)value forOption:(NSString *)option;
 

@@ -15,19 +15,6 @@
 
 @implementation Transloadit
 
-
-
-
--(NSURLSession *) session1{
-    // Lazily instantiate a session
-    if (_session == nil){
-        NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        sessionConfiguration.allowsCellularAccess = true;
-        _session = [NSURLSession sessionWithConfiguration:sessionConfiguration delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-    }
-    return _session;
-}
-
 - (id)initWithKey:(NSString *)key andSecret:(NSString *)secret {
     self = [super init];
     if(self) {
@@ -35,14 +22,13 @@
         _secret = secret;
         _key = key;
         
-        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        [configuration setAllowsCellularAccess:true];
-        [configuration setHTTPMaximumConnectionsPerHost:10];
-        _session = [NSURLSession sessionWithConfiguration:configuration delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURL * applicationSupportURL = [[[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] firstObject];
+        _tusStore = [[TUSFileUploadStore alloc] initWithURL:[applicationSupportURL URLByAppendingPathComponent:@"Example"]];
+
+        _tusSession = [[TUSSession alloc] initWithEndpoint:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_TUS_RESUMABLE]] dataStore:_tusStore allowsCellularAccess:YES];
         
         
         _tus = [TUSResumableUpload alloc];
-        _tusStore = [TUSUploadStore alloc];
         
     }
     return self;
@@ -71,7 +57,8 @@
 
 
 
-- (void) createAssembly: (Assembly *)assembly{
+- (void) invokeAssembly: (Assembly *)assembly{
+    
     NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:60*10];
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
     NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
@@ -80,18 +67,13 @@
     
     NSMutableDictionary *auth = [[NSMutableDictionary alloc] init];
     [auth setObject:_key forKey:@"key"];
-    [auth setObject:[dateFormatter stringFromDate:date] forKey:@"expires"];
-    NSLog([dateFormatter stringFromDate:date]);
+    [auth setObject:[dateFormatter stringFromDate:[assembly expireDate]] forKey:@"expires"];
+
     NSMutableDictionary *params = @{@"auth":auth, @"steps":[assembly getSteps]};
     
-    //NSString *signature = [self generateSignatureWithParams: params];
+    NSString *signature = [self generateSignatureWithParams: params];
     
-  
-    
-    
-    
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_ASSEMBLIES]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@%@?signature=%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_ASSEMBLIES, signature]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];
     [request setHTTPMethod:@"POST"];
     
     NSLog([[request URL] absoluteString]);
@@ -115,18 +97,18 @@
     
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"params\"\r\n\r\n%@",  [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]] dataUsingEncoding:NSUTF8StringEncoding]];
+    NSString *responseData = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
+    responseData = [responseData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+    NSString* encodedString = [responseData stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSLog(responseData);
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"tus_num_expected_upload_files\"\r\n\r\n%d", 2] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"tus_num_expected_upload_files\"\r\n\r\n%d", [assembly fileCount]] dataUsingEncoding:NSUTF8StringEncoding]];
     
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
     [request setHTTPBody:body];
-    
-    
-  
-
-   
     
     NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
@@ -134,17 +116,26 @@
             return;
         }
         
-        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
-            NSLog(@"Response HTTP Status code: %ld\n", (long)[(NSHTTPURLResponse *)response statusCode]);
-            NSLog(@"Response HTTP Headers:\n%@\n", [(NSHTTPURLResponse *)response allHeaderFields]);
-        }
-        
         NSString* body = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
+                                                             options:NSJSONReadingMutableContainers
+                                                               error:nil];
+        
+        TransloaditResponse *assemblyResponse = [[TransloaditResponse alloc]initWithID:[json valueForKey:@"id"] AndStatusEndpoint:[json valueForKey:@"status_endpoint"] andAddFilesEndpoint:[json valueForKey:@"add_files_endpoint"]];
+        NSLog([[assembly files] description]);
+        TUSResumableUpload *upload = [self.tusSession createUploadFromFile:[[assembly files] firstObject] headers:@{} metadata:@{@":assembly_id":[json valueForKey:@"id"], @"filename":@"test.jpg", @"fieldname":@"file-input"}];
+
+       // for (TUSResumableUpload * upload in [self.tusSession restoreAllUploads]){
+            upload.progressBlock = _progressBlock;
+            upload.resultBlock = _resultBlock;
+            upload.failureBlock = _failureBlock;
+      //  }
+      //  [self.tusSession resumeAll];
+        [upload resume];
         NSLog(@"Response Body:\n%@\n", body);
     }];
     
     
-   // NSLog([[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
     
    [assemblyTask resume];
  

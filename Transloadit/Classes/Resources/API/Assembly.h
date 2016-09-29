@@ -18,6 +18,8 @@
 
 @property (nonatomic, strong)NSMutableArray<AssemblyStep *>* stepsArray;
 
+@property (nonatomic, strong)NSMutableArray<NSURL *>* files;
+
 @property (nonatomic, strong)NSString* stepsJSONString;
 
 @property (nonatomic, strong)NSString* template_id;
@@ -25,15 +27,26 @@
 @property (nonatomic)int* numberOfFiles;
 
 
+@property (nonatomic, strong)NSDate* expireDate;
+
 - (id)initWithSteps:(NSMutableArray<AssemblyStep *>*)steps andNumberOfFiles:(int)numberOfFiles;
 
 - (id)initWithStepsJSONString:(NSString *)steps andNumberOfFiles:(int)numberOfFiles;
 
-
+//MARK: Steps
 - (void)addStepWithAssemblyStep:(AssemblyStep *)step;
 
 - (void)addStepWithJSONString:(NSString *)step;
 
 -(NSMutableDictionary *)getSteps;
+
+
+-(void)setExpirationWithMinutes:(int)minutes;
+
+//MARK: Files
+- (void)addFile:(NSURL* )file;
+
+-(int)fileCount;
+
 
 @end

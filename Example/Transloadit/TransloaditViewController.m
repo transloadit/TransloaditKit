@@ -8,37 +8,109 @@
 
 #import "TransloaditViewController.h"
 #import <Transloadit/Transloadit.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface TransloaditViewController ()
+@property (strong,nonatomic) ALAssetsLibrary *assetLibrary;
 
 @end
+
+static TransloaditUploadProgressBlock progressBlock = ^(int64_t bytesWritten, int64_t bytesTotal){
+    // Update your progress bar here
+    NSLog(@"progress: %llu / %llu", (unsigned long long)bytesWritten, (unsigned long long)bytesTotal);
+};
+
+static TransloaditUploadResultBlock resultBlock = ^(NSURL* fileURL){
+    // Use the upload url
+    NSLog(@"url: %@", fileURL);
+};
+
+static TransloaditUploadFailureBlock failureBlock = ^(NSError* error){
+    // Handle the error
+    NSLog(@"error: %@", error);
+};
 
 @implementation TransloaditViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-   Transloadit *transloadit = [[Transloadit alloc] initWithKey:@"5ae6b9c0f10c11e594a0bfa14ca2ffe1" andSecret:@"a9d351b355bb47b21af79d89aa9d8a54a6f27a41"];
- 
-    
-    NSMutableArray<AssemblyStep *> *steps = [[NSMutableArray alloc] init];
-    
-    AssemblyStep *step1 = [[AssemblyStep alloc] init];
-    [step1 setValue:@"/image/resize" forOption:@"robot"];
-    
-    [steps addObject:step1];
-    Assembly *TestAssemblyWithSteps = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
-    
-    [TestAssemblyWithSteps setNotify_url:@""];
-
     
     
-  //  [transloadit createAssembly:TestAssemblyWithSteps];
-    [transloadit createAssembly:TestAssemblyWithSteps];
-
     
 	// Do any additional setup after loading the view, typically from a nib.
 }
+
+-(void)viewDidAppear:(BOOL)animated{
+    [self selectFile:nil];
+}
+
+- (IBAction)selectFile:(id)sender {
+    UIImagePickerController *imagePicker = [UIImagePickerController new];
+    imagePicker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:imagePicker.sourceType];
+    imagePicker.delegate = self;
+    [self presentViewController:imagePicker animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    NSURL *assetUrl = [info valueForKey:UIImagePickerControllerReferenceURL];
+    
+    if (!self.assetLibrary) {
+        self.assetLibrary = [ALAssetsLibrary new];
+    }
+    
+    [self.assetLibrary assetForURL:assetUrl resultBlock:^(ALAsset* asset) {
+        
+        
+        ALAssetRepresentation *rep = [asset defaultRepresentation];
+        Byte *buffer = (Byte*)malloc(rep.size);
+        NSUInteger buffered = [rep getBytes:buffer fromOffset:0.0 length:rep.size error:nil];
+        
+        NSData *data = [NSData dataWithBytesNoCopy:buffer length:buffered freeWhenDone:YES];
+        NSURL *documentDirectory = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask][0];
+        NSURL *fileUrl = [documentDirectory URLByAppendingPathComponent:[[NSUUID alloc] init].UUIDString];
+        
+        NSError *error;
+        if (![data writeToURL:fileUrl options:NSDataWritingAtomic error:&error]) {
+            NSLog(@"%li", (long)error.code);
+        }
+        
+        
+        
+        Transloadit *transloadit = [[Transloadit alloc] initWithKey:@"5ae6b9c0f10c11e594a0bfa14ca2ffe1" andSecret:@"a9d351b355bb47b21af79d89aa9d8a54a6f27a41"];
+        
+        
+        
+        NSMutableArray<AssemblyStep *> *steps = [[NSMutableArray alloc] init];
+        
+        AssemblyStep *step1 = [[AssemblyStep alloc] initWithKey:@"encode"];
+        [step1 setValue:@"/image/resize" forOption:@"robot"];
+        
+        [steps addObject:step1];
+        Assembly *TestAssemblyWithSteps = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
+        
+        [TestAssemblyWithSteps addFile:fileUrl];
+        
+        [TestAssemblyWithSteps setNotify_url:@""];
+        
+        
+        
+        //  [transloadit createAssembly:TestAssemblyWithSteps];
+        [transloadit invokeAssembly:TestAssemblyWithSteps];
+        
+
+        
+        // Initiate the background transfer
+      //  TUSResumableUpload *upload = [self.tusSession createUploadFromFile:fileUrl headers:@{} metadata:@{}];
+        
+
+    } failureBlock:^(NSError* error) {
+        NSLog(@"Unable to load asset due to: %@", error);
+    }];
+}
+
+
 
 - (void)didReceiveMemoryWarning
 {

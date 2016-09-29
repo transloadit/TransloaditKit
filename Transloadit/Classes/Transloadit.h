@@ -17,9 +17,17 @@
 
 #pragma mark - Resource Includes
 
-@interface Transloadit : NSObject<TransloaditProtocol>
+typedef void (^TransloaditUploadResultBlock)(NSURL* _Nonnull fileURL);
+typedef void (^TransloaditUploadFailureBlock)(NSError* _Nonnull error);
+typedef void (^TransloaditUploadProgressBlock)(int64_t bytesWritten, int64_t bytesTotal);
 
-@property (nonatomic, strong) NSURLSession *session; // Session to use for uploads
+@interface Transloadit : NSObject<TransloaditProtocol>
+@property (readwrite, copy) _Nullable TransloaditUploadResultBlock resultBlock;
+@property (readwrite, copy) _Nullable TransloaditUploadFailureBlock failureBlock;
+@property (readwrite, copy) _Nullable TransloaditUploadProgressBlock progressBlock;
+
+
+@property (nonatomic, strong) TUSSession *tusSession; // Session to use for uploads
 
 @property (nonatomic, strong) NSString *secret; // Transloadit Secret
 
@@ -38,7 +46,7 @@
 
 - (NSString *)signWithKey:(NSString *)key usingData:(NSString *)data;
 
-- (void) createAssembly: (Assembly *)assembly;
+- (void) invokeAssembly: (Assembly *)assembly;
 
 
 @end

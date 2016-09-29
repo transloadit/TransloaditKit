@@ -24,3 +24,7 @@
 #pragma mark - TEMPLATES
 
 #define TRANSLOADIT_API_TEMPLATES @"/templates"
+
+#pragma mark - TUS INTERGATION
+
+#define TRANSLOADIT_API_TUS_RESUMABLE @"/resumable"

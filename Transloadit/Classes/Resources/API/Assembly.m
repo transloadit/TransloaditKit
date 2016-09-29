@@ -20,13 +20,14 @@
 @synthesize notify_url;
 
 
-
 - (id)initWithSteps:(NSMutableArray<AssemblyStep *>*)steps andNumberOfFiles:(int)numberOfFiles{
     self = [super init];
     if(self) {
         NSLog(@"_init: %@", self);
         [self setStepsArray:steps];
         [self setNumberOfFiles:numberOfFiles];
+        [self setExpireDate:[[NSDate alloc] initWithTimeIntervalSinceNow:5*60]];
+        [self setFiles:[[NSMutableArray alloc] init]];
     }
     return self;
 }
@@ -81,6 +82,23 @@
 
     return stepsMutableDictionary;
     
+}
+
+
+-(void)setExpirationWithMinutes:(int)minutes{
+    
+    minutes = minutes * 60;
+    
+    _expireDate = [[NSDate alloc] initWithTimeIntervalSinceNow:minutes];
+    
+}
+
+-(void) addFile:(NSURL *)file{
+    [[self files] addObject:file];
+}
+
+-(int) fileCount{
+    return [[self files] count];
 }
 
 

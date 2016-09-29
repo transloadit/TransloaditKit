@@ -10,6 +10,13 @@
 
 @interface TransloaditResponse : NSObject
 
-@property (nonatomic, weak)NSURLRequest* request;
+@property (nonatomic, strong)NSString* idNumber;
+
+@property (nonatomic, strong)NSString* status_endpoint;
+
+@property (nonatomic, strong)NSString* add_files_endpoint;
+
+
+-(id)initWithID:(NSString *)idNumber AndStatusEndpoint:(NSString *)status_endpoint andAddFilesEndpoint:(NSString *)add_files;
 
 @end
