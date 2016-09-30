@@ -27,22 +27,20 @@ typedef void (^TransloaditUploadProgressBlock)(int64_t bytesWritten, int64_t byt
 @property (readwrite, copy) _Nullable TransloaditUploadProgressBlock progressBlock;
 
 
-@property (nonatomic, strong) TUSSession *tusSession; // Session to use for uploads
+@property (nonatomic, strong) TUSSession* tusSession; // Session to use for uploads
 
-@property (nonatomic, strong) NSString *secret; // Transloadit Secret
+@property (nonatomic, strong) NSString * _Nonnull secret; // Transloadit Secret
 
-@property (nonatomic, strong) NSString *key; // Transloadit Key
+@property (nonatomic, strong) NSString  * _Nonnull key; // Transloadit Key
 
-@property (nonatomic, strong) NSDictionary *headers;
 
-@property (nonatomic, strong) TUSResumableUpload *tus;
+@property (nonatomic, strong) TUSResumableUpload  * _Nonnull tus;
 
-@property (nonatomic, strong) TUSUploadStore *tusStore;
+@property (nonatomic, strong) TUSUploadStore  * _Nonnull tusStore;
 
 
 - (id)initWithKey:(NSString *)key andSecret:(NSString *)secret;
 
-- (NSString*)generateSignatureWithParams:(NSDictionary *)params;
 
 - (NSString *)signWithKey:(NSString *)key usingData:(NSString *)data;
 

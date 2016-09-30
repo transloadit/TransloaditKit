@@ -10,7 +10,7 @@
 
 
 @interface Transloadit()
-
+- (NSString*)generateSignatureWithParams:(NSDictionary *)params;
 @end
 
 @implementation Transloadit
@@ -35,7 +35,6 @@
 }
 
 
-//TODO: Add WithParams as NSDictionary
 - (NSString*)generateSignatureWithParams:(NSDictionary *)params {
     NSError *error;
 
@@ -126,7 +125,7 @@
         
         
         
-        TUSResumableUpload *upload = [self.tusSession createUploadFromFile:[[assembly files] firstObject] headers:@{} metadata:@{@":assembly_id":[json valueForKey:@"id"], @"filename":@"test.jpg", @"fieldname":@"file-input", @"assembly_url":[json valueForKey:@"status_endpoint"]}];
+        TUSResumableUpload *upload = [self.tusSession createUploadFromFile:[[assembly files] firstObject] headers:@{} metadata:@{@"filename":@"test.jpg", @"fieldname":@"file-input", @"assembly_url":[json valueForKey:@"status_endpoint"]}];
 
             upload.progressBlock = _progressBlock;
             upload.resultBlock = _resultBlock;

@@ -6,11 +6,6 @@
 
 An iOS client written in `Objective-C` for [tus resumable upload protocol](http://tus.io/).
 
-## Note: TUSKit 1.3.1
-`TUSKit 1.3.1` is not yet out on Cocoapods, but can be installed by downloading the repo and including the `/Pod/Classes` folder into your project. 
-
-This version has improved upload storage and background uploads. Sparse documentation can be found in the example. After the pod is released full documentation will follow.
-
 ## Pull Requests
 Pull requests are always welcome! However, please submit a PR to the `development` branch in order to keep the `master` branch match up with the `TUSKit` pod at all times.
 
@@ -29,57 +24,8 @@ You'll need a tus.io friendly server before using TUSKit or any other tus client
 
 # Usage
 ------
-## TUSAssetData
-Each file you upload must be in the form of a `TUSAssetData` object. Create an `TUSAssetData` object by initializing with an `ALAsset` object.
+Please refrence the Example Project for usage examples while documentation is being written.
 
-    TUSAssetData *uploadData = [[TUSAssetData alloc] initWithAsset:asset];
-
-## TUSResumableUpload
-An upload can be created by initializing a `TUSResumableUpload` object. If your server requires specific headers for communication such as authentication, you may pass these headers on initialization.
-
-    TUSResumableUpload *upload = [[TUSResumableUpload alloc] initWithURL:UPLOAD_ENDPOINT data:uploadData fingerprint:fingerprint uploadHeaders:headers fileName:@"video.mp4"];
-
-**URL** - The URL to your tus.io server.
-
-**data** - The `TUSAssetData` object you are uploading.
-
-**fingerprint** - The absoulute path to the asset.
-
-**uploadHeaders** - An `NSDictionary` of your custom headers for the upload.
-
-**filename** - The filename...
-
-## Upload Start
-To start the upload process, run the `start` method on your `TUSResumableUpload` object.
-  
-    [upload start];
-
-
-## progressBlock
-A block to track progess on your upload. Here you can update your progress bar, print to the log, etc.
-
-        upload.progressBlock = ^(NSInteger bytesWritten, NSInteger bytesTotal){
-           NSLog(@"progress: %d / %d", bytesWritten, bytesTotal);
-        };
-
-## resultBlock
-A block fired after a successful upload, returning the URL to your file on the server. Handle your success here!
-
-        upload.resultBlock = ^(NSURL* fileURL){
-           NSLog(@"url: %@", fileURL);
-        };
-
-## failureBlock
-A block fired after a failed upload, returning the error. Handle your failure here!
-
-        upload.failureBlock = ^(NSError* error){
-           NSLog(@"error: %@", error);
-        };
-
-
-# Todo
-------
-- ~~Background Uploads~~
 
 # About [tus.io](http://tus.io):
 ------
