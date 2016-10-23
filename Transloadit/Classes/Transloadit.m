@@ -57,11 +57,10 @@
 
 
 -(NSString *)currentGMTTime{
-    NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:60*10];
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
     NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
     [dateFormatter setTimeZone:timeZone];
-    [dateFormatter setDateFormat:@"YYYY/MM/dd HH:mm:SS+00:00"];
+    [dateFormatter setDateFormat:@"YYYY/MM/dd HH:mm:s+00:00"];
     
     return [dateFormatter stringFromDate:[[NSDate alloc] initWithTimeIntervalSinceNow:5*60]];
     
@@ -70,13 +69,6 @@
 
 
 - (void) invokeAssembly: (Assembly *)assembly{
-    
-    NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:60*10];
-    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
-    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
-    [dateFormatter setTimeZone:timeZone];
-    [dateFormatter setDateFormat:@"YYYY/MM/dd HH:mm:ss+00:00"];
-    
     NSMutableDictionary *auth = [[NSMutableDictionary alloc] init];
     [auth setObject:_key forKey:@"key"];
     [auth setObject:[self currentGMTTime] forKey:@"expires"];
@@ -106,7 +98,7 @@
     
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params
-                                                       options:0 
+                                                       options:0
                                                          error:nil];
     
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
