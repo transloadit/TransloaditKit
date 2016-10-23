@@ -321,7 +321,9 @@ typedef void(^NSURLSessionTaskCompletionHandler)(NSData * _Nullable data, NSURLR
             TUSUploadFailureBlock block = weakself.failureBlock;
             if (block) {
                 NSInteger statusCode = httpResponse.statusCode;
+                
                 [[NSOperationQueue currentQueue] addOperationWithBlock:^{
+                    NSParameterAssert(statusCode);
                     block([[NSError alloc] initWithDomain:TUSErrorDomain code:TUSResumableUploadErrorServer userInfo:@{@"responseCode": @(statusCode)}]);
                 }];
             }
@@ -428,6 +430,8 @@ typedef void(^NSURLSessionTaskCompletionHandler)(NSData * _Nullable data, NSURLR
             if (block) {
                 NSInteger statusCode = httpResponse.statusCode;
                 [[NSOperationQueue currentQueue] addOperationWithBlock:^{
+                    NSParameterAssert(statusCode);
+
                     block([[NSError alloc] initWithDomain:TUSErrorDomain code:TUSResumableUploadErrorServer userInfo:@{@"responseCode": @(statusCode)}]);
                 }];
             }
@@ -510,6 +514,8 @@ typedef void(^NSURLSessionTaskCompletionHandler)(NSData * _Nullable data, NSURLR
             if (block) {
                 NSInteger statusCode = httpResponse.statusCode;
                 [[NSOperationQueue currentQueue] addOperationWithBlock:^{
+                    NSParameterAssert(statusCode);
+
                     block([[NSError alloc] initWithDomain:TUSErrorDomain code:TUSResumableUploadErrorServer userInfo:@{@"responseCode": @(statusCode)}]);
                 }];
             }

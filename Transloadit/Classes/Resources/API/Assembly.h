@@ -27,8 +27,6 @@
 @property (nonatomic)int* numberOfFiles;
 
 
-@property (nonatomic, strong)NSDate* expireDate;
-
 - (id)initWithSteps:(NSMutableArray<AssemblyStep *>*)steps andNumberOfFiles:(int)numberOfFiles;
 
 - (id)initWithStepsJSONString:(NSString *)steps andNumberOfFiles:(int)numberOfFiles;

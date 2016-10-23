@@ -42,7 +42,7 @@ typedef void (^TransloaditUploadProgressBlock)(int64_t bytesWritten, int64_t byt
 - (id)initWithKey:(NSString *)key andSecret:(NSString *)secret;
 
 
-- (NSString *)signWithKey:(NSString *)key usingData:(NSString *)data;
+//- (NSString *)signWithKey:(NSString *)key usingData:(NSString *)data;
 
 - (void) invokeAssembly: (Assembly *)assembly;
 

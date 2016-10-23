@@ -11,6 +11,9 @@
 
 @interface Transloadit()
 - (NSString*)generateSignatureWithParams:(NSDictionary *)params;
+
+- (NSString *)currentGMTTime;
+
 @end
 
 @implementation Transloadit
@@ -37,23 +40,33 @@
 
 - (NSString*)generateSignatureWithParams:(NSDictionary *)params {
     NSError *error;
-
-    
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params
                                                        options:0
                                                          error:&error];
-    NSLog([[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
     if (!jsonData) {
         NSLog(@"Got an error: %@", error);
         return nil;
     } else {
         NSString *hash = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSLog(@"The JSON To Hash Is %@", hash);
+        NSLog(@"Freshly Made Hash is %@",[hash signWithKey:_key]);
+        NSLog(@"The Master Key is %@",_key);
         return [hash signWithKey:_key];
     }
 }
 
 
-
+-(NSString *)currentGMTTime{
+    NSDate *date = [[NSDate alloc] initWithTimeIntervalSinceNow:60*10];
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+    [dateFormatter setTimeZone:timeZone];
+    [dateFormatter setDateFormat:@"YYYY/MM/dd HH:mm:SS+00:00"];
+    
+    return [dateFormatter stringFromDate:[[NSDate alloc] initWithTimeIntervalSinceNow:5*60]];
+    
+    
+}
 
 
 - (void) invokeAssembly: (Assembly *)assembly{
@@ -62,13 +75,15 @@
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
     NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
     [dateFormatter setTimeZone:timeZone];
-    [dateFormatter setDateFormat:@"YYYY/MM/dd HH:mm:SS+00:00"];
+    [dateFormatter setDateFormat:@"YYYY/MM/dd HH:mm:ss+00:00"];
     
     NSMutableDictionary *auth = [[NSMutableDictionary alloc] init];
     [auth setObject:_key forKey:@"key"];
-    [auth setObject:[dateFormatter stringFromDate:[assembly expireDate]] forKey:@"expires"];
+    [auth setObject:[self currentGMTTime] forKey:@"expires"];
 
-    NSMutableDictionary *params = @{@"auth":auth, @"steps":[assembly getSteps]};
+    NSMutableDictionary *steps = [assembly getSteps];
+    
+    NSMutableDictionary *params = @{@"auth":auth, @"steps":steps};
     
     NSString *signature = [self generateSignatureWithParams: params];
     
@@ -91,7 +106,7 @@
     
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params
-                                                       options:0 // Pass 0 if you don't care about the readability of the generated string
+                                                       options:0 
                                                          error:nil];
     
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -120,35 +135,35 @@
                                                              options:NSJSONReadingMutableContainers
                                                                error:nil];
         
-        TransloaditResponse *assemblyResponse = [[TransloaditResponse alloc]initWithID:[json valueForKey:@"id"] AndStatusEndpoint:[json valueForKey:@"status_endpoint"] andAddFilesEndpoint:[json valueForKey:@"add_files_endpoint"]];
-        NSLog([[assembly files] description]);
+        if([json valueForKey:@"error"]){
+            NSLog([json valueForKey:@"error"]);
+            return;
+        }
+
         
-        
-        
-        TUSResumableUpload *upload = [self.tusSession createUploadFromFile:[[assembly files] firstObject] headers:@{} metadata:@{@"filename":@"test.jpg", @"fieldname":@"file-input", @"assembly_url":[json valueForKey:@"status_endpoint"]}];
+        NSArray *files = [assembly files];
+        NSLog([json debugDescription]);
+        for (int x = 0; x < [files count]; x++) {
+            NSParameterAssert(files);
+            NSParameterAssert([json valueForKey:@"status_endpoint"]);
+            
+        TUSResumableUpload *upload = [self.tusSession createUploadFromFile:[files objectAtIndex:x] headers:@{} metadata:@{@"filename":@"test.jpg", @"fieldname":@"file-input", @"assembly_url":[json valueForKey:@"status_endpoint"]}];
 
             upload.progressBlock = _progressBlock;
             upload.resultBlock = _resultBlock;
             upload.failureBlock = _failureBlock;
 
+            
         [upload resume];
         NSLog(@"Response Body:\n%@\n", body);
+        }
     }];
     
-    
+
     
    [assemblyTask resume];
  
 }
-
-
--(void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask
-   didReceiveData:(NSData *)data {
-    
-    //[receivedData appendData:data];
-}
-
-
 
 
 @end

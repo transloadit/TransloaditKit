@@ -26,8 +26,7 @@
         NSLog(@"_init: %@", self);
         [self setStepsArray:steps];
         [self setNumberOfFiles:numberOfFiles];
-        [self setExpireDate:[[NSDate alloc] initWithTimeIntervalSinceNow:5*60]];
-        [self setFiles:[[NSMutableArray alloc] init]];
+        [self setFiles:[[NSMutableArray alloc] initWithCapacity:numberOfFiles]];
     }
     return self;
 }
@@ -71,9 +70,13 @@
        
     NSMutableDictionary *stepsMutableDictionary = [[NSMutableDictionary alloc] init];
     for (AssemblyStep* step in _stepsArray) {
-       [stepsMutableDictionary addEntriesFromDictionary:[step options]];
+        NSDictionary *tempOptions = [step options];
+        if (tempOptions) {
+            [stepsMutableDictionary addEntriesFromDictionary:tempOptions];
+        }
     }
-   NSMutableDictionary *params = @{@"steps":stepsMutableDictionary};
+    NSParameterAssert(stepsMutableDictionary);
+    NSMutableDictionary *params = @{@"steps":stepsMutableDictionary};
     
     
     if ([[self notify_url] length]) {
@@ -85,16 +88,18 @@
 }
 
 
--(void)setExpirationWithMinutes:(int)minutes{
-    
-    minutes = minutes * 60;
-    
-    _expireDate = [[NSDate alloc] initWithTimeIntervalSinceNow:minutes];
-    
-}
+//-(void)setExpirationWithMinutes:(int)minutes{
+//    
+//    minutes = minutes * 60;
+//    
+//    _expireDate = [[NSDate alloc] initWithTimeIntervalSinceNow:minutes];
+//    
+//}
 
 -(void) addFile:(NSURL *)file{
+    if([self files]) {
     [[self files] addObject:file];
+    }
 }
 
 -(int) fileCount{
