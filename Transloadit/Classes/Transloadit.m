@@ -37,7 +37,6 @@
     return self;
 }
 
-
 - (NSString*)generateSignatureWithParams:(NSDictionary *)params {
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params
@@ -48,13 +47,10 @@
         return nil;
     } else {
         NSString *hash = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        NSLog(@"The JSON To Hash Is %@", hash);
         NSLog(@"Freshly Made Hash is %@",[hash signWithKey:_key]);
-        NSLog(@"The Master Key is %@",_key);
         return [hash signWithKey:_key];
     }
 }
-
 
 -(NSString *)currentGMTTime{
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
@@ -63,10 +59,7 @@
     [dateFormatter setDateFormat:@"YYYY/MM/dd HH:mm:s+00:00"];
     
     return [dateFormatter stringFromDate:[[NSDate alloc] initWithTimeIntervalSinceNow:5*60]];
-    
-    
 }
-
 
 - (void) invokeAssembly: (Assembly *)assembly{
     NSMutableDictionary *auth = [[NSMutableDictionary alloc] init];
@@ -131,7 +124,6 @@
             NSLog([json valueForKey:@"error"]);
             return;
         }
-
         
         NSArray *files = [assembly files];
         NSLog([json debugDescription]);
@@ -145,17 +137,11 @@
             upload.resultBlock = _resultBlock;
             upload.failureBlock = _failureBlock;
 
-            
         [upload resume];
         NSLog(@"Response Body:\n%@\n", body);
         }
     }];
     
-
-    
    [assemblyTask resume];
- 
 }
-
-
 @end

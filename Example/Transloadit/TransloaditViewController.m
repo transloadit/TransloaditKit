@@ -15,6 +15,7 @@
 
 @end
 
+//MARK: Your Tansloadit Progress Blocks
 static TransloaditUploadProgressBlock progressBlock = ^(int64_t bytesWritten, int64_t bytesTotal){
     // Update your progress bar here
     NSLog(@"progress: %llu / %llu", (unsigned long long)bytesWritten, (unsigned long long)bytesTotal);
@@ -77,33 +78,29 @@ static TransloaditUploadFailureBlock failureBlock = ^(NSError* error){
         }
         
         
-        
+        //MARK: A Transloadigt Object that will handle all the features
         Transloadit *transloadit = [[Transloadit alloc] initWithKey:@"5ae6b9c0f10c11e594a0bfa14ca2ffe1" andSecret:@"a9d351b355bb47b21af79d89aa9d8a54a6f27a41"];
         
         
-        
+        //MARK: An Array to hold the steps
         NSMutableArray<AssemblyStep *> *steps = [[NSMutableArray alloc] init];
         
+        //MARK: A Sample step
         AssemblyStep *step1 = [[AssemblyStep alloc] initWithKey:@"encode"];
         [step1 setValue:@"/image/resize" forOption:@"robot"];
         
+        // Add the step to the array
         [steps addObject:step1];
+        
+        //MARK: Create an assembly with steps
         Assembly *TestAssemblyWithSteps = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
-        
         [TestAssemblyWithSteps addFile:fileUrl];
-        
         [TestAssemblyWithSteps setNotify_url:@""];
         
-        
-        
-        //  [transloadit createAssembly:TestAssemblyWithSteps];
+        //MARK: Start The Assembly
         [transloadit invokeAssembly:TestAssemblyWithSteps];
         
 
-        
-        // Initiate the background transfer
-      //  TUSResumableUpload *upload = [self.tusSession createUploadFromFile:fileUrl headers:@{} metadata:@{}];
-        
 
     } failureBlock:^(NSError* error) {
         NSLog(@"Unable to load asset due to: %@", error);

@@ -88,14 +88,6 @@
 }
 
 
-//-(void)setExpirationWithMinutes:(int)minutes{
-//    
-//    minutes = minutes * 60;
-//    
-//    _expireDate = [[NSDate alloc] initWithTimeIntervalSinceNow:minutes];
-//    
-//}
-
 -(void) addFile:(NSURL *)file{
     if([self files]) {
     [[self files] addObject:file];
