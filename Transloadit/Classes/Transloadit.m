@@ -61,10 +61,22 @@
     return [dateFormatter stringFromDate:[[NSDate alloc] initWithTimeIntervalSinceNow:5*60]];
 }
 
-- (void) invokeAssembly: (Assembly *)assembly{
+- (NSMutableDictionary *) createAuth{
     NSMutableDictionary *auth = [[NSMutableDictionary alloc] init];
     [auth setObject:_key forKey:@"key"];
     [auth setObject:[self currentGMTTime] forKey:@"expires"];
+    
+    return auth;
+}
+
+- (void) createAssembly: (Assembly *)assembly{
+    NSMutableDictionary *auth = [self createAuth];
+
+    
+}
+
+- (void) invokeAssembly: (Assembly *)assembly{
+    NSMutableDictionary *auth = [self createAuth];
 
     NSMutableDictionary *steps = [assembly getSteps];
     
