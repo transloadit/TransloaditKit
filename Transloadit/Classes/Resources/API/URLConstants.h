@@ -11,7 +11,7 @@
 
 #define TRANSLOADIT_API_DEFAULT_BASE_URL @"api2.transloadit.com"
 
-#define TRANSLOADIT_API_DEFAULT_PROTOCOL @"http://"
+#define TRANSLOADIT_API_DEFAULT_PROTOCOL @"https://"
 
 #pragma mark - ASSEMBLY
 

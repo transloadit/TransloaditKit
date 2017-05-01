@@ -71,7 +71,9 @@
 
 - (void) createAssembly: (Assembly *)assembly{
     NSMutableDictionary *auth = [self createAuth];
-
+    
+    
+    
     
 }
 
@@ -137,7 +139,7 @@
             return;
         }
         
-        NSArray *files = [assembly files];
+        /*NSArray *files = [assembly files];
         NSLog([json debugDescription]);
         for (int x = 0; x < [files count]; x++) {
             NSParameterAssert(files);
@@ -150,10 +152,14 @@
             upload.failureBlock = _failureBlock;
 
         [upload resume];
-        NSLog(@"Response Body:\n%@\n", body);
+        
         }
+         */
+       // NSLog(@"Response Body:\n%@\n", response);
+        //NSLog([json description]);
+        NSLog([json valueForKey:@"tus_url"]);
+
     }];
-    
    [assemblyTask resume];
 }
 @end
