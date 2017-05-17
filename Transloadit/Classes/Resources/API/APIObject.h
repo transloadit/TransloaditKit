@@ -28,8 +28,4 @@
 
 - (NSString*)buildParametersJSON;
 
-//- (NSString*)getParams;
-
-
-
 @end

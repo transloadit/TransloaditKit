@@ -32,7 +32,7 @@ typedef void (^TransloaditAssemblyCompletionBlock)(NSDictionary* _Nonnull comple
 @property (readwrite, copy) _Nullable TransloaditAssemblyCompletionBlock completionBlock;
 
 
-@property (nonatomic, strong) TUSSession* tusSession; // Session to use for uploads
+@property (nonatomic, strong) TUSSession* _Nonnull tusSession; // Session to use for uploads
 
 @property (nonatomic, strong) NSString * _Nonnull secret; // Transloadit Secret
 
@@ -44,13 +44,7 @@ typedef void (^TransloaditAssemblyCompletionBlock)(NSDictionary* _Nonnull comple
 @property (nonatomic, strong) TUSUploadStore  * _Nonnull tusStore;
 
 
-- (id)initWithKey:(NSString *)key andSecret:(NSString *)secret;
-
-
-//- (NSString *)signWithKey:(NSString *)key usingData:(NSString *)data;
-
-
-    //(returnType (^nullability)(parameterTypes))blockName
+- (id _Nonnull )initWithKey:(NSString *_Nonnull)key andSecret:(NSString *_Nonnull)secret;
 
 - (void) invokeAssembly: (Assembly *_Nonnull)assembly;
 

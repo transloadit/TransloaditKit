@@ -15,7 +15,6 @@
 @property(nonatomic, strong)NSDictionary* options;
 
 
-
 -(id)initWithKey:(NSString *)key;
 
 -(void)setValue:(NSString *)value forOption:(NSString *)option;

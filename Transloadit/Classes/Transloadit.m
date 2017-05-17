@@ -70,51 +70,19 @@
 }
 
 - (void) invokeAssembly: (Assembly *)assembly{
-    //NSString *signature = [self generateSignatureWithParams: [assembly urlString]];
-
-    NSString* const UPLOAD_ENDPOINT = [NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_TUS_RESUMABLE];
-
-    
-    NSMutableDictionary *auth = [self createAuth];
-    
-
-  
-
-    NSString *boundary = @"YOUR_BOUNDARY_STRING";
-    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
-    
-    NSMutableData *body = [NSMutableData data];
-    
-    
-    NSError *error;
-    //NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:nil];
-    
-    //NSString *responseData = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    
-    //responseData = [responseData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-    //NSString* encodedString = [responseData stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    //NSLog(responseData);
-    
     
     NSArray *files = [assembly files];
 
-    
     for (int x = 0; x < [files count]; x++) {
 
         TUSResumableUpload *upload = [self.tusSession createUploadFromFile:[files  objectAtIndex:x] headers:@{} metadata:@{@"filename":@"test.jpg", @"fieldname":@"file-input", @"assembly_url": [assembly urlString]}];
-        
-        
-        
+
         upload.progressBlock = _progressBlock;
         upload.resultBlock = _resultBlock;
         upload.failureBlock = _failureBlock;
         
         [upload resume];
-        
     }
-    
-    
 }
 
 - (void) createAssembly: (Assembly *)assembly{
@@ -122,7 +90,7 @@
 
     NSMutableDictionary *steps = [assembly getSteps];
     
-    NSMutableDictionary *params = @{@"auth":auth, @"steps":steps};
+    NSDictionary *params = @{@"auth":auth, @"steps":steps};
     
     NSString *signature = [self generateSignatureWithParams: params];
     
@@ -140,9 +108,6 @@
     [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
     
     NSMutableData *body = [NSMutableData data];
-    
-    
-    NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params
                                                        options:0
                                                          error:nil];
@@ -152,9 +117,8 @@
     NSString *responseData = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
     responseData = [responseData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-    NSString* encodedString = [responseData stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-    NSLog(responseData);
+    NSLog(@"%@", responseData);
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"tus_num_expected_upload_files\"\r\n\r\n%d", [assembly fileCount]] dataUsingEncoding:NSUTF8StringEncoding]];
     
@@ -164,7 +128,7 @@
     
     NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
-            NSLog([error debugDescription]);
+            NSLog(@"%@", [error debugDescription]);
             return;
         }
         
@@ -172,31 +136,13 @@
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
                                                              options:NSJSONReadingMutableContainers
                                                                error:nil];
-        
+
         if([json valueForKey:@"error"]){
-            NSLog([json valueForKey:@"error"]);
+            NSLog(@"%@", [json valueForKey:@"error"]);
             return;
         } else {
             self.completionBlock(json);
         }
-        
-        /*NSArray *files = [assembly files];
-        NSLog([json debugDescription]);
-        for (int x = 0; x < [files count]; x++) {
-            NSParameterAssert(files);
-            NSParameterAssert([json valueForKey:@"status_endpoint"]);
-            
-        TUSResumableUpload *upload = [self.tusSession createUploadFromFile:[files objectAtIndex:x] headers:@{} metadata:@{@"filename":@"test.jpg", @"fieldname":@"file-input", @"assembly_url":[json valueForKey:@"status_endpoint"]}];
-
-            upload.progressBlock = _progressBlock;
-            upload.resultBlock = _resultBlock;
-            upload.failureBlock = _failureBlock;
-
-        [upload resume];
-        
-        }
-         */
-       // NSLog(@"Response Body:\n%@\n", response);
     }];
    [assemblyTask resume];
 }
