@@ -69,8 +69,52 @@
     return auth;
 }
 
-- (void) invokeAssembly: (Assembly *)assembly{
+- (void) invokeAssembly: (Assembly *)assembly andParams:(NSDictionary *)params{
+    NSString *signature = [self generateSignatureWithParams: params];
+
+    NSString* const UPLOAD_ENDPOINT = [NSString stringWithFormat:@"%@%@%@?signature=%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_TUS_RESUMABLE, signature];
+
+    
     NSMutableDictionary *auth = [self createAuth];
+    
+
+  
+
+    NSString *boundary = @"YOUR_BOUNDARY_STRING";
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+    
+    NSMutableData *body = [NSMutableData data];
+    
+    
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params
+                                                       options:0
+                                                         error:nil];
+    
+    NSString *responseData = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    responseData = [responseData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+    NSString* encodedString = [responseData stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSLog(responseData);
+    
+    
+    
+    
+    for (int x = 0; x < [[assembly files] count]; x++) {
+
+        TUSResumableUpload *upload = [self.tusSession createUploadFromFile:[[assembly files]  objectAtIndex:x] headers:@{} metadata:@{@"filename":@"test.jpg", @"fieldname":@"file-input", @"assembly_url": [params valueForKey:@"assembly_url"]}];
+        
+        
+        
+        upload.progressBlock = _progressBlock;
+        upload.resultBlock = _resultBlock;
+        upload.failureBlock = _failureBlock;
+        
+        [upload resume];
+        
+    }
+    
     
 }
 
@@ -86,7 +130,6 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@%@?signature=%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_ASSEMBLIES, signature]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];
     [request setHTTPMethod:@"POST"];
     
-    NSLog([[request URL] absoluteString]);
     
     [request addValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -153,9 +196,6 @@
         }
          */
        // NSLog(@"Response Body:\n%@\n", response);
-        NSLog([json description]);
-        NSLog([json valueForKey:@"assembly_ssl_url"]);
-
     }];
    [assemblyTask resume];
 }
