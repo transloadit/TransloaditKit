@@ -69,8 +69,8 @@
     return auth;
 }
 
-- (void) invokeAssembly: (Assembly *)assembly andParams:(NSDictionary *)params{
-    NSString *signature = [self generateSignatureWithParams: params];
+- (void) invokeAssembly: (Assembly *)assembly{
+    NSString *signature = [self generateSignatureWithParams: [assembly urlString]];
 
     NSString* const UPLOAD_ENDPOINT = [NSString stringWithFormat:@"%@%@%@?signature=%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_TUS_RESUMABLE, signature];
 
@@ -87,23 +87,21 @@
     
     
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params
-                                                       options:0
-                                                         error:nil];
+    //NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:nil];
     
-    NSString *responseData = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    //NSString *responseData = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
-    responseData = [responseData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-    NSString* encodedString = [responseData stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    //responseData = [responseData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+    //NSString* encodedString = [responseData stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-    NSLog(responseData);
+    //NSLog(responseData);
     
     
     
     
     for (int x = 0; x < [[assembly files] count]; x++) {
 
-        TUSResumableUpload *upload = [self.tusSession createUploadFromFile:[[assembly files]  objectAtIndex:x] headers:@{} metadata:@{@"filename":@"test.jpg", @"fieldname":@"file-input", @"assembly_url": [params valueForKey:@"assembly_url"]}];
+        TUSResumableUpload *upload = [self.tusSession createUploadFromFile:[[assembly files]  objectAtIndex:x] headers:@{} metadata:@{@"filename":@"test.jpg", @"fieldname":@"file-input", @"assembly_url": [assembly urlString]}];
         
         
         

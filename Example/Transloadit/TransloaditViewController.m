@@ -82,13 +82,8 @@ static TransloaditUploadFailureBlock failureBlock = ^(NSError* error){
         }
         
         
-        //MARK: A Transloadigt Object that will handle all the features
-        
-        transloadit.completionBlock = ^(NSDictionary* completionDictionary){
-            
-            
-            
-        };
+        //MARK: A Transloadit Object that will handle all the features
+
         
         //MARK: An Array to hold the steps
         NSMutableArray<AssemblyStep *> *steps = [[NSMutableArray alloc] init];
@@ -108,6 +103,13 @@ static TransloaditUploadFailureBlock failureBlock = ^(NSError* error){
         //MARK: Start The Assembly
         [transloadit createAssembly:TestAssemblyWithSteps];
         
+        
+        transloadit.completionBlock = ^(NSDictionary* completionDictionary){
+            
+            TestAssemblyWithSteps.notify_url = [completionDictionary valueForKey:@""];
+            [transloadit invokeAssembly:TestAssemblyWithSteps];
+            
+        };
 
 
     } failureBlock:^(NSError* error) {

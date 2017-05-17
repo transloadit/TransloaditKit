@@ -52,9 +52,9 @@ typedef void (^TransloaditAssemblyCompletionBlock)(NSDictionary* _Nonnull comple
 
     //(returnType (^nullability)(parameterTypes))blockName
 
-- (void) invokeAssembly: (Assembly *)assembly andParams:(NSDictionary *)params;
+- (void) invokeAssembly: (Assembly *_Nonnull)assembly;
 
-- (void) createAssembly: (Assembly *)assembly;
+- (void) createAssembly: (Assembly *_Nonnull)assembly;
 
 
 @end
