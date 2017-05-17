@@ -69,15 +69,12 @@
     return auth;
 }
 
-- (void) createAssembly: (Assembly *)assembly{
+- (void) invokeAssembly: (Assembly *)assembly{
     NSMutableDictionary *auth = [self createAuth];
-    
-    
-    
     
 }
 
-- (void) invokeAssembly: (Assembly *)assembly{
+- (void) createAssembly: (Assembly *)assembly{
     NSMutableDictionary *auth = [self createAuth];
 
     NSMutableDictionary *steps = [assembly getSteps];
@@ -156,8 +153,8 @@
         }
          */
        // NSLog(@"Response Body:\n%@\n", response);
-        //NSLog([json description]);
-        NSLog([json valueForKey:@"tus_url"]);
+        NSLog([json description]);
+        NSLog([json valueForKey:@"assembly_ssl_url"]);
 
     }];
    [assemblyTask resume];

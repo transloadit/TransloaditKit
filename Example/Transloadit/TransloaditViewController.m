@@ -33,11 +33,15 @@ static TransloaditUploadFailureBlock failureBlock = ^(NSError* error){
 
 @implementation TransloaditViewController
 
+    Transloadit *transloadit;
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    
+    transloadit = [[Transloadit alloc] initWithKey:@"5ae6b9c0f10c11e594a0bfa14ca2ffe1" andSecret:@"a9d351b355bb47b21af79d89aa9d8a54a6f27a41"];
+
     
 	// Do any additional setup after loading the view, typically from a nib.
 }
@@ -79,8 +83,12 @@ static TransloaditUploadFailureBlock failureBlock = ^(NSError* error){
         
         
         //MARK: A Transloadigt Object that will handle all the features
-        Transloadit *transloadit = [[Transloadit alloc] initWithKey:@"5ae6b9c0f10c11e594a0bfa14ca2ffe1" andSecret:@"a9d351b355bb47b21af79d89aa9d8a54a6f27a41"];
         
+        transloadit.completionBlock = ^(NSDictionary* completionDictionary){
+            
+            
+            
+        };
         
         //MARK: An Array to hold the steps
         NSMutableArray<AssemblyStep *> *steps = [[NSMutableArray alloc] init];
@@ -98,7 +106,7 @@ static TransloaditUploadFailureBlock failureBlock = ^(NSError* error){
         [TestAssemblyWithSteps setNotify_url:@""];
         
         //MARK: Start The Assembly
-        [transloadit invokeAssembly:TestAssemblyWithSteps];
+        [transloadit createAssembly:TestAssemblyWithSteps];
         
 
 

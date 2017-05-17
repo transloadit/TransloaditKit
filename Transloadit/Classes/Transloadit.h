@@ -21,10 +21,15 @@ typedef void (^TransloaditUploadResultBlock)(NSURL* _Nonnull fileURL);
 typedef void (^TransloaditUploadFailureBlock)(NSError* _Nonnull error);
 typedef void (^TransloaditUploadProgressBlock)(int64_t bytesWritten, int64_t bytesTotal);
 
+typedef void (^TransloaditAssemblyCompletionBlock)(NSDictionary* _Nonnull completionDictionary);
+
+
 @interface Transloadit : NSObject<TransloaditProtocol>
 @property (readwrite, copy) _Nullable TransloaditUploadResultBlock resultBlock;
 @property (readwrite, copy) _Nullable TransloaditUploadFailureBlock failureBlock;
 @property (readwrite, copy) _Nullable TransloaditUploadProgressBlock progressBlock;
+
+@property (readwrite, copy) _Nullable TransloaditAssemblyCompletionBlock completionBlock;
 
 
 @property (nonatomic, strong) TUSSession* tusSession; // Session to use for uploads
@@ -44,7 +49,10 @@ typedef void (^TransloaditUploadProgressBlock)(int64_t bytesWritten, int64_t byt
 
 //- (NSString *)signWithKey:(NSString *)key usingData:(NSString *)data;
 
-- (void) invokeAssembly: (Assembly *)assembly;
+
+    //(returnType (^nullability)(parameterTypes))blockName
+
+- (void) createAssembly: (Assembly *)assembly;
 
 
 @end
