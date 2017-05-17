@@ -70,9 +70,9 @@
 }
 
 - (void) invokeAssembly: (Assembly *)assembly{
-    NSString *signature = [self generateSignatureWithParams: [assembly urlString]];
+    //NSString *signature = [self generateSignatureWithParams: [assembly urlString]];
 
-    NSString* const UPLOAD_ENDPOINT = [NSString stringWithFormat:@"%@%@%@?signature=%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_TUS_RESUMABLE, signature];
+    NSString* const UPLOAD_ENDPOINT = [NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_TUS_RESUMABLE];
 
     
     NSMutableDictionary *auth = [self createAuth];
@@ -97,11 +97,12 @@
     //NSLog(responseData);
     
     
-    
-    
-    for (int x = 0; x < [[assembly files] count]; x++) {
+    NSArray *files = [assembly files];
 
-        TUSResumableUpload *upload = [self.tusSession createUploadFromFile:[[assembly files]  objectAtIndex:x] headers:@{} metadata:@{@"filename":@"test.jpg", @"fieldname":@"file-input", @"assembly_url": [assembly urlString]}];
+    
+    for (int x = 0; x < [files count]; x++) {
+
+        TUSResumableUpload *upload = [self.tusSession createUploadFromFile:[files  objectAtIndex:x] headers:@{} metadata:@{@"filename":@"test.jpg", @"fieldname":@"file-input", @"assembly_url": [assembly urlString]}];
         
         
         
@@ -175,6 +176,8 @@
         if([json valueForKey:@"error"]){
             NSLog([json valueForKey:@"error"]);
             return;
+        } else {
+            self.completionBlock(json);
         }
         
         /*NSArray *files = [assembly files];

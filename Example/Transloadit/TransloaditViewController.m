@@ -106,7 +106,7 @@ static TransloaditUploadFailureBlock failureBlock = ^(NSError* error){
         
         transloadit.completionBlock = ^(NSDictionary* completionDictionary){
             
-            TestAssemblyWithSteps.notify_url = [completionDictionary valueForKey:@""];
+            [TestAssemblyWithSteps setUrlString:[completionDictionary valueForKey:@"assembly_ssl_url"]];
             [transloadit invokeAssembly:TestAssemblyWithSteps];
             
         };
