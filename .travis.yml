@@ -6,5 +6,10 @@ language: objective-c
 
 osx_image: xcode8.3.2
 
+
+before_install:
+  - gem install simctl --no-rdoc --no-ri --no-document --quiet
+  - ruby -rsimctl -e 'SimCtl.warmup("iPhone 6s Plus", "iOS 9.3", 300)'
+
 script:
 - xcodebuild clean build -workspace Example/Transloadit.xcworkspace -scheme Transloadit-Example -destination 'platform=iOS Simulator,id=989606C6-1BE4-425F-9497-43D9D37F0BCC,OS=9.3'
