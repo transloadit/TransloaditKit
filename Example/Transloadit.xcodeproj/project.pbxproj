@@ -8,13 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		20D2CCD5F9B4E4DD7A240B0E /* Pods_Transloadit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88F9C60B95E8311E4F861123 /* Pods_Transloadit_Tests.framework */; };
-		286561601ECBE7C800EAEDE5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2865615F1ECBE7C800EAEDE5 /* AppDelegate.m */; };
-		286561631ECBE7C800EAEDE5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 286561621ECBE7C800EAEDE5 /* main.m */; };
-		286561661ECBE7C800EAEDE5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 286561651ECBE7C800EAEDE5 /* ViewController.m */; };
-		286561681ECBE7C800EAEDE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 286561671ECBE7C800EAEDE5 /* Assets.xcassets */; };
-		2865616B1ECBE7C800EAEDE5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 286561691ECBE7C800EAEDE5 /* Main.storyboard */; };
-		286561761ECBE7C900EAEDE5 /* Transloadit_MacOS_ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 286561751ECBE7C900EAEDE5 /* Transloadit_MacOS_ExampleTests.m */; };
-		286561811ECBE7C900EAEDE5 /* Transloadit_MacOS_ExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 286561801ECBE7C900EAEDE5 /* Transloadit_MacOS_ExampleUITests.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -33,20 +26,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		286561721ECBE7C900EAEDE5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6003F582195388D10070C39A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2865615B1ECBE7C800EAEDE5;
-			remoteInfo = Transloadit_MacOS_Example;
-		};
-		2865617D1ECBE7C900EAEDE5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6003F582195388D10070C39A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2865615B1ECBE7C800EAEDE5;
-			remoteInfo = Transloadit_MacOS_Example;
-		};
 		6003F5B3195388D20070C39A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6003F582195388D10070C39A /* Project object */;
@@ -57,21 +36,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2865615C1ECBE7C800EAEDE5 /* Transloadit_MacOS_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transloadit_MacOS_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2865615E1ECBE7C800EAEDE5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		2865615F1ECBE7C800EAEDE5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		286561621ECBE7C800EAEDE5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		286561641ECBE7C800EAEDE5 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		286561651ECBE7C800EAEDE5 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		286561671ECBE7C800EAEDE5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2865616A1ECBE7C800EAEDE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		2865616C1ECBE7C800EAEDE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		286561711ECBE7C800EAEDE5 /* Transloadit_MacOS_ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Transloadit_MacOS_ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		286561751ECBE7C900EAEDE5 /* Transloadit_MacOS_ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Transloadit_MacOS_ExampleTests.m; sourceTree = "<group>"; };
-		286561771ECBE7C900EAEDE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2865617C1ECBE7C900EAEDE5 /* Transloadit_MacOS_ExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Transloadit_MacOS_ExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		286561801ECBE7C900EAEDE5 /* Transloadit_MacOS_ExampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Transloadit_MacOS_ExampleUITests.m; sourceTree = "<group>"; };
-		286561821ECBE7C900EAEDE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		28AB283D1D8E46600094CC86 /* Transloadit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Transloadit.framework; path = "../../../Library/Developer/Xcode/DerivedData/Transloadit-dcwevxtjgrywgzecrcibpfehoswo/Build/Products/Debug-iphoneos/Transloadit/Transloadit.framework"; sourceTree = "<group>"; };
 		2B2B7C90177ACBFEB3A9A510 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		537323ADD6A7804CD526F2EC /* Pods-Transloadit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Transloadit_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Transloadit_Example/Pods-Transloadit_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -105,27 +69,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		286561591ECBE7C800EAEDE5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2865616E1ECBE7C800EAEDE5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		286561791ECBE7C900EAEDE5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6003F587195388D20070C39A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -151,47 +94,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2865615D1ECBE7C800EAEDE5 /* Transloadit_MacOS_Example */ = {
-			isa = PBXGroup;
-			children = (
-				2865615E1ECBE7C800EAEDE5 /* AppDelegate.h */,
-				2865615F1ECBE7C800EAEDE5 /* AppDelegate.m */,
-				286561641ECBE7C800EAEDE5 /* ViewController.h */,
-				286561651ECBE7C800EAEDE5 /* ViewController.m */,
-				286561671ECBE7C800EAEDE5 /* Assets.xcassets */,
-				286561691ECBE7C800EAEDE5 /* Main.storyboard */,
-				2865616C1ECBE7C800EAEDE5 /* Info.plist */,
-				286561611ECBE7C800EAEDE5 /* Supporting Files */,
-			);
-			path = Transloadit_MacOS_Example;
-			sourceTree = "<group>";
-		};
-		286561611ECBE7C800EAEDE5 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				286561621ECBE7C800EAEDE5 /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		286561741ECBE7C900EAEDE5 /* Transloadit_MacOS_ExampleTests */ = {
-			isa = PBXGroup;
-			children = (
-				286561751ECBE7C900EAEDE5 /* Transloadit_MacOS_ExampleTests.m */,
-				286561771ECBE7C900EAEDE5 /* Info.plist */,
-			);
-			path = Transloadit_MacOS_ExampleTests;
-			sourceTree = "<group>";
-		};
-		2865617F1ECBE7C900EAEDE5 /* Transloadit_MacOS_ExampleUITests */ = {
-			isa = PBXGroup;
-			children = (
-				286561801ECBE7C900EAEDE5 /* Transloadit_MacOS_ExampleUITests.m */,
-				286561821ECBE7C900EAEDE5 /* Info.plist */,
-			);
-			path = Transloadit_MacOS_ExampleUITests;
-			sourceTree = "<group>";
-		};
 		3D2A6C041422882E64BB9C94 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,9 +111,6 @@
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* Example for Transloadit */,
 				6003F5B5195388D20070C39A /* Tests */,
-				2865615D1ECBE7C800EAEDE5 /* Transloadit_MacOS_Example */,
-				286561741ECBE7C900EAEDE5 /* Transloadit_MacOS_ExampleTests */,
-				2865617F1ECBE7C900EAEDE5 /* Transloadit_MacOS_ExampleUITests */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
 				3D2A6C041422882E64BB9C94 /* Pods */,
@@ -223,9 +122,6 @@
 			children = (
 				6003F58A195388D20070C39A /* Transloadit_Example.app */,
 				6003F5AE195388D20070C39A /* Transloadit_Tests.xctest */,
-				2865615C1ECBE7C800EAEDE5 /* Transloadit_MacOS_Example.app */,
-				286561711ECBE7C800EAEDE5 /* Transloadit_MacOS_ExampleTests.xctest */,
-				2865617C1ECBE7C900EAEDE5 /* Transloadit_MacOS_ExampleUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -302,59 +198,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2865615B1ECBE7C800EAEDE5 /* Transloadit_MacOS_Example */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 286561891ECBE7C900EAEDE5 /* Build configuration list for PBXNativeTarget "Transloadit_MacOS_Example" */;
-			buildPhases = (
-				286561581ECBE7C800EAEDE5 /* Sources */,
-				286561591ECBE7C800EAEDE5 /* Frameworks */,
-				2865615A1ECBE7C800EAEDE5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Transloadit_MacOS_Example;
-			productName = Transloadit_MacOS_Example;
-			productReference = 2865615C1ECBE7C800EAEDE5 /* Transloadit_MacOS_Example.app */;
-			productType = "com.apple.product-type.application";
-		};
-		286561701ECBE7C800EAEDE5 /* Transloadit_MacOS_ExampleTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2865618A1ECBE7C900EAEDE5 /* Build configuration list for PBXNativeTarget "Transloadit_MacOS_ExampleTests" */;
-			buildPhases = (
-				2865616D1ECBE7C800EAEDE5 /* Sources */,
-				2865616E1ECBE7C800EAEDE5 /* Frameworks */,
-				2865616F1ECBE7C800EAEDE5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				286561731ECBE7C900EAEDE5 /* PBXTargetDependency */,
-			);
-			name = Transloadit_MacOS_ExampleTests;
-			productName = Transloadit_MacOS_ExampleTests;
-			productReference = 286561711ECBE7C800EAEDE5 /* Transloadit_MacOS_ExampleTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		2865617B1ECBE7C900EAEDE5 /* Transloadit_MacOS_ExampleUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2865618B1ECBE7C900EAEDE5 /* Build configuration list for PBXNativeTarget "Transloadit_MacOS_ExampleUITests" */;
-			buildPhases = (
-				286561781ECBE7C900EAEDE5 /* Sources */,
-				286561791ECBE7C900EAEDE5 /* Frameworks */,
-				2865617A1ECBE7C900EAEDE5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				2865617E1ECBE7C900EAEDE5 /* PBXTargetDependency */,
-			);
-			name = Transloadit_MacOS_ExampleUITests;
-			productName = Transloadit_MacOS_ExampleUITests;
-			productReference = 2865617C1ECBE7C900EAEDE5 /* Transloadit_MacOS_ExampleUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		6003F589195388D20070C39A /* Transloadit_Example */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5BF195388D20070C39A /* Build configuration list for PBXNativeTarget "Transloadit_Example" */;
@@ -406,23 +249,6 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Mark R. Masterson";
 				TargetAttributes = {
-					2865615B1ECBE7C800EAEDE5 = {
-						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = MPKS94G26Q;
-						ProvisioningStyle = Automatic;
-					};
-					286561701ECBE7C800EAEDE5 = {
-						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = MPKS94G26Q;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 2865615B1ECBE7C800EAEDE5;
-					};
-					2865617B1ECBE7C900EAEDE5 = {
-						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = MPKS94G26Q;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 2865615B1ECBE7C800EAEDE5;
-					};
 					6003F589195388D20070C39A = {
 						DevelopmentTeam = MPKS94G26Q;
 					};
@@ -447,37 +273,11 @@
 			targets = (
 				6003F589195388D20070C39A /* Transloadit_Example */,
 				6003F5AD195388D20070C39A /* Transloadit_Tests */,
-				2865615B1ECBE7C800EAEDE5 /* Transloadit_MacOS_Example */,
-				286561701ECBE7C800EAEDE5 /* Transloadit_MacOS_ExampleTests */,
-				2865617B1ECBE7C900EAEDE5 /* Transloadit_MacOS_ExampleUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		2865615A1ECBE7C800EAEDE5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				286561681ECBE7C800EAEDE5 /* Assets.xcassets in Resources */,
-				2865616B1ECBE7C800EAEDE5 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2865616F1ECBE7C800EAEDE5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2865617A1ECBE7C900EAEDE5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6003F588195388D20070C39A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -592,32 +392,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		286561581ECBE7C800EAEDE5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				286561661ECBE7C800EAEDE5 /* ViewController.m in Sources */,
-				286561631ECBE7C800EAEDE5 /* main.m in Sources */,
-				286561601ECBE7C800EAEDE5 /* AppDelegate.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2865616D1ECBE7C800EAEDE5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				286561761ECBE7C900EAEDE5 /* Transloadit_MacOS_ExampleTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		286561781ECBE7C900EAEDE5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				286561811ECBE7C900EAEDE5 /* Transloadit_MacOS_ExampleUITests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6003F586195388D20070C39A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -639,16 +413,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		286561731ECBE7C900EAEDE5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2865615B1ECBE7C800EAEDE5 /* Transloadit_MacOS_Example */;
-			targetProxy = 286561721ECBE7C900EAEDE5 /* PBXContainerItemProxy */;
-		};
-		2865617E1ECBE7C900EAEDE5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2865615B1ECBE7C800EAEDE5 /* Transloadit_MacOS_Example */;
-			targetProxy = 2865617D1ECBE7C900EAEDE5 /* PBXContainerItemProxy */;
-		};
 		6003F5B4195388D20070C39A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6003F589195388D20070C39A /* Transloadit_Example */;
@@ -657,14 +421,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		286561691ECBE7C800EAEDE5 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2865616A1ECBE7C800EAEDE5 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		6003F596195388D20070C39A /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -684,169 +440,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		286561831ECBE7C900EAEDE5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = MPKS94G26Q;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = Transloadit_MacOS_Example/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.masterson.Transloadit-MacOS-Example";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		286561841ECBE7C900EAEDE5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = MPKS94G26Q;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = Transloadit_MacOS_Example/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.masterson.Transloadit-MacOS-Example";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
-		286561851ECBE7C900EAEDE5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = MPKS94G26Q;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = Transloadit_MacOS_ExampleTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.masterson.Transloadit-MacOS-ExampleTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Transloadit_MacOS_Example.app/Contents/MacOS/Transloadit_MacOS_Example";
-			};
-			name = Debug;
-		};
-		286561861ECBE7C900EAEDE5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = MPKS94G26Q;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = Transloadit_MacOS_ExampleTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.masterson.Transloadit-MacOS-ExampleTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Transloadit_MacOS_Example.app/Contents/MacOS/Transloadit_MacOS_Example";
-			};
-			name = Release;
-		};
-		286561871ECBE7C900EAEDE5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = MPKS94G26Q;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = Transloadit_MacOS_ExampleUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.masterson.Transloadit-MacOS-ExampleUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				TEST_TARGET_NAME = Transloadit_MacOS_Example;
-			};
-			name = Debug;
-		};
-		286561881ECBE7C900EAEDE5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = MPKS94G26Q;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = Transloadit_MacOS_ExampleUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "io.masterson.Transloadit-MacOS-ExampleUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				TEST_TARGET_NAME = Transloadit_MacOS_Example;
-			};
-			name = Release;
-		};
 		6003F5BD195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1007,30 +600,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		286561891ECBE7C900EAEDE5 /* Build configuration list for PBXNativeTarget "Transloadit_MacOS_Example" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				286561831ECBE7C900EAEDE5 /* Debug */,
-				286561841ECBE7C900EAEDE5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-		};
-		2865618A1ECBE7C900EAEDE5 /* Build configuration list for PBXNativeTarget "Transloadit_MacOS_ExampleTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				286561851ECBE7C900EAEDE5 /* Debug */,
-				286561861ECBE7C900EAEDE5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-		};
-		2865618B1ECBE7C900EAEDE5 /* Build configuration list for PBXNativeTarget "Transloadit_MacOS_ExampleUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				286561871ECBE7C900EAEDE5 /* Debug */,
-				286561881ECBE7C900EAEDE5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-		};
 		6003F585195388D10070C39A /* Build configuration list for PBXProject "Transloadit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
