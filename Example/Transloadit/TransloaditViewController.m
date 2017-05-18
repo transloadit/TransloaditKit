@@ -7,7 +7,7 @@
 //
 
 #import "TransloaditViewController.h"
-#import <Transloadit/Transloadit.h>
+#import <TransloaditKit/Transloadit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
 @interface TransloaditViewController ()

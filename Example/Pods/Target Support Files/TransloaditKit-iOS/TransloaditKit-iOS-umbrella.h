@@ -1,4 +1,14 @@
+#ifdef __OBJC__
 #import <UIKit/UIKit.h>
+#else
+#ifndef FOUNDATION_EXPORT
+#if defined(__cplusplus)
+#define FOUNDATION_EXPORT extern "C"
+#else
+#define FOUNDATION_EXPORT extern
+#endif
+#endif
+#endif
 
 #import "NSString+Utils.h"
 #import "APIObject.h"
@@ -13,6 +23,6 @@
 #import "Transloadit.h"
 #import "TransloaditProtocol.h"
 
-FOUNDATION_EXPORT double TransloaditVersionNumber;
-FOUNDATION_EXPORT const unsigned char TransloaditVersionString[];
+FOUNDATION_EXPORT double TransloaditKitVersionNumber;
+FOUNDATION_EXPORT const unsigned char TransloaditKitVersionString[];
 

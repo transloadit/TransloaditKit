@@ -1,0 +1,6 @@
+framework module Pods_Transloadit_MacOS_Example {
+  umbrella header "Pods-Transloadit_MacOS_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

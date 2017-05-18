@@ -1,7 +1,13 @@
 use_frameworks!
 
+
+target 'Transloadit_MacOS_Example' do
+  pod 'TransloaditKit', :path => '../'
+end
+
+
 target 'Transloadit_Example' do
-  pod 'Transloadit', :path => '../'
+  pod 'TransloaditKit', :path => '../'
 
   target 'Transloadit_Tests' do
     inherit! :search_paths

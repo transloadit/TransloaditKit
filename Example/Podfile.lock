@@ -4,23 +4,23 @@ PODS:
   - FBSnapshotTestCase/Core (2.1.3)
   - FBSnapshotTestCase/SwiftSupport (2.1.3):
     - FBSnapshotTestCase/Core
-  - Transloadit (0.1.0):
+  - TransloaditKit (0.1.0):
     - TUSKit
-  - TUSKit (1.3.3)
+  - TUSKit (1.3.10)
 
 DEPENDENCIES:
   - FBSnapshotTestCase
-  - Transloadit (from `../`)
+  - TransloaditKit (from `../`)
 
 EXTERNAL SOURCES:
-  Transloadit:
+  TransloaditKit:
     :path: ../
 
 SPEC CHECKSUMS:
   FBSnapshotTestCase: 4607968e0dfa1e2772ec0d0098354f8b870c5753
-  Transloadit: 6759e112bede73362bea15c7d8329110a06d5596
-  TUSKit: 583f73baf012eb5b0c31af8db9ba3cfa6213e1f6
+  TransloaditKit: cb4f210f9b5a050841e66f0482ba892285786b6e
+  TUSKit: 20493740fd099eccc529014ae0a32230b4b9a7a0
 
-PODFILE CHECKSUM: 1a9973dc2f08738457184e3a94aabd9dbc7a8e41
+PODFILE CHECKSUM: 90c67179f151364d358907d53caff530c389b419
 
-COCOAPODS: 1.1.0.rc.2
+COCOAPODS: 1.2.1
