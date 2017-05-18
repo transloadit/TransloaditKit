@@ -5,4 +5,4 @@
 language: objective-c
 
 script:
-- xcodebuild clean build -workspace Example/Transloadit.xcworkspace -scheme Transloadit-Example -destination 'platform=iOS Simulator,id:989606C6-1BE4-425F-9497-43D9D37F0BCC, OS:9.3, name:iPhone 6s Plus'
+- xcodebuild clean build -workspace Example/Transloadit.xcworkspace -scheme Transloadit-Example -destination 'platform=iOS Simulator,id=989606C6-1BE4-425F-9497-43D9D37F0BCC, OS=9.3'
