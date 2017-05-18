@@ -987,6 +987,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Transloadit/Transloadit-Prefix.pch";
 				INFOPLIST_FILE = "Transloadit/Transloadit-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
@@ -1006,6 +1007,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Transloadit/Transloadit-Prefix.pch";
 				INFOPLIST_FILE = "Transloadit/Transloadit-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
@@ -1070,6 +1072,7 @@
 				28C00B601ECD8F1900430748 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		28C00B661ECD8F1900430748 /* Build configuration list for PBXNativeTarget "Transloadit_MacOS_ExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -1078,6 +1081,7 @@
 				28C00B621ECD8F1900430748 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		28C00B671ECD8F1900430748 /* Build configuration list for PBXNativeTarget "Transloadit_MacOS_ExampleUITests" */ = {
 			isa = XCConfigurationList;
@@ -1086,6 +1090,7 @@
 				28C00B641ECD8F1900430748 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6003F585195388D10070C39A /* Build configuration list for PBXProject "Transloadit" */ = {
 			isa = XCConfigurationList;
