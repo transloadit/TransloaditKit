@@ -12,4 +12,4 @@ before_install:
   - ruby -rsimctl -e 'SimCtl.warmup("iPhone 6s Plus", "iOS 9.3", 300)'
 
 script:
-- xcodebuild clean build -workspace Example/Transloadit.xcworkspace -scheme Transloadit-Example -destination 'platform=iOS Simulator,id=989606C6-1BE4-425F-9497-43D9D37F0BCC,OS=9.3'
+- xcodebuild clean build -workspace Example/Transloadit.xcworkspace -scheme Transloadit-Example -destination 'platform=iOS Simulator,id=132FBB24-912B-416D-9E15-17B44D4D1BA6,OS=9.3'
