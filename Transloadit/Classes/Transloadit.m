@@ -22,15 +22,11 @@
     self = [super init];
     if(self) {
         NSLog(@"_init: %@", self);
+        NSURL * applicationSupportURL = [[[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] firstObject];
         _secret = secret;
         _key = key;
-        
-    NSURL * applicationSupportURL = [[[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] firstObject];
         _tusStore = [[TUSFileUploadStore alloc] initWithURL:[applicationSupportURL URLByAppendingPathComponent:@"Example"]];
-
         _tusSession = [[TUSSession alloc] initWithEndpoint:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_TUS_RESUMABLE]] dataStore:_tusStore allowsCellularAccess:YES];
-        
-        
         _tus = [TUSResumableUpload alloc];
         
     }
@@ -47,7 +43,6 @@
         return nil;
     } else {
         NSString *hash = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        NSLog(@"Freshly Made Hash is %@",[hash signWithKey:_key]);
         return [hash signWithKey:_key];
     }
 }
@@ -72,38 +67,31 @@
 - (void) invokeAssembly: (Assembly *)assembly{
     
     NSArray *files = [assembly files];
-
+    
     for (int x = 0; x < [files count]; x++) {
-
         TUSResumableUpload *upload = [self.tusSession createUploadFromFile:[files  objectAtIndex:x] headers:@{} metadata:@{@"filename":@"test.jpg", @"fieldname":@"file-input", @"assembly_url": [assembly urlString]}];
-
         upload.progressBlock = _progressBlock;
         upload.resultBlock = _resultBlock;
         upload.failureBlock = _failureBlock;
-        
         [upload resume];
     }
 }
 
+- (NSString *) generateBoundary {
+    return [[NSUUID UUID] UUIDString];
+}
+
 - (void) createAssembly: (Assembly *)assembly{
     NSMutableDictionary *auth = [self createAuth];
-
     NSMutableDictionary *steps = [assembly getSteps];
-    
     NSDictionary *params = @{@"auth":auth, @"steps":steps};
-    
     NSString *signature = [self generateSignatureWithParams: params];
-    
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@%@?signature=%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_ASSEMBLIES, signature]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];
-    [request setHTTPMethod:@"POST"];
-    
     
     [request addValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    
     [request setHTTPMethod:@"POST"];
-   
-    NSString *boundary = @"YOUR_BOUNDARY_STRING";
+    NSString *boundary = [self generateBoundary];
     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
     [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
     
