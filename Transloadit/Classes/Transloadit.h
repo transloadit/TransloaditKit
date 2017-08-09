@@ -29,7 +29,7 @@ typedef void (^TransloaditAssemblyCompletionBlock)(NSDictionary* _Nonnull comple
 @property (readwrite, copy) _Nullable TransloaditUploadFailureBlock failureBlock;
 @property (readwrite, copy) _Nullable TransloaditUploadProgressBlock progressBlock;
 
-@property (readwrite, copy) _Nullable TransloaditAssemblyCompletionBlock completionBlock;
+@property (readwrite, copy) _Nullable TransloaditAssemblyCompletionBlock assemblyCompletionBlock;
 
 
 @property (nonatomic, strong) NSString * _Nonnull secret; // Transloadit Secret

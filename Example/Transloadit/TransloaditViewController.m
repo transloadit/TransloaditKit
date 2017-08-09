@@ -8,14 +8,15 @@
 
 #import "TransloaditViewController.h"
 #import <TransloaditKit/Transloadit.h>
-#import <AssetsLibrary/AssetsLibrary.h>
+#import <Photos/Photos.h>
+
 
 @interface TransloaditViewController ()
-@property (strong,nonatomic) ALAssetsLibrary *assetLibrary;
-
 @end
 
-//MARK: Your Tansloadit Progress Blocks
+
+/*MARK: Your Tansloadit Progress Blocks
+ */
 static TransloaditUploadProgressBlock progressBlock = ^(int64_t bytesWritten, int64_t bytesTotal){
     // Update your progress bar here
     NSLog(@"progress: %llu / %llu", (unsigned long long)bytesWritten, (unsigned long long)bytesTotal);
@@ -33,87 +34,100 @@ static TransloaditUploadFailureBlock failureBlock = ^(NSError* error){
 
 @implementation TransloaditViewController
 
-    Transloadit *transloadit;
+Transloadit *transloadit;
 
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    
     transloadit = [[Transloadit alloc] initWithKey:@"5ae6b9c0f10c11e594a0bfa14ca2ffe1" andSecret:@"a9d351b355bb47b21af79d89aa9d8a54a6f27a41"];
-
-    
-	// Do any additional setup after loading the view, typically from a nib.
 }
 
--(void)viewDidAppear:(BOOL)animated{
+-(void)viewDidAppear:(BOOL)animated {
     [self selectFile:nil];
 }
 
 - (IBAction)selectFile:(id)sender {
+    //MARK: Image Picker
+    //Basic UIImagePicker Controller Setup
     UIImagePickerController *imagePicker = [UIImagePickerController new];
     imagePicker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:imagePicker.sourceType];
     imagePicker.delegate = self;
-    [self presentViewController:imagePicker animated:YES completion:nil];
+    
+    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+    if(status == PHAuthorizationStatusNotDetermined) {
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            [self presentViewController:imagePicker animated:YES completion:nil];
+        }];
+    } else if (status == PHAuthorizationStatusAuthorized) {
+        [self presentViewController:imagePicker animated:YES completion:nil];
+    } else if (status == PHAuthorizationStatusRestricted) {
+        //Permisions Needed
+    } else if (status == PHAuthorizationStatusDenied) {
+        // Permisions Needed
+    }
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    //MARK: Grabbing data from the ImagePicker using the PhotosLibray
     [self dismissViewControllerAnimated:YES completion:nil];
+    
     NSURL *assetUrl = [info valueForKey:UIImagePickerControllerReferenceURL];
+    PHFetchResult *result = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
+                                                                     subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary
+                                                                     options:nil];
+    PHAssetCollection *assetCollection = result.firstObject;
+    NSLog(@"%@", assetCollection.localizedTitle);
     
-    if (!self.assetLibrary) {
-        self.assetLibrary = [ALAssetsLibrary new];
-    }
+    NSArray<NSURL *> *array = [[NSArray alloc] initWithObjects:assetUrl, nil];
+    PHFetchResult *fetchResult = [PHAsset fetchAssetsWithALAssetURLs:array options:nil];
+    PHAsset *asset = [fetchResult firstObject];
     
-    [self.assetLibrary assetForURL:assetUrl resultBlock:^(ALAsset* asset) {
+    [[[PHImageManager alloc] init] requestImageDataForAsset:asset options:nil resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
         
-        
-        ALAssetRepresentation *rep = [asset defaultRepresentation];
-        Byte *buffer = (Byte*)malloc(rep.size);
-        NSUInteger buffered = [rep getBytes:buffer fromOffset:0.0 length:rep.size error:nil];
-        
-        NSData *data = [NSData dataWithBytesNoCopy:buffer length:buffered freeWhenDone:YES];
         NSURL *documentDirectory = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask][0];
         NSURL *fileUrl = [documentDirectory URLByAppendingPathComponent:[[NSUUID alloc] init].UUIDString];
-        
         NSError *error;
-        if (![data writeToURL:fileUrl options:NSDataWritingAtomic error:&error]) {
+        if (![imageData writeToURL:fileUrl options:NSDataWritingAtomic error:&error]) {
             NSLog(@"%li", (long)error.code);
         }
         
+        //MARK: Transloadit Kit Implementation
         
-        //MARK: A Transloadit Object that will handle all the features
-
-        
-        //MARK: An Array to hold the steps
+        //MARK: Assembly Steps
+        //Here we create an array to hold each AssemblyStep that we our files to process through on Transloadit
         NSMutableArray<AssemblyStep *> *steps = [[NSMutableArray alloc] init];
         
-        //MARK: A Sample step
+        /*MARK: Creation of a sample step:
+            encode: {
+            robot: "/video/encode",
+            use: ":original",
+            preset: "iphone"
+            }
+         */
         AssemblyStep *step1 = [[AssemblyStep alloc] initWithKey:@"encode"];
         [step1 setValue:@"/image/resize" forOption:@"robot"];
+        [step1 setValue:@"original" forOption:@"use"];
+        [step1 setValue:@"iphone" forOption:@"preset"];
+
         
         // Add the step to the array
         [steps addObject:step1];
         
-        //MARK: Create an assembly with steps
+        //MARK: We then create an Assembly Object with the steps and files
         Assembly *TestAssemblyWithSteps = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
         [TestAssemblyWithSteps addFile:fileUrl];
         [TestAssemblyWithSteps setNotify_url:@""];
         
-        //MARK: Start The Assembly
+        //MARK: Create the assembly on Transloadit
         [transloadit createAssembly:TestAssemblyWithSteps];
         
-        
-        transloadit.completionBlock = ^(NSDictionary* completionDictionary){
-            
+        //MARK: Invoke the assebmly
+        transloadit.assemblyCompletionBlock = ^(NSDictionary* completionDictionary){
             [TestAssemblyWithSteps setUrlString:[completionDictionary valueForKey:@"assembly_ssl_url"]];
             [transloadit invokeAssembly:TestAssemblyWithSteps];
-            
         };
-
-
-    } failureBlock:^(NSError* error) {
-        NSLog(@"Unable to load asset due to: %@", error);
+        
+        
     }];
 }
 

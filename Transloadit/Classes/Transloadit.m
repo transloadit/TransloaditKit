@@ -129,7 +129,7 @@
             NSLog(@"%@", [json valueForKey:@"error"]);
             return;
         } else {
-            self.completionBlock(json);
+            self.assemblyCompletionBlock(json);
         }
     }];
    [assemblyTask resume];
