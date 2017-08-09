@@ -14,7 +14,7 @@
 
 @end;
 
-@implementation Assembly 
+@implementation Assembly
 
 @synthesize params;
 @synthesize notify_url;
@@ -25,7 +25,7 @@
     if(self) {
         NSLog(@"_init: %@", self);
         [self setStepsArray:steps];
-        [self setNumberOfFiles:numberOfFiles];
+        [self setNumberOfFiles:&numberOfFiles];
         [self setFiles:[[NSMutableArray alloc] initWithCapacity:numberOfFiles]];
     }
     return self;
@@ -41,7 +41,7 @@
 
 - (NSMutableURLRequest*)createRequestWithSignature:(NSString *)signature{
 
-    NSString *methodType = [[NSString alloc] init];
+    //NSString *methodType = [[NSString alloc] init];
     
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_ASSEMBLIES]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];
@@ -58,7 +58,7 @@
     
     [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
     
-    NSMutableData *body = [NSMutableData data];
+    //NSMutableData *body = [NSMutableData data];
 
     
     return request;
