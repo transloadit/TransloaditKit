@@ -123,6 +123,9 @@ Transloadit *transloadit;
         
         //MARK: Invoke the assebmly
         transloadit.assemblyCompletionBlock = ^(NSDictionary* completionDictionary){
+            /*Invoking The Assebmly does NOT need to happen inside the completion block. However for sake of a small UI it is.
+             We do however need to add the URL to the Assembly object so that we do invoke it, it knows where to go.
+             */
             [TestAssemblyWithSteps setUrlString:[completionDictionary valueForKey:@"assembly_ssl_url"]];
             [transloadit invokeAssembly:TestAssemblyWithSteps];
         };
