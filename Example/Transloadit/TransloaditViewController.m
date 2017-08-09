@@ -99,15 +99,12 @@ Transloadit *transloadit;
         
         /*MARK: Creation of a sample step:
             encode: {
-            robot: "/video/encode",
-            use: ":original",
-            preset: "iphone"
+            robot: "/video/encode"
             }
          */
         AssemblyStep *step1 = [[AssemblyStep alloc] initWithKey:@"encode"];
         [step1 setValue:@"/image/resize" forOption:@"robot"];
-        [step1 setValue:@"original" forOption:@"use"];
-        [step1 setValue:@"iphone" forOption:@"preset"];
+
 
         
         // Add the step to the array
