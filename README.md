@@ -23,7 +23,7 @@ Inside your podfile add,
 'pod 'TransloaditKit', git: 'https://github.com/transloadit/TransloaditKit'
 ```
 
-If there are no errors, you can start using the module.
+If there are no errors, you can start using the pod.
 
 ## Usage
 
