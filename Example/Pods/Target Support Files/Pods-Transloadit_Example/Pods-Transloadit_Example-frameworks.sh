@@ -91,10 +91,12 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/TUSKit-iOS/TUSKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/TransloaditKit-iOS/TransloaditKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Arcane/Arcane.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/TUSKit-iOS/TUSKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/TransloaditKit-iOS/TransloaditKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Arcane/Arcane.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

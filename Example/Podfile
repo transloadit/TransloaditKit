@@ -8,7 +8,7 @@ end
 
 target 'Transloadit_Example' do
   pod 'TransloaditKit', :path => '../'
-
+pod 'Arcane', git: 'https://github.com/onmyway133/Arcane'
   target 'Transloadit_Tests' do
     inherit! :search_paths
 

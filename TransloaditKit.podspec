@@ -41,4 +41,14 @@ TODO: Add long description of the pod here.
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
    s.dependency 'TUSKit'
+
+s.pod_target_xcconfig = {
+'SWIFT_INCLUDE_PATHS[sdk=macosx*]'           => '$(PODS_ROOT)/Transloadit/CocoaPods/macosx',
+'SWIFT_INCLUDE_PATHS[sdk=iphoneos*]'         => '$(PODS_ROOT)/Transloadit/CocoaPods/iphoneos',
+'SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]'  => '$(PODS_ROOT)/Transloadit/CocoaPods/iphonesimulator',
+'SWIFT_INCLUDE_PATHS[sdk=appletvos*]'        => '$(PODS_ROOT)/Transloadit/CocoaPods/appletvos',
+'SWIFT_INCLUDE_PATHS[sdk=appletvsimulator*]' => '$(PODS_ROOT)/Transloadit/CocoaPods/appletvsimulator',
+'SWIFT_INCLUDE_PATHS[sdk=watchos*]'          => '$(PODS_ROOT)/Transloadit/CocoaPods/watchos',
+'SWIFT_INCLUDE_PATHS[sdk=watchsimulator*]'   => '$(PODS_ROOT)/Transloadit/CocoaPods/watchsimulator'
+}
 end
