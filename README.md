@@ -103,6 +103,9 @@ Releasing a new version to CocoaPods can be done via CocoaPods Trunk:
  - Push a tag to Github
  - Publish to Cocoapods with Trunk
 
+### To Do
+
+-  Check for wait is true on assembly status 
 
 ## Dependencies
 

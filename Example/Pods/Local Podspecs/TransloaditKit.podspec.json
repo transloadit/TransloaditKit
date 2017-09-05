@@ -1,9 +1,9 @@
 {
   "name": "TransloaditKit",
-  "version": "0.1.0",
-  "summary": "A short description of Transloadit.",
+  "version": "0.0.2",
+  "summary": "An iOS and MacOS SDK for Transloadit.",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/<GITHUB_USERNAME>/Transloadit",
+  "homepage": "https://github.com/Transloadit/TransloaditKit",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,8 +12,8 @@
     "Mark R. Masterson": "mark@masterson.io"
   },
   "source": {
-    "git": "https://github.com/<GITHUB_USERNAME>/Transloadit.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/Transloadit/TransloaditKit.git",
+    "tag": "0.0.2"
   },
   "platforms": {
     "ios": "8.0",

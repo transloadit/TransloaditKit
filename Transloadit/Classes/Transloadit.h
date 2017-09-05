@@ -22,6 +22,8 @@ typedef void (^TransloaditUploadFailureBlock)(NSError* _Nonnull error);
 typedef void (^TransloaditUploadProgressBlock)(int64_t bytesWritten, int64_t bytesTotal);
 
 typedef void (^TransloaditAssemblyCompletionBlock)(NSDictionary* _Nonnull completionDictionary);
+typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completionDictionary);
+
 
 
 @interface Transloadit : NSObject<TransloaditProtocol>
@@ -30,6 +32,9 @@ typedef void (^TransloaditAssemblyCompletionBlock)(NSDictionary* _Nonnull comple
 @property (readwrite, copy) _Nullable TransloaditUploadProgressBlock progressBlock;
 
 @property (readwrite, copy) _Nullable TransloaditAssemblyCompletionBlock assemblyCompletionBlock;
+
+@property (readwrite, copy) _Nullable TransloaditAssemblyStatusBlock assemblyStatusBlock;
+
 
 
 @property (nonatomic, strong) NSString * _Nonnull secret; // Transloadit Secret
