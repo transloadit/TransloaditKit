@@ -41,6 +41,7 @@ s.source_files = 'Transloadit/Classes/**/*'
 # s.public_header_files = 'Pod/Classes/**/*.h'
 # s.frameworks = 'UIKit', 'MapKit'
 s.dependency 'TUSKit'
+s.dependency 'Arcane'
 
 s.xcconfig = { 'SWIFT_INCLUDE_PATHS' =>
 '$(PODS_ROOT)/TransloaditKit/Classes/CCommonCrypto' }

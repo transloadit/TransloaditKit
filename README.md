@@ -30,11 +30,21 @@ pod 'Arcane'
 pod 'TransloaditKit', git: 'https://github.com/transloadit/TransloaditKit'
 ```
 
-Due to `CommonCrypto` 
-
 If there are no errors, you can start using the pod.
 
 ## Usage
+
+### Import TransloaditKit
+*Objective-C*
+```objc
+#import <TransloaditKit/Transloadit.h>
+```
+
+*Swift*
+```Swift
+import Arcane
+import TransloaditKit
+```
 
 ### Define your blocks
 ```objc
