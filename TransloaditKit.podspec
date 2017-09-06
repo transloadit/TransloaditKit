@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
 s.name             = 'TransloaditKit'
-s.version          = '0.0.4'
+s.version          = '0.0.5'
 s.summary          = 'An iOS and MacOS SDK for Transloadit.'
 
 # This description is used to generate tags and improve search results.
@@ -42,14 +42,8 @@ s.source_files = 'Transloadit/Classes/**/*'
 # s.frameworks = 'UIKit', 'MapKit'
 s.dependency 'TUSKit'
 
-s.preserve_paths = 'CocoaPods/**/*'
-s.pod_target_xcconfig = {
-    'SWIFT_INCLUDE_PATHS[sdk=macosx*]'           => '$(PODS_ROOT)/TransloaditKit/CocoaPods/macosx',
-    'SWIFT_INCLUDE_PATHS[sdk=iphoneos*]'         => '$(PODS_ROOT)/TransloaditKit/CocoaPods/iphoneos',
-    'SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]'  => '$(PODS_ROOT)/TransloaditKit/CocoaPods/iphonesimulator',
-    'SWIFT_INCLUDE_PATHS[sdk=appletvos*]'        => '$(PODS_ROOT)/TransloaditKit/CocoaPods/appletvos',
-    'SWIFT_INCLUDE_PATHS[sdk=appletvsimulator*]' => '$(PODS_ROOT)/TransloaditKit/CocoaPods/appletvsimulator',
-    'SWIFT_INCLUDE_PATHS[sdk=watchos*]'          => '$(PODS_ROOT)/TransloaditKit/CocoaPods/watchos',
-    'SWIFT_INCLUDE_PATHS[sdk=watchsimulator*]'   => '$(PODS_ROOT)/TransloaditKit/CocoaPods/watchsimulator'
-}
+s.xcconfig = { 'SWIFT_INCLUDE_PATHS' =>
+'$(PODS_ROOT)/TransloaditKit/Classes/CCommonCrypto' }
+s.preserve_paths = 'Classes/CCommonCrypto/module.modulemap'
+
 end

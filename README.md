@@ -17,11 +17,20 @@ This is an **iOS** and **MacOS**  SDK to make it easy to talk to the
 
 ## Install
 
-Inside your podfile add,
+For `Objective-C`, place the following inside your podfile,
 
 ```bash
 'pod 'TransloaditKit', git: 'https://github.com/transloadit/TransloaditKit'
 ```
+
+For `Swift`, place the following inside your podfile,
+
+```bash
+pod 'Arcane'
+pod 'TransloaditKit', git: 'https://github.com/transloadit/TransloaditKit'
+```
+
+Due to `CommonCrypto` 
 
 If there are no errors, you can start using the pod.
 
