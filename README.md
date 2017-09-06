@@ -20,7 +20,7 @@ This is an **iOS** and **MacOS**  SDK to make it easy to talk to the
 Inside your podfile add,
 
 ```bash
-'pod 'TransloaditKit', git: 'https://github.com/transloadit/TransloaditKit'
+pod 'TransloaditKit', git: 'https://github.com/transloadit/TransloaditKit'
 ```
 
 If there are no errors, you can start using the pod.

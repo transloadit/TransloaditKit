@@ -49,6 +49,6 @@ typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completion
 - (id _Nonnull )initWithKey:(NSString *_Nonnull)key andSecret:(NSString *_Nonnull)secret;
 - (void) invokeAssembly: (Assembly *_Nonnull)assembly;
 - (void) createAssembly: (Assembly *_Nonnull)assembly;
-
+- (void) checkAssembly: (Assembly *_Nonnull)assembly;
 
 @end

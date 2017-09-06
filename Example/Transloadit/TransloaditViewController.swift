@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import Arcane
 import TransloaditKit
 
 class TransloaditViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        var TestAseembly: Assembly = Assembly()
         // Do any additional setup after loading the view.
     }
 

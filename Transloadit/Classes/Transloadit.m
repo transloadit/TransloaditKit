@@ -135,12 +135,28 @@
    [assemblyTask resume];
 }
 
-- (void) assemblyStatus: (Assembly *)assembly {
+- (void) checkAssembly: (Assembly *)assembly {
+        NSTimer *timer = [NSTimer timerWithTimeInterval:4.0 repeats:true block:^(NSTimer * _Nonnull timer) {
+            [self assemblyStatus:assembly completion:^(NSDictionary *response) {
+                if ([[response valueForKey:@"ok"] isEqualToString:@"ASSEMBLY_COMPLETED"]) {
+                    [timer invalidate];
+                    self.assemblyStatusBlock(response);
+                };
+            }];
+        }];
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+    
+    
+    }
+    
+- (void) assemblyStatus: (Assembly *)assembly completion:(void (^)(NSDictionary *))completion {
+    Boolean *didFinishAssembly = false;
     NSMutableDictionary *auth = [self createAuth];
     NSMutableDictionary *steps = [assembly getSteps];
     NSDictionary *params = @{@"auth":auth, @"steps":steps};
     NSString *signature = [self generateSignatureWithParams: params];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?signature=%@", [assembly urlString], signature]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];
+    
     
     NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
@@ -157,12 +173,13 @@
             NSLog(@"%@", [json valueForKey:@"error"]);
             return;
         } else {
-            self.assemblyStatusBlock(json);
+            //self.assemblyStatusBlock(json);
         }
+        
+        completion(json);
     }];
     [assemblyTask resume];
 
 
-    
 }
 @end

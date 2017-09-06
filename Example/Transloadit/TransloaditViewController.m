@@ -123,8 +123,16 @@ Transloadit *transloadit;
              */
             [TestAssemblyWithSteps setUrlString:[completionDictionary valueForKey:@"assembly_ssl_url"]];
             [transloadit invokeAssembly:TestAssemblyWithSteps];
+            
+            [transloadit checkAssembly:TestAssemblyWithSteps];
         };
         
+        transloadit.assemblyStatusBlock = ^(NSDictionary* completionDictionary){
+            /*Invoking The Assebmly does NOT need to happen inside the completion block. However for sake of a small UI it is.
+             We do however need to add the URL to the Assembly object so that we do invoke it, it knows where to go.
+             */
+            NSLog(@"%@", [completionDictionary description]);
+        };
         
     }];
 }
