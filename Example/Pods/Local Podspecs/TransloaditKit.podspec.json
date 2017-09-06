@@ -1,6 +1,6 @@
 {
   "name": "TransloaditKit",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "summary": "An iOS and MacOS SDK for Transloadit.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/Transloadit/TransloaditKit",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/Transloadit/TransloaditKit.git",
-    "tag": "0.0.3"
+    "tag": "0.0.5"
   },
   "platforms": {
     "ios": "8.0",
@@ -24,16 +24,13 @@
   "dependencies": {
     "TUSKit": [
 
+    ],
+    "Arcane": [
+
     ]
   },
-  "preserve_paths": "CocoaPods/**/*",
-  "pod_target_xcconfig": {
-    "SWIFT_INCLUDE_PATHS[sdk=macosx*]": "/Users/markmasterson/Documents/GitHub/iOS-MacOS-SDK/Transloadit/CocoaPods/macosx",
-    "SWIFT_INCLUDE_PATHS[sdk=iphoneos*]": "/Users/markmasterson/Documents/GitHub/iOS-MacOS-SDK/Transloadit/CocoaPods/iphoneos",
-    "SWIFT_INCLUDE_PATHS[sdk=iphonesimulator*]": "/Users/markmasterson/Documents/GitHub/iOS-MacOS-SDK/Transloadit/CocoaPods/iphonesimulator",
-    "SWIFT_INCLUDE_PATHS[sdk=appletvos*]": "/Users/markmasterson/Documents/GitHub/iOS-MacOS-SDK/Transloadit/CocoaPods/appletvos",
-    "SWIFT_INCLUDE_PATHS[sdk=appletvsimulator*]": "/Users/markmasterson/Documents/GitHub/iOS-MacOS-SDK/Transloadit/CocoaPods/appletvsimulator",
-    "SWIFT_INCLUDE_PATHS[sdk=watchos*]": "/Users/markmasterson/Documents/GitHub/iOS-MacOS-SDK/Transloadit/CocoaPods/watchos",
-    "SWIFT_INCLUDE_PATHS[sdk=watchsimulator*]": "/Users/markmasterson/Documents/GitHub/iOS-MacOS-SDK/Transloadit/CocoaPods/watchsimulator"
-  }
+  "xcconfig": {
+    "SWIFT_INCLUDE_PATHS": "$(PODS_ROOT)/TransloaditKit/Classes/CCommonCrypto"
+  },
+  "preserve_paths": "Classes/CCommonCrypto/module.modulemap"
 }
