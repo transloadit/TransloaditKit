@@ -20,12 +20,24 @@ This is an **iOS** and **MacOS**  SDK to make it easy to talk to the
 Inside your podfile add,
 
 ```bash
-'TransloaditKit'
+'pod 'TransloaditKit', git: 'https://github.com/transloadit/TransloaditKit'
 ```
 
-If there are no errors, you can start using the module.
+If there are no errors, you can start using the pod.
 
 ## Usage
+
+### Import TransloaditKit
+*Objective-C*
+```objc
+#import <TransloaditKit/Transloadit.h>
+```
+
+*Swift*
+```Swift
+import Arcane
+import TransloaditKit
+```
 
 ### Define your blocks
 ```objc
@@ -103,6 +115,9 @@ Releasing a new version to CocoaPods can be done via CocoaPods Trunk:
  - Push a tag to Github
  - Publish to Cocoapods with Trunk
 
+### To Do
+
+-  Check for wait is true on assembly status 
 
 ## Dependencies
 

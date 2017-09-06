@@ -89,10 +89,12 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/Arcane-iOS/Arcane.framework"
   install_framework "$BUILT_PRODUCTS_DIR/TUSKit-iOS/TUSKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/TransloaditKit-iOS/TransloaditKit.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/Arcane-iOS/Arcane.framework"
   install_framework "$BUILT_PRODUCTS_DIR/TUSKit-iOS/TUSKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/TransloaditKit-iOS/TransloaditKit.framework"
 fi

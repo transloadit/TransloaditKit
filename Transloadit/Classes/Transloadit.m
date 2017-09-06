@@ -134,4 +134,35 @@
     }];
    [assemblyTask resume];
 }
+
+- (void) assemblyStatus: (Assembly *)assembly {
+    NSMutableDictionary *auth = [self createAuth];
+    NSMutableDictionary *steps = [assembly getSteps];
+    NSDictionary *params = @{@"auth":auth, @"steps":steps};
+    NSString *signature = [self generateSignatureWithParams: params];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?signature=%@", [assembly urlString], signature]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];
+    
+    NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"%@", [error debugDescription]);
+            return;
+        }
+        
+        NSString* body = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
+                                                             options:NSJSONReadingMutableContainers
+                                                               error:nil];
+        
+        if([json valueForKey:@"error"]){
+            NSLog(@"%@", [json valueForKey:@"error"]);
+            return;
+        } else {
+            self.assemblyStatusBlock(json);
+        }
+    }];
+    [assemblyTask resume];
+
+
+    
+}
 @end

@@ -8,7 +8,6 @@ end
 
 target 'Transloadit_Example' do
   pod 'TransloaditKit', :path => '../'
-
   target 'Transloadit_Tests' do
     inherit! :search_paths
 

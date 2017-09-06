@@ -104,8 +104,6 @@ Transloadit *transloadit;
          */
         AssemblyStep *step1 = [[AssemblyStep alloc] initWithKey:@"encode"];
         [step1 setValue:@"/image/resize" forOption:@"robot"];
-
-
         
         // Add the step to the array
         [steps addObject:step1];

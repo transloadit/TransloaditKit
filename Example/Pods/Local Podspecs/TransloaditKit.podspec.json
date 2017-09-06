@@ -1,9 +1,9 @@
 {
   "name": "TransloaditKit",
-  "version": "0.1.0",
-  "summary": "A short description of Transloadit.",
+  "version": "0.0.5",
+  "summary": "An iOS and MacOS SDK for Transloadit.",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/<GITHUB_USERNAME>/Transloadit",
+  "homepage": "https://github.com/Transloadit/TransloaditKit",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,17 +12,25 @@
     "Mark R. Masterson": "mark@masterson.io"
   },
   "source": {
-    "git": "https://github.com/<GITHUB_USERNAME>/Transloadit.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/Transloadit/TransloaditKit.git",
+    "tag": "0.0.5"
   },
   "platforms": {
     "ios": "8.0",
     "osx": "10.10"
   },
+  "requires_arc": true,
   "source_files": "Transloadit/Classes/**/*",
   "dependencies": {
     "TUSKit": [
 
+    ],
+    "Arcane": [
+
     ]
-  }
+  },
+  "xcconfig": {
+    "SWIFT_INCLUDE_PATHS": "$(PODS_ROOT)/TransloaditKit/Classes/CCommonCrypto"
+  },
+  "preserve_paths": "Classes/CCommonCrypto/module.modulemap"
 }
