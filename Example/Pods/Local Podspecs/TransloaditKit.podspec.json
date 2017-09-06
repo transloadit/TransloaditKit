@@ -1,6 +1,6 @@
 {
   "name": "TransloaditKit",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "summary": "An iOS and MacOS SDK for Transloadit.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/Transloadit/TransloaditKit",
@@ -13,18 +13,20 @@
   },
   "source": {
     "git": "https://github.com/Transloadit/TransloaditKit.git",
-    "tag": "0.0.2"
+    "tag": "0.0.3"
   },
   "platforms": {
     "ios": "8.0",
     "osx": "10.10"
   },
+  "requires_arc": true,
   "source_files": "Transloadit/Classes/**/*",
   "dependencies": {
     "TUSKit": [
 
     ]
   },
+  "preserve_paths": "CocoaPods/**/*",
   "pod_target_xcconfig": {
     "SWIFT_INCLUDE_PATHS[sdk=macosx*]": "$(PODS_ROOT)/Transloadit/CocoaPods/macosx",
     "SWIFT_INCLUDE_PATHS[sdk=iphoneos*]": "$(PODS_ROOT)/Transloadit/CocoaPods/iphoneos",

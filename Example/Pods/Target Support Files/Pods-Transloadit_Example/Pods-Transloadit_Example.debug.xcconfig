@@ -1,10 +1,8 @@
-ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Arcane" "$PODS_CONFIGURATION_BUILD_DIR/TUSKit-iOS" "$PODS_CONFIGURATION_BUILD_DIR/TransloaditKit-iOS"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/TUSKit-iOS" "$PODS_CONFIGURATION_BUILD_DIR/TransloaditKit-iOS"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/Arcane/Arcane.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/TUSKit-iOS/TUSKit.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/TransloaditKit-iOS/TransloaditKit.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -framework "Arcane" -framework "TUSKit" -framework "TransloaditKit"
-OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
+OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/TUSKit-iOS/TUSKit.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/TransloaditKit-iOS/TransloaditKit.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -framework "TUSKit" -framework "TransloaditKit"
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
