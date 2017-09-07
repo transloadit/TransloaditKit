@@ -8,16 +8,15 @@
 
 #import "Transloadit.h"
 
-
 @interface Transloadit()
 - (NSString*)generateSignatureWithParams:(NSDictionary *)params;
-
+    
 - (NSString *)currentGMTTime;
-
-@end
+    
+    @end
 
 @implementation Transloadit
-
+    
 - (id)initWithKey:(NSString *)key andSecret:(NSString *)secret {
     self = [super init];
     if(self) {
@@ -32,7 +31,7 @@
     }
     return self;
 }
-
+    
 - (NSString*)generateSignatureWithParams:(NSDictionary *)params {
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params
@@ -46,7 +45,7 @@
         return [hash signWithKey:_key];
     }
 }
-
+    
 -(NSString *)currentGMTTime{
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
     NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
@@ -55,7 +54,7 @@
     
     return [dateFormatter stringFromDate:[[NSDate alloc] initWithTimeIntervalSinceNow:5*60]];
 }
-
+    
 - (NSMutableDictionary *) createAuth{
     NSMutableDictionary *auth = [[NSMutableDictionary alloc] init];
     [auth setObject:_key forKey:@"key"];
@@ -63,7 +62,7 @@
     
     return auth;
 }
-
+    
 - (void) invokeAssembly: (Assembly *)assembly{
     
     NSArray *files = [assembly files];
@@ -76,11 +75,11 @@
         [upload resume];
     }
 }
-
+    
 - (NSString *) generateBoundary {
     return [[NSUUID UUID] UUIDString];
 }
-
+    
 - (void) createAssembly: (Assembly *)assembly{
     NSMutableDictionary *auth = [self createAuth];
     NSMutableDictionary *steps = [assembly getSteps];
@@ -124,7 +123,7 @@
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
                                                              options:NSJSONReadingMutableContainers
                                                                error:nil];
-
+        
         if([json valueForKey:@"error"]){
             NSLog(@"%@", [json valueForKey:@"error"]);
             return;
@@ -132,25 +131,40 @@
             self.assemblyCompletionBlock(json);
         }
     }];
-   [assemblyTask resume];
+    [assemblyTask resume];
 }
-
+    
 - (void) checkAssembly: (Assembly *)assembly {
-        NSTimer *timer = [NSTimer timerWithTimeInterval:4.0 repeats:true block:^(NSTimer * _Nonnull timer) {
-            [self assemblyStatus:assembly completion:^(NSDictionary *response) {
-                if ([[response valueForKey:@"ok"] isEqualToString:@"ASSEMBLY_COMPLETED"]) {
-                    [timer invalidate];
-                    self.assemblyStatusBlock(response);
-                };
-            }];
+    NSTimer *timer = [NSTimer timerWithTimeInterval:2.0 repeats:true block:^(NSTimer * _Nonnull timer) {
+        [self assemblyStatus:assembly completion:^(NSDictionary *response) {
+            NSArray *responseArray = @[@"REQUEST_ABORTED", @"ASSEMBLY_CANCELED", @"ASSEMBLY_COMPLETED"];
+            int responseInterger = [responseArray indexOfObject:[response valueForKey:@"ok"]];
+            
+            switch (responseInterger) {
+                case 0:
+                //Aborted
+                self.assemblyStatusBlock(response);
+                break;
+                case 1:
+                //canceld
+                self.assemblyStatusBlock(response);
+                break;
+                case 2:
+                //completed
+                self.assemblyStatusBlock(response);
+                default:
+                break;
+            }
+            
+            if ([[response valueForKey:@"error"] isEqualToString:@"ASSEMBLY_CRASHED"]) {
+                
+            }
         }];
+    }];
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
-    
-    
-    }
+}
     
 - (void) assemblyStatus: (Assembly *)assembly completion:(void (^)(NSDictionary *))completion {
-    Boolean *didFinishAssembly = false;
     NSMutableDictionary *auth = [self createAuth];
     NSMutableDictionary *steps = [assembly getSteps];
     NSDictionary *params = @{@"auth":auth, @"steps":steps};
@@ -179,7 +193,7 @@
         completion(json);
     }];
     [assemblyTask resume];
-
-
+    
+    
 }
-@end
+    @end
