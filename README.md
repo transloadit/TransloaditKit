@@ -68,10 +68,10 @@ static TransloaditUploadFailureBlock failureBlock = ^(NSError* error){
 
 ### Create an assembly and upload
 ```objc
-        NSMutableArray<AssemblyStep *> *steps = [[NSMutableArray alloc] init];
+        NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
         
         //MARK: A Sample step
-        AssemblyStep *step1 = [[AssemblyStep alloc] initWithKey:@"encode"];
+        Step *step1 = [[Step alloc] initWithKey:@"encode"];
         [step1 setValue:@"/image/resize" forOption:@"robot"];
         
         // Add the step to the array

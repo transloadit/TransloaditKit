@@ -94,15 +94,15 @@ Transloadit *transloadit;
         //MARK: Transloadit Kit Implementation
         
         //MARK: Assembly Steps
-        //Here we create an array to hold each AssemblyStep that we our files to process through on Transloadit
-        NSMutableArray<AssemblyStep *> *steps = [[NSMutableArray alloc] init];
+        //Here we create an array to hold each Step that we our files to process through on Transloadit
+        NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
         
         /*MARK: Creation of a sample step:
             encode: {
             robot: "/video/encode"
             }
          */
-        AssemblyStep *step1 = [[AssemblyStep alloc] initWithKey:@"encode"];
+        Step *step1 = [[Step alloc] initWithKey:@"encode"];
         [step1 setValue:@"/image/resize" forOption:@"robot"];
         
         // Add the step to the array
@@ -113,8 +113,16 @@ Transloadit *transloadit;
         [TestAssemblyWithSteps addFile:fileUrl];
         [TestAssemblyWithSteps setNotify_url:@""];
         
+        Template *testTemplate = [[Template alloc] initWithTemplateId:@"ddd833b0974911e7a7efd9ad4c81e3a0"];
+        Template *testTemplateWithSteps = [[Template alloc] initWithSteps:steps andName:@"TestName2"];
+        
+        Assembly *testAssemblyWithTemplate = [[Assembly alloc] initWithTemplate:testTemplate andNumberOfFiles:1];
+        [testAssemblyWithTemplate addFile:fileUrl];
+
+        [transloadit createTemplate:testTemplateWithSteps];
+        
         //MARK: Create the assembly on Transloadit
-        [transloadit createAssembly:TestAssemblyWithSteps];
+        //[transloadit createAssembly:testAssemblyWithTemplate];
         
         //MARK: Invoke the assebmly
         transloadit.assemblyCompletionBlock = ^(NSDictionary* completionDictionary){

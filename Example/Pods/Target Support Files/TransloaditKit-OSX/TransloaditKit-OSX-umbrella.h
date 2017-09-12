@@ -15,7 +15,7 @@
 #import "APIObjectType.h"
 #import "APIState.h"
 #import "Assembly.h"
-#import "AssemblyStep.h"
+#import "Step.h"
 #import "TransloaditResponse.h"
 #import "URLConstants.h"
 #import "Resources.h"

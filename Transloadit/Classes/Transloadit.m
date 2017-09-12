@@ -62,7 +62,76 @@
     
     return auth;
 }
+
+- (NSString *) generateBoundary {
+    return [[NSUUID UUID] UUIDString];
+}
+
+- (void) createTemplate: (Template *)template {
+    NSMutableDictionary *auth = [self createAuth];
+    NSMutableDictionary *steps = [template getSteps];
     
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:auth forKey:@"auth"];
+    [params setObject:steps forKey:@"template"];
+    [params setObject:[template name] forKey:@"name"];
+
+    NSString *signature = [self generateSignatureWithParams: params];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_TEMPLATES]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];
+    
+    [request addValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setHTTPMethod:@"POST"];
+    NSString *boundary = [self generateBoundary];
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@ ", boundary];
+    [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableData *body = [NSMutableData data];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params
+                                                       options:0
+                                                         error:nil];
+    
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"signature\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[signature dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"params\"\r\n\r\n%@",  [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]] dataUsingEncoding:NSUTF8StringEncoding]];
+
+    
+    NSString *responseData = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    responseData = [responseData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+    
+    NSLog(@"%@", responseData);
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [request setHTTPBody:body];
+    
+    NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"%@", [error debugDescription]);
+            return;
+        }
+        
+        NSString* body = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
+                                                             options:NSJSONReadingMutableContainers
+                                                               error:nil];
+        
+        if([json valueForKey:@"error"]){
+            NSLog(@"%@", [json valueForKey:@"error"]);
+            return;
+        } else {
+           // self.assemblyCompletionBlock(json);
+            NSLog(@"%@", [json debugDescription]);
+
+        }
+    }];
+    [assemblyTask resume];
+}
+
 - (void) invokeAssembly: (Assembly *)assembly{
     
     NSArray *files = [assembly files];
@@ -76,14 +145,20 @@
     }
 }
     
-- (NSString *) generateBoundary {
-    return [[NSUUID UUID] UUIDString];
-}
-    
 - (void) createAssembly: (Assembly *)assembly{
     NSMutableDictionary *auth = [self createAuth];
     NSMutableDictionary *steps = [assembly getSteps];
-    NSDictionary *params = @{@"auth":auth, @"steps":steps};
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:auth forKey:@"auth"];
+    
+    NSLog(@"%@", [steps debugDescription]);
+    
+   if ([assembly template] == (id)[NSNull null]) {
+        [params setObject:steps forKey:@"steps"];
+    } else {
+        [params setObject:[[assembly template] template_id] forKey:@"template_id"];
+    }
     NSString *signature = [self generateSignatureWithParams: params];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@%@?signature=%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_ASSEMBLIES, signature]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];
     

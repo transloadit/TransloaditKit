@@ -11,7 +11,8 @@
 #import "APIState.h"
 #import "APIObjectType.h"
 #import "URLConstants.h"
-#import "AssemblyStep.h"
+#import "Step.h"
+#import "Template.h"
 
 @protocol APIObject <NSObject>
 
