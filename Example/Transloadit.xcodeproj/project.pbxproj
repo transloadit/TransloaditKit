@@ -10,7 +10,6 @@
 		20D2CCD5F9B4E4DD7A240B0E /* Pods_Transloadit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88F9C60B95E8311E4F861123 /* Pods_Transloadit_Tests.framework */; };
 		28296E871F5DFB36006892E3 /* TransloaditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28296E861F5DFB36006892E3 /* TransloaditViewController.swift */; };
 		2858DA351F68BF7D005325A3 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2858DA341F68BF7D005325A3 /* test.jpg */; };
-		2858DA371F68C27C005325A3 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2858DA361F68C27C005325A3 /* test.jpg */; };
 		286004F91F3A78FA00358102 /* TransloaditKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 286004F81F3A78FA00358102 /* TransloaditKit.podspec */; };
 		28C00B3C1ECD8F1900430748 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C00B3B1ECD8F1900430748 /* AppDelegate.m */; };
 		28C00B3F1ECD8F1900430748 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C00B3E1ECD8F1900430748 /* main.m */; };
@@ -505,7 +504,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
-				2858DA371F68C27C005325A3 /* test.jpg in Resources */,
 				2858DA351F68BF7D005325A3 /* test.jpg in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
