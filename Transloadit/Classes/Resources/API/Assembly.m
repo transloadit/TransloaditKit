@@ -20,7 +20,7 @@
 @synthesize notify_url;
 
 
-- (id)initWithSteps:(NSMutableArray<AssemblyStep *>*)steps andNumberOfFiles:(int)numberOfFiles{
+- (id)initWithSteps:(NSMutableArray<Step *>*)steps andNumberOfFiles:(int)numberOfFiles{
     self = [super init];
     if(self) {
         NSLog(@"_init: %@", self);
@@ -31,8 +31,19 @@
     return self;
 }
 
+- (id)initWithTemplate:(Template *)template andNumberOfFiles:(int)numberOfFiles {
+    self = [super init];
+    if(self) {
+        NSLog(@"_init: %@", self);
+        [self setTemplate:template];
+        [self setNumberOfFiles:&numberOfFiles];
+        [self setFiles:[[NSMutableArray alloc] initWithCapacity:numberOfFiles]];
+    }
+    return self;
+}
 
--(void)addStepWithAssemblyStep:(AssemblyStep *)step{
+
+-(void)addStepWithStep:(Step *)step{
     [[self stepsArray] addObject:step];
 }
 
@@ -69,7 +80,7 @@
     
        
     NSMutableDictionary *stepsMutableDictionary = [[NSMutableDictionary alloc] init];
-    for (AssemblyStep* step in _stepsArray) {
+    for (Step* step in _stepsArray) {
         NSDictionary *tempOptions = [step options];
         if (tempOptions) {
             [stepsMutableDictionary addEntriesFromDictionary:tempOptions];

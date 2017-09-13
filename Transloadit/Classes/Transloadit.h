@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "TransloaditProtocol.h"
 #import "Assembly.h"
-#import "AssemblyStep.h"
+#import "Step.h"
 #import "APIState.h"
 #import "APIObjectType.h"
 #import "NSString+Utils.h"
@@ -47,8 +47,9 @@ typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completion
 
 
 - (id _Nonnull )initWithKey:(NSString *_Nonnull)key andSecret:(NSString *_Nonnull)secret;
+- (void) createTemplate: (Template *_Nonnull)template;
 - (void) invokeAssembly: (Assembly *_Nonnull)assembly;
 - (void) createAssembly: (Assembly *_Nonnull)assembly;
-
+- (void) checkAssembly: (Assembly *_Nonnull)assembly;
 
 @end

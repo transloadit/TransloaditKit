@@ -1,5 +1,5 @@
 //
-//  AssemblyStep.h
+//  Step.h
 //  Transloadit
 //
 //  Created by Mark Masterson on 8/19/16.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AssemblyStep : NSObject
+@interface Step : NSObject
 
 @property(nonatomic, strong)NSString* key;
 

@@ -16,25 +16,26 @@
 
 @property (nonatomic, strong)NSString* notify_url;
 
-@property (nonatomic, strong)NSMutableArray<AssemblyStep *>* stepsArray;
+@property (nonatomic, strong)NSMutableArray<Step *>* stepsArray;
 
 @property (nonatomic, strong)NSMutableArray<NSURL *>* files;
 
 @property (nonatomic, strong)NSString* stepsJSONString;
 
-@property (nonatomic, strong)NSString* template_id;
+@property (nonatomic, strong)Template* template;
 
 @property (nonatomic)int* numberOfFiles;
 
 
-- (id)initWithSteps:(NSMutableArray<AssemblyStep *>*)steps andNumberOfFiles:(int)numberOfFiles;
+- (id)initWithSteps:(NSMutableArray<Step *>*)steps andNumberOfFiles:(int)numberOfFiles;
 
 - (id)initWithStepsJSONString:(NSString *)steps andNumberOfFiles:(int)numberOfFiles;
 
-//MARK: Steps
-- (void)addStepWithAssemblyStep:(AssemblyStep *)step;
+- (id)initWithTemplate:(Template *)template andNumberOfFiles:(int)numberOfFiles;
 
-- (void)addStepWithJSONString:(NSString *)step;
+
+//MARK: Steps
+- (void)addStepWithStep:(Step *)step;
 
 -(NSMutableDictionary *)getSteps;
 

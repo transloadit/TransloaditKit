@@ -20,7 +20,7 @@ This is an **iOS** and **MacOS**  SDK to make it easy to talk to the
 Inside your podfile add,
 
 ```bash
-'pod 'TransloaditKit', git: 'https://github.com/transloadit/TransloaditKit'
+pod 'TransloaditKit', git: 'https://github.com/transloadit/TransloaditKit'
 ```
 
 If there are no errors, you can start using the pod.
@@ -68,10 +68,10 @@ static TransloaditUploadFailureBlock failureBlock = ^(NSError* error){
 
 ### Create an assembly and upload
 ```objc
-        NSMutableArray<AssemblyStep *> *steps = [[NSMutableArray alloc] init];
+        NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
         
         //MARK: A Sample step
-        AssemblyStep *step1 = [[AssemblyStep alloc] initWithKey:@"encode"];
+        Step *step1 = [[Step alloc] initWithKey:@"encode"];
         [step1 setValue:@"/image/resize" forOption:@"robot"];
         
         // Add the step to the array
