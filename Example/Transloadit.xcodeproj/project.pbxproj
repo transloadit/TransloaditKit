@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		20D2CCD5F9B4E4DD7A240B0E /* Pods_Transloadit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88F9C60B95E8311E4F861123 /* Pods_Transloadit_Tests.framework */; };
 		28296E871F5DFB36006892E3 /* TransloaditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28296E861F5DFB36006892E3 /* TransloaditViewController.swift */; };
+		2858DA351F68BF7D005325A3 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2858DA341F68BF7D005325A3 /* test.jpg */; };
+		2858DA371F68C27C005325A3 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2858DA361F68C27C005325A3 /* test.jpg */; };
 		286004F91F3A78FA00358102 /* TransloaditKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 286004F81F3A78FA00358102 /* TransloaditKit.podspec */; };
 		28C00B3C1ECD8F1900430748 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C00B3B1ECD8F1900430748 /* AppDelegate.m */; };
 		28C00B3F1ECD8F1900430748 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C00B3E1ECD8F1900430748 /* main.m */; };
@@ -62,6 +64,8 @@
 /* Begin PBXFileReference section */
 		00527FF412666775D11D7EF3 /* Pods-Transloadit_MacOS_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Transloadit_MacOS_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Transloadit_MacOS_Example/Pods-Transloadit_MacOS_Example.release.xcconfig"; sourceTree = "<group>"; };
 		28296E861F5DFB36006892E3 /* TransloaditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransloaditViewController.swift; sourceTree = "<group>"; };
+		2858DA341F68BF7D005325A3 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
+		2858DA361F68C27C005325A3 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = test.jpg; path = ../../../../../Downloads/mpdf60/examples/test.jpg; sourceTree = "<group>"; };
 		286004F81F3A78FA00358102 /* TransloaditKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TransloaditKit.podspec; path = ../TransloaditKit.podspec; sourceTree = "<group>"; };
 		28AB283D1D8E46600094CC86 /* Transloadit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Transloadit.framework; path = "../../../Library/Developer/Xcode/DerivedData/Transloadit-dcwevxtjgrywgzecrcibpfehoswo/Build/Products/Debug-iphoneos/Transloadit/Transloadit.framework"; sourceTree = "<group>"; };
 		28C00B381ECD8F1900430748 /* Transloadit_MacOS_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transloadit_MacOS_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -274,6 +278,7 @@
 		6003F594195388D20070C39A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2858DA361F68C27C005325A3 /* test.jpg */,
 				6003F595195388D20070C39A /* Transloadit-Info.plist */,
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,
@@ -285,6 +290,7 @@
 		6003F5B5195388D20070C39A /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				2858DA341F68BF7D005325A3 /* test.jpg */,
 				6003F5BB195388D20070C39A /* Tests.m */,
 				6003F5B6195388D20070C39A /* Supporting Files */,
 			);
@@ -499,6 +505,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
+				2858DA371F68C27C005325A3 /* test.jpg in Resources */,
+				2858DA351F68BF7D005325A3 /* test.jpg in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 				286004F91F3A78FA00358102 /* TransloaditKit.podspec in Resources */,
