@@ -20,10 +20,15 @@
 - (id)initWithKey:(NSString *)key andSecret:(NSString *)secret {
     self = [super init];
     if(self) {
+        if ([[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TRANSLOADIT_SECRET"]  isEqualToString: @""] && [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TRANSLOADIT_SECRET"] isEqualToString:@""]) {
+        _secret = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TRANSLOADIT_SECRET"];
+        _key = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TRANSLOADIT_KEY"];
+        } else {
+            _secret = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TRANSLOADIT_SECRET"];
+            _key = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TRANSLOADIT_KEY"];
+        }
         NSLog(@"_init: %@", self);
         NSURL * applicationSupportURL = [[[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] firstObject];
-        _secret = secret;
-        _key = key;
         _tusStore = [[TUSFileUploadStore alloc] initWithURL:[applicationSupportURL URLByAppendingPathComponent:@"Example"]];
         _tusSession = [[TUSSession alloc] initWithEndpoint:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_TUS_RESUMABLE]] dataStore:_tusStore allowsCellularAccess:YES];
         _tus = [TUSResumableUpload alloc];
@@ -42,7 +47,7 @@
         return nil;
     } else {
         NSString *hash = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        return [hash signWithKey:_key];
+        return [hash signWithKey:_secret];
     }
 }
     
@@ -78,11 +83,11 @@
 
     NSString *signature = [self generateSignatureWithParams: params];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_TEMPLATES]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];
-    
-    [request addValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
+    NSLog(@"%@", signature);
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setHTTPMethod:@"POST"];
     NSString *boundary = [self generateBoundary];
+    
     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@ ", boundary];
     [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
     
@@ -98,14 +103,14 @@
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"params\"\r\n\r\n%@",  [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]] dataUsingEncoding:NSUTF8StringEncoding]];
 
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    //[body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
     NSString *responseData = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
     responseData = [responseData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
     
     NSLog(@"%@", responseData);
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
     [request setHTTPBody:body];
     
@@ -175,6 +180,10 @@
                                                          error:nil];
     
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"signature\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[signature dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"params\"\r\n\r\n%@",  [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]] dataUsingEncoding:NSUTF8StringEncoding]];
     NSString *responseData = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
@@ -218,14 +227,17 @@
             switch (responseInterger) {
                 case 0:
                 //Aborted
+                    [timer invalidate];
                 self.assemblyStatusBlock(response);
                 break;
                 case 1:
                 //canceld
+                    [timer invalidate];
                 self.assemblyStatusBlock(response);
                 break;
                 case 2:
                 //completed
+                    [timer invalidate];
                 self.assemblyStatusBlock(response);
                 default:
                 break;
