@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>TRANSLOADIT_SECRET</key>
-	<string>a9d351b355bb47b21af79d89aa9d8a54a6f27a41</string>
+	<string></string>
 	<key>TRANSLOADIT_KEY</key>
-	<string>5ae6b9c0f10c11e594a0bfa14ca2ffe1</string>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
