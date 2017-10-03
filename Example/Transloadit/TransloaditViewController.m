@@ -98,11 +98,6 @@ Transloadit *transloadit;
         //Here we create an array to hold each Step that we our files to process through on Transloadit
         NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
         
-        /*MARK: Creation of a sample step:
-            encode: {
-            robot: "/video/encode"
-            }
-         */
         Step *step1 = [[Step alloc] initWithKey:@"encode"];
         [step1 setValue:@"/image/resize" forOption:@"robot"];
         
@@ -137,9 +132,6 @@ Transloadit *transloadit;
         };
         
         transloadit.assemblyStatusBlock = ^(NSDictionary* completionDictionary){
-            /*Invoking The Assebmly does NOT need to happen inside the completion block. However for sake of a small UI it is.
-             We do however need to add the URL to the Assembly object so that we do invoke it, it knows where to go.
-             */
             NSLog(@"%@", [completionDictionary description]);
         };
         
