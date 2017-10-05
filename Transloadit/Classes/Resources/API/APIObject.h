@@ -18,14 +18,12 @@
 
 @property (nonatomic, assign)APIObjectType* type;
 
-
 @property (nonatomic, strong)NSMutableURLRequest* callRequest;
 
 @property (nonatomic, strong)NSDictionary* params;
 
 @property (nonatomic, strong)NSData* data;
 
-- (NSURLRequest*)createRequestWithSignature:(NSString *)signature;
 
 - (NSString*)buildParametersJSON;
 

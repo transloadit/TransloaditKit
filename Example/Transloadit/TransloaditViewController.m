@@ -39,7 +39,7 @@ Transloadit *transloadit;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    transloadit = [[Transloadit alloc] initWithKey:@"" andSecret:@""];
+    transloadit = [[Transloadit alloc] init];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -118,7 +118,7 @@ Transloadit *transloadit;
        //[transloadit createTemplate:testTemplateWithSteps];
         
         //MARK: Create the assembly on Transloadit
-        [transloadit createAssembly:testAssemblyWithTemplate];
+        [transloadit createAssembly:TestAssemblyWithSteps];
         
         //MARK: Invoke the assebmly
         transloadit.assemblyCompletionBlock = ^(NSDictionary* completionDictionary){
