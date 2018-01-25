@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TransloaditProtocol.h"
+#import "TransloaditRequest.h"
 #import "Assembly.h"
 #import "Step.h"
 #import "APIState.h"
@@ -46,7 +47,7 @@ typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completion
 @property (nonatomic, strong) TUSUploadStore  * _Nonnull tusStore;
 
 
-- (id _Nonnull )initWithKey:(NSString *_Nonnull)key andSecret:(NSString *_Nonnull)secret;
+- (id _Nonnull )init;
 - (void) createTemplate: (Template *_Nonnull)template;
 - (void) invokeAssembly: (Assembly *_Nonnull)assembly;
 - (void) createAssembly: (Assembly *_Nonnull)assembly;

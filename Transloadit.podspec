@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
 s.name             = 'Transloadit'
-s.version          = '0.1.0'
+s.version          = '1.0.1'
 s.summary          = 'An iOS and MacOS SDK for Transloadit.'
 
 # This description is used to generate tags and improve search results.
@@ -43,8 +43,5 @@ s.source_files = 'Transloadit/Classes/**/*'
 s.dependency 'TUSKit'
 s.dependency 'Arcane'
 
-s.xcconfig = { 'SWIFT_INCLUDE_PATHS' =>
-'$(PODS_ROOT)/TransloaditKit/Classes/CCommonCrypto' }
-s.preserve_paths = 'Classes/CCommonCrypto/module.modulemap'
 
 end

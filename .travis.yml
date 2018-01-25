@@ -1,15 +1,11 @@
-# references:
-# * http://www.objc.io/issue-6/travis-ci.html
-# * https://github.com/supermarin/xcpretty#usage
-
 language: objective-c
-
 osx_image: xcode8.1
-
-
 before_install:
-  - gem install simctl --no-rdoc --no-ri --no-document --quiet
-  - ruby -rsimctl -e 'SimCtl.warmup("iPhone 6s Plus", "iOS 9.3", 300)'
-
+- gem install simctl --no-rdoc --no-ri --no-document --quiet
+- ruby -rsimctl -e 'SimCtl.warmup("iPhone 6s Plus", "iOS 9.3", 300)'
 script:
-- xcodebuild clean build -workspace Example/Transloadit.xcworkspace -scheme Transloadit-Example -destination 'platform=iOS Simulator,id=132FBB24-912B-416D-9E15-17B44D4D1BA6,OS=9.3'
+- xcodebuild clean build -workspace Example/Transloadit.xcworkspace -scheme Transloadit-Example
+  -destination 'platform=iOS Simulator,id=132FBB24-912B-416D-9E15-17B44D4D1BA6,OS=9.3'
+env:
+  matrix:
+    secure: htad5RmtcC7emPhMBXjvHjp+9hbhWLMI6nDmS5k5kUi5gYgsy2LlkFR6BxK5hVIMDuUaIWWXg4x5KcfWKjHHxa/cA35IIEbKlJqr1em945VJHIv/FpgJZMuVo8HLRYxukYB4wTnwe3p06DoLhlUAth3JXtGbdNHQylgTA+L6QpgLXm4gf2YNuZb+A9eNNA297eqaEZ3touiiMs7gjE72kMuoSWpRD3blVwkCEnKgdTrdlYQkv3d1uMsGXkolQL1I5Hv4UfGMPH+L8Cj4o5uR1Xdm2yiXEU+IxAy0TMT7azj8SV6nyY3hpdKl4/FnVxjAmMiHEh51U74NzaswKAs9KN1Dt68naGLbpQR/TJSutJ4+HI654ETrxsKxdnyArTjM+oTuRGzt96Lp0C7Mu1p0e+GPh1t/hgp62f4kpYlSxwiVrH3fSyhuOZV/T76Bs7tciaNKEMQGyIF0LsMK+XXI4EoH6NT3DJ79VLP3ND2eZrJMue+mCKLg5b+Uk25MF/nUsf/C/WCelB7pzROqG1MpkaVpf1kUKNrN2J+Z5RmPYEUqHvawH+6j3WBoIBh1BnaWYxO4nyoVQVgEd5JfdfL2AIPEdBV3uFYTE6T5Df6VRERrnYV1apR5u6N7KQ3VkCziPFNsDUASpdA6yAv8wBR3PhZjUUpho08StAz4zTZplzw=

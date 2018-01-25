@@ -39,11 +39,12 @@ Transloadit *transloadit;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    transloadit = [[Transloadit alloc] initWithKey:@"5ae6b9c0f10c11e594a0bfa14ca2ffe1" andSecret:@"a9d351b355bb47b21af79d89aa9d8a54a6f27a41"];
+    transloadit = [[Transloadit alloc] init];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [self selectFile:nil];
+    
 }
 
 - (IBAction)selectFile:(id)sender {
@@ -97,11 +98,6 @@ Transloadit *transloadit;
         //Here we create an array to hold each Step that we our files to process through on Transloadit
         NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
         
-        /*MARK: Creation of a sample step:
-            encode: {
-            robot: "/video/encode"
-            }
-         */
         Step *step1 = [[Step alloc] initWithKey:@"encode"];
         [step1 setValue:@"/image/resize" forOption:@"robot"];
         
@@ -114,15 +110,15 @@ Transloadit *transloadit;
         [TestAssemblyWithSteps setNotify_url:@""];
         
         Template *testTemplate = [[Template alloc] initWithTemplateId:@"ddd833b0974911e7a7efd9ad4c81e3a0"];
-        Template *testTemplateWithSteps = [[Template alloc] initWithSteps:steps andName:@"TestName2"];
+        Template *testTemplateWithSteps = [[Template alloc] initWithSteps:steps andName:@"TestName4"];
         
         Assembly *testAssemblyWithTemplate = [[Assembly alloc] initWithTemplate:testTemplate andNumberOfFiles:1];
         [testAssemblyWithTemplate addFile:fileUrl];
 
-        [transloadit createTemplate:testTemplateWithSteps];
+       //[transloadit createTemplate:testTemplateWithSteps];
         
         //MARK: Create the assembly on Transloadit
-        //[transloadit createAssembly:testAssemblyWithTemplate];
+        [transloadit createAssembly:TestAssemblyWithSteps];
         
         //MARK: Invoke the assebmly
         transloadit.assemblyCompletionBlock = ^(NSDictionary* completionDictionary){
@@ -136,9 +132,6 @@ Transloadit *transloadit;
         };
         
         transloadit.assemblyStatusBlock = ^(NSDictionary* completionDictionary){
-            /*Invoking The Assebmly does NOT need to happen inside the completion block. However for sake of a small UI it is.
-             We do however need to add the URL to the Assembly object so that we do invoke it, it knows where to go.
-             */
             NSLog(@"%@", [completionDictionary description]);
         };
         

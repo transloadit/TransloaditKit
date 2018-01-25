@@ -39,11 +39,7 @@
     
     NSError *error;
     
-//    if (img != nil) {
-//        [assembly addFile:img withError:&error];
-//        
-//        XCTAssertTrue(error == nil);
-//    }
+
     
     NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
     
