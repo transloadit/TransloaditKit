@@ -121,7 +121,7 @@ Releasing a new version to CocoaPods can be done via CocoaPods Trunk:
 
 ## Dependencies
 
-* [TUSKit](https://github.com/tus/tuskit)
+* [TUSKit](https://github.com/tus/tuskit) _note `TUSKit` is installed along side `Transloadit` via CocoaPods_
 
 ## Authors
 
