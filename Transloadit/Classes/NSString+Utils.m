@@ -10,7 +10,7 @@
 
 @implementation NSString (Utils)
 
-- (NSString *)signWithKey:(NSString *)key{
+- (NSString *)signWithKey:(NSString *)key {
     NSData *clearTextData = [self dataUsingEncoding:NSUTF8StringEncoding];
     NSData *keyData = [key dataUsingEncoding:NSUTF8StringEncoding];
     uint8_t digest[CC_SHA1_DIGEST_LENGTH] = {0};

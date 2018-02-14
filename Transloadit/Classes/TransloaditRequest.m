@@ -66,6 +66,21 @@
     [params setObject:auth forKey:@"auth"];
     NSString *signature = [self generateSignatureWithParams: params];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@", url]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];
+    TUSUploadStore *store = [[TUSUploadStore alloc] init];
+    NSURLSession *session = [[TUSSession alloc] initWithEndpoint:[NSURL URLWithString:url] dataStore:store allowsCellularAccess:YES];
+    
+    NSURLSessionTask *task = [[NSURLSessionTask alloc] init];
+    
+    
+    
+    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+    }];
+    
+    [postDataTask resume];
+    
+    
+    
     NSLog(@"%@", signature);
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setHTTPMethod:@"POST"];

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Arcane
 import TransloaditKit
 
 class TransloaditViewController: UIViewController {
