@@ -8,11 +8,6 @@
 
 #import "Assembly.h"
 
-@interface Assembly ()
-
-
-
-@end;
 
 @implementation Assembly
 
@@ -45,34 +40,6 @@
 
 -(void)addStepWithStep:(Step *)step{
     [[self stepsArray] addObject:step];
-}
-
-
-
-
-- (NSMutableURLRequest*)createRequestWithSignature:(NSString *)signature{
-
-    //NSString *methodType = [[NSString alloc] init];
-    
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_ASSEMBLIES]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];
-
-    
-    [request addValue:@"multipart/form-data" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    
-    [request setHTTPMethod:@"POST"];
-    
-    
-    NSString *boundary = @"YOUR_BOUNDARY_STRING";
-    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
-    
-    [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
-    
-    //NSMutableData *body = [NSMutableData data];
-
-    
-    return request;
 }
 
 

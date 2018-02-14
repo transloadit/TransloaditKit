@@ -20,7 +20,7 @@ This is an **iOS** and **MacOS**  SDK to make it easy to talk to the
 Inside your podfile add,
 
 ```bash
-pod 'TransloaditKit', git: 'https://github.com/transloadit/TransloaditKit'
+pod 'Transloadit'
 ```
 
 If there are no errors, you can start using the pod.
@@ -121,7 +121,7 @@ Releasing a new version to CocoaPods can be done via CocoaPods Trunk:
 
 ## Dependencies
 
-* [TUSKit](https://github.com/tus/tuskit)
+* [TUSKit](https://github.com/tus/tuskit) _note `TUSKit` is installed along side `Transloadit` via CocoaPods_
 
 ## Authors
 

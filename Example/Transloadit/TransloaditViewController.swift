@@ -7,14 +7,29 @@
 //
 
 import UIKit
-import Arcane
 import TransloaditKit
 
 class TransloaditViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        var TestAseembly: Assembly = Assembly()
+        var TL:Transloadit = Transloadit()
+        var AssemblySteps: Array = Array<Step>()
+        var Step1 = Step (key: "endcode")
+        Step1?.setValue("/image/resize", forOption: "robot")
+        var TestAssembly: Assembly = Assembly(steps: AssemblySteps, andNumberOfFiles: 1)
+        TestAssembly.addFile()
+        
+        TL.createAssembly(TestAssembly)
+
+        TL.assemblyCompletionBlock = {(_ completionDictionary: [AnyHashable: Any]) -> Void in
+            /*Invoking The Assebmly does NOT need to happen inside the completion block. However for sake of a small UI it is.
+             We do however need to add the URL to the Assembly object so that we do invoke it, it knows where to go.
+             */
+            TestAssemblyWithSteps.urlString = completionDictionary.value(forKey: "assembly_ssl_url")
+            transloadit.invokeAssembly(TestAssemblyWithSteps)
+            TL.checkAssembly(TestAssemblyWithSteps)
+        }
         // Do any additional setup after loading the view.
     }
 
@@ -22,7 +37,7 @@ class TransloaditViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
 
     /*
     // MARK: - Navigation
@@ -35,3 +50,4 @@ class TransloaditViewController: UIViewController {
     */
 
 }
+
