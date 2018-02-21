@@ -117,7 +117,10 @@ Releasing a new version to CocoaPods can be done via CocoaPods Trunk:
 
 ### To Do
 
--  Check for wait is true on assembly status 
+- update examples
+-  bridge TUSKit networking
+- websockets
+- ~remove Arcane dependency~
 
 ## Dependencies
 
