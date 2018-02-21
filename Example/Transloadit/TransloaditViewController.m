@@ -15,8 +15,7 @@
 @end
 
 
-/*MARK: Your Tansloadit Progress Blocks
- */
+// MARK: Your Tansloadit Progress Blocks
 static TransloaditUploadProgressBlock progressBlock = ^(int64_t bytesWritten, int64_t bytesTotal){
     // Update your progress bar here
     NSLog(@"progress: %llu / %llu", (unsigned long long)bytesWritten, (unsigned long long)bytesTotal);
@@ -69,9 +68,13 @@ Transloadit *transloadit;
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    //MARK: Grabbing data from the ImagePicker using the PhotosLibray
+    //-----------------------------------------------------
+    // MARK: Picker
+    //-----------------------------------------------------
+    // !! NOTE !!
+    // This is boilerplate imagepicker code. You do NOT need this for Transloadit.
+    // This is strictly for the Example, and grabbing an image.
     [self dismissViewControllerAnimated:YES completion:nil];
-    
     NSURL *assetUrl = [info valueForKey:UIImagePickerControllerReferenceURL];
     PHFetchResult *result = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
                                                                      subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary
@@ -82,7 +85,6 @@ Transloadit *transloadit;
     NSArray<NSURL *> *array = [[NSArray alloc] initWithObjects:assetUrl, nil];
     PHFetchResult *fetchResult = [PHAsset fetchAssetsWithALAssetURLs:array options:nil];
     PHAsset *asset = [fetchResult firstObject];
-    
     [[[PHImageManager alloc] init] requestImageDataForAsset:asset options:nil resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
         
         NSURL *documentDirectory = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask][0];
@@ -91,6 +93,7 @@ Transloadit *transloadit;
         if (![imageData writeToURL:fileUrl options:NSDataWritingAtomic error:&error]) {
             NSLog(@"%li", (long)error.code);
         }
+        
         
         //MARK: Transloadit Kit Implementation
         
@@ -114,8 +117,8 @@ Transloadit *transloadit;
         
         Assembly *testAssemblyWithTemplate = [[Assembly alloc] initWithTemplate:testTemplate andNumberOfFiles:1];
         [testAssemblyWithTemplate addFile:fileUrl];
-
-       //[transloadit createTemplate:testTemplateWithSteps];
+        
+        //[transloadit createTemplate:testTemplateWithSteps];
         
         //MARK: Create the assembly on Transloadit
         [transloadit createAssembly:TestAssemblyWithSteps];
