@@ -39,6 +39,16 @@
                ReferencedContainer = "container:Transloadit.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "289616D0203D1EBE0023EE37"
+               BuildableName = "CommonCryptoTests.xctest"
+               BlueprintName = "CommonCryptoTests"
+               ReferencedContainer = "container:Transloadit.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

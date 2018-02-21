@@ -35,9 +35,9 @@ If there are no errors, you can start using the pod.
 
 *Swift*
 ```Swift
-import Arcane
 import TransloaditKit
 ```
+
 
 ### Define your blocks
 ```objc

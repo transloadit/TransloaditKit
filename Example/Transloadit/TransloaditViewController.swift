@@ -17,8 +17,8 @@ class TransloaditViewController: UIViewController {
         var AssemblySteps: Array = Array<Step>()
         var Step1 = Step (key: "endcode")
         Step1?.setValue("/image/resize", forOption: "robot")
-        var TestAssembly: Assembly = Assembly(steps: AssemblySteps, andNumberOfFiles: 1)
-        TestAssembly.addFile()
+        var TestAssembly: Assembly = Assembly(steps: AssemblySteps as! NSMutableArray, andNumberOfFiles: 1)
+        //TestAssembly.addFile(<#URL!#>)
         
         TL.createAssembly(TestAssembly)
 
@@ -26,9 +26,9 @@ class TransloaditViewController: UIViewController {
             /*Invoking The Assebmly does NOT need to happen inside the completion block. However for sake of a small UI it is.
              We do however need to add the URL to the Assembly object so that we do invoke it, it knows where to go.
              */
-            TestAssemblyWithSteps.urlString = completionDictionary.value(forKey: "assembly_ssl_url")
-            transloadit.invokeAssembly(TestAssemblyWithSteps)
-            TL.checkAssembly(TestAssemblyWithSteps)
+//            TestAssemblyWithSteps.urlString = completionDictionary.value(forKey: "assembly_ssl_url")
+//            transloadit.invokeAssembly(TestAssemblyWithSteps)
+//            TL.checkAssembly(TestAssemblyWithSteps)
         }
         // Do any additional setup after loading the view.
     }

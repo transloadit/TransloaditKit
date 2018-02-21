@@ -1,6 +1,0 @@
-framework module TUSKit {
-  umbrella header "TUSKit-iOS-umbrella.h"
-
-  export *
-  module * { export * }
-}

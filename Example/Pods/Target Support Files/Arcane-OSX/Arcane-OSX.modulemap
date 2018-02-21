@@ -1,6 +1,0 @@
-framework module Arcane {
-  umbrella header "Arcane-OSX-umbrella.h"
-
-  export *
-  module * { export * }
-}

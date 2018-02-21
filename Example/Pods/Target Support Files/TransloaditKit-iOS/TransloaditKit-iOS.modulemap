@@ -1,6 +1,0 @@
-framework module TransloaditKit {
-  umbrella header "TransloaditKit-iOS-umbrella.h"
-
-  export *
-  module * { export * }
-}
