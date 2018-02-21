@@ -1,6 +1,0 @@
-framework module Transloadit {
-  umbrella header "Transloadit-OSX-umbrella.h"
-
-  export *
-  module * { export * }
-}
