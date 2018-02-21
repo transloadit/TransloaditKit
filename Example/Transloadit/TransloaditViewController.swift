@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import TransloaditKit
+import Transloadit
 
 class TransloaditViewController: UIViewController {
 

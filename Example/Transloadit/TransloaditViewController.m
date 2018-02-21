@@ -7,7 +7,7 @@
 //
 
 #import "TransloaditViewController.h"
-#import <TransloaditKit/Transloadit.h>
+#import <Transloadit/Transloadit.h>
 #import <Photos/Photos.h>
 
 
