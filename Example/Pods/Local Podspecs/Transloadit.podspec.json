@@ -20,5 +20,10 @@
     "osx": "10.10"
   },
   "requires_arc": true,
-  "source_files": "Transloadit/Classes/**/*"
+  "source_files": "Transloadit/Classes/**/*",
+  "dependencies": {
+    "TUSKit": [
+
+    ]
+  }
 }
