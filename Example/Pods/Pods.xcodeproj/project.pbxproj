@@ -13,26 +13,21 @@
 		05368808FD0DB09A9F08301BCDBC96FB /* URLConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = CDF8EBC12410B4466783A0E2AA162E9F /* URLConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		066A1E3E2D8CB3CF133B1829DE27D8CB /* Pods-Transloadit_MacOS_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E13CD9614F418F137D7AC527E5EB3CF /* Pods-Transloadit_MacOS_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07AD48D1D268214EB9D7432F642286F0 /* TransloaditResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 145CEFBF735845C4B03BCF77FD859949 /* TransloaditResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		08E316237034D3D5BC23319F191BB291 /* Obfuscator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485EE867B5AB4AEBB0DBD310223A640E /* Obfuscator.swift */; };
 		092CD7681361A1C31FA942500559CFBD /* TUSData.h in Headers */ = {isa = PBXBuildFile; fileRef = E3D6B1F2E66443FCE214724E0035DAF2 /* TUSData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		094973D2D2F1E3B2E772F93C8147C6B9 /* UIApplication+StrictKeyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C68468EEFB3CB814AE0A0CD3100410 /* UIApplication+StrictKeyWindow.m */; };
 		09F050E95A54708B36A886B8E9AC939E /* TUSSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE5F27914D1FE08F529EBA54C1FCFEB /* TUSSession.m */; };
 		0A17C6E9E0134B81DF6F3CEC2DC4E08F /* TUSFileData.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E90490E19E2C5CC9D26617D3D8A74C /* TUSFileData.m */; };
 		0C553A85EB3AE6B45A53A0B51512D0C5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 399409700A343918EB9DC7D10976FA06 /* Foundation.framework */; };
-		0CD299CD5AE84AC6EF06A5B0309C398E /* Arcane-OSX-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4247BD8B317D16E2E77AA07D0D349BF0 /* Arcane-OSX-dummy.m */; };
 		0D63184DF8E85319927492BABA4A97AD /* TUSResumableUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4F698E10E7D2B42A14488548B55F41 /* TUSResumableUpload.m */; };
 		0F36639183E97E7DE4935E16725E928B /* URLConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = CDF8EBC12410B4466783A0E2AA162E9F /* URLConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F7BF8A28F73F02A9AB19E612A5DD0E1 /* TUSResumableUpload+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C43E51E4831504199D36A6E17E73729 /* TUSResumableUpload+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		11B988325C9A68E5E0CCB9770918400A /* Pods-Transloadit_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E0DE4024EFF56A49F68F92EDBC12F190 /* Pods-Transloadit_Example-dummy.m */; };
-		143D2D355B11DD7F19D4F20AA7750272 /* Arcane-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A77490C5074E74DF28C3E83B7CB4E09 /* Arcane-iOS-dummy.m */; };
 		17B542DD0F8E14BE9B63BA9313C039B7 /* TUSErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1A6C53CC6F1BDCA22762116C7F0243 /* TUSErrors.m */; };
-		1972C1F74ABE1449BCFE807C9418E238 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C4207C2CB55084FACF7E46D070593B /* Crypto.swift */; };
 		1AB7934C16CE49DE196FFC7BE7278287 /* SwiftSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6BCD1F75E5A08F146DFE5020E1BC48 /* SwiftSupport.swift */; };
 		1C376D03BB93058367092FE1AE95C9A3 /* TUSKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4AFD2E0D6AD7319131879D3DE19DB5DF /* TUSKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C8A90C8E7673E5541F3ED4CC5BA4727 /* APIObjectType.h in Headers */ = {isa = PBXBuildFile; fileRef = D6A219FC0BCBF0B6991E5523B4DFB0F4 /* APIObjectType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1CC43FA0D777BD355301EDC3A686F733 /* TUSErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1A6C53CC6F1BDCA22762116C7F0243 /* TUSErrors.m */; };
 		1E3823B1F3381246DE0F1ECC192D579C /* Transloadit.m in Sources */ = {isa = PBXBuildFile; fileRef = F896CD4D5B23A447550785FF7C3928F9 /* Transloadit.m */; };
-		23A9716B1075FF06DA8E150099394425 /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0F853B3CC545F8029E2BF95CBE82CC /* HMAC.swift */; };
 		23E4840A8CDA2798A1A52A7AD2C22E36 /* TransloaditProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C4B8D6E8CA6843E0B42161402D60C7D /* TransloaditProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		28557A201F85CB3000A28357 /* TransloaditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 28557A1D1F85C43D00A28357 /* TransloaditRequest.m */; };
 		28557A211F85CB3100A28357 /* TransloaditRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 28557A1D1F85C43D00A28357 /* TransloaditRequest.m */; };
@@ -48,16 +43,12 @@
 		331934DDD3A904A346085AD27A05C84D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3699082801414A87169EA80E58AFB88F /* Cocoa.framework */; };
 		35DD05FD595A6FE7F5A0692D12E319DC /* UIImage+Diff.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F36598F87B0F8C341B7EB233757D476 /* UIImage+Diff.m */; };
 		36B51FE85D58742EB35E70572F6E0FA2 /* Assembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 580F3230EB0017F1B6E8F9CE0D3F0A81 /* Assembly.m */; };
-		36E60DAE6571DF03AEBA012DFDFE9D5A /* TUSKit.xcconfig in Sources */ = {isa = PBXBuildFile; fileRef = B70AD27FB2F60B99E986E20569B4ADFF /* TUSKit.xcconfig */; };
 		37BA306811E7C0B6B47FA2B0EEB41150 /* APIState.h in Headers */ = {isa = PBXBuildFile; fileRef = D61BD9C577A1D11583B2A45F99097EF0 /* APIState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B3D30E5F220CAA665A520BFEFC52B90 /* Template.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E30765ACEADC94EF602F3CEF2E580D9 /* Template.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3CF02FCD80A1FC96FCDC1768AC26E818 /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0F853B3CC545F8029E2BF95CBE82CC /* HMAC.swift */; };
 		41F1E7C9F3A8EAD2EC38BD5B57EEBC6C /* Template.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7A696E87879B439343FAD6725E85E5 /* Template.m */; };
 		421CDD701AEE0F2458A84200366CDD0F /* UIImage+Snapshot.h in Headers */ = {isa = PBXBuildFile; fileRef = FEF45FCE1787725D2C5EF5E4B92A5C74 /* UIImage+Snapshot.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		42586E9FB1D15B3A9E75D7E10C4F9AAA /* Arcane-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6252B9BE51A1A9F25D82E2CDFDB43D02 /* Arcane-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		434413CE0D7D0F286B1FB58C380191BE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3699082801414A87169EA80E58AFB88F /* Cocoa.framework */; };
 		480C65A16ABA9AAEE99AA807D3EA012E /* TransloaditProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C4B8D6E8CA6843E0B42161402D60C7D /* TransloaditProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		494C6A00881B6B0158FC91F84FA17627 /* NSData+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF44A77ABA5BDF79842083CBA0F10791 /* NSData+Extensions.swift */; };
 		4B94ECC373138F1C1559F5CC653A36EE /* TUSUploadStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 757ACEDB18F991E709BDAD32D5DEE2FA /* TUSUploadStore.m */; };
 		4F2614DC3F82C63155F7EEF39D5E5519 /* TUSKit-OSX-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 26B7D5EED376FE9BB8B8B5541548F1D1 /* TUSKit-OSX-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F7449D843DB5A72EC8C2B6D84B82587 /* Step.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F41BCBE0D1EA8AE4EABB7770E78C5FF /* Step.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -66,7 +57,6 @@
 		54C68E54A25087DC9E9B86CD1976907D /* Assembly.h in Headers */ = {isa = PBXBuildFile; fileRef = C0CE5B3378A213CF8621CCFF718FB014 /* Assembly.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		559225D5227F31F7832D6EC5E4DF678E /* Pods-Transloadit_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F9A965022EE9BFDD4BD0C8AD7284F658 /* Pods-Transloadit_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5B132A9FF6F50CF5035BABE9A1F1A4F2 /* TUSErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 38CF62C68D1C30EA00ACC852B85585E2 /* TUSErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5D69FFAABE7ACB8D3942A87AE120B3D7 /* Obfuscator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485EE867B5AB4AEBB0DBD310223A640E /* Obfuscator.swift */; };
 		613B71C4720892A818770557B5683D53 /* TUSKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7BE4EB3DA13B059663BC921269CCD48 /* TUSKit.framework */; };
 		635608EFDA608D8B18976658D94041A5 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = A5E7D645135CB8F1CBEF06DE97E3F11B /* NSString+Utils.m */; };
 		63AF3325246651162BBEBEBD15EB4E8D /* Step.m in Sources */ = {isa = PBXBuildFile; fileRef = E88C118C1BEEA6C09677D61A9BFA3098 /* Step.m */; };
@@ -76,7 +66,6 @@
 		69DA8B003216466C60F029CBD79897F1 /* UIImage+Compare.m in Sources */ = {isa = PBXBuildFile; fileRef = 05AC617369A52BEFE6FEF121FEE066A7 /* UIImage+Compare.m */; };
 		6C20D997F8E6D2B0F4CC1D00266BE986 /* TUSUploadStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 41D44A9C078B44434B41767C37C3631C /* TUSUploadStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6F8A02E264E754458BFE44BD0695909F /* Arcane.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F92EF380BB267DE2D38C78C125C1C24 /* Arcane.framework */; };
-		70B69FE706A6B16C770884178D81BB7B /* Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29550CDECD6AAA66779A56125B73C4D1 /* Base64.swift */; };
 		756564ABAF2892FE7140C92A1CDDCF65 /* UIImage+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B535A55D95CB84234EB347C2D41B5E /* UIImage+Snapshot.m */; };
 		7713ADBB8F33ACEC9F11C3D6A3DD25CF /* Transloadit.m in Sources */ = {isa = PBXBuildFile; fileRef = F896CD4D5B23A447550785FF7C3928F9 /* Transloadit.m */; };
 		79A12D4736FD525E8D9DA4EA9AA5ED05 /* Step.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F41BCBE0D1EA8AE4EABB7770E78C5FF /* Step.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -98,14 +87,11 @@
 		968DD90B736E983917FBBAD90AB7742F /* TUSData.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BBC0183B9BED35214116D472D9B9EA /* TUSData.m */; };
 		987FA145580CF9C191190504EBB29F59 /* TransloaditResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB54C9C4EDC476DA2802B1EDC535BB4 /* TransloaditResponse.m */; };
 		9C09001F4E92C677482EDD917BF8C030 /* TUSUploadStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 41D44A9C078B44434B41767C37C3631C /* TUSUploadStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9CDDD6FBA8A399D8633A508C4BB9802E /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A20C557EA5509A58C0F2BDC1E2C7E51 /* AES.swift */; };
 		A04204927295A08A5B03E71BEFC7A06B /* TUSFileUploadStore.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA8ECC06A7470D19207ADA8947B9ABE /* TUSFileUploadStore.m */; };
 		A064C523B7BB16CF25ADA1DC985B981A /* TUSAssetData.m in Sources */ = {isa = PBXBuildFile; fileRef = C31EDEEE77C239386E837F65E0E4A595 /* TUSAssetData.m */; };
-		A17BB8BF0BBC520F846B2848421B036F /* TUSKit.xcconfig in Sources */ = {isa = PBXBuildFile; fileRef = B70AD27FB2F60B99E986E20569B4ADFF /* TUSKit.xcconfig */; };
 		A36B70231411251FFBD98AE4EC6B4FCB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3699082801414A87169EA80E58AFB88F /* Cocoa.framework */; };
 		A3B77AE92715A7F8ED2DCD379FADBE7E /* TUSErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 38CF62C68D1C30EA00ACC852B85585E2 /* TUSErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A4F69F3477A935285620AC3031C5C848 /* FBSnapshotTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = F978F8656FBDB0A72EAAFB1D70EA6B60 /* FBSnapshotTestController.m */; };
-		A83702ACE4887577CD7253CEC702B92F /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59C4207C2CB55084FACF7E46D070593B /* Crypto.swift */; };
 		AB3B516BC535277A8747933E1A1ED97D /* TUSAssetData.m in Sources */ = {isa = PBXBuildFile; fileRef = C31EDEEE77C239386E837F65E0E4A595 /* TUSAssetData.m */; };
 		AF3CA59673CCD3FC475E43E4FA28C8AF /* TUSFileData.h in Headers */ = {isa = PBXBuildFile; fileRef = E7B2F6A9E42AC7A11231C79B84593B59 /* TUSFileData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AFB389CBCE25E7414E47E158DD8AD47F /* TUSAssetData.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F0B6A9BB2D01E7882FA50BD499099B6 /* TUSAssetData.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -117,11 +103,8 @@
 		B879D2E1B062B9CE5C53C38F9914474D /* Transloadit.h in Headers */ = {isa = PBXBuildFile; fileRef = 10390511A25405147579D51D2E76886A /* Transloadit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B9B54CB7130BDB0956848929EC452511 /* Resources.h in Headers */ = {isa = PBXBuildFile; fileRef = F9D1AFEB2FDAB5AAFC1D938E47D1169D /* Resources.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B9E735F490DDBE7A5C11389A41463311 /* APIObjectType.h in Headers */ = {isa = PBXBuildFile; fileRef = D6A219FC0BCBF0B6991E5523B4DFB0F4 /* APIObjectType.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BA641CF7A1700E7E436F78E639C82ABB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3699082801414A87169EA80E58AFB88F /* Cocoa.framework */; };
 		BC952FC04FC963C1294DCD619C9B6B3B /* UIApplication+StrictKeyWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = F2CBCD2917A4B7461EEE9AC004932946 /* UIApplication+StrictKeyWindow.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		BD0A2FEB0126A1303E314446039A4541 /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A20C557EA5509A58C0F2BDC1E2C7E51 /* AES.swift */; };
 		BE14F2198CDB0DAD98A567981D21C7A1 /* FBSnapshotTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F8513D60A1FB635A02BDEB5ED8161A5 /* FBSnapshotTestCase.m */; };
-		BE84CA74E8D526FEF8CFEE3ECAAFCCC0 /* NSData+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF44A77ABA5BDF79842083CBA0F10791 /* NSData+Extensions.swift */; };
 		BEEB42701CCAAD2047878B082947E720 /* Pods-Transloadit_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B4C6CDFD54DD9064A9BDF54800FBA31 /* Pods-Transloadit_Tests-dummy.m */; };
 		BF03AA73EAD8A0DB0428C7CC3186AEFC /* TUSKit-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 72B2D6E92759897BC156A4268A818A62 /* TUSKit-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BFCE460CC33E8872B7156D4166340178 /* FBSnapshotTestCasePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = A2161976A47F3CAF094352987E80B1AA /* FBSnapshotTestCasePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -134,13 +117,9 @@
 		CAFA5E486BCE117A7D8C0FBF9DA6666B /* UIImage+Compare.h in Headers */ = {isa = PBXBuildFile; fileRef = E4D662F440D64E9F2601555D98836BA4 /* UIImage+Compare.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		CD40B4F14873DAEA870E4A91B66A2998 /* TUSSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D027965D4F8E4CE6B6F3049340ACF0A /* TUSSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CFEEB738382AF66B290AF02578512C1E /* TUSResumableUpload.h in Headers */ = {isa = PBXBuildFile; fileRef = E5B5D5250337DDBF273704F69EA2E15A /* TUSResumableUpload.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CFF21DAA45337C8BF4AD0C8E36B474ED /* Arcane-OSX-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E4CADA3567A7DD8559B3BF38A1C512B /* Arcane-OSX-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D541C3B307E877FF4D5FDADDFF8E9FEB /* Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29550CDECD6AAA66779A56125B73C4D1 /* Base64.swift */; };
 		D5EBFA6A7C9E623DAD56186E8DFACEB0 /* Template.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E30765ACEADC94EF602F3CEF2E580D9 /* Template.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D679F0E09FF554E29391045D3848630D /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5928BE63C487C3C4690C96B071C89A76 /* Hash.swift */; };
 		DA325F240C0F2EFEC32ABAB5724B243A /* Assembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 580F3230EB0017F1B6E8F9CE0D3F0A81 /* Assembly.m */; };
 		DB7A106243AC974FC7EBEB00B506C786 /* FBSnapshotTestCasePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = A747601F99D20A71858256A594E654AB /* FBSnapshotTestCasePlatform.m */; };
-		E0C13CF18B3784AC9DEFDCD325197DF4 /* Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5928BE63C487C3C4690C96B071C89A76 /* Hash.swift */; };
 		E95E04EA16475A1B4C69BF53BFFD20A6 /* APIState.h in Headers */ = {isa = PBXBuildFile; fileRef = D61BD9C577A1D11583B2A45F99097EF0 /* APIState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAB1762C442A7520F297E77E200FBF3B /* TUSData.h in Headers */ = {isa = PBXBuildFile; fileRef = E3D6B1F2E66443FCE214724E0035DAF2 /* TUSData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAB238C8643381F70814B5A33B3AAEA2 /* TransloaditResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 145CEFBF735845C4B03BCF77FD859949 /* TransloaditResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -149,40 +128,18 @@
 		F764081D1C1ACD8E263C03C076568EEC /* Pods-Transloadit_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C29101BC282ADF2BDA2386FCDF59063 /* Pods-Transloadit_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F84858920D6F06632AD0B40EE4D66F1C /* Template.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7A696E87879B439343FAD6725E85E5 /* Template.m */; };
 		F91E001AB1E7C2DFB7C2F2F15235AEE8 /* TUSResumableUpload+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C43E51E4831504199D36A6E17E73729 /* TUSResumableUpload+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FADB652F33406CBD1A79B304A5B610C5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 399409700A343918EB9DC7D10976FA06 /* Foundation.framework */; };
 		FD746700E9CA1D27296B5B70AF6A08FF /* Step.m in Sources */ = {isa = PBXBuildFile; fileRef = E88C118C1BEEA6C09677D61A9BFA3098 /* Step.m */; };
 		FDB9A051F10DD0B997E7284D49C29567 /* NSString+Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 703B251C44E3AB18568B45EEF27EF2CD /* NSString+Utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FFDC24CF6241714668BCCE5B18A9D53E /* TUSData.m in Sources */ = {isa = PBXBuildFile; fileRef = A3BBC0183B9BED35214116D472D9B9EA /* TUSData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		086AEF0846462C7EE73959D616C88379 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 35A75CB83E636CECBCC9FB0D8B000065;
-			remoteInfo = "Arcane-iOS";
-		};
 		2FBF33D82B590E079C5CAFDFB9EF2E65 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 8BB399842F9D6FF3A8D732D4E391BBE8;
 			remoteInfo = "TransloaditKit-OSX";
-		};
-		6A45D72954F9E58E3AA41193E19A72AD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 71FBE258E8F6DCE5DEA876C0A8253D8D;
-			remoteInfo = "Arcane-OSX";
-		};
-		7D9B23ED185AAF46A962F276FB7CEABC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 35A75CB83E636CECBCC9FB0D8B000065;
-			remoteInfo = "Arcane-iOS";
 		};
 		936345528E7800A41CEFEC60E625DCDA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -211,13 +168,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 6C7CBB612B25BF221EEDD85E340DC087;
 			remoteInfo = "TUSKit-OSX";
-		};
-		EC5855EA1A4ACB9EE7267E92F1DFBB89 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 71FBE258E8F6DCE5DEA876C0A8253D8D;
-			remoteInfo = "Arcane-OSX";
 		};
 		F1BE92DF9B9DEF5DE2B79BFCBB87BB10 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -296,7 +246,6 @@
 		65E7179C9A5A424D289547F08E03F0FC /* Arcane-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "Arcane-iOS.modulemap"; path = "../Arcane-iOS/Arcane-iOS.modulemap"; sourceTree = "<group>"; };
 		6675C89E5EF2CCED2DC01404A592FE89 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		685B0823BBB830E4417418114C84562F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
-		6BAE70A9235D00A17721BC5F688E0B66 /* Arcane.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Arcane.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EABDC288B86E6B90DC6793D49543EB7 /* TUSKit-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "TUSKit-iOS.xcconfig"; path = "../TUSKit-iOS/TUSKit-iOS.xcconfig"; sourceTree = "<group>"; };
 		6F36598F87B0F8C341B7EB233757D476 /* UIImage+Diff.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Diff.m"; path = "FBSnapshotTestCase/Categories/UIImage+Diff.m"; sourceTree = "<group>"; };
 		6F8844032054C9B46E264EC4D3FB47D5 /* UIImage+Diff.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Diff.h"; path = "FBSnapshotTestCase/Categories/UIImage+Diff.h"; sourceTree = "<group>"; };
@@ -311,7 +260,6 @@
 		7F41BCBE0D1EA8AE4EABB7770E78C5FF /* Step.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Step.h; sourceTree = "<group>"; };
 		86D98CFC9243BDF4DEB8CF015D33A2ED /* APIObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = APIObject.h; sourceTree = "<group>"; };
 		8C29101BC282ADF2BDA2386FCDF59063 /* Pods-Transloadit_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Transloadit_Tests-umbrella.h"; sourceTree = "<group>"; };
-		8CF396041760C2E8445AC930C88D5FA0 /* Arcane.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Arcane.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E89959A9DA8F12FB6F875D4CD45F218 /* Pods-Transloadit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Transloadit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		9249E546240CB61D1853B4705E79DAB1 /* FBSnapshotTestCase-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FBSnapshotTestCase-umbrella.h"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -410,14 +358,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		44FE8DFE1B31877BF333D3BB258A9871 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BA641CF7A1700E7E436F78E639C82ABB /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		90EAFFE66E5546BB202B9E1A5A5F6327 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -467,14 +407,6 @@
 				91F1F55752FCFA6FD087FD3AFA51A3E9 /* Arcane.framework in Frameworks */,
 				0C553A85EB3AE6B45A53A0B51512D0C5 /* Foundation.framework in Frameworks */,
 				613B71C4720892A818770557B5683D53 /* TUSKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F32592C0D470A56FAB2C07C6603198CB /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FADB652F33406CBD1A79B304A5B610C5 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,8 +476,6 @@
 		4803BDE6F417287E9BBC1F376AF1F758 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8CF396041760C2E8445AC930C88D5FA0 /* Arcane.framework */,
-				6BAE70A9235D00A17721BC5F688E0B66 /* Arcane.framework */,
 				2C4DE67465AC6C3CAF090F773D855702 /* FBSnapshotTestCase.framework */,
 				1765912D4BF792EB16D5C03DE32A0406 /* Pods_Transloadit_Example.framework */,
 				4249947F282FE2A7D3F561CE70652837 /* Pods_Transloadit_MacOS_Example.framework */,
@@ -866,14 +796,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6057CB0306EEC684A0E5B045B4D7F45C /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				42586E9FB1D15B3A9E75D7E10C4F9AAA /* Arcane-iOS-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7D7C2E5F2EFDC9BA4963336C047132BF /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -944,14 +866,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BDD85EF32774336D6CD5912E8A0C3590 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CFF21DAA45337C8BF4AD0C8E36B474ED /* Arcane-OSX-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		CB14DD0106571EC79A981FB2192AFB3A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1005,7 +919,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				76C876330E52287161081FA95CB8762E /* PBXTargetDependency */,
 				09FBADD57A8462F69E8C006C566DC929 /* PBXTargetDependency */,
 				6583208C819480635731CF1B780B3943 /* PBXTargetDependency */,
 			);
@@ -1031,23 +944,6 @@
 			productReference = 2C4DE67465AC6C3CAF090F773D855702 /* FBSnapshotTestCase.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		35A75CB83E636CECBCC9FB0D8B000065 /* Arcane-iOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6788341EEB4AE0066F7155FFBCB1F48B /* Build configuration list for PBXNativeTarget "Arcane-iOS" */;
-			buildPhases = (
-				07CC8C64D64AD1BE7A5E10E1758BD502 /* Sources */,
-				F32592C0D470A56FAB2C07C6603198CB /* Frameworks */,
-				6057CB0306EEC684A0E5B045B4D7F45C /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Arcane-iOS";
-			productName = "Arcane-iOS";
-			productReference = 6BAE70A9235D00A17721BC5F688E0B66 /* Arcane.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		6C7CBB612B25BF221EEDD85E340DC087 /* TUSKit-OSX */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2A016F9FEC152A9222013921470AC6A4 /* Build configuration list for PBXNativeTarget "TUSKit-OSX" */;
@@ -1065,23 +961,6 @@
 			productReference = E9627FE68F0B01F4855349734DAA860A /* TUSKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		71FBE258E8F6DCE5DEA876C0A8253D8D /* Arcane-OSX */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AADF48555860E4EB9531C8581B5D7AB5 /* Build configuration list for PBXNativeTarget "Arcane-OSX" */;
-			buildPhases = (
-				99C0EA25AB79F9A48072866A34397070 /* Sources */,
-				44FE8DFE1B31877BF333D3BB258A9871 /* Frameworks */,
-				BDD85EF32774336D6CD5912E8A0C3590 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Arcane-OSX";
-			productName = "Arcane-OSX";
-			productReference = 8CF396041760C2E8445AC930C88D5FA0 /* Arcane.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		76C37E6436CE914DF83D9D460825167D /* TransloaditKit-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B1AB415CFE0ABD512578FF1671F0EEDE /* Build configuration list for PBXNativeTarget "TransloaditKit-iOS" */;
@@ -1093,7 +972,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				06A9811D7097D4507078E8E3E81A0ADB /* PBXTargetDependency */,
 				A8F45570D141707C08EB1C645F6DB1E6 /* PBXTargetDependency */,
 			);
 			name = "TransloaditKit-iOS";
@@ -1112,7 +990,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				63DFBF06A7724381BDA498AD1B0853FE /* PBXTargetDependency */,
 				2E50EA2A9F7414E24A8FA8CC3DC5605E /* PBXTargetDependency */,
 			);
 			name = "TransloaditKit-OSX";
@@ -1149,7 +1026,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				9B59339C09619D99C86659EE28D8500B /* PBXTargetDependency */,
 				B184A205EFD2DCEA1D4BD9DCF0CBE4F0 /* PBXTargetDependency */,
 				8D420FB1FFE1E7F17B32D9344F30FE5B /* PBXTargetDependency */,
 			);
@@ -1182,7 +1058,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0920;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1196,8 +1072,6 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				35A75CB83E636CECBCC9FB0D8B000065 /* Arcane-iOS */,
-				71FBE258E8F6DCE5DEA876C0A8253D8D /* Arcane-OSX */,
 				34CD2E3428AB802BACA62286FF5074B1 /* FBSnapshotTestCase */,
 				BEF3F9F0E6AEC7048376550973A9130C /* Pods-Transloadit_Example */,
 				27A0F2F143C5C1AC3A1DF803960EDB18 /* Pods-Transloadit_MacOS_Example */,
@@ -1211,21 +1085,6 @@
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		07CC8C64D64AD1BE7A5E10E1758BD502 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9CDDD6FBA8A399D8633A508C4BB9802E /* AES.swift in Sources */,
-				143D2D355B11DD7F19D4F20AA7750272 /* Arcane-iOS-dummy.m in Sources */,
-				70B69FE706A6B16C770884178D81BB7B /* Base64.swift in Sources */,
-				1972C1F74ABE1449BCFE807C9418E238 /* Crypto.swift in Sources */,
-				E0C13CF18B3784AC9DEFDCD325197DF4 /* Hash.swift in Sources */,
-				3CF02FCD80A1FC96FCDC1768AC26E818 /* HMAC.swift in Sources */,
-				BE84CA74E8D526FEF8CFEE3ECAAFCCC0 /* NSData+Extensions.swift in Sources */,
-				08E316237034D3D5BC23319F191BB291 /* Obfuscator.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		17412D7B42AC3AE41C6F3B0BCF78B2EB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1244,7 +1103,6 @@
 				C12C2B173196CEAE1D3A16612159F048 /* TUSFileData.m in Sources */,
 				A04204927295A08A5B03E71BEFC7A06B /* TUSFileUploadStore.m in Sources */,
 				2F9DE0690B69FCB9C0E1AD83F43C057A /* TUSKit-iOS-dummy.m in Sources */,
-				36E60DAE6571DF03AEBA012DFDFE9D5A /* TUSKit.xcconfig in Sources */,
 				0D63184DF8E85319927492BABA4A97AD /* TUSResumableUpload.m in Sources */,
 				09F050E95A54708B36A886B8E9AC939E /* TUSSession.m in Sources */,
 				4B94ECC373138F1C1559F5CC653A36EE /* TUSUploadStore.m in Sources */,
@@ -1299,21 +1157,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		99C0EA25AB79F9A48072866A34397070 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BD0A2FEB0126A1303E314446039A4541 /* AES.swift in Sources */,
-				0CD299CD5AE84AC6EF06A5B0309C398E /* Arcane-OSX-dummy.m in Sources */,
-				D541C3B307E877FF4D5FDADDFF8E9FEB /* Base64.swift in Sources */,
-				A83702ACE4887577CD7253CEC702B92F /* Crypto.swift in Sources */,
-				D679F0E09FF554E29391045D3848630D /* Hash.swift in Sources */,
-				23A9716B1075FF06DA8E150099394425 /* HMAC.swift in Sources */,
-				494C6A00881B6B0158FC91F84FA17627 /* NSData+Extensions.swift in Sources */,
-				5D69FFAABE7ACB8D3942A87AE120B3D7 /* Obfuscator.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A6695CDAA256E87FCAE94B9358C53EF2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1324,7 +1167,6 @@
 				0A17C6E9E0134B81DF6F3CEC2DC4E08F /* TUSFileData.m in Sources */,
 				00E1844DF4B22EBA1DF3D7D5B4B1BB9C /* TUSFileUploadStore.m in Sources */,
 				2F598D7D0C6BC1AD2DE25DF17557CB76 /* TUSKit-OSX-dummy.m in Sources */,
-				A17BB8BF0BBC520F846B2848421B036F /* TUSKit.xcconfig in Sources */,
 				C819B2EBC41E3C4B90968B0F8A0B2A1B /* TUSResumableUpload.m in Sources */,
 				F4EB16A262414A4119109A7C729CE75A /* TUSSession.m in Sources */,
 				2BCA390882D9C9A763CD90770AE8C15A /* TUSUploadStore.m in Sources */,
@@ -1350,12 +1192,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		06A9811D7097D4507078E8E3E81A0ADB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Arcane-iOS";
-			target = 35A75CB83E636CECBCC9FB0D8B000065 /* Arcane-iOS */;
-			targetProxy = 7D9B23ED185AAF46A962F276FB7CEABC /* PBXContainerItemProxy */;
-		};
 		09FBADD57A8462F69E8C006C566DC929 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "TUSKit-OSX";
@@ -1368,35 +1204,17 @@
 			target = 6C7CBB612B25BF221EEDD85E340DC087 /* TUSKit-OSX */;
 			targetProxy = D336A9D1B18D33811347B12B3FE89702 /* PBXContainerItemProxy */;
 		};
-		63DFBF06A7724381BDA498AD1B0853FE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Arcane-OSX";
-			target = 71FBE258E8F6DCE5DEA876C0A8253D8D /* Arcane-OSX */;
-			targetProxy = 6A45D72954F9E58E3AA41193E19A72AD /* PBXContainerItemProxy */;
-		};
 		6583208C819480635731CF1B780B3943 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "TransloaditKit-OSX";
 			target = 8BB399842F9D6FF3A8D732D4E391BBE8 /* TransloaditKit-OSX */;
 			targetProxy = 2FBF33D82B590E079C5CAFDFB9EF2E65 /* PBXContainerItemProxy */;
 		};
-		76C876330E52287161081FA95CB8762E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Arcane-OSX";
-			target = 71FBE258E8F6DCE5DEA876C0A8253D8D /* Arcane-OSX */;
-			targetProxy = EC5855EA1A4ACB9EE7267E92F1DFBB89 /* PBXContainerItemProxy */;
-		};
 		8D420FB1FFE1E7F17B32D9344F30FE5B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "TransloaditKit-iOS";
 			target = 76C37E6436CE914DF83D9D460825167D /* TransloaditKit-iOS */;
 			targetProxy = 936345528E7800A41CEFEC60E625DCDA /* PBXContainerItemProxy */;
-		};
-		9B59339C09619D99C86659EE28D8500B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Arcane-iOS";
-			target = 35A75CB83E636CECBCC9FB0D8B000065 /* Arcane-iOS */;
-			targetProxy = 086AEF0846462C7EE73959D616C88379 /* PBXContainerItemProxy */;
 		};
 		A8F45570D141707C08EB1C645F6DB1E6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1456,6 +1274,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FC91D693A692FCA60407F3623410C6C5 /* Pods-Transloadit_MacOS_Example.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1634,6 +1453,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FA1DC713D76FC685FC495869891E3B5A /* Pods-Transloadit_MacOS_Example.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1664,40 +1484,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		85555A55CA523EF7097B377C5EC22EF9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0F9BE201F390C36E83A05836FA82643D /* Arcane-iOS.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Arcane-iOS/Arcane-iOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Arcane-iOS/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Arcane-iOS/Arcane-iOS.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = Arcane;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1823,7 +1609,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1831,15 +1619,21 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_DEBUG=1",
@@ -1978,7 +1772,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1986,14 +1782,20 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_RELEASE=1",
 					"$(inherited)",
@@ -2008,46 +1810,11 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SYMROOT = "${SRCROOT}/../build";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
-		};
-		C9A1F25AF5EE0C9BB26AF3AB246A0288 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C1D77776D79623A5C1F714592EBA35B8 /* Arcane-OSX.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_VERSION = A;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Arcane-OSX/Arcane-OSX-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Arcane-OSX/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				MODULEMAP_FILE = "Target Support Files/Arcane-OSX/Arcane-OSX.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = Arcane;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
 		};
 		CF2928BD32EEC08EC86558444FDCA5E7 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2077,76 +1844,6 @@
 				PRODUCT_NAME = TransloaditKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		E36D10C45FDEE1FCCC235EAC518AC5F1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C1D77776D79623A5C1F714592EBA35B8 /* Arcane-OSX.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_VERSION = A;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Arcane-OSX/Arcane-OSX-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Arcane-OSX/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				MODULEMAP_FILE = "Target Support Files/Arcane-OSX/Arcane-OSX.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = Arcane;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		E77FB9B2D474780B0823991DB30AEDD0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0F9BE201F390C36E83A05836FA82643D /* Arcane-iOS.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Arcane-iOS/Arcane-iOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Arcane-iOS/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Arcane-iOS/Arcane-iOS.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = Arcane;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -2249,15 +1946,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6788341EEB4AE0066F7155FFBCB1F48B /* Build configuration list for PBXNativeTarget "Arcane-iOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E77FB9B2D474780B0823991DB30AEDD0 /* Debug */,
-				85555A55CA523EF7097B377C5EC22EF9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		820859EBF86D9153D70727D857E4BB12 /* Build configuration list for PBXNativeTarget "Pods-Transloadit_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2272,15 +1960,6 @@
 			buildConfigurations = (
 				195F65C198D2606362898188BD5C7827 /* Debug */,
 				6A7989ABC549A253A9AA2578CBD56DC9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AADF48555860E4EB9531C8581B5D7AB5 /* Build configuration list for PBXNativeTarget "Arcane-OSX" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C9A1F25AF5EE0C9BB26AF3AB246A0288 /* Debug */,
-				E36D10C45FDEE1FCCC235EAC518AC5F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
