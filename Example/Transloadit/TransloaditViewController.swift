@@ -16,6 +16,8 @@ class TransloaditViewController: UIViewController, UIPickerViewDelegate, UINavig
     let imagePicker: UIImagePickerController = UIImagePickerController()
     
     var TestAssembly: Assembly?
+    //var TestTemplate: Template
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,8 @@ class TransloaditViewController: UIViewController, UIPickerViewDelegate, UINavig
         Step1?.setValue("/image/resize", forOption: "robot")
         TestAssembly = Assembly(steps: AssemblyStepsArray, andNumberOfFiles: 1)
         
+        
+        let TestTemplate: Template = Template()
         // Do any additional setup after loading the view.
     }
     
