@@ -35,9 +35,9 @@ If there are no errors, you can start using the pod.
 
 *Swift*
 ```Swift
-import Arcane
 import TransloaditKit
 ```
+
 
 ### Define your blocks
 ```objc
@@ -65,6 +65,10 @@ static TransloaditUploadFailureBlock failureBlock = ^(NSError* error){
 	// Do any additional setup after loading the view, typically from a nib.
 }
 ```
+```swift
+// Simply setup a Transloadit object
+let transloadit: Transloadit = Transloadit()
+```
 
 ### Create an assembly and upload
 ```objc
@@ -90,6 +94,27 @@ static TransloaditUploadFailureBlock failureBlock = ^(NSError* error){
             
             [TestAssemblyWithSteps setUrlString:[completionDictionary valueForKey:@"assembly_ssl_url"]];
             [transloadit invokeAssembly:TestAssemblyWithSteps];
+```
+```swift
+override func viewDidLoad() {
+    super.viewDidLoad()
+    let AssemblyStepsArray: NSMutableArray = NSMutableArray()
+    let Step1 = Step (key: "encode")
+    Step1?.setValue("/image/resize", forOption: "robot")
+    TestAssembly = Assembly(steps: AssemblyStepsArray, andNumberOfFiles: 1)
+    
+    self.TestAssembly?.addFile(fileURL)
+    self.transloadit.createAssembly(self.TestAssembly!)
+    
+    self.transloadit.assemblyCompletionBlock = {(_ completionDictionary: [AnyHashable: Any]) -> Void in
+        /*Invoking The Assebmly does NOT need to happen inside the completion block. However for sake of a small UI it is.
+            We do however need to add the URL to the Assembly object so that we do invoke it, it knows where to go.
+        */
+        self.TestAssembly?.urlString = completionDictionary["assembly_ssl_url"] as! String
+        self.transloadit.invokeAssembly(self.TestAssembly!)
+        self.transloadit.check(self.TestAssembly!)
+    }
+}
 ```
 
 ## Example
@@ -117,7 +142,10 @@ Releasing a new version to CocoaPods can be done via CocoaPods Trunk:
 
 ### To Do
 
--  Check for wait is true on assembly status 
+- update examples
+-  bridge TUSKit networking
+- websockets
+- ~remove Arcane dependency~
 
 ## Dependencies
 

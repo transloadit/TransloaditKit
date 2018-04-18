@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TransloaditResponse.h"
 #import "APIState.h"
 #import "APIObjectType.h"
 #import "URLConstants.h"
