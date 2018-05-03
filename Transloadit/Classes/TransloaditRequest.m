@@ -62,26 +62,12 @@
 }
 
 - (NSMutableURLRequest *) createRequestWithParams:(NSMutableDictionary *) params andFinalURL:(NSString *)url {
+    NSLog(url);
+    NSLog([params debugDescription]);
     NSMutableDictionary *auth = [self createAuth];
     [params setObject:auth forKey:@"auth"];
     NSString *signature = [self generateSignatureWithParams: params];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@", url]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];
-    TUSUploadStore *store = [[TUSUploadStore alloc] init];
-    NSURLSession *session = [[TUSSession alloc] initWithEndpoint:[NSURL URLWithString:url] dataStore:store allowsCellularAccess:YES];
-    
-    NSURLSessionTask *task = [[NSURLSessionTask alloc] init];
-    
-    
-    
-    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-    }];
-    
-    [postDataTask resume];
-    
-    
-    
-    NSLog(@"%@", signature);
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@", url]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];    
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setHTTPMethod:@"POST"];
     NSString *boundary = [self generateBoundary];
@@ -99,7 +85,6 @@
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     NSString *responseData = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     responseData = [responseData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-    NSLog(@"%@", responseData);
     [request setHTTPBody:body];
     return request;
 }

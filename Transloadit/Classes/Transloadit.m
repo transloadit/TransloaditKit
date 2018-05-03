@@ -14,13 +14,20 @@
 - (id)init {
     self = [super init];
     if(self) {
-        if ([[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TRANSLOADIT_SECRET"]  isEqualToString: @""] && [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"TRANSLOADIT_SECRET"] isEqualToString:@""]) {
-            _secret = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TRANSLOADIT_SECRET"];
-            _key = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TRANSLOADIT_KEY"];
-        } else {
-            _secret = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TRANSLOADIT_SECRET"];
-            _key = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TRANSLOADIT_KEY"];
+        NSString* PLIST_KEY = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TRANSLOADIT_KEY"];
+        NSString* PLIST_SECRET = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TRANSLOADIT_SECRET"];
+
+        if (![PLIST_KEY  isEqualToString: @""] && ![PLIST_SECRET isEqualToString:@""]) {
+            _secret = PLIST_SECRET;
+            _key = PLIST_KEY;
         }
+        
+        NSLog(PLIST_KEY);
+        NSLog(PLIST_SECRET);
+
+        
+        
+        
         NSLog(@"_init: %@", self);
         NSURL * applicationSupportURL = [[[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] firstObject];
         _tusStore = [[TUSFileUploadStore alloc] initWithURL:[applicationSupportURL URLByAppendingPathComponent:@"Example"]];
@@ -70,7 +77,9 @@
     NSArray *files = [assembly files];
     
     for (int x = 0; x < [files count]; x++) {
-        TUSResumableUpload *upload = [self.tusSession createUploadFromFile:[files  objectAtIndex:x] headers:@{} metadata:@{@"filename":@"test.jpg", @"fieldname":@"file-input", @"assembly_url": [assembly urlString]}];
+        NSLog(@"File!!");
+        NSLog([[files  objectAtIndex:x] debugDescription]);
+        TUSResumableUpload *upload = [_tusSession createUploadFromFile:[files  objectAtIndex:x] headers:@{} metadata:@{@"filename":@"tes2t.jpg", @"fieldname":@"file-input", @"assembly_url": [assembly urlString]}];
         upload.progressBlock = _progressBlock;
         upload.resultBlock = _resultBlock;
         upload.failureBlock = _failureBlock;
@@ -88,10 +97,10 @@
     }
     NSMutableURLRequest *request = [[[TransloaditRequest alloc] initWithKey:_key andSecret:_secret] createRequestWithParams:params andEndpoint:TRANSLOADIT_API_ASSEMBLIES];
     NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"%@", [error debugDescription]);
-            return;
-        }
+//        if (error) {
+//            NSLog(@"%@", [error debugDescription]);
+//            return;
+//        }
         
         NSString* body = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
@@ -99,10 +108,17 @@
                                                                error:nil];
         
         if([json valueForKey:@"error"]){
-            NSLog(@"%@", [json valueForKey:@"error"]);
+            self.assemblyCreationFailureBlock(json);
             return;
         } else {
-            self.assemblyCompletionBlock(json);
+            NSLog(@"%@", [json valueForKey:@"assembly_id"]);
+            NSLog(@"%@", [json valueForKey:@"assembly_ssl_url"]);
+            NSLog(@"%@", [json valueForKey:@"tus_url"]);
+
+            [assembly setUrlString: [json valueForKey:@"assembly_ssl_url"]];
+            _tusSession = [[TUSSession alloc] initWithEndpoint:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@", [json valueForKey:@"tus_url"]]] dataStore:_tusStore allowsCellularAccess:YES];
+            self.assemblyCreationCompletionBlock(assembly);
+            //return;
         }
     }];
     [assemblyTask resume];
@@ -128,7 +144,7 @@
                 case 2:
                     //completed
                     [timer invalidate];
-                    self.assemblyStatusBlock(response);
+                    self.assemblyCompletionBlock(response);
                 default:
                     break;
             }
@@ -145,8 +161,6 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSMutableURLRequest *request = [[[TransloaditRequest alloc] initWithKey:_key andSecret:_secret] createGetRequestWithURL:[assembly urlString]];
     
-    NSLog(@"Here");
-    NSLog([assembly urlString]);
     NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             NSLog(@"%@", [error debugDescription]);
@@ -162,7 +176,7 @@
             NSLog(@"%@", [json valueForKey:@"error"]);
             return;
         } else {
-            //self.assemblyStatusBlock(json);
+            self.assemblyStatusBlock(json);
         }
         
         completion(json);

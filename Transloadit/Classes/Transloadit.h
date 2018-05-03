@@ -22,6 +22,11 @@ typedef void (^TransloaditUploadResultBlock)(NSURL* _Nonnull fileURL);
 typedef void (^TransloaditUploadFailureBlock)(NSError* _Nonnull error);
 typedef void (^TransloaditUploadProgressBlock)(int64_t bytesWritten, int64_t bytesTotal);
 
+
+typedef void (^TransloaditAssemblyCreationCompletionBlock)(Assembly* _Nonnull assembly);
+typedef void (^TransloaditAssemblyCreationFailureBlock)(NSDictionary* _Nonnull completionDictionary);
+
+
 typedef void (^TransloaditAssemblyCompletionBlock)(NSDictionary* _Nonnull completionDictionary);
 typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completionDictionary);
 
@@ -31,6 +36,11 @@ typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completion
 @property (readwrite, copy) _Nullable TransloaditUploadResultBlock resultBlock;
 @property (readwrite, copy) _Nullable TransloaditUploadFailureBlock failureBlock;
 @property (readwrite, copy) _Nullable TransloaditUploadProgressBlock progressBlock;
+
+@property (readwrite, copy) _Nullable TransloaditAssemblyCreationCompletionBlock assemblyCreationCompletionBlock;
+@property (readwrite, copy) _Nullable TransloaditAssemblyCreationFailureBlock assemblyCreationFailureBlock;
+
+
 
 @property (readwrite, copy) _Nullable TransloaditAssemblyCompletionBlock assemblyCompletionBlock;
 

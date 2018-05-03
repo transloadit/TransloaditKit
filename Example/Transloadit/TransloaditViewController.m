@@ -31,6 +31,16 @@ static TransloaditUploadFailureBlock failureBlock = ^(NSError* error){
     NSLog(@"error: %@", error);
 };
 
+//static TransloaditAssemblyStatusBlock statusBlock = ^(NSDictionary* dict){
+//    // Handle the error
+//    NSLog(@"Dictionary: %@", [dict description]);
+//};
+//
+//static TransloaditAssemblyCompletionBlock completionBlock = ^(NSDictionary* dict){
+//    // Handle the error
+//    NSLog(@"Dictionary: %@", [dict description]);
+//};
+
 @implementation TransloaditViewController
 
 Transloadit *transloadit;
@@ -39,6 +49,7 @@ Transloadit *transloadit;
 - (void)viewDidLoad {
     [super viewDidLoad];
     transloadit = [[Transloadit alloc] init];
+    transloadit.failureBlock = failureBlock;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -94,6 +105,7 @@ Transloadit *transloadit;
             NSLog(@"%li", (long)error.code);
         }
         
+        NSLog([fileUrl description]);
         
         //MARK: Transloadit Kit Implementation
         
@@ -102,36 +114,65 @@ Transloadit *transloadit;
         NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
         
         Step *step1 = [[Step alloc] initWithKey:@"encode"];
+        [step1 setValue:@"75" forOption:@"width"];
+        [step1 setValue:@"75" forOption:@"height"];
         [step1 setValue:@"/image/resize" forOption:@"robot"];
-        
-        // Add the step to the array
+
+//
+//        // Add the step to the array
         [steps addObject:step1];
         
         //MARK: We then create an Assembly Object with the steps and files
-        Assembly *TestAssemblyWithSteps = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
-        [TestAssemblyWithSteps addFile:fileUrl];
-        [TestAssemblyWithSteps setNotify_url:@""];
+        //Assembly *TestAssemblyWithSteps = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:3];
+//        [TestAssemblyWithSteps addFile:fileUrl];
+//        [TestAssemblyWithSteps setNotify_url:@""];
         
-        Template *testTemplate = [[Template alloc] initWithTemplateId:@"ddd833b0974911e7a7efd9ad4c81e3a0"];
-        Template *testTemplateWithSteps = [[Template alloc] initWithSteps:steps andName:@"TestName4"];
+        Template *testTemplate = [[Template alloc] initWithTemplateId:@"854f71504eea11e8b947315f16ae1faa"];
+//        Template *testTemplateWithSteps = [[Template alloc] initWithSteps:steps andName:@"TestName4"];
         
         Assembly *testAssemblyWithTemplate = [[Assembly alloc] initWithTemplate:testTemplate andNumberOfFiles:1];
-        [testAssemblyWithTemplate addFile:fileUrl];
-        
+//        [testAssemblyWithTemplate addFile:fileUrl];
+//
         //[transloadit createTemplate:testTemplateWithSteps];
-        
+        //[transloadit invokeAssembly:testAssemblyWithTemplate];
         //MARK: Create the assembly on Transloadit
-        [transloadit createAssembly:TestAssemblyWithSteps];
+        [testAssemblyWithTemplate addFile:fileUrl];
+       [transloadit createAssembly:testAssemblyWithTemplate];
+        
+        
+//        transloadit.assemblyStatusBlock = ^(NSDictionary* completionDictionary){
+//            NSLog(@"%@", [completionDictionary description]);
+//
+//        };
+        
+        transloadit.assemblyCreationFailureBlock = ^(NSDictionary* failureDictionary) {
+            NSLog(@"%@", [failureDictionary description]);
+        };
+        
+        
+        transloadit.assemblyCreationCompletionBlock = ^(Assembly* assembly) {
+            /*Invoking The Assebmly does NOT need to happen inside the completion block. However for sake of the example it is.
+             We do however need to use the assebmly that is returned for future functions
+             */
+            NSLog(@"%@", [assembly urlString]);
+            [transloadit invokeAssembly:assembly];
+            //[transloadit checkAssembly:assembly];
+            NSLog(@"%@", @"Finished!");
+            
+        };
         
         //MARK: Invoke the assebmly
         transloadit.assemblyCompletionBlock = ^(NSDictionary* completionDictionary){
             /*Invoking The Assebmly does NOT need to happen inside the completion block. However for sake of a small UI it is.
              We do however need to add the URL to the Assembly object so that we do invoke it, it knows where to go.
              */
-            [TestAssemblyWithSteps setUrlString:[completionDictionary valueForKey:@"assembly_ssl_url"]];
-            [transloadit invokeAssembly:TestAssemblyWithSteps];
+            ///[TestAssemblyWithSteps setUrlString:[completionDictionary valueForKey:@"assembly_ssl_url"]];
+           // [transloadit invokeAssembly:TestAssemblyWithSteps];
             
-            [transloadit checkAssembly:TestAssemblyWithSteps];
+            //[transloadit checkAssembly:TestAssemblyWithSteps];
+            NSLog(@"%@", [completionDictionary description]);
+            NSLog(@"%@", @"Finished!");
+
         };
         
         transloadit.assemblyStatusBlock = ^(NSDictionary* completionDictionary){

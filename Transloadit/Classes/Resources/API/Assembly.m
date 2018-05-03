@@ -77,4 +77,6 @@
 }
 
 
+@synthesize data;
+
 @end
