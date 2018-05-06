@@ -35,85 +35,153 @@ If there are no errors, you can start using the pod.
 
 *Swift*
 ```Swift
-import TransloaditKit
+import Transloadit
 ```
 
 
 ### Define your blocks
+`Objective-C`
 ```objc
-static TransloaditUploadProgressBlock progressBlock = ^(int64_t bytesWritten, int64_t bytesTotal){
-    // Update your progress bar here
-    NSLog(@"progress: %llu / %llu", (unsigned long long)bytesWritten, (unsigned long long)bytesTotal);
+transloadit.uploadingProgressBlock = ^(int64_t bytesWritten, int64_t bytesTotal){
+// Update your progress bar here
+NSLog(@"progress: %llu / %llu", (unsigned long long)bytesWritten, (unsigned long long)bytesTotal);
 };
 
-static TransloaditUploadResultBlock resultBlock = ^(NSURL* fileURL){
-    // Use the upload url
-    NSLog(@"url: %@", fileURL);
+transloadit.uploadingResultBlock = ^(NSURL* fileURL){
+// Use the upload url
+NSLog(@"url: %@", fileURL);
 };
 
-static TransloaditUploadFailureBlock failureBlock = ^(NSError* error){
-    // Handle the error
-    NSLog(@"error: %@", error);
+transloadit.uploadingFailureBlock = ^(NSError* error){
+// Handle the error
+NSLog(@"error: %@", error);
+};
+
+transloadit.assemblyCreationResultBlock = ^(Assembly* assembly, NSDictionary* completionDictionary){
+NSLog(@"Assembly creation success");
+NSLog(@"%@", @"Invoking assembly.");
+};
+
+transloadit.assemblyCreationFailureBlock = ^(NSDictionary* completionDictionary){
+NSLog(@"Assembly creation failed: %@", [completionDictionary debugDescription]);
+};
+
+transloadit.assemblyStatusBlock = ^(NSDictionary* completionDictionary){
+NSLog(@"Assembly status: %@", [completionDictionary debugDescription]);
+};
+
+transloadit.assemblyResultBlock = ^(NSDictionary* completionDictionary){
+NSLog(@"Assembly finished : %@", [completionDictionary debugDescription]);
+};
+
+transloadit.assemblyFailureBlock = ^(NSDictionary* completionDictionary){
+NSLog(@"Assembly failed: %@", [completionDictionary debugDescription]);
 };
 ```
+`Swift`
+```Swift
+self.transloadit.assemblyCreationResultBlock = { assembly, completionDictionary in
+print("Assembly created!")
+}
+self.transloadit.assemblyCreationFailureBlock = { completionDictionary in
+print("Assembly creation failed")
+}
 
-### Setup TransloaditKit
-```objc
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    transloadit = [[Transloadit alloc] initWithKey:@"YOUR_PUBLIC_KEY" andSecret:@"YOUR_SECRET_KIT"];
-	// Do any additional setup after loading the view, typically from a nib.
+self.transloadit.assemblyResultBlock = { completionDictionary in
+print("Assembly finished executing!")
+}
+self.transloadit.assemblyStatusBlock = { completionDictionary in
+print("Assembly is executing!")
+}
+
+self.transloadit.assemblyFailureBlock = { completionDictionary in
+print("Assembly failed executing!")
+}
+
+self.transloadit.uploadResultBlock = { url in
+print("file uploaded!")
+}
+self.transloadit.uploadProgressBlock =  {bytesWritten, bytesTotal in
+print("Assembly uploading!")
+}
+self.transloadit.uploadFailureBlock = { error in
+print("Assembly failed uploading!")
+}
+
+self.transloadit.templateCreationResultBlock = { template, completionDictionary in
+print("Template created!")
+}
+
+self.transloadit.templateCreationFailureBlock = { completionDictionary in
+print("Template failed creating!")
 }
 ```
+
+
+### Setup TransloaditKit
+`Objective-C`
+```objc
+- (void)viewDidLoad {
+[super viewDidLoad];
+transloadit = [[Transloadit alloc] init];
+}
+```
+`Swift`
 ```swift
 // Simply setup a Transloadit object
 let transloadit: Transloadit = Transloadit()
 ```
 
-### Create an assembly and upload
-```objc
-        NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
-        
-        //MARK: A Sample step
-        Step *step1 = [[Step alloc] initWithKey:@"encode"];
-        [step1 setValue:@"/image/resize" forOption:@"robot"];
-        
-        // Add the step to the array
-        [steps addObject:step1];
-        
-        //MARK: Create an assembly with steps
-        Assembly *TestAssemblyWithSteps = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
-        [TestAssemblyWithSteps addFile:fileUrl];
-        [TestAssemblyWithSteps setNotify_url:@""];
-        
-        //MARK: Start The Assembly
-        [transloadit createAssembly:TestAssemblyWithSteps];
-        
-        
-        transloadit.completionBlock = ^(NSDictionary* completionDictionary){
-            
-            [TestAssemblyWithSteps setUrlString:[completionDictionary valueForKey:@"assembly_ssl_url"]];
-            [transloadit invokeAssembly:TestAssemblyWithSteps];
+*{PROJECT_NAME}.plist*
+```xml
+<key>TRANSLOADIT_SECRET</key>
+<string>SECRET_KEY_HERE</string>
+<key>TRANSLOADIT_KEY</key>
+<string>API_KEY_HERE</string>
 ```
+
+### Create an assembly and upload
+`Objective-C`
+```objc
+NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
+
+//MARK: A Sample step
+Step *step1 = [[Step alloc] initWithKey:@"encode"];
+[step1 setValue:@"/image/resize" forOption:@"robot"];
+
+// Add the step to the array
+[steps addObject:step1];
+
+//MARK: Create an assembly with steps
+Assembly *TestAssemblyWithSteps = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
+[TestAssemblyWithSteps addFile:fileUrl];
+[TestAssemblyWithSteps setNotify_url:@""];
+
+//MARK: Start The Assembly
+[transloadit createAssembly:TestAssemblyWithSteps];
+
+
+transloadit.assemblyCreationResultBlock = ^(Assembly* assembly, NSDictionary* completionDictionary){
+[transloadit invokeAssembly:assembly];
+}
+```
+`Swift`
 ```swift
 override func viewDidLoad() {
-    super.viewDidLoad()
-    let AssemblyStepsArray: NSMutableArray = NSMutableArray()
-    let Step1 = Step (key: "encode")
-    Step1?.setValue("/image/resize", forOption: "robot")
-    TestAssembly = Assembly(steps: AssemblyStepsArray, andNumberOfFiles: 1)
-    
-    self.TestAssembly?.addFile(fileURL)
-    self.transloadit.createAssembly(self.TestAssembly!)
-    
-    self.transloadit.assemblyCompletionBlock = {(_ completionDictionary: [AnyHashable: Any]) -> Void in
-        /*Invoking The Assebmly does NOT need to happen inside the completion block. However for sake of a small UI it is.
-            We do however need to add the URL to the Assembly object so that we do invoke it, it knows where to go.
-        */
-        self.TestAssembly?.urlString = completionDictionary["assembly_ssl_url"] as! String
-        self.transloadit.invokeAssembly(self.TestAssembly!)
-        self.transloadit.check(self.TestAssembly!)
-    }
+super.viewDidLoad()
+let AssemblyStepsArray: NSMutableArray = NSMutableArray()
+let Step1 = Step (key: "encode")
+Step1?.setValue("/image/resize", forOption: "robot")
+TestAssembly = Assembly(steps: AssemblyStepsArray, andNumberOfFiles: 1)
+
+self.TestAssembly?.addFile(fileURL)
+self.transloadit.createAssembly(self.TestAssembly!)
+
+self.transloadit.assemblyCreationResultBlock = { assembly, completionDictionary in
+print("Assembly created!")
+print("Assembly invoking!")
+self.transloadit.invokeAssembly(assembly)
+}
 }
 ```
 
@@ -128,24 +196,22 @@ We'd be happy to accept pull requests. If you plan on working on something big, 
 
 ### Building
 
-The SDK is written in Objective-C for both iOS and MacOS. 
+The SDK is written in Objective-C for both iOS and MacOS.
 
 
 ### Releasing
 
 Releasing a new version to CocoaPods can be done via CocoaPods Trunk:
 
- - Bump the version inside the `Transloadit.podspec`
- - Save a release commit with the updated version in Git
- - Push a tag to Github
- - Publish to Cocoapods with Trunk
+- Bump the version inside the `Transloadit.podspec`
+- Save a release commit with the updated version in Git
+- Push a tag to Github
+- Publish to Cocoapods with Trunk
 
 ### To Do
 
-- update examples
 -  bridge TUSKit networking
 - websockets
-- ~remove Arcane dependency~
 
 ## Dependencies
 
@@ -162,3 +228,4 @@ Contributions from:
 ## License
 
 [MIT Licensed](LICENSE).
+
