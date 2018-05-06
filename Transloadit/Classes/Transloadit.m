@@ -71,9 +71,9 @@
     for (int x = 0; x < [files count]; x++) {
         NSString* fileName = [[assembly fileNames] objectAtIndex:x];
         TUSResumableUpload *upload = [_tusSession createUploadFromFile:[files  objectAtIndex:x] headers:@{} metadata:@{@"filename":fileName, @"fieldname":@"file-input", @"assembly_url": [assembly urlString]}];
-        upload.progressBlock = _progressBlock;
-        upload.resultBlock = _resultBlock;
-        upload.failureBlock = _failureBlock;
+        upload.progressBlock = _uploadProgressBlock;
+        upload.resultBlock = _uploadResultBlock;
+        upload.failureBlock = _uploadFailureBlock;
         [upload resume];
     }
 }

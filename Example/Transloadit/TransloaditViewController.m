@@ -40,14 +40,11 @@ Assembly *testAssembly;
 - (void)viewDidLoad {
     [super viewDidLoad];
     transloadit = [[Transloadit alloc] init];
-    transloadit.failureBlock = failureBlock;
-    transloadit.progressBlock = progressBlock;
-    transloadit.resultBlock = resultBlock;
+    transloadit.uploadFailureBlock = failureBlock;
+    transloadit.uploadProgressBlock = progressBlock;
+    transloadit.uploadResultBlock = resultBlock;
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"jpg"];
-    
-    
-    NSData *img = [NSData dataWithContentsOfFile:path];
     
     NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
     
@@ -65,8 +62,6 @@ Assembly *testAssembly;
     
     //MARK: We then create an Assembly Object with the steps and files
     [testAssembly addFile:[NSURL fileURLWithPath:path] andFileName:@"file.jpg"];
-    
-
     
     transloadit.assemblyCreationResultBlock = ^(Assembly* assembly, NSDictionary* completionDictionary){
         NSLog(@"Assembly creation success");

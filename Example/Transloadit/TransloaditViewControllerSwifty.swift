@@ -7,13 +7,11 @@
 //
 
 import UIKit
-import Photos
 import Transloadit
 
-class TransloaditViewController: UIViewController, UIPickerViewDelegate, UINavigationBarDelegate {
+class TransloaditViewControllerSwifty: UIViewController, UIPickerViewDelegate, UINavigationBarDelegate {
     
     let transloadit: Transloadit = Transloadit()
-    let imagePicker: UIImagePickerController = UIImagePickerController()
     
     var TestAssembly: Assembly?
     //var TestTemplate: Template
@@ -28,37 +26,52 @@ class TransloaditViewController: UIViewController, UIPickerViewDelegate, UINavig
         let AssemblyStepsArray: NSMutableArray = NSMutableArray()
         let Step1 = Step (key: "encode")
         Step1?.setValue("/image/resize", forOption: "robot")
+        Step1?.setValue("75", forOption: "width")
+        Step1?.setValue("75", forOption: "height")
+        AssemblyStepsArray.add(Step1)
+
         TestAssembly = Assembly(steps: AssemblyStepsArray, andNumberOfFiles: 1)
+
+        let path = Bundle.main.path(forResource: "test", ofType: "jpg")
+        TestAssembly?.addFile(URL(fileURLWithPath: path!), andFileName: "testFile.jpg")
         
+        self.transloadit.createAssembly(TestAssembly!)
         
-        let TestTemplate: Template = Template()
-        // Do any additional setup after loading the view.
+        self.transloadit.assemblyCreationResultBlock = { assembly, completionDictionary in
+            self.transloadit.invokeAssembly(assembly)
+        }
+        self.transloadit.assemblyCreationFailureBlock = { completionDictionary in
+            
+        }
+
+        self.transloadit.assemblyResultBlock = { completionDictionary in
+            
+        }
+        self.transloadit.assemblyStatusBlock = { completionDictionary in
+        }
+        
+        self.transloadit.assemblyFailureBlock = { completionDictionary in
+            
+        }
+
+        self.transloadit.uploadResultBlock = { url in
+            
+        }
+        self.transloadit.uploadProgressBlock =  {bytesWritten, bytesTotal in
+            
+        }
+        self.transloadit.uploadFailureBlock = { error in
+            
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.selectFile("")
+
     }
     
-    @IBAction func selectFile(_ sender: Any) {
+    func upload() {
         
-        let status: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
-        switch status {
-        case .authorized:
-            self.present(imagePicker, animated: true, completion: nil)
-            break
-        default:
-            PHPhotoLibrary.requestAuthorization({
-                (newStatus) in
-                print("status is \(newStatus)")
-                if newStatus ==  PHAuthorizationStatus.authorized {
-                    /* do stuff here */
-                    print("success")
-                }
-            })
-            break
-        }
     }
-
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

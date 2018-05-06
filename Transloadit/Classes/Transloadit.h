@@ -34,9 +34,9 @@ typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completion
 
 
 @interface Transloadit : NSObject<TransloaditProtocol>
-@property (readwrite, copy) _Nullable TransloaditUploadResultBlock resultBlock;
-@property (readwrite, copy) _Nullable TransloaditUploadFailureBlock failureBlock;
-@property (readwrite, copy) _Nullable TransloaditUploadProgressBlock progressBlock;
+@property (readwrite, copy) _Nullable TransloaditUploadResultBlock uploadResultBlock;
+@property (readwrite, copy) _Nullable TransloaditUploadFailureBlock uploadFailureBlock;
+@property (readwrite, copy) _Nullable TransloaditUploadProgressBlock uploadProgressBlock;
 
 @property (readwrite, copy) _Nullable TransloaditAssemblyCreationResultBlock assemblyCreationResultBlock;
 @property (readwrite, copy) _Nullable TransloaditAssemblyCreationFailureBlock assemblyCreationFailureBlock;
@@ -45,8 +45,6 @@ typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completion
 @property (readwrite, copy) _Nullable TransloaditAssemblyResultBlock assemblyResultBlock;
 @property (readwrite, copy) _Nullable TransloaditAssemblyFailureBlock assemblyFailureBlock;
 @property (readwrite, copy) _Nullable TransloaditAssemblyStatusBlock assemblyStatusBlock;
-
-
 
 @property (nonatomic, strong) NSString * _Nonnull secret; // Transloadit Secret
 @property (nonatomic, strong) NSString  * _Nonnull key; // Transloadit Key
