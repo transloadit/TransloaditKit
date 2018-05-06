@@ -109,7 +109,7 @@
 }
 
 - (void) checkAssembly: (Assembly *)assembly {
-    NSTimer *timer = [NSTimer timerWithTimeInterval:2.0 repeats:true block:^(NSTimer * _Nonnull timer) {
+    NSTimer *timer = [NSTimer timerWithTimeInterval:1.0 repeats:true block:^(NSTimer * _Nonnull timer) {
         [self assemblyStatus:assembly completion:^(NSDictionary *response) {
             NSArray *responseArray = @[@"REQUEST_ABORTED", @"ASSEMBLY_CANCELED", @"ASSEMBLY_COMPLETED"];
             int responseInterger = [responseArray indexOfObject:[response valueForKey:@"ok"]];

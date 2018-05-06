@@ -14,7 +14,7 @@ class TransloaditViewControllerSwifty: UIViewController, UIPickerViewDelegate, U
     let transloadit: Transloadit = Transloadit()
     var TestTemplate: Template?
     var TestAssembly: Assembly?
-    let path = Bundle.main.path(forResource: "test", ofType: "jpg")
+    let path = Bundle.main.path(forResource: "transloadit", ofType: "png")
     let StepArray: NSMutableArray = NSMutableArray()
 
     override func viewDidLoad() {
