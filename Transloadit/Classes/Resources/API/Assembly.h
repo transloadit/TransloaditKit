@@ -19,6 +19,8 @@
 @property (nonatomic, strong)NSMutableArray<Step *>* stepsArray;
 
 @property (nonatomic, strong)NSMutableArray<NSURL *>* files;
+@property (nonatomic, strong)NSMutableArray<NSString *>* fileNames;
+
 
 @property (nonatomic, strong)NSString* stepsJSONString;
 
@@ -43,7 +45,7 @@
 -(void)setExpirationWithMinutes:(int)minutes;
 
 //MARK: Files
-- (void)addFile:(NSURL* )file;
+- (void)addFile:(NSURL* )file andFileName:(NSString* ) fileName;
 
 -(int)fileCount;
 

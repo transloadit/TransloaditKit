@@ -23,11 +23,12 @@ typedef void (^TransloaditUploadFailureBlock)(NSError* _Nonnull error);
 typedef void (^TransloaditUploadProgressBlock)(int64_t bytesWritten, int64_t bytesTotal);
 
 
-typedef void (^TransloaditAssemblyCreationCompletionBlock)(Assembly* _Nonnull assembly);
+typedef void (^TransloaditAssemblyCreationResultBlock)(Assembly* _Nonnull assembly, NSDictionary* _Nonnull completionDictionary);
 typedef void (^TransloaditAssemblyCreationFailureBlock)(NSDictionary* _Nonnull completionDictionary);
 
 
-typedef void (^TransloaditAssemblyCompletionBlock)(NSDictionary* _Nonnull completionDictionary);
+typedef void (^TransloaditAssemblyResultBlock)(NSDictionary* _Nonnull completionDictionary);
+typedef void (^TransloaditAssemblyFailureBlock)(NSDictionary* _Nonnull completionDictionary);
 typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completionDictionary);
 
 
@@ -37,13 +38,12 @@ typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completion
 @property (readwrite, copy) _Nullable TransloaditUploadFailureBlock failureBlock;
 @property (readwrite, copy) _Nullable TransloaditUploadProgressBlock progressBlock;
 
-@property (readwrite, copy) _Nullable TransloaditAssemblyCreationCompletionBlock assemblyCreationCompletionBlock;
+@property (readwrite, copy) _Nullable TransloaditAssemblyCreationResultBlock assemblyCreationResultBlock;
 @property (readwrite, copy) _Nullable TransloaditAssemblyCreationFailureBlock assemblyCreationFailureBlock;
 
 
-
-@property (readwrite, copy) _Nullable TransloaditAssemblyCompletionBlock assemblyCompletionBlock;
-
+@property (readwrite, copy) _Nullable TransloaditAssemblyResultBlock assemblyResultBlock;
+@property (readwrite, copy) _Nullable TransloaditAssemblyFailureBlock assemblyFailureBlock;
 @property (readwrite, copy) _Nullable TransloaditAssemblyStatusBlock assemblyStatusBlock;
 
 
@@ -52,9 +52,9 @@ typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completion
 @property (nonatomic, strong) NSString  * _Nonnull key; // Transloadit Key
 
 #pragma mark - TUSKit References
-@property (nonatomic, strong) TUSSession* _Nonnull tusSession;
 @property (nonatomic, strong) TUSResumableUpload  * _Nonnull tus;
 @property (nonatomic, strong) TUSUploadStore  * _Nonnull tusStore;
+@property (nonatomic, strong) TUSSession  * _Nonnull tusSession;
 
 
 - (id _Nonnull )init;
