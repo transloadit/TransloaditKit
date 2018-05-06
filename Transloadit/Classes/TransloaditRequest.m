@@ -62,8 +62,6 @@
 }
 
 - (NSMutableURLRequest *) createRequestWithParams:(NSMutableDictionary *) params andFinalURL:(NSString *)url {
-    NSLog(url);
-    NSLog([params debugDescription]);
     NSMutableDictionary *auth = [self createAuth];
     [params setObject:auth forKey:@"auth"];
     NSString *signature = [self generateSignatureWithParams: params];

@@ -10,6 +10,7 @@
 #import "TransloaditProtocol.h"
 #import "TransloaditRequest.h"
 #import "Assembly.h"
+#import "Template.h"
 #import "Step.h"
 #import "APIState.h"
 #import "APIObjectType.h"
@@ -26,6 +27,9 @@ typedef void (^TransloaditUploadProgressBlock)(int64_t bytesWritten, int64_t byt
 typedef void (^TransloaditAssemblyCreationResultBlock)(Assembly* _Nonnull assembly, NSDictionary* _Nonnull completionDictionary);
 typedef void (^TransloaditAssemblyCreationFailureBlock)(NSDictionary* _Nonnull completionDictionary);
 
+typedef void (^TransloaditTemplateCreationResultBlock)(Template* _Nonnull assembly, NSDictionary* _Nonnull completionDictionary);
+typedef void (^TransloaditTemplateCreationFailureBlock)(NSDictionary* _Nonnull completionDictionary);
+
 
 typedef void (^TransloaditAssemblyResultBlock)(NSDictionary* _Nonnull completionDictionary);
 typedef void (^TransloaditAssemblyFailureBlock)(NSDictionary* _Nonnull completionDictionary);
@@ -41,6 +45,8 @@ typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completion
 @property (readwrite, copy) _Nullable TransloaditAssemblyCreationResultBlock assemblyCreationResultBlock;
 @property (readwrite, copy) _Nullable TransloaditAssemblyCreationFailureBlock assemblyCreationFailureBlock;
 
+@property (readwrite, copy) _Nullable TransloaditTemplateCreationResultBlock templateCreationResultBlock;
+@property (readwrite, copy) _Nullable TransloaditTemplateCreationFailureBlock templateCreationFailureBlock;
 
 @property (readwrite, copy) _Nullable TransloaditAssemblyResultBlock assemblyResultBlock;
 @property (readwrite, copy) _Nullable TransloaditAssemblyFailureBlock assemblyFailureBlock;

@@ -43,7 +43,6 @@
     
     NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
-            NSLog(@"%@", [error debugDescription]);
             return;
         }
         
@@ -53,11 +52,11 @@
                                                                error:nil];
         
         if([json valueForKey:@"error"]){
-            NSLog(@"%@", [json valueForKey:@"error"]);
+            self.templateCreationFailureBlock(json);
             return;
         } else {
-            // self.assemblyCompletionBlock(json);
-            NSLog(@"%@", [json debugDescription]);
+            [template setTemplate_id:[json valueForKey:@"id"]];
+            self.templateCreationResultBlock(template, json);
             
         }
     }];

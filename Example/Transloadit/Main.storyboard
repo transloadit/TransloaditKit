@@ -21,16 +21,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H6s-P0-0Wk">
-                                <rect key="frame" x="172" y="318" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Run"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H6s-P0-0Wk">
+                                <rect key="frame" x="109" y="518" width="156" height="30"/>
+                                <state key="normal" title="Run Template Example"/>
                                 <connections>
-                                    <action selector="upload:" destination="whP-gf-Uak" eventType="touchUpInside" id="OMA-NH-GQm"/>
+                                    <action selector="runTemplate:" destination="whP-gf-Uak" eventType="touchUpInside" id="yUA-eH-t4c"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DJe-IQ-aha">
+                                <rect key="frame" x="107" y="118" width="160" height="30"/>
+                                <state key="normal" title="Run Assembly Example"/>
+                                <connections>
+                                    <action selector="runAssembly:" destination="whP-gf-Uak" eventType="touchUpInside" id="yz1-wg-ysP"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Mvr-aV-6Um" firstAttribute="top" secondItem="H6s-P0-0Wk" secondAttribute="bottom" constant="119" id="1Zw-ZS-GDV"/>
+                            <constraint firstItem="DJe-IQ-aha" firstAttribute="centerX" secondItem="TpU-gO-2f1" secondAttribute="centerX" id="1mr-9y-lbM"/>
+                            <constraint firstItem="DJe-IQ-aha" firstAttribute="centerX" secondItem="H6s-P0-0Wk" secondAttribute="centerX" id="Va9-qe-O6Q"/>
+                            <constraint firstItem="DJe-IQ-aha" firstAttribute="top" secondItem="uEw-UM-LJ8" secondAttribute="bottom" constant="98" id="q56-6h-vQq"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tc2-Qw-aMS" userLabel="First Responder" sceneMemberID="firstResponder"/>
