@@ -65,23 +65,7 @@
     NSMutableDictionary *auth = [self createAuth];
     [params setObject:auth forKey:@"auth"];
     NSString *signature = [self generateSignatureWithParams: params];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@", url]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];
-    TUSUploadStore *store = [[TUSUploadStore alloc] init];
-    NSURLSession *session = [[TUSSession alloc] initWithEndpoint:[NSURL URLWithString:url] dataStore:store allowsCellularAccess:YES];
-    
-    NSURLSessionTask *task = [[NSURLSessionTask alloc] init];
-    
-    
-    
-    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-    }];
-    
-    [postDataTask resume];
-    
-    
-    
-    NSLog(@"%@", signature);
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@", url]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];    
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setHTTPMethod:@"POST"];
     NSString *boundary = [self generateBoundary];
@@ -92,6 +76,11 @@
                                                        options:0
                                                          error:nil];
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"tus_num_expected_upload_files\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    int i = 2;
+    NSData *intData = [NSData dataWithBytes: &i length: sizeof(i)];
+    [body appendData:[@"1" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"signature\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[signature dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -99,7 +88,6 @@
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     NSString *responseData = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     responseData = [responseData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-    NSLog(@"%@", responseData);
     [request setHTTPBody:body];
     return request;
 }

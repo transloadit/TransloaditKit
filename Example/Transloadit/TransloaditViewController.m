@@ -31,117 +31,65 @@ static TransloaditUploadFailureBlock failureBlock = ^(NSError* error){
     NSLog(@"error: %@", error);
 };
 
+
 @implementation TransloaditViewController
 
 Transloadit *transloadit;
-
+Assembly *testAssembly;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     transloadit = [[Transloadit alloc] init];
-}
-
--(void)viewDidAppear:(BOOL)animated {
-    [self selectFile:nil];
+    transloadit.uploadFailureBlock = failureBlock;
+    transloadit.uploadProgressBlock = progressBlock;
+    transloadit.uploadResultBlock = resultBlock;
     
-}
-
-- (IBAction)selectFile:(id)sender {
-    //MARK: Image Picker
-    //Basic UIImagePicker Controller Setup
-    UIImagePickerController *imagePicker = [UIImagePickerController new];
-    imagePicker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:imagePicker.sourceType];
-    imagePicker.delegate = self;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"jpg"];
     
-    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
-    if(status == PHAuthorizationStatusNotDetermined) {
-        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-            [self presentViewController:imagePicker animated:YES completion:nil];
-        }];
-    } else if (status == PHAuthorizationStatusAuthorized) {
-        [self presentViewController:imagePicker animated:YES completion:nil];
-    } else if (status == PHAuthorizationStatusRestricted) {
-        //Permisions Needed
-    } else if (status == PHAuthorizationStatusDenied) {
-        // Permisions Needed
-    }
-}
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    //-----------------------------------------------------
-    // MARK: Picker
-    //-----------------------------------------------------
-    // !! NOTE !!
-    // This is boilerplate imagepicker code. You do NOT need this for Transloadit.
-    // This is strictly for the Example, and grabbing an image.
-    [self dismissViewControllerAnimated:YES completion:nil];
-    NSURL *assetUrl = [info valueForKey:UIImagePickerControllerReferenceURL];
-    PHFetchResult *result = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
-                                                                     subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary
-                                                                     options:nil];
-    PHAssetCollection *assetCollection = result.firstObject;
-    NSLog(@"%@", assetCollection.localizedTitle);
+    NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
     
-    NSArray<NSURL *> *array = [[NSArray alloc] initWithObjects:assetUrl, nil];
-    PHFetchResult *fetchResult = [PHAsset fetchAssetsWithALAssetURLs:array options:nil];
-    PHAsset *asset = [fetchResult firstObject];
-    [[[PHImageManager alloc] init] requestImageDataForAsset:asset options:nil resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
-        
-        NSURL *documentDirectory = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask][0];
-        NSURL *fileUrl = [documentDirectory URLByAppendingPathComponent:[[NSUUID alloc] init].UUIDString];
-        NSError *error;
-        if (![imageData writeToURL:fileUrl options:NSDataWritingAtomic error:&error]) {
-            NSLog(@"%li", (long)error.code);
-        }
-        
-        
-        //MARK: Transloadit Kit Implementation
-        
-        //MARK: Assembly Steps
-        //Here we create an array to hold each Step that we our files to process through on Transloadit
-        NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
-        
-        Step *step1 = [[Step alloc] initWithKey:@"encode"];
-        [step1 setValue:@"/image/resize" forOption:@"robot"];
-        
-        // Add the step to the array
-        [steps addObject:step1];
-        
-        //MARK: We then create an Assembly Object with the steps and files
-        Assembly *TestAssemblyWithSteps = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
-        [TestAssemblyWithSteps addFile:fileUrl];
-        [TestAssemblyWithSteps setNotify_url:@""];
-        
-        Template *testTemplate = [[Template alloc] initWithTemplateId:@"ddd833b0974911e7a7efd9ad4c81e3a0"];
-        Template *testTemplateWithSteps = [[Template alloc] initWithSteps:steps andName:@"TestName4"];
-        
-        Assembly *testAssemblyWithTemplate = [[Assembly alloc] initWithTemplate:testTemplate andNumberOfFiles:1];
-        [testAssemblyWithTemplate addFile:fileUrl];
-        
-        //[transloadit createTemplate:testTemplateWithSteps];
-        
-        //MARK: Create the assembly on Transloadit
-        [transloadit createAssembly:TestAssemblyWithSteps];
-        
-        //MARK: Invoke the assebmly
-        transloadit.assemblyCompletionBlock = ^(NSDictionary* completionDictionary){
-            /*Invoking The Assebmly does NOT need to happen inside the completion block. However for sake of a small UI it is.
-             We do however need to add the URL to the Assembly object so that we do invoke it, it knows where to go.
-             */
-            [TestAssemblyWithSteps setUrlString:[completionDictionary valueForKey:@"assembly_ssl_url"]];
-            [transloadit invokeAssembly:TestAssemblyWithSteps];
-            
-            [transloadit checkAssembly:TestAssemblyWithSteps];
-        };
-        
-        transloadit.assemblyStatusBlock = ^(NSDictionary* completionDictionary){
-            NSLog(@"%@", [completionDictionary description]);
-        };
-        
-    }];
+    Step *step1 = [[Step alloc] initWithKey:@"encode"];
+    [step1 setValue:@"75" forOption:@"width"];
+    [step1 setValue:@"75" forOption:@"height"];
+    [step1 setValue:@"/image/resize" forOption:@"robot"];
+    
+    //
+    //        // Add the step to the array
+    [steps addObject:step1];
+    
+    testAssembly = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
+    
+    
+    //MARK: We then create an Assembly Object with the steps and files
+    [testAssembly addFile:[NSURL fileURLWithPath:path] andFileName:@"file.jpg"];
+    
+    transloadit.assemblyCreationResultBlock = ^(Assembly* assembly, NSDictionary* completionDictionary){
+        NSLog(@"Assembly creation success");
+        NSLog(@"%@", @"Invoking assembly.");
+        [transloadit invokeAssembly:assembly];
+    };
+    
+    transloadit.assemblyCreationFailureBlock = ^(NSDictionary* completionDictionary){
+        NSLog(@"Assembly creation failed: %@", [completionDictionary debugDescription]);
+    };
+
+
+    transloadit.assemblyStatusBlock = ^(NSDictionary* completionDictionary){
+        NSLog(@"Assembly status: %@", [completionDictionary debugDescription]);
+    };
+    
+    transloadit.assemblyResultBlock = ^(NSDictionary* completionDictionary){
+        NSLog(@"Assembly finished : %@", [completionDictionary debugDescription]);
+    };
+    
+    transloadit.assemblyFailureBlock = ^(NSDictionary* completionDictionary){
+        NSLog(@"Assembly failed: %@", [completionDictionary debugDescription]);
+    };
 }
 
-
+- (IBAction)upload:(id)sender {
+    [transloadit createAssembly:testAssembly];
+}
 
 - (void)didReceiveMemoryWarning
 {

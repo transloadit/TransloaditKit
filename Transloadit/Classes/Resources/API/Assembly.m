@@ -22,6 +22,8 @@
         [self setStepsArray:steps];
         [self setNumberOfFiles:&numberOfFiles];
         [self setFiles:[[NSMutableArray alloc] initWithCapacity:numberOfFiles]];
+        [self setFileNames:[[NSMutableArray alloc] initWithCapacity:numberOfFiles]];
+
     }
     return self;
 }
@@ -33,6 +35,7 @@
         [self setTemplate:template];
         [self setNumberOfFiles:&numberOfFiles];
         [self setFiles:[[NSMutableArray alloc] initWithCapacity:numberOfFiles]];
+        [self setFileNames:[[NSMutableArray alloc] initWithCapacity:numberOfFiles]];
     }
     return self;
 }
@@ -66,9 +69,10 @@
 }
 
 
--(void) addFile:(NSURL *)file{
+-(void) addFile:(NSURL* )file andFileName:(NSString* ) fileName{
     if([self files]) {
-    [[self files] addObject:file];
+        [[self fileNames] addObject:fileName];
+        [[self files] addObject:file];
     }
 }
 
@@ -76,5 +80,7 @@
     return [[self files] count];
 }
 
+
+@synthesize data;
 
 @end

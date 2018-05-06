@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		20D2CCD5F9B4E4DD7A240B0E /* Pods_Transloadit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88F9C60B95E8311E4F861123 /* Pods_Transloadit_Tests.framework */; };
 		28123E881F832782004CD204 /* Transloadit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 28123E871F832782004CD204 /* Transloadit.podspec */; };
-		28296E871F5DFB36006892E3 /* TransloaditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28296E861F5DFB36006892E3 /* TransloaditViewController.swift */; };
+		28296E871F5DFB36006892E3 /* TransloaditViewControllerSwifty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28296E861F5DFB36006892E3 /* TransloaditViewControllerSwifty.swift */; };
 		2858DA351F68BF7D005325A3 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2858DA341F68BF7D005325A3 /* test.jpg */; };
+		28615CFE209F8AD000E3D237 /* transloadit.png in Resources */ = {isa = PBXBuildFile; fileRef = 28615CFD209F8AD000E3D237 /* transloadit.png */; };
 		289616D2203D1EBE0023EE37 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289616C9203D1EBD0023EE37 /* CommonCrypto.framework */; };
 		289616D9203D1EBE0023EE37 /* CommonCryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289616D8203D1EBE0023EE37 /* CommonCryptoTests.swift */; };
 		289616DB203D1EBE0023EE37 /* CommonCrypto.h in Headers */ = {isa = PBXBuildFile; fileRef = 289616CB203D1EBE0023EE37 /* CommonCrypto.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -110,9 +111,10 @@
 /* Begin PBXFileReference section */
 		00527FF412666775D11D7EF3 /* Pods-Transloadit_MacOS_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Transloadit_MacOS_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Transloadit_MacOS_Example/Pods-Transloadit_MacOS_Example.release.xcconfig"; sourceTree = "<group>"; };
 		28123E871F832782004CD204 /* Transloadit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Transloadit.podspec; path = ../Transloadit.podspec; sourceTree = "<group>"; };
-		28296E861F5DFB36006892E3 /* TransloaditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransloaditViewController.swift; sourceTree = "<group>"; };
+		28296E861F5DFB36006892E3 /* TransloaditViewControllerSwifty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransloaditViewControllerSwifty.swift; sourceTree = "<group>"; };
 		2858DA341F68BF7D005325A3 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
 		2858DA361F68C27C005325A3 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = test.jpg; path = ../../../../../Downloads/mpdf60/examples/test.jpg; sourceTree = "<group>"; };
+		28615CFD209F8AD000E3D237 /* transloadit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transloadit.png; sourceTree = "<group>"; };
 		289616C9203D1EBD0023EE37 /* CommonCrypto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CommonCrypto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		289616CB203D1EBE0023EE37 /* CommonCrypto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonCrypto.h; sourceTree = "<group>"; };
 		289616CC203D1EBE0023EE37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 		6003F593195388D20070C39A /* Example for Transloadit */ = {
 			isa = PBXGroup;
 			children = (
+				28615CFD209F8AD000E3D237 /* transloadit.png */,
 				6003F59C195388D20070C39A /* TransloaditAppDelegate.h */,
 				6003F59D195388D20070C39A /* TransloaditAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
@@ -367,7 +370,7 @@
 				6003F5A6195388D20070C39A /* TransloaditViewController.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
-				28296E861F5DFB36006892E3 /* TransloaditViewController.swift */,
+				28296E861F5DFB36006892E3 /* TransloaditViewControllerSwifty.swift */,
 			);
 			name = "Example for Transloadit";
 			path = Transloadit;
@@ -690,6 +693,7 @@
 				289616E8203D1EF00023EE37 /* CommonCrypto.xcconfig in Resources */,
 				28123E881F832782004CD204 /* Transloadit.podspec in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				28615CFE209F8AD000E3D237 /* transloadit.png in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -891,7 +895,7 @@
 			files = (
 				6003F59E195388D20070C39A /* TransloaditAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* TransloaditViewController.m in Sources */,
-				28296E871F5DFB36006892E3 /* TransloaditViewController.swift in Sources */,
+				28296E871F5DFB36006892E3 /* TransloaditViewControllerSwifty.swift in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
