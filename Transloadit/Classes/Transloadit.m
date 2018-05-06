@@ -35,7 +35,11 @@
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     
-    [params setObject:steps forKey:@"template"];
+    NSMutableDictionary *templateJSON = [[NSMutableDictionary alloc] init];
+    
+    [templateJSON setObject:steps forKey:@"steps"];
+    
+    [params setObject:templateJSON forKey:@"template"];
     [params setObject:[template name] forKey:@"name"];
     
     
@@ -57,7 +61,6 @@
         } else {
             [template setTemplate_id:[json valueForKey:@"id"]];
             self.templateCreationResultBlock(template, json);
-            
         }
     }];
     [assemblyTask resume];

@@ -34,6 +34,7 @@
         NSLog(@"_init: %@", self);
         [self setTemplate:template];
         [self setNumberOfFiles:&numberOfFiles];
+        [self setFiles:[[NSMutableArray alloc] initWithCapacity:numberOfFiles]];
         [self setFileNames:[[NSMutableArray alloc] initWithCapacity:numberOfFiles]];
     }
     return self;

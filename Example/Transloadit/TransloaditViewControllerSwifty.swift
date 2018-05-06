@@ -64,6 +64,7 @@ class TransloaditViewControllerSwifty: UIViewController, UIPickerViewDelegate, U
             print("Creating assembly with template!")
             let assemblyWithTemplate = Assembly(template: template, andNumberOfFiles: 1)
             assemblyWithTemplate?.addFile(URL(fileURLWithPath: self.path!), andFileName: "testFile.jpg")
+            assemblyWithTemplate?.addStep(with: Step())
             self.transloadit.createAssembly(assemblyWithTemplate!)
         }
         
@@ -82,7 +83,7 @@ class TransloaditViewControllerSwifty: UIViewController, UIPickerViewDelegate, U
     
     @IBAction func runTemplate(_ sender: Any) {
         //Template Setup
-        self.TestTemplate = Template(steps: self.StepArray, andName: "New Template")
+        self.TestTemplate = Template(steps: self.StepArray, andName: "New Template2")
         self.transloadit.createTemplate(self.TestTemplate!)
     }
     
