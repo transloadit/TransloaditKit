@@ -30,7 +30,6 @@
 		6003F598195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F596195388D20070C39A /* InfoPlist.strings */; };
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
 		6003F59E195388D20070C39A /* TransloaditAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* TransloaditAppDelegate.m */; };
-		6003F5A7195388D20070C39A /* TransloaditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* TransloaditViewController.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -880,7 +879,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* TransloaditAppDelegate.m in Sources */,
-				6003F5A7195388D20070C39A /* TransloaditViewController.m in Sources */,
 				28296E871F5DFB36006892E3 /* TransloaditViewControllerSwifty.swift in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);

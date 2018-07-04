@@ -7,7 +7,7 @@
 
 #ifndef TransloaditDelegate_h
 #define TransloaditDelegate_h
-#import "API Models/TransloaditResponse.h"
+#import "TransloaditResponse.h"
 @protocol TransloaditDelegate <NSObject>
 @optional
 - (void)tranloaditUploadProgress:(int64_t *)written bytesTotal:(int64_t *)total;
