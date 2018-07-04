@@ -12,6 +12,7 @@
 		28296E871F5DFB36006892E3 /* TransloaditViewControllerSwifty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28296E861F5DFB36006892E3 /* TransloaditViewControllerSwifty.swift */; };
 		2858DA351F68BF7D005325A3 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2858DA341F68BF7D005325A3 /* test.jpg */; };
 		28615CFE209F8AD000E3D237 /* transloadit.png in Resources */ = {isa = PBXBuildFile; fileRef = 28615CFD209F8AD000E3D237 /* transloadit.png */; };
+		287BD35120EC709900A599C3 /* TransloaditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* TransloaditViewController.m */; };
 		289616D2203D1EBE0023EE37 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289616C9203D1EBD0023EE37 /* CommonCrypto.framework */; };
 		289616D9203D1EBE0023EE37 /* CommonCryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289616D8203D1EBE0023EE37 /* CommonCryptoTests.swift */; };
 		289616DB203D1EBE0023EE37 /* CommonCrypto.h in Headers */ = {isa = PBXBuildFile; fileRef = 289616CB203D1EBE0023EE37 /* CommonCrypto.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -880,6 +881,7 @@
 			files = (
 				6003F59E195388D20070C39A /* TransloaditAppDelegate.m in Sources */,
 				28296E871F5DFB36006892E3 /* TransloaditViewControllerSwifty.swift in Sources */,
+				287BD35120EC709900A599C3 /* TransloaditViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

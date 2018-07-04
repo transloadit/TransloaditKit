@@ -59,10 +59,15 @@
         
         if([json valueForKey:@"error"]){
             self.templateCreationFailureBlock(json);
+            NSError *error = [NSError errorWithDomain:@"TRANSLOADIT"
+                                                 code:-57
+                                             userInfo:nil];
+            [self.delegate transloaditTemplateCreationError:error withResponse:json];
             return;
         } else {
             [template setTemplate_id:[json valueForKey:@"id"]];
-            self.templateCreationResultBlock(template, json);
+            self.templateCreationResultBlock(template, json); //Legacy
+            [self.delegate transloaditTemplateCreationResult:template];
         }
     }];
     [assemblyTask resume];
@@ -99,11 +104,13 @@
         
         if([json valueForKey:@"error"]){
             self.assemblyCreationFailureBlock(json);
+            [self.delegate transloaditAssemblyCreationError:NULL withResponse:json];
             return;
         } else {
             [assembly setUrlString: [json valueForKey:@"assembly_ssl_url"]];
               _tusSession = [[TUSSession alloc] initWithEndpoint:[[NSURL alloc] initWithString:[json valueForKey:@"tus_url"]] dataStore:_tusStore allowsCellularAccess:YES];
             self.assemblyCreationResultBlock(assembly, json);
+            [self.delegate transloaditAssemblyCreationResult:assembly];
             //return;
         }
     }];
@@ -121,16 +128,19 @@
                     //Aborted
                     [timer invalidate];
                     self.assemblyFailureBlock(response);
+                    [self.delegate transloaditAssemblyProcessError:nil withResponse:nil];
                     break;
                 case 1:
                     //canceld
                     [timer invalidate];
                     self.assemblyFailureBlock(response);
+                    [self.delegate transloaditAssemblyProcessError:nil withResponse:nil];
                     break;
                 case 2:
                     //completed
                     [timer invalidate];
                     self.assemblyResultBlock(response);
+                    [self.delegate transloaditAssemblyProcessResult:nil];
                 default:
                     break;
             }

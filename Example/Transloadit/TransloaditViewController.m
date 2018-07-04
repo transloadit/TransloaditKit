@@ -40,11 +40,12 @@ Assembly *testAssembly;
 - (void)viewDidLoad {
     [super viewDidLoad];
     transloadit = [[Transloadit alloc] init];
-    transloadit.uploadFailureBlock = failureBlock;
-    transloadit.uploadProgressBlock = progressBlock;
-    transloadit.uploadResultBlock = resultBlock;
+// Blocks have been depreciated 
+//    transloadit.uploadFailureBlock = failureBlock;
+//    transloadit.uploadProgressBlock = progressBlock;
+//    transloadit.uploadResultBlock = resultBlock;
     
-
+    [transloadit setDelegate:self];
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"jpg"];
     

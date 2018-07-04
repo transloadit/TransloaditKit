@@ -20,21 +20,21 @@
 
 #pragma mark - Resource Includes
 
-typedef void (^TransloaditUploadResultBlock)(NSURL* _Nonnull fileURL);
-typedef void (^TransloaditUploadFailureBlock)(NSError* _Nonnull error);
-typedef void (^TransloaditUploadProgressBlock)(int64_t bytesWritten, int64_t bytesTotal);
+typedef void (^TransloaditUploadResultBlock)(NSURL* _Nonnull fileURL) __deprecated;
+typedef void (^TransloaditUploadFailureBlock)(NSError* _Nonnull error) __deprecated;
+typedef void (^TransloaditUploadProgressBlock)(int64_t bytesWritten, int64_t bytesTotal) __deprecated;
 
 
-typedef void (^TransloaditAssemblyCreationResultBlock)(Assembly* _Nonnull assembly, NSDictionary* _Nonnull completionDictionary);
-typedef void (^TransloaditAssemblyCreationFailureBlock)(NSDictionary* _Nonnull completionDictionary);
+typedef void (^TransloaditAssemblyCreationResultBlock)(Assembly* _Nonnull assembly, NSDictionary* _Nonnull completionDictionary) __deprecated;
+typedef void (^TransloaditAssemblyCreationFailureBlock)(NSDictionary* _Nonnull completionDictionary) __deprecated;
 
-typedef void (^TransloaditTemplateCreationResultBlock)(Template* _Nonnull assembly, NSDictionary* _Nonnull completionDictionary);
-typedef void (^TransloaditTemplateCreationFailureBlock)(NSDictionary* _Nonnull completionDictionary);
+typedef void (^TransloaditTemplateCreationResultBlock)(Template* _Nonnull assembly, NSDictionary* _Nonnull completionDictionary) __deprecated;
+typedef void (^TransloaditTemplateCreationFailureBlock)(NSDictionary* _Nonnull completionDictionary) __deprecated;
 
 
-typedef void (^TransloaditAssemblyResultBlock)(NSDictionary* _Nonnull completionDictionary);
-typedef void (^TransloaditAssemblyFailureBlock)(NSDictionary* _Nonnull completionDictionary);
-typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completionDictionary);
+typedef void (^TransloaditAssemblyResultBlock)(NSDictionary* _Nonnull completionDictionary) __deprecated;
+typedef void (^TransloaditAssemblyFailureBlock)(NSDictionary* _Nonnull completionDictionary) __deprecated;
+typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completionDictionary) __deprecated;
 
 
 
