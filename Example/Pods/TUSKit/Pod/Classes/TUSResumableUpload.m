@@ -654,7 +654,7 @@ typedef void(^NSURLSessionTaskCompletionHandler)(NSData * _Nullable data, NSURLR
         }
         
         if (fileSize.unsignedLongLongValue != expectedLength.unsignedLongLongValue){
-            NSLog(@"Expected file size (%ulld) for saved upload %@ does not match actual file size (%ulld)", fileSize.unsignedLongLongValue, uploadId, expectedLength.unsignedLongLongValue);
+            NSLog(@"Expected file size (%llulld) for saved upload %@ does not match actual file size (%llulld)", fileSize.unsignedLongLongValue, uploadId, expectedLength.unsignedLongLongValue);
             return nil;
         }
     } else if (state != TUSResumableUploadStateComplete) { // If we do not have a file url and the upload isn't complete, then we were reloading using the wrong method.

@@ -15,6 +15,7 @@
 #import "APIState.h"
 #import "APIObjectType.h"
 #import "NSString+Utils.h"
+#import "TransloaditDelegate.h"
 #import <TUSKit/TUSKit.h>
 
 #pragma mark - Resource Includes
@@ -55,6 +56,9 @@ typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completion
 @property (nonatomic, strong) NSString * _Nonnull secret; // Transloadit Secret
 @property (nonatomic, strong) NSString  * _Nonnull key; // Transloadit Key
 
+@property (nonatomic, weak) _Nullable id<TransloaditDelegate> delegate;
+
+
 #pragma mark - TUSKit References
 @property (nonatomic, strong) TUSResumableUpload  * _Nonnull tus;
 @property (nonatomic, strong) TUSUploadStore  * _Nonnull tusStore;
@@ -66,5 +70,6 @@ typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completion
 - (void) invokeAssembly: (Assembly *_Nonnull)assembly;
 - (void) createAssembly: (Assembly *_Nonnull)assembly;
 - (void) checkAssembly: (Assembly *_Nonnull)assembly;
+- (void)setDelegate: (_Nullable id<TransloaditDelegate>)tDelegate;
 
 @end

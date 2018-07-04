@@ -30,15 +30,17 @@
     return self;
 }
 
+- (void)setDelegate: (_Nullable id<TransloaditDelegate>)tDelegate {
+    if (_delegate != tDelegate) {
+        _delegate = tDelegate;
+    }
+}
+
 - (void) createTemplate: (Template *)template {
     NSMutableDictionary *steps = [template getSteps];
-    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    
     NSMutableDictionary *templateJSON = [[NSMutableDictionary alloc] init];
-    
     [templateJSON setObject:steps forKey:@"steps"];
-    
     [params setObject:templateJSON forKey:@"template"];
     [params setObject:[template name] forKey:@"name"];
     

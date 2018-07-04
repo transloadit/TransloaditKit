@@ -34,6 +34,12 @@
 		25A4F1A97128E455522B2DB33B17641A /* TUSData.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D74FE8101BA300D2810DAF7A5151578 /* TUSData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25D1A9B87F1A3FB421AEEA62CA2345DF /* Transloadit.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FDC927649996750C136F78762C0977 /* Transloadit.m */; };
 		262FF24949B232085F8B4193FD6322DB /* Transloadit.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FDC927649996750C136F78762C0977 /* Transloadit.m */; };
+		287B5FF320EC65E00091182C /* TransloaditDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 287B5FF220EC65E00091182C /* TransloaditDelegate.h */; };
+		287B5FF420EC65E00091182C /* TransloaditDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 287B5FF220EC65E00091182C /* TransloaditDelegate.h */; };
+		287B5FF720EC6BA80091182C /* TransloaditResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 287B5FF520EC6BA80091182C /* TransloaditResponse.h */; };
+		287B5FF820EC6BA80091182C /* TransloaditResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 287B5FF520EC6BA80091182C /* TransloaditResponse.h */; };
+		287B5FF920EC6BA80091182C /* TransloaditResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 287B5FF620EC6BA80091182C /* TransloaditResponse.m */; };
+		287B5FFA20EC6BA80091182C /* TransloaditResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 287B5FF620EC6BA80091182C /* TransloaditResponse.m */; };
 		2A54CB1DB494A77042B6E9AF17DBC637 /* TUSSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 315E608A1FED2DEC457E3A3D8075A54B /* TUSSession.m */; };
 		2B2B51F28B753D06653CEA6566ECFD05 /* TUSResumableUpload+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = B6D0DDA992FD3B619824A44E6353D3C8 /* TUSResumableUpload+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F485B69F51E4F723A38410F31F08550 /* FBSnapshotTestController.h in Headers */ = {isa = PBXBuildFile; fileRef = F94190AFDFCA59CBBC8C5FC3ED8FDBA0 /* FBSnapshotTestController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -196,6 +202,9 @@
 		2283180F1A23D7C6DBC2DD556F4C2EDD /* TUSAssetData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TUSAssetData.m; path = Pod/Classes/TUSAssetData.m; sourceTree = "<group>"; };
 		2595BB609C53FE468A8DD9798F97A767 /* UIApplication+StrictKeyWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIApplication+StrictKeyWindow.h"; path = "FBSnapshotTestCase/Categories/UIApplication+StrictKeyWindow.h"; sourceTree = "<group>"; };
 		272F41FF46DB7860C715BE4418025407 /* Transloadit-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Transloadit-iOS-prefix.pch"; path = "../Transloadit-iOS/Transloadit-iOS-prefix.pch"; sourceTree = "<group>"; };
+		287B5FF220EC65E00091182C /* TransloaditDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransloaditDelegate.h; sourceTree = "<group>"; };
+		287B5FF520EC6BA80091182C /* TransloaditResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransloaditResponse.h; sourceTree = "<group>"; };
+		287B5FF620EC6BA80091182C /* TransloaditResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransloaditResponse.m; sourceTree = "<group>"; };
 		28DECC1DCB90B17ABAE050E841DD54A9 /* Pods-Transloadit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Transloadit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		2926FFE37F3DAFDC8DFC2B277908EA4A /* Transloadit-OSX.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Transloadit-OSX.modulemap"; sourceTree = "<group>"; };
 		29ABE98ECE07CEFB58DBFCC702663580 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -441,6 +450,17 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
+		287B5FF020EC65890091182C /* API Models */ = {
+			isa = PBXGroup;
+			children = (
+				10328483641E558DD80D1364A020119A /* TransloaditRequest.h */,
+				01C7DD164A8495EF521801F3F383357E /* TransloaditRequest.m */,
+				287B5FF520EC6BA80091182C /* TransloaditResponse.h */,
+				287B5FF620EC6BA80091182C /* TransloaditResponse.m */,
+			);
+			path = "API Models";
+			sourceTree = "<group>";
+		};
 		3341A277D031BF434510C06BCC3C0060 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -669,15 +689,15 @@
 		F1B083AC8762BC0B0B6811E475C4FE02 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				287B5FF020EC65890091182C /* API Models */,
 				4D27375BD6AAF985F744E10F6131FB95 /* NSString+Utils.h */,
 				641103A6694F2C748BD4628C4C9E55CC /* NSString+Utils.m */,
 				C893844BEAB562428E4BCA5C99DDB656 /* Transloadit.h */,
 				B9FDC927649996750C136F78762C0977 /* Transloadit.m */,
 				78E6F0311FD58CD1D0C5776216E648A2 /* TransloaditProtocol.h */,
-				10328483641E558DD80D1364A020119A /* TransloaditRequest.h */,
-				01C7DD164A8495EF521801F3F383357E /* TransloaditRequest.m */,
 				F56C686170B211B3C92140F1EC09D4C3 /* CCommonCrypto */,
 				3341A277D031BF434510C06BCC3C0060 /* Resources */,
+				287B5FF220EC65E00091182C /* TransloaditDelegate.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -732,9 +752,11 @@
 				DA1ADBCC9EACFED739C2D204FF8887E8 /* NSString+Utils.h in Headers */,
 				438BBAF59B6EE87FAF07947679882C3A /* Resources.h in Headers */,
 				975EC2738CA7A00C5599DD7FC7B3D209 /* Step.h in Headers */,
+				287B5FF420EC65E00091182C /* TransloaditDelegate.h in Headers */,
 				142BBEF784D9C7E1075B3EB6E0EB020F /* Template.h in Headers */,
 				13D274611148703CA03309BAA267470C /* Transloadit-OSX-umbrella.h in Headers */,
 				19336EB89757D576F40875442CD5333B /* Transloadit.h in Headers */,
+				287B5FF820EC6BA80091182C /* TransloaditResponse.h in Headers */,
 				3D50184F35819DF129E70E38398AC252 /* TransloaditProtocol.h in Headers */,
 				C026E99383AB30655CE3A6834F79F0FE /* TransloaditRequest.h in Headers */,
 				FEE7FCAE2EDA22E37E6A94735F0F98CA /* URLConstants.h in Headers */,
@@ -793,9 +815,11 @@
 				866D9E867DEFC09120EC3D4DB1A6974E /* NSString+Utils.h in Headers */,
 				649DC1D217E3D50AECA21473D1084601 /* Resources.h in Headers */,
 				4FD8441DA9FBFDD8BA50D33447FF0992 /* Step.h in Headers */,
+				287B5FF320EC65E00091182C /* TransloaditDelegate.h in Headers */,
 				0D7C7DC2D18ADEA311A281D2CDD8A237 /* Template.h in Headers */,
 				F7C186618B5E6411400B23E1BECA3AC1 /* Transloadit-iOS-umbrella.h in Headers */,
 				5873367B662BF5038224D773A8C8ACC6 /* Transloadit.h in Headers */,
+				287B5FF720EC6BA80091182C /* TransloaditResponse.h in Headers */,
 				1CB38131C4C706031EF496F86E76719D /* TransloaditProtocol.h in Headers */,
 				36B50893B34B041B07807CCD3C5F9556 /* TransloaditRequest.h in Headers */,
 				42E9B97439DAE29AF7C57C4CBE1FFA95 /* URLConstants.h in Headers */,
@@ -1036,6 +1060,7 @@
 				C444725CB6ACD76A37EA7B7BF58FE617 /* Transloadit-OSX-dummy.m in Sources */,
 				262FF24949B232085F8B4193FD6322DB /* Transloadit.m in Sources */,
 				DC4DDD67871F499BC101C24EDACF44D8 /* TransloaditRequest.m in Sources */,
+				287B5FFA20EC6BA80091182C /* TransloaditResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1067,6 +1092,7 @@
 				165A467C8EBC202C55A0268658EF673D /* Transloadit-iOS-dummy.m in Sources */,
 				25D1A9B87F1A3FB421AEEA62CA2345DF /* Transloadit.m in Sources */,
 				EB686AC6DEBE791512390A653AAFEC77 /* TransloaditRequest.m in Sources */,
+				287B5FF920EC6BA80091182C /* TransloaditResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

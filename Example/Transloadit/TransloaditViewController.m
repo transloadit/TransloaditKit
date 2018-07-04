@@ -44,6 +44,8 @@ Assembly *testAssembly;
     transloadit.uploadProgressBlock = progressBlock;
     transloadit.uploadResultBlock = resultBlock;
     
+
+    
     NSString *path = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"jpg"];
     
     NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
