@@ -8,11 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "APIObject.h"
+#import "Template.h"
 
-
-@interface Assembly : NSObject<APIObject>
-
-@property (nonatomic, strong)NSString* urlString;
+@interface Assembly : APIObject
 
 @property (nonatomic, strong)NSString* notify_url;
 

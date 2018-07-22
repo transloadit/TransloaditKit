@@ -26,3 +26,10 @@
 #pragma mark - TUS INTERGATION
 
 #define TRANSLOADIT_API_TUS_RESUMABLE @"/resumable/files/"
+
+#pragma mark - REQUEST
+
+#define TRANSLOADIT_GET @"GET"
+#define TRANSLOADIT_POST @"POST"
+#define TRANSLOADIT_PUT @"PUT"
+#define TRANSLOADIT_DELETE @"DELETE"

@@ -40,7 +40,7 @@ Assembly *testAssembly;
 - (void)viewDidLoad {
     [super viewDidLoad];
     transloadit = [[Transloadit alloc] init];
-// Blocks have been depreciated 
+// Blocks have been depreciated
 //    transloadit.uploadFailureBlock = failureBlock;
 //    transloadit.uploadProgressBlock = progressBlock;
 //    transloadit.uploadResultBlock = resultBlock;
@@ -62,6 +62,11 @@ Assembly *testAssembly;
     
     testAssembly = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
     
+    //CRUD Operations
+//    [transloadit create: testAssembly];
+//    [transloadit get: testAssembly];
+//    [transloadit update: testAssembly];
+//    [transloadit delete: testAssembly];
     
     //MARK: We then create an Assembly Object with the steps and files
     [testAssembly addFile:[NSURL fileURLWithPath:path] andFileName:@"file.jpg"];
@@ -75,7 +80,6 @@ Assembly *testAssembly;
     transloadit.assemblyCreationFailureBlock = ^(NSDictionary* completionDictionary){
         NSLog(@"Assembly creation failed: %@", [completionDictionary debugDescription]);
     };
-
 
     transloadit.assemblyStatusBlock = ^(NSDictionary* completionDictionary){
         NSLog(@"Assembly status: %@", [completionDictionary debugDescription]);

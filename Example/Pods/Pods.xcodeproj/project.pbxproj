@@ -34,6 +34,8 @@
 		25A4F1A97128E455522B2DB33B17641A /* TUSData.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D74FE8101BA300D2810DAF7A5151578 /* TUSData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25D1A9B87F1A3FB421AEEA62CA2345DF /* Transloadit.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FDC927649996750C136F78762C0977 /* Transloadit.m */; };
 		262FF24949B232085F8B4193FD6322DB /* Transloadit.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FDC927649996750C136F78762C0977 /* Transloadit.m */; };
+		282D3B9521041E22000F1526 /* APIObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 282D3B9421041E22000F1526 /* APIObject.m */; };
+		282D3B9621041E22000F1526 /* APIObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 282D3B9421041E22000F1526 /* APIObject.m */; };
 		287B5FF320EC65E00091182C /* TransloaditDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 287B5FF220EC65E00091182C /* TransloaditDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		287B5FF420EC65E00091182C /* TransloaditDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 287B5FF220EC65E00091182C /* TransloaditDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		287B5FF720EC6BA80091182C /* TransloaditResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 287B5FF520EC6BA80091182C /* TransloaditResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -202,6 +204,7 @@
 		2283180F1A23D7C6DBC2DD556F4C2EDD /* TUSAssetData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TUSAssetData.m; path = Pod/Classes/TUSAssetData.m; sourceTree = "<group>"; };
 		2595BB609C53FE468A8DD9798F97A767 /* UIApplication+StrictKeyWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIApplication+StrictKeyWindow.h"; path = "FBSnapshotTestCase/Categories/UIApplication+StrictKeyWindow.h"; sourceTree = "<group>"; };
 		272F41FF46DB7860C715BE4418025407 /* Transloadit-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Transloadit-iOS-prefix.pch"; path = "../Transloadit-iOS/Transloadit-iOS-prefix.pch"; sourceTree = "<group>"; };
+		282D3B9421041E22000F1526 /* APIObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIObject.m; sourceTree = "<group>"; };
 		287B5FF220EC65E00091182C /* TransloaditDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TransloaditDelegate.h; path = ../../Transloadit/Classes/TransloaditDelegate.h; sourceTree = SOURCE_ROOT; };
 		287B5FF520EC6BA80091182C /* TransloaditResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TransloaditResponse.h; path = ../../Transloadit/Classes/TransloaditResponse.h; sourceTree = SOURCE_ROOT; };
 		287B5FF620EC6BA80091182C /* TransloaditResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransloaditResponse.m; sourceTree = "<group>"; };
@@ -285,7 +288,7 @@
 		BF4D3177289CA81B3DB14566315F8404 /* Pods-Transloadit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Transloadit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		C392860B6310A54619B46B9CA7E13275 /* Pods-Transloadit_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Transloadit_Tests.modulemap"; sourceTree = "<group>"; };
 		C893844BEAB562428E4BCA5C99DDB656 /* Transloadit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Transloadit.h; path = ../../Transloadit/Classes/Transloadit.h; sourceTree = SOURCE_ROOT; };
-		CA2A0ACAB62E6B60C471FBA47827334B /* APIObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = APIObject.h; sourceTree = "<group>"; };
+		CA2A0ACAB62E6B60C471FBA47827334B /* APIObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = APIObject.h; path = ../../Transloadit/Classes/Resources/API/APIObject.h; sourceTree = SOURCE_ROOT; };
 		CDE5225462175C8E5B94FD38A7D8B0CF /* APIObjectType.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = APIObjectType.h; sourceTree = "<group>"; };
 		CF1DB861A04DB903C0995D009059A5A7 /* Transloadit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Transloadit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2DEB7500AAA0629620F0875171FDB7C /* Pods_Transloadit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Transloadit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -495,8 +498,6 @@
 		7D25BD62B9333CCBC6BFD22145B9065C /* Template */ = {
 			isa = PBXGroup;
 			children = (
-				43EE70B1F11C23A58993CD38528869F2 /* Template.h */,
-				D9DD1543360674E64B74078F7247E072 /* Template.m */,
 			);
 			path = Template;
 			sourceTree = "<group>";
@@ -567,6 +568,8 @@
 		B99E6614413B06EBA407D28EB80EC1A2 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				43EE70B1F11C23A58993CD38528869F2 /* Template.h */,
+				D9DD1543360674E64B74078F7247E072 /* Template.m */,
 				CA2A0ACAB62E6B60C471FBA47827334B /* APIObject.h */,
 				CDE5225462175C8E5B94FD38A7D8B0CF /* APIObjectType.h */,
 				4DD2D0A469A28C735F01A06659FE558B /* APIState.h */,
@@ -575,6 +578,7 @@
 				3126501412E1B42BE7A09A0DA363A1CB /* Step.h */,
 				A3E46F7F711002B0C6E172E2CE899A53 /* Step.m */,
 				4ED7369C1943E3386F9BEA3056AD8425 /* URLConstants.h */,
+				282D3B9421041E22000F1526 /* APIObject.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1049,6 +1053,7 @@
 				16E8B89FC3B24D09A96CE89DA2678199 /* NSString+Utils.m in Sources */,
 				2F7660FE5F63B764E9D21B43437B0903 /* Step.m in Sources */,
 				7AAFFD05ADFD296EB7290AF8A2D2787C /* Template.m in Sources */,
+				282D3B9621041E22000F1526 /* APIObject.m in Sources */,
 				C444725CB6ACD76A37EA7B7BF58FE617 /* Transloadit-OSX-dummy.m in Sources */,
 				262FF24949B232085F8B4193FD6322DB /* Transloadit.m in Sources */,
 				DC4DDD67871F499BC101C24EDACF44D8 /* TransloaditRequest.m in Sources */,
@@ -1081,6 +1086,7 @@
 				7665B826B9612A6E722EAF3863800CC4 /* NSString+Utils.m in Sources */,
 				525DE33AAEDD2681F03A576B48F47A54 /* Step.m in Sources */,
 				1AAE76041D96EF646A2CB01A18A078AB /* Template.m in Sources */,
+				282D3B9521041E22000F1526 /* APIObject.m in Sources */,
 				165A467C8EBC202C55A0268658EF673D /* Transloadit-iOS-dummy.m in Sources */,
 				25D1A9B87F1A3FB421AEEA62CA2345DF /* Transloadit.m in Sources */,
 				EB686AC6DEBE791512390A653AAFEC77 /* TransloaditRequest.m in Sources */,

@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "APIObject.h"
 
-@interface Template : NSObject
+
+@interface Template : APIObject
 
 @property (nonatomic, strong)NSString* template_id;
 

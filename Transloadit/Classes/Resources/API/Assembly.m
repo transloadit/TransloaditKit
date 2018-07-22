@@ -19,6 +19,7 @@
     self = [super init];
     if(self) {
         NSLog(@"_init: %@", self);
+        [self setApiType: TRANSLOADIT_ASSEMBLY];
         [self setStepsArray:steps];
         [self setNumberOfFiles:&numberOfFiles];
         [self setFiles:[[NSMutableArray alloc] initWithCapacity:numberOfFiles]];
@@ -80,6 +81,16 @@
     return [[self files] count];
 }
 
+
+- (NSMutableDictionary*) getParams {
+    NSMutableDictionary *steps = [self getSteps];
+    if ([self template] == NULL) {
+        [params setObject:steps forKey:@"steps"];
+    } else {
+        [params setObject:[[self template] template_id] forKey:@"template_id"];
+    }
+    return params;
+}
 
 @synthesize data;
 

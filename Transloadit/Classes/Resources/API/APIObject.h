@@ -11,18 +11,23 @@
 #import "APIObjectType.h"
 #import "URLConstants.h"
 #import "Step.h"
-#import "Template.h"
 
-@protocol APIObject <NSObject>
+@interface APIObject : NSObject
 
-@property (nonatomic, assign)APIObjectType* type;
+@property (nonatomic, assign)APIObjectType apiType;
+
+@property (nonatomic, strong)NSString* id;
 
 @property (nonatomic, strong)NSMutableURLRequest* callRequest;
 
-@property (nonatomic, strong)NSDictionary* params;
+@property (nonatomic, strong)NSMutableDictionary* params;
 
 @property (nonatomic, strong)NSData* data;
 
+@property (nonatomic, strong)NSString* urlString;
+
+
+- (NSMutableDictionary*) getParams;
 
 - (NSString*)buildParametersJSON;
 

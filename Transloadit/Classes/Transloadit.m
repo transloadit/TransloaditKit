@@ -10,6 +10,9 @@
 
 
 @implementation Transloadit
+@class APIObject;
+
+
 
 - (id)init {
     self = [super init];
@@ -36,42 +39,63 @@
     }
 }
 
-- (void) createTemplate: (Template *)template {
-    NSMutableDictionary *steps = [template getSteps];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSMutableDictionary *templateJSON = [[NSMutableDictionary alloc] init];
-    [templateJSON setObject:steps forKey:@"steps"];
-    [params setObject:templateJSON forKey:@"template"];
-    [params setObject:[template name] forKey:@"name"];
-    
-    
-    NSMutableURLRequest *request = [[[TransloaditRequest alloc] initWithKey:_key andSecret:_secret] createRequestWithParams:params andEndpoint:TRANSLOADIT_API_TEMPLATES];
-    
-    NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error) {
-            return;
-        }
-        
-        NSString* body = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
-                                                             options:NSJSONReadingMutableContainers
-                                                               error:nil];
-        
+- (void) create:(APIObject *) object {
+    [self makeRequestWithMethod:TRANSLOADIT_POST andObject:object callback:^(NSDictionary *json) {
+        NSError *error = [[NSError alloc] init];
         if([json valueForKey:@"error"]){
-            self.templateCreationFailureBlock(json);
+            switch (object.apiType) {
+                case TRANSLOADIT_ASSEMBLY:
+                    self.assemblyCreationFailureBlock(json);
+                    [self.delegate transloaditAssemblyCreationError:NULL withResponse:json];
+                    break;
+                case TRANSLOADIT_TEMPLATE:
+                    self.templateCreationFailureBlock(json); //Legacy
+                    [self.delegate transloaditTemplateCreationError:error withResponse:json];
+                    break;
+                default:
+                    break;
+            }
             NSError *error = [NSError errorWithDomain:@"TRANSLOADIT"
                                                  code:-57
                                              userInfo:nil];
-            [self.delegate transloaditTemplateCreationError:error withResponse:json];
             return;
         } else {
-            [template setTemplate_id:[json valueForKey:@"id"]];
-            self.templateCreationResultBlock(template, json); //Legacy
-            [self.delegate transloaditTemplateCreationResult:template];
+            switch (object.apiType) {
+                case TRANSLOADIT_ASSEMBLY:
+                    [(Assembly *)object setUrlString: [json valueForKey:@"assembly_ssl_url"]];
+                    _tusSession = [[TUSSession alloc] initWithEndpoint:[[NSURL alloc] initWithString:[json valueForKey:@"tus_url"]] dataStore:_tusStore allowsCellularAccess:YES];
+                    self.assemblyCreationResultBlock(object, json);
+                    [self.delegate transloaditAssemblyCreationResult:object];
+                    break;
+                case TRANSLOADIT_TEMPLATE:
+                    [(Template *)object setTemplate_id:[json valueForKey:@"id"]];
+                    self.templateCreationResultBlock(object, json); //Legacy
+                    [self.delegate transloaditTemplateCreationResult:object];
+                    break;
+                default:
+                    break;
+            }
         }
     }];
-    [assemblyTask resume];
 }
+
+//- (void) update: (APIObject *) object {
+//    [self makeRequestWithMethod:TRANSLOADIT_PUT andObject:object callback:^(NSDictionary *callback) {
+//        //callback;
+//    }];
+//}
+//
+//- (void) get: (APIObject *) object {
+//    [self makeRequestWithMethod:TRANSLOADIT_GET andObject:object callback:^(NSDictionary *) {
+//        //;
+//    }];
+//}
+//
+//- (void) delete: (APIObject *) object {
+//    [self makeRequestWithMethod:TRANSLOADIT_DELETE andObject:object callback:^(NSDictionary *callback) {
+//        //callback;
+//    }];
+//}
 
 - (void) invokeAssembly: (Assembly *)assembly{
     [self checkAssembly:assembly];
@@ -85,36 +109,6 @@
         upload.failureBlock = _uploadFailureBlock;
         [upload resume];
     }
-}
-
-- (void) createAssembly: (Assembly *)assembly{
-    NSMutableDictionary *steps = [assembly getSteps];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    if ([assembly template] == NULL) {
-        [params setObject:steps forKey:@"steps"];
-    } else {
-        [params setObject:[[assembly template] template_id] forKey:@"template_id"];
-    }
-    NSMutableURLRequest *request = [[[TransloaditRequest alloc] initWithKey:_key andSecret:_secret] createRequestWithParams:params andEndpoint:TRANSLOADIT_API_ASSEMBLIES];
-    NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSString* body = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
-                                                             options:NSJSONReadingMutableContainers
-                                                               error:nil];
-        
-        if([json valueForKey:@"error"]){
-            self.assemblyCreationFailureBlock(json);
-            [self.delegate transloaditAssemblyCreationError:NULL withResponse:json];
-            return;
-        } else {
-            [assembly setUrlString: [json valueForKey:@"assembly_ssl_url"]];
-              _tusSession = [[TUSSession alloc] initWithEndpoint:[[NSURL alloc] initWithString:[json valueForKey:@"tus_url"]] dataStore:_tusStore allowsCellularAccess:YES];
-            self.assemblyCreationResultBlock(assembly, json);
-            [self.delegate transloaditAssemblyCreationResult:assembly];
-            //return;
-        }
-    }];
-    [assemblyTask resume];
 }
 
 - (void) checkAssembly: (Assembly *)assembly {
@@ -153,29 +147,50 @@
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 }
 
-- (void) assemblyStatus: (Assembly *)assembly completion:(void (^)(NSDictionary *))completion {
-    NSMutableURLRequest *request = [[[TransloaditRequest alloc] initWithKey:_key andSecret:_secret] createGetRequestWithURL:[assembly urlString]];
+- (void) makeRequestWithMethod:(NSString *)method andObject:(APIObject *) object callback:(void(^)(NSDictionary *))callback {
+    TransloaditRequest *request = [[[TransloaditRequest alloc] initWithKey:_key andSecret:_secret] createRequestWithMethod:method andURL:[object urlString]];
+    
+    if ([[request method] isEqualToString:TRANSLOADIT_POST] || [[request method] isEqualToString:TRANSLOADIT_PUT]) {
+        [request appendParams:[object getParams]];
+    }
     
     NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             NSLog(@"%@", [error debugDescription]);
             return;
         }
-        
         NSString* body = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
                                                              options:NSJSONReadingMutableContainers
                                                                error:nil];
-        
+
+        callback(json);
+    }];
+    [assemblyTask resume];
+}
+
+- (void) assemblyStatus: (Assembly *)assembly completion:(void (^)(NSDictionary *))completion {
+    NSMutableURLRequest *request = [[[TransloaditRequest alloc] initWithKey:_key andSecret:_secret] createRequestWithMethod:TRANSLOADIT_GET andURL:[assembly urlString]];
+    NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"%@", [error debugDescription]);
+            return;
+        }
+        NSString* body = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
+                                                             options:NSJSONReadingMutableContainers
+                                                               error:nil];
         if([json valueForKey:@"error"]){
             NSLog(@"%@", [json valueForKey:@"error"]);
             return;
         } else {
             //
         }
-        
         completion(json);
     }];
     [assemblyTask resume];
 }
+
+
+
 @end
