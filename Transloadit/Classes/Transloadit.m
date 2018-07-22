@@ -148,8 +148,7 @@
 }
 
 - (void) makeRequestWithMethod:(NSString *)method andObject:(APIObject *) object callback:(void(^)(NSDictionary *))callback {
-    TransloaditRequest *request = [[[TransloaditRequest alloc] initWithKey:_key andSecret:_secret] createRequestWithMethod:method andURL:[object urlString]];
-    
+    TransloaditRequest *request = [[TransloaditRequest alloc] initWith:_key andSecret:_secret andMethod:method andURL:[object urlString]];
     if ([[request method] isEqualToString:TRANSLOADIT_POST] || [[request method] isEqualToString:TRANSLOADIT_PUT]) {
         [request appendParams:[object getParams]];
     }

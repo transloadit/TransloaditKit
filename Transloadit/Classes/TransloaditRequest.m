@@ -19,6 +19,21 @@
     return self;
 }
 
+- (id) initWith:(NSString *)key andSecret:(NSString *)secret andMethod:(NSString *)method andURL:(NSString *) url {
+    self = [super init];
+    if(self) {
+        _key = key;
+        _secret = secret;
+        _method = method;
+        [self setURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@", url]]];
+        [self setCachePolicy:NSURLRequestReturnCacheDataElseLoad];
+        [self setTimeoutInterval:120.0];
+        [self addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [self setHTTPMethod:method];
+    }
+    return self;
+}
+
 - (NSString*)generateSignatureWithParams:(NSDictionary *)params {
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params
@@ -52,14 +67,6 @@
 
 - (NSString *) generateBoundary {
     return [[NSUUID UUID] UUIDString];
-}
-
-- (NSMutableURLRequest *) createRequestWithMethod:(NSString *)method andURL:(NSString *) url {
-    _method = method;
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@", url]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];
-    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setHTTPMethod:method];
-    return request;
 }
 
 - (void) appendParams:(NSMutableDictionary *) params {

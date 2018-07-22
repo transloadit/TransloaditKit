@@ -67,7 +67,6 @@ Assembly *testAssembly;
     [testAssembly addFile:[NSURL fileURLWithPath:path] andFileName:@"file.jpg"];
     
     //CRUD Operations
-    [transloadit create: testAssembly];
     //    [transloadit get: testAssembly];
     //    [transloadit update: testAssembly];
     //    [transloadit delete: testAssembly];
@@ -96,7 +95,13 @@ Assembly *testAssembly;
 }
 
 - (IBAction)upload:(id)sender {
-    [transloadit createAssembly:testAssembly];
+    [transloadit create: testAssembly];
+
+}
+
+- (IBAction)runAssembly:(id)sender {
+    [transloadit create: testAssembly];
+    
 }
 
 - (void)didReceiveMemoryWarning
