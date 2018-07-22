@@ -69,6 +69,12 @@ typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completion
 
 
 - (id _Nonnull )init;
+
+- (void) create:(APIObject *) object;
+- (void) get:(APIObject *) object;
+- (void) update:(APIObject *) object;
+- (void) delete:(APIObject *) object;
+
 - (void) createTemplate: (Template *_Nonnull)template;
 - (void) invokeAssembly: (Assembly *_Nonnull)assembly;
 - (void) createAssembly: (Assembly *_Nonnull)assembly;

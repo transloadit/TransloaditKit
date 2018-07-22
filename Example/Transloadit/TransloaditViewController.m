@@ -61,15 +61,16 @@ Assembly *testAssembly;
     [steps addObject:step1];
     
     testAssembly = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
-    
-    //CRUD Operations
-//    [transloadit create: testAssembly];
-//    [transloadit get: testAssembly];
-//    [transloadit update: testAssembly];
-//    [transloadit delete: testAssembly];
+
     
     //MARK: We then create an Assembly Object with the steps and files
     [testAssembly addFile:[NSURL fileURLWithPath:path] andFileName:@"file.jpg"];
+    
+    //CRUD Operations
+    [transloadit create: testAssembly];
+    //    [transloadit get: testAssembly];
+    //    [transloadit update: testAssembly];
+    //    [transloadit delete: testAssembly];
     
     transloadit.assemblyCreationResultBlock = ^(Assembly* assembly, NSDictionary* completionDictionary){
         NSLog(@"Assembly creation success");
