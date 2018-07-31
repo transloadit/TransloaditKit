@@ -79,6 +79,39 @@
     }];
 }
 
+- (void) delete:(APIObject *) object {
+    if ([[object urlString] isEqualToString:nil]) {
+        [self.delegate transloaditTemplateCreationError:nil withResponse:@{@"message":@"No URL Set"}];
+    } else {
+        [self makeRequestWithMethod:TRANSLOADIT_DELETE andObject:object callback:^(NSDictionary *json) {
+            NSError *error = [[NSError alloc] init];
+            if([json valueForKey:@"error"]){
+                switch (object.apiType) {
+                    case TRANSLOADIT_ASSEMBLY:
+                        [self.delegate transloaditAssemblyDeletionError:error withResponse:json];
+                        break;
+                    case TRANSLOADIT_TEMPLATE:
+                        [self.delegate transloaditTemplateDeletionError:error withResponse:json];
+                        break;
+                }
+                NSError *error = [NSError errorWithDomain:@"TRANSLOADIT"
+                                                     code:-57
+                                                 userInfo:nil];
+                return;
+            } else {
+                switch (object.apiType) {
+                    case TRANSLOADIT_ASSEMBLY:
+                        [self.delegate transloaditAssemblyDeletionResult:object];
+                        break;
+                    case TRANSLOADIT_TEMPLATE:
+                        [self.delegate transloaditTemplateDeletionResult:object];
+                        break;
+                }
+            }
+        }];
+    }
+}
+
 //- (void) update: (APIObject *) object {
 //    [self makeRequestWithMethod:TRANSLOADIT_PUT andObject:object callback:^(NSDictionary *callback) {
 //        //callback;
@@ -91,11 +124,6 @@
 //    }];
 //}
 //
-//- (void) delete: (APIObject *) object {
-//    [self makeRequestWithMethod:TRANSLOADIT_DELETE andObject:object callback:^(NSDictionary *callback) {
-//        //callback;
-//    }];
-//}
 
 - (void) invokeAssembly: (Assembly *)assembly{
     [self checkAssembly:assembly];

@@ -18,6 +18,12 @@
 - (void)transloaditTemplateCreationResult:(Template *)template;
 - (void)transloaditTemplateCreationError:(NSError *)error withResponse:(TransloaditResponse *)response;
 
+- (void)transloaditAssemblyDeletionResult:(TransloaditResponse *)template;
+- (void)transloaditAssemblyDeletionError:(NSError *)error withResponse:(TransloaditResponse *)response;
+
+- (void)transloaditTemplateDeletionResult:(TransloaditResponse *)template;
+- (void)transloaditTemplateDeletionError:(NSError *)error withResponse:(TransloaditResponse *)response;
+
 - (void)transloaditAssemblyProcessResult:(TransloaditResponse *)response;
 - (void)transloaditAssemblyProcessError:(NSError *)error withResponse:(TransloaditResponse *)response;
 - (void)transloaditAssemblyProcessProgress:(TransloaditResponse *)response;
