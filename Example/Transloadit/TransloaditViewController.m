@@ -11,7 +11,7 @@
 #import <Photos/Photos.h>
 
 
-@interface TransloaditViewController ()
+@interface TransloaditViewController () <TransloaditDelegate>
 @end
 
 
@@ -102,6 +102,10 @@ Assembly *testAssembly;
 - (IBAction)runAssembly:(id)sender {
     [transloadit create: testAssembly];
     
+}
+
+- (void) transloaditAssemblyCreationError:(NSError *)error withResponse:(TransloaditResponse *)response {
+    NSLog(@"%@", [response debugDescription]);
 }
 
 - (void)didReceiveMemoryWarning

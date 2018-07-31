@@ -40,19 +40,23 @@
 }
 
 - (void) create:(APIObject *) object {
+    switch (object.apiType) {
+        case TRANSLOADIT_ASSEMBLY:
+            [object setUrlString:[NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_ASSEMBLIES]];
+            break;
+        case TRANSLOADIT_TEMPLATE:
+            [object setUrlString:[NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_TEMPLATES]];
+            break;
+    }
     [self makeRequestWithMethod:TRANSLOADIT_POST andObject:object callback:^(NSDictionary *json) {
         NSError *error = [[NSError alloc] init];
         if([json valueForKey:@"error"]){
             switch (object.apiType) {
                 case TRANSLOADIT_ASSEMBLY:
-                    self.assemblyCreationFailureBlock(json);
                     [self.delegate transloaditAssemblyCreationError:NULL withResponse:json];
                     break;
                 case TRANSLOADIT_TEMPLATE:
-                    self.templateCreationFailureBlock(json); //Legacy
                     [self.delegate transloaditTemplateCreationError:error withResponse:json];
-                    break;
-                default:
                     break;
             }
             NSError *error = [NSError errorWithDomain:@"TRANSLOADIT"
@@ -64,15 +68,11 @@
                 case TRANSLOADIT_ASSEMBLY:
                     [(Assembly *)object setUrlString: [json valueForKey:@"assembly_ssl_url"]];
                     _tusSession = [[TUSSession alloc] initWithEndpoint:[[NSURL alloc] initWithString:[json valueForKey:@"tus_url"]] dataStore:_tusStore allowsCellularAccess:YES];
-                    self.assemblyCreationResultBlock(object, json);
                     [self.delegate transloaditAssemblyCreationResult:object];
                     break;
                 case TRANSLOADIT_TEMPLATE:
                     [(Template *)object setTemplate_id:[json valueForKey:@"id"]];
-                    self.templateCreationResultBlock(object, json); //Legacy
                     [self.delegate transloaditTemplateCreationResult:object];
-                    break;
-                default:
                     break;
             }
         }
@@ -148,6 +148,7 @@
 }
 
 - (void) makeRequestWithMethod:(NSString *)method andObject:(APIObject *) object callback:(void(^)(NSDictionary *))callback {
+    NSLog(@"%@", [object urlString]);
     TransloaditRequest *request = [[TransloaditRequest alloc] initWith:_key andSecret:_secret andMethod:method andURL:[object urlString]];
     if ([[request method] isEqualToString:TRANSLOADIT_POST] || [[request method] isEqualToString:TRANSLOADIT_PUT]) {
         [request appendParams:[object getParams]];

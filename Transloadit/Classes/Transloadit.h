@@ -23,9 +23,9 @@
 
 #pragma mark - Resource Includes
 
-typedef void (^TransloaditUploadResultBlock)(NSURL* _Nonnull fileURL) __deprecated;
-typedef void (^TransloaditUploadFailureBlock)(NSError* _Nonnull error) __deprecated;
-typedef void (^TransloaditUploadProgressBlock)(int64_t bytesWritten, int64_t bytesTotal) __deprecated;
+typedef void (^TransloaditUploadResultBlock)(NSURL* _Nonnull fileURL);
+typedef void (^TransloaditUploadFailureBlock)(NSError* _Nonnull error);
+typedef void (^TransloaditUploadProgressBlock)(int64_t bytesWritten, int64_t bytesTotal);
 
 
 typedef void (^TransloaditAssemblyCreationResultBlock)(Assembly* _Nonnull assembly, NSDictionary* _Nonnull completionDictionary) __deprecated;

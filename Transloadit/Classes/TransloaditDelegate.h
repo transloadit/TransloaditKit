@@ -12,7 +12,6 @@
 @optional
 - (void)tranloaditUploadProgress:(int64_t *)written bytesTotal:(int64_t *)total;
 - (void)transloaditUploadFailureBlock:(NSError *)error;
-
 - (void)transloaditAssemblyCreationResult:(Assembly *)assembly;
 - (void)transloaditAssemblyCreationError:(NSError *)error withResponse:(TransloaditResponse *)response;
 
