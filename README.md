@@ -3,6 +3,10 @@
 An **iOS** and **MacOS** integration for [Transloadit](https://transloadit.com)'s file
 uploading and encoding service.
 
+## Upgrade Notice:
+`Transloadit` version `1.1.0` contains several breaking changes from the previous version, the main being the deprecation of blocks and introduction of the `TransloaditDelegate`. 
+Please refer to the changelog for a full list. 
+
 ## Intro
 
 
@@ -39,98 +43,45 @@ import Transloadit
 ```
 
 
-### Define your blocks
+### Setup Transloadit 
+To setup Transloadit, be sure add the delegate to your ViewController and then set the delegate to your ViewController.
+
 `Objective-C`
 ```objc
-transloadit.uploadingProgressBlock = ^(int64_t bytesWritten, int64_t bytesTotal){
-// Update your progress bar here
-NSLog(@"progress: %llu / %llu", (unsigned long long)bytesWritten, (unsigned long long)bytesTotal);
-};
-
-transloadit.uploadingResultBlock = ^(NSURL* fileURL){
-// Use the upload url
-NSLog(@"url: %@", fileURL);
-};
-
-transloadit.uploadingFailureBlock = ^(NSError* error){
-// Handle the error
-NSLog(@"error: %@", error);
-};
-
-transloadit.assemblyCreationResultBlock = ^(Assembly* assembly, NSDictionary* completionDictionary){
-NSLog(@"Assembly creation success");
-NSLog(@"%@", @"Invoking assembly.");
-};
-
-transloadit.assemblyCreationFailureBlock = ^(NSDictionary* completionDictionary){
-NSLog(@"Assembly creation failed: %@", [completionDictionary debugDescription]);
-};
-
-transloadit.assemblyStatusBlock = ^(NSDictionary* completionDictionary){
-NSLog(@"Assembly status: %@", [completionDictionary debugDescription]);
-};
-
-transloadit.assemblyResultBlock = ^(NSDictionary* completionDictionary){
-NSLog(@"Assembly finished : %@", [completionDictionary debugDescription]);
-};
-
-transloadit.assemblyFailureBlock = ^(NSDictionary* completionDictionary){
-NSLog(@"Assembly failed: %@", [completionDictionary debugDescription]);
-};
-```
-`Swift`
-```Swift
-self.transloadit.assemblyCreationResultBlock = { assembly, completionDictionary in
-print("Assembly created!")
-}
-self.transloadit.assemblyCreationFailureBlock = { completionDictionary in
-print("Assembly creation failed")
-}
-
-self.transloadit.assemblyResultBlock = { completionDictionary in
-print("Assembly finished executing!")
-}
-self.transloadit.assemblyStatusBlock = { completionDictionary in
-print("Assembly is executing!")
-}
-
-self.transloadit.assemblyFailureBlock = { completionDictionary in
-print("Assembly failed executing!")
-}
-
-self.transloadit.uploadResultBlock = { url in
-print("file uploaded!")
-}
-self.transloadit.uploadProgressBlock =  {bytesWritten, bytesTotal in
-print("Assembly uploading!")
-}
-self.transloadit.uploadFailureBlock = { error in
-print("Assembly failed uploading!")
-}
-
-self.transloadit.templateCreationResultBlock = { template, completionDictionary in
-print("Template created!")
-}
-
-self.transloadit.templateCreationFailureBlock = { completionDictionary in
-print("Template failed creating!")
-}
-```
-
-
-### Setup TransloaditKit
-`Objective-C`
-```objc
+@interface TransloaditViewController () <TransloaditDelegate>
+@end
+...
+Transloadit *transloadit;
+....
 - (void)viewDidLoad {
 [super viewDidLoad];
 transloadit = [[Transloadit alloc] init];
+[transloadit setDelegate:self];
+...
 }
 ```
 `Swift`
-```swift
-// Simply setup a Transloadit object
+```Swift
+class TransloaditViewControllerSwifty: UIViewController, TransloaditDelegate {
+...
 let transloadit: Transloadit = Transloadit()
+override func viewDidLoad() {
+super.viewDidLoad()
+self.transloadit.delegate = self;
+...
+}
+
+}
 ```
+
+### API Keys
+You will also need to add your API key credentials to your `plist`.
+An easy way to do this is:
+1. Locate your `.plist` file, normally named *`{PROJECT_NAME}.plist`*
+2. Right click and select `View As Source`
+3. Copy and paste the snippet below into your `.plist`
+4. Replace `SECRET_KEY_HERE` and `API_KEY_HERE` with their respective tokens
+
 
 *{PROJECT_NAME}.plist*
 ```xml
@@ -140,15 +91,16 @@ let transloadit: Transloadit = Transloadit()
 <string>API_KEY_HERE</string>
 ```
 
-### Create an assembly and upload
+### Templates and Assemblies
+---
+### Assembly
 `Objective-C`
 ```objc
+...
 NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
-
 //MARK: A Sample step
 Step *step1 = [[Step alloc] initWithKey:@"encode"];
 [step1 setValue:@"/image/resize" forOption:@"robot"];
-
 // Add the step to the array
 [steps addObject:step1];
 
@@ -156,34 +108,111 @@ Step *step1 = [[Step alloc] initWithKey:@"encode"];
 Assembly *TestAssemblyWithSteps = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
 [TestAssemblyWithSteps addFile:fileUrl];
 [TestAssemblyWithSteps setNotify_url:@""];
+...
+```
+`Swift`
+```swift
+...
+let AssemblyStepsArray: NSMutableArray = NSMutableArray()
+let Step1 = Step (key: "encode")
+Step1?.setValue("/image/resize", forOption: "robot")
 
-//MARK: Start The Assembly
-[transloadit createAssembly:TestAssemblyWithSteps];
+TestAssembly = Assembly(steps: AssemblyStepsArray, andNumberOfFiles: 1)
+self.TestAssembly?.addFile(fileURL)
+...
+```
 
+### Assembly and Template CRUD 
+---
+For basic CRUD functions, an `Assembly` and `Template` are interchangeable when it comes to creating the requests. After the request is made they return to their own seperate delegate methods.
+#### Create - Request
+`Objective-C`
+```objc
+[transloadit create: TestAssembly];
+[transloadit create: TestTemplate];
+```
+`Swift`
+```swift
+transloadit.create(TestAssembly)
+transloadit.create(TestTemplate)
+```
 
-transloadit.assemblyCreationResultBlock = ^(Assembly* assembly, NSDictionary* completionDictionary){
-[transloadit invokeAssembly:assembly];
+#### Create - Response
+`Objective-C`
+```objc
+//Assembly Creation Success
+- (void) transloaditAssemblyCreationResult:(Assembly *)assembly {
+}
+
+//Template Creation Success
+- (void) transloaditTemplateCreationResult:(Template *)template {
+}
+
+//Assembly Creation Failure
+- (void) transloaditAssemblyCreationError:(NSError *)error withResponse:(TransloaditResponse *)response {
+}
+
+//Template Creation Failure
+- (void) transloaditTemplateCreationError:(NSError *)error withResponse:(TransloaditResponse *)response {
 }
 ```
 `Swift`
 ```swift
-override func viewDidLoad() {
-super.viewDidLoad()
-let AssemblyStepsArray: NSMutableArray = NSMutableArray()
-let Step1 = Step (key: "encode")
-Step1?.setValue("/image/resize", forOption: "robot")
-TestAssembly = Assembly(steps: AssemblyStepsArray, andNumberOfFiles: 1)
-
-self.TestAssembly?.addFile(fileURL)
-self.transloadit.createAssembly(self.TestAssembly!)
-
-self.transloadit.assemblyCreationResultBlock = { assembly, completionDictionary in
-print("Assembly created!")
-print("Assembly invoking!")
-self.transloadit.invokeAssembly(assembly)
+//Assembly Creation Success
+override func transloaditAssemblyCreationResult(_ assembly: Assembly!) {
 }
+
+//Assembly Creation Failure
+override func transloaditAssemblyCreationError(_ error: Error!, with response: TransloaditResponse!) {
 }
+
+//Templtate Creation Success
+override func transloaditTemplateCreationResult(_ assembly: Assembly!) {
+}
+
+//Template Creation Failure
+override func transloaditTemplateCreationError(_ error: Error!, with response: TransloaditResponse!) {
+}
+
 ```
+
+#### Read (Get)
+`Objective-C`
+```objc
+[transloadit get: TestAssembly];
+[transloadit get: TestTemplate];
+```
+`Swift`
+```swift
+transloadit.get(TestAssembly)
+transloadit.get(TestTemplate)
+```
+
+#### Update
+`Objective-C`
+```objc
+[transloadit update: TestAssembly];
+[transloadit update: TestTemplate];
+```
+`Swift`
+```swift
+transloadit.update(TestAssembly)
+transloadit.update(TestTemplate)
+```
+
+#### Delete
+`Objective-C`
+```objc
+[transloadit delete: TestAssembly];
+[transloadit delete: TestTemplate];
+```
+`Swift`
+```swift
+transloadit.delete(TestAssembly)
+transloadit.delete(TestTemplate)
+```
+
+------
 
 ## Example
 
@@ -196,7 +225,7 @@ We'd be happy to accept pull requests. If you plan on working on something big, 
 
 ### Building
 
-The SDK is written in Objective-C for both iOS and MacOS.
+The SDK is written in Objective-C for both iOS and MacOS. 
 
 
 ### Releasing
@@ -228,4 +257,3 @@ Contributions from:
 ## License
 
 [MIT Licensed](LICENSE).
-
