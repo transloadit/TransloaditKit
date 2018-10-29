@@ -5,7 +5,6 @@ uploading and encoding service.
 
 ## Intro
 
-
 [Transloadit](https://transloadit.com) is a service that helps you handle file
 uploads, resize, crop and watermark your images, make GIFs, transcode your
 videos, extract thumbnails, generate audio waveforms, and so much more. In
@@ -27,6 +26,7 @@ If there are no errors, you can start using the pod.
 
 ## Usage
 
+
 ### Import TransloaditKit
 *Objective-C*
 ```objc
@@ -37,7 +37,6 @@ If there are no errors, you can start using the pod.
 ```Swift
 import Transloadit
 ```
-
 
 ### Define your blocks
 `Objective-C`
@@ -116,7 +115,6 @@ self.transloadit.templateCreationFailureBlock = { completionDictionary in
 print("Template failed creating!")
 }
 ```
-
 
 ### Setup TransloaditKit
 `Objective-C`
@@ -228,4 +226,3 @@ Contributions from:
 ## License
 
 [MIT Licensed](LICENSE).
-
