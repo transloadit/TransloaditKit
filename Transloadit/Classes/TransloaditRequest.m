@@ -29,6 +29,8 @@
         [self setCachePolicy:NSURLRequestReturnCacheDataElseLoad];
         [self setTimeoutInterval:120.0];
         [self addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [self addValue:@"" forHTTPHeaderField:@"Transloadit-Client"];
+
         [self setHTTPMethod:method];
     }
     return self;
