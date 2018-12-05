@@ -1,5 +1,5 @@
 framework module TUSKit {
-  umbrella header "TUSKit-OSX-umbrella.h"
+  umbrella header "TUSKit-macOS-umbrella.h"
 
   export *
   module * { export * }

@@ -97,7 +97,7 @@ Set it to your `TUSResumableUpload` object.
     upload.failureBlock = failureBlock;
     
 ### Result Block
-A block fired when your upload fails.
+A block fired when your upload is successful.
 
     static TUSUploadResultBlock resultBlock = ^(NSURL* fileURL){
         // Use the upload url
@@ -120,6 +120,11 @@ Please refrence the Example Project for more usage examples
 
 TUSKit is a ready to use tus client for iOS.
 
+# Todo
+------
+-   [Add retry count](https://github.com/tus/TUSKit/issues/29)
+-   [SSL Support](https://github.com/tus/TUSKit/issues/32)
+-   [Uploadstore save to disk](https://github.com/tus/TUSKit/issues/33)
 
 # License
 ------
