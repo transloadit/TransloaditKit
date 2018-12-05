@@ -143,18 +143,12 @@
     }
 }
 
-//- (void) update: (APIObject *) object {
-//    [self makeRequestWithMethod:TRANSLOADIT_PUT andObject:object callback:^(NSDictionary *callback) {
-//        //callback;
-//    }];
-//}
-//
-//- (void) get: (APIObject *) object {
-//    [self makeRequestWithMethod:TRANSLOADIT_GET andObject:object callback:^(NSDictionary *) {
-//        //;
-//    }];
-//}
-//
+- (void) update: (APIObject *) object {
+    [self makeRequestWithMethod:TRANSLOADIT_PUT andObject:object callback:^(NSDictionary *callback) {
+        //callback;
+    }];
+}
+
 
 - (void) invokeAssembly: (Assembly *)assembly{
     [self checkAssembly:assembly];
