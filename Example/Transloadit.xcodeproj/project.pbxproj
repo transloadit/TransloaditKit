@@ -13,11 +13,6 @@
 		2858DA351F68BF7D005325A3 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2858DA341F68BF7D005325A3 /* test.jpg */; };
 		28615CFE209F8AD000E3D237 /* transloadit.png in Resources */ = {isa = PBXBuildFile; fileRef = 28615CFD209F8AD000E3D237 /* transloadit.png */; };
 		287BD35120EC709900A599C3 /* TransloaditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* TransloaditViewController.m */; };
-		289616D2203D1EBE0023EE37 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289616C9203D1EBD0023EE37 /* CommonCrypto.framework */; };
-		289616D9203D1EBE0023EE37 /* CommonCryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289616D8203D1EBE0023EE37 /* CommonCryptoTests.swift */; };
-		289616DB203D1EBE0023EE37 /* CommonCrypto.h in Headers */ = {isa = PBXBuildFile; fileRef = 289616CB203D1EBE0023EE37 /* CommonCrypto.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		289616DE203D1EBE0023EE37 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289616C9203D1EBD0023EE37 /* CommonCrypto.framework */; };
-		289616DF203D1EBE0023EE37 /* CommonCrypto.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 289616C9203D1EBD0023EE37 /* CommonCrypto.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		28C00B3C1ECD8F1900430748 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C00B3B1ECD8F1900430748 /* AppDelegate.m */; };
 		28C00B3F1ECD8F1900430748 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C00B3E1ECD8F1900430748 /* main.m */; };
 		28C00B421ECD8F1900430748 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C00B411ECD8F1900430748 /* ViewController.m */; };
@@ -43,27 +38,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		289616D3203D1EBE0023EE37 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6003F582195388D10070C39A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 289616C8203D1EBD0023EE37;
-			remoteInfo = CommonCrypto;
-		};
-		289616D5203D1EBE0023EE37 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6003F582195388D10070C39A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6003F589195388D20070C39A;
-			remoteInfo = Transloadit_Example;
-		};
-		289616DC203D1EBE0023EE37 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6003F582195388D10070C39A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 289616C8203D1EBD0023EE37;
-			remoteInfo = CommonCrypto;
-		};
 		28C00B4E1ECD8F1900430748 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6003F582195388D10070C39A /* Project object */;
@@ -94,7 +68,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				289616DF203D1EBE0023EE37 /* CommonCrypto.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -108,10 +81,8 @@
 		2858DA341F68BF7D005325A3 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
 		2858DA361F68C27C005325A3 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = test.jpg; path = ../../../../../Downloads/mpdf60/examples/test.jpg; sourceTree = "<group>"; };
 		28615CFD209F8AD000E3D237 /* transloadit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transloadit.png; sourceTree = "<group>"; };
-		289616C9203D1EBD0023EE37 /* CommonCrypto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CommonCrypto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		289616CB203D1EBE0023EE37 /* CommonCrypto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonCrypto.h; sourceTree = "<group>"; };
 		289616CC203D1EBE0023EE37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		289616D1203D1EBE0023EE37 /* CommonCryptoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CommonCryptoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		289616D8203D1EBE0023EE37 /* CommonCryptoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonCryptoTests.swift; sourceTree = "<group>"; };
 		289616DA203D1EBE0023EE37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		289616E7203D1EF00023EE37 /* CommonCrypto.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = CommonCrypto.xcconfig; sourceTree = "<group>"; };
@@ -167,21 +138,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		289616C5203D1EBD0023EE37 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		289616CE203D1EBE0023EE37 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				289616D2203D1EBE0023EE37 /* CommonCrypto.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		28C00B351ECD8F1900430748 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -211,7 +167,6 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				289616DE203D1EBE0023EE37 /* CommonCrypto.framework in Frameworks */,
 				D1E49B677AD700363064E990 /* Pods_Transloadit_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -331,8 +286,6 @@
 				28C00B381ECD8F1900430748 /* Transloadit_MacOS_Example.app */,
 				28C00B4D1ECD8F1900430748 /* Transloadit_MacOS_ExampleTests.xctest */,
 				28C00B581ECD8F1900430748 /* Transloadit_MacOS_ExampleUITests.xctest */,
-				289616C9203D1EBD0023EE37 /* CommonCrypto.framework */,
-				289616D1203D1EBE0023EE37 /* CommonCryptoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -413,55 +366,7 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		289616C6203D1EBD0023EE37 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				289616DB203D1EBE0023EE37 /* CommonCrypto.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		289616C8203D1EBD0023EE37 /* CommonCrypto */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 289616E4203D1EBE0023EE37 /* Build configuration list for PBXNativeTarget "CommonCrypto" */;
-			buildPhases = (
-				289616C4203D1EBD0023EE37 /* Sources */,
-				289616C5203D1EBD0023EE37 /* Frameworks */,
-				289616C6203D1EBD0023EE37 /* Headers */,
-				289616C7203D1EBD0023EE37 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = CommonCrypto;
-			productName = CommonCrypto;
-			productReference = 289616C9203D1EBD0023EE37 /* CommonCrypto.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		289616D0203D1EBE0023EE37 /* CommonCryptoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 289616E6203D1EBE0023EE37 /* Build configuration list for PBXNativeTarget "CommonCryptoTests" */;
-			buildPhases = (
-				289616CD203D1EBE0023EE37 /* Sources */,
-				289616CE203D1EBE0023EE37 /* Frameworks */,
-				289616CF203D1EBE0023EE37 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				289616D4203D1EBE0023EE37 /* PBXTargetDependency */,
-				289616D6203D1EBE0023EE37 /* PBXTargetDependency */,
-			);
-			name = CommonCryptoTests;
-			productName = CommonCryptoTests;
-			productReference = 289616D1203D1EBE0023EE37 /* CommonCryptoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		28C00B371ECD8F1900430748 /* Transloadit_MacOS_Example */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 28C00B651ECD8F1900430748 /* Build configuration list for PBXNativeTarget "Transloadit_MacOS_Example" */;
@@ -531,7 +436,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				289616DD203D1EBE0023EE37 /* PBXTargetDependency */,
 			);
 			name = Transloadit_Example;
 			productName = Transloadit;
@@ -569,17 +473,6 @@
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Mark R. Masterson";
 				TargetAttributes = {
-					289616C8203D1EBD0023EE37 = {
-						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = MPKS94G26Q;
-						ProvisioningStyle = Automatic;
-					};
-					289616D0203D1EBE0023EE37 = {
-						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = MPKS94G26Q;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 6003F589195388D20070C39A;
-					};
 					28C00B371ECD8F1900430748 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = MPKS94G26Q;
@@ -625,27 +518,11 @@
 				28C00B371ECD8F1900430748 /* Transloadit_MacOS_Example */,
 				28C00B4C1ECD8F1900430748 /* Transloadit_MacOS_ExampleTests */,
 				28C00B571ECD8F1900430748 /* Transloadit_MacOS_ExampleUITests */,
-				289616C8203D1EBD0023EE37 /* CommonCrypto */,
-				289616D0203D1EBE0023EE37 /* CommonCryptoTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		289616C7203D1EBD0023EE37 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		289616CF203D1EBE0023EE37 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		28C00B361ECD8F1900430748 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -808,21 +685,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		289616C4203D1EBD0023EE37 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		289616CD203D1EBE0023EE37 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				289616D9203D1EBE0023EE37 /* CommonCryptoTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		28C00B341ECD8F1900430748 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -871,21 +733,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		289616D4203D1EBE0023EE37 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 289616C8203D1EBD0023EE37 /* CommonCrypto */;
-			targetProxy = 289616D3203D1EBE0023EE37 /* PBXContainerItemProxy */;
-		};
-		289616D6203D1EBE0023EE37 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6003F589195388D20070C39A /* Transloadit_Example */;
-			targetProxy = 289616D5203D1EBE0023EE37 /* PBXContainerItemProxy */;
-		};
-		289616DD203D1EBE0023EE37 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 289616C8203D1EBD0023EE37 /* CommonCrypto */;
-			targetProxy = 289616DC203D1EBE0023EE37 /* PBXContainerItemProxy */;
-		};
 		28C00B4F1ECD8F1900430748 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 28C00B371ECD8F1900430748 /* Transloadit_MacOS_Example */;
@@ -931,158 +778,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		289616E0203D1EBE0023EE37 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 289616E7203D1EF00023EE37 /* CommonCrypto.xcconfig */;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = MPKS94G26Q;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = CommonCrypto/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = io.masterson.CommonCrypto;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		289616E1203D1EBE0023EE37 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 289616E7203D1EF00023EE37 /* CommonCrypto.xcconfig */;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = MPKS94G26Q;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = CommonCrypto/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = io.masterson.CommonCrypto;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		289616E2203D1EBE0023EE37 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = MPKS94G26Q;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = CommonCryptoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = io.masterson.CommonCryptoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Transloadit_Example.app/Transloadit_Example";
-			};
-			name = Debug;
-		};
-		289616E3203D1EBE0023EE37 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = MPKS94G26Q;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = CommonCryptoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = io.masterson.CommonCryptoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Transloadit_Example.app/Transloadit_Example";
-			};
-			name = Release;
-		};
 		28C00B5F1ECD8F1900430748 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 65E16A8EE569809861EF1D39 /* Pods-Transloadit_MacOS_Example.debug.xcconfig */;
@@ -1450,24 +1145,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		289616E4203D1EBE0023EE37 /* Build configuration list for PBXNativeTarget "CommonCrypto" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				289616E0203D1EBE0023EE37 /* Debug */,
-				289616E1203D1EBE0023EE37 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		289616E6203D1EBE0023EE37 /* Build configuration list for PBXNativeTarget "CommonCryptoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				289616E2203D1EBE0023EE37 /* Debug */,
-				289616E3203D1EBE0023EE37 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		28C00B651ECD8F1900430748 /* Build configuration list for PBXNativeTarget "Transloadit_MacOS_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
