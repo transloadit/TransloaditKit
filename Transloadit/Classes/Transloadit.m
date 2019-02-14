@@ -18,7 +18,7 @@
         NSString* PLIST_KEY = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TRANSLOADIT_KEY"];
         NSString* PLIST_SECRET = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TRANSLOADIT_SECRET"];
 
-        if (![PLIST_KEY  isEqualToString: @""] && ![PLIST_SECRET isEqualToString:@""]) {
+        if (![PLIST_KEY  isEqual:[NSNull null]] && ![PLIST_SECRET isEqual:[NSNull null]]) {
             _secret = PLIST_SECRET;
             _key = PLIST_KEY;
         }

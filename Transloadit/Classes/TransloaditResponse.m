@@ -12,7 +12,7 @@
 - (id)initWithResponseDictionary:(NSDictionary *)responseDictionary {
     self = [super init];
     if(self) {
-    
+        _dictionary = responseDictionary;
     }
     return self;
 }

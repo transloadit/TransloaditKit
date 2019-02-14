@@ -79,9 +79,9 @@ typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completion
 - (void) update:(APIObject *) object;
 - (void) delete:(APIObject *) object;
 
-- (void) createTemplate: (Template *_Nonnull)template;
+- (void) createTemplate: (Template *_Nonnull)template __deprecated;
 - (void) invokeAssembly: (Assembly *_Nonnull)assembly;
-- (void) createAssembly: (Assembly *_Nonnull)assembly;
+- (void) createAssembly: (Assembly *_Nonnull)assembly __deprecated;
 - (void) checkAssembly: (Assembly *_Nonnull)assembly;
 - (void)setDelegate: (_Nullable id<TransloaditDelegate>)tDelegate;
 
