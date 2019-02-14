@@ -47,6 +47,9 @@ typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completion
 @property (readwrite, copy) _Nullable TransloaditUploadFailureBlock uploadFailureBlock;
 @property (readwrite, copy) _Nullable TransloaditUploadProgressBlock uploadProgressBlock;
 
+/*
+ Legacy - Keep for a few versions
+ */
 @property (readwrite, copy) _Nullable TransloaditAssemblyCreationResultBlock assemblyCreationResultBlock;
 @property (readwrite, copy) _Nullable TransloaditAssemblyCreationFailureBlock assemblyCreationFailureBlock;
 

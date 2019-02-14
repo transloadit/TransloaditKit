@@ -9,6 +9,12 @@
 
 @implementation TransloaditResponse
 
-
+- (id)initWithResponseDictionary:(NSDictionary *)responseDictionary {
+    self = [super init];
+    if(self) {
+    
+    }
+    return self;
+}
 
 @end

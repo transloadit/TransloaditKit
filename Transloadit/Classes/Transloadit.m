@@ -197,7 +197,7 @@
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 }
 
-- (void) makeRequestWithMethod:(NSString *)method andObject:(APIObject *) object callback:(void(^)(NSDictionary *))callback {
+- (void) makeRequestWithMethod:(NSString *)method andObject:(APIObject *) object callback:(void(^)(TransloaditResponse *))callback {
     NSLog(@"%@", [object urlString]);
     TransloaditRequest *request = [[TransloaditRequest alloc] initWith:_key andSecret:_secret andMethod:method andURL:[object urlString]];
     if ([[request method] isEqualToString:TRANSLOADIT_POST] || [[request method] isEqualToString:TRANSLOADIT_PUT]) {
@@ -213,8 +213,8 @@
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
                                                              options:NSJSONReadingMutableContainers
                                                                error:nil];
-
-        callback(json);
+        TransloaditResponse *responseObject = [[TransloaditResponse alloc] initWithResponseDictionary:json];
+        callback(responseObject);
     }];
     [assemblyTask resume];
 }

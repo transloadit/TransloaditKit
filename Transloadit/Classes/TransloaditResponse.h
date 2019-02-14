@@ -9,4 +9,7 @@
 
 @interface TransloaditResponse : NSObject
 
+- (id)initWithResponseDictionary:(NSDictionary *)responseDictionary;
+
+
 @end
