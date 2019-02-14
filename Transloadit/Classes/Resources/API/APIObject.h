@@ -26,6 +26,7 @@
 
 @property (nonatomic, strong)NSString* urlString;
 
+- (id)init;
 
 - (NSMutableDictionary*) getParams;
 

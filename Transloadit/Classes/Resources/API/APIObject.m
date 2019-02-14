@@ -9,4 +9,14 @@
 
 @implementation APIObject
 
+- (id)init {
+    self = [super init];
+    if(self) {
+    }
+    return self;
+}
+
+- (NSMutableDictionary*) getParams {
+    return [[NSDictionary alloc] init];
+}
 @end

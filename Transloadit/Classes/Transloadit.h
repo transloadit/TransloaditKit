@@ -6,21 +6,20 @@
 //  Copyright © 2016 Mark R. Masterson. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import <Foundation/Foundation.h>
-#import "TransloaditProtocol.h"
-#import "TransloaditRequest.h"
+#import <TUSKit/TUSKit.h>
 #import "Assembly.h"
 #import "Template.h"
+#import "TransloaditProtocol.h"
+#import "TransloaditRequest.h"
+
 #import "Step.h"
 #import "APIState.h"
 #import "APIObjectType.h"
 #import "NSString+Utils.h"
-#import "APIObject.h"
-#import "Resources/TransloaditConstants.h"
 
 #import "TransloaditDelegate.h"
-#import <TUSKit/TUSKit.h>
-
 
 #pragma mark - Resource Includes
 
@@ -67,7 +66,7 @@ typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completion
 
 
 #pragma mark - TUSKit References
-@property (nonatomic, strong) TUSResumableUpload  * _Nonnull tus;
+@property (nonatomic, strong) TUSResumableUpload*  tus;
 @property (nonatomic, strong) TUSUploadStore  * _Nonnull tusStore;
 @property (nonatomic, strong) TUSSession  * _Nonnull tusSession;
 

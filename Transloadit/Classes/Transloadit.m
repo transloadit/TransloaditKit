@@ -7,10 +7,13 @@
 //
 
 #import "Transloadit.h"
+#import "Resources/API/APIObject.h"
 
 
 @implementation Transloadit
-@class APIObject;
+@synthesize tus;
+@synthesize tusStore;
+
 
 - (id)init {
     self = [super init];
@@ -18,14 +21,14 @@
         NSString* PLIST_KEY = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TRANSLOADIT_KEY"];
         NSString* PLIST_SECRET = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TRANSLOADIT_SECRET"];
 
-        if (![PLIST_KEY  isEqual:[NSNull null]] && ![PLIST_SECRET isEqual:[NSNull null]]) {
+        if (![PLIST_KEY isEqual:[NSNull null]] && ![PLIST_SECRET isEqual:[NSNull null]]) {
             _secret = PLIST_SECRET;
             _key = PLIST_KEY;
         }
         
         NSURL * applicationSupportURL = [[[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] firstObject];
-        _tusStore = [[TUSFileUploadStore alloc] initWithURL:[applicationSupportURL URLByAppendingPathComponent:@"Example"]];
-        _tus = [TUSResumableUpload alloc];
+//        tusStore = [[TUSFileUploadStore alloc] initWithURL:[applicationSupportURL URLByAppendingPathComponent:@"Example"]];
+//        tus = [TUSResumableUpload alloc];
     }
     return self;
 }
@@ -36,7 +39,8 @@
     }
 }
 
-- (void) create:(APIObject *) object {
+
+- (void)create:(APIObject *)object {
     switch (object.apiType) {
         case TRANSLOADIT_ASSEMBLY:
             [object setUrlString:[NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_ASSEMBLIES]];
@@ -45,7 +49,7 @@
             [object setUrlString:[NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_TEMPLATES]];
             break;
     }
-    [self makeRequestWithMethod:TRANSLOADIT_POST andObject:object callback:^(NSDictionary *json) {
+    [self makeRequestWithMethod:TRANSLOADIT_POST andObject:object callback:^(TransloaditResponse *json) {
         NSError *error = [[NSError alloc] init];
         if([json valueForKey:@"error"]){
             switch (object.apiType) {
@@ -64,7 +68,7 @@
             switch (object.apiType) {
                 case TRANSLOADIT_ASSEMBLY:
                     [(Assembly *)object setUrlString: [json valueForKey:@"assembly_ssl_url"]];
-                    _tusSession = [[TUSSession alloc] initWithEndpoint:[[NSURL alloc] initWithString:[json valueForKey:@"tus_url"]] dataStore:_tusStore allowsCellularAccess:YES];
+//                    _tusSession = [[TUSSession alloc] initWithEndpoint:[[NSURL alloc] initWithString:[json valueForKey:@"tus_url"]] dataStore:_tusStore allowsCellularAccess:YES];
                     [self.delegate transloaditAssemblyCreationResult:object];
                     break;
                 case TRANSLOADIT_TEMPLATE:
@@ -77,10 +81,10 @@
 }
 
 - (void) delete:(APIObject *) object {
-    if ([[object urlString] isEqualToString:nil]) {
+    if ([[object urlString] isEqual:[NSNull null]]) {
         [self.delegate transloaditTemplateCreationError:nil withResponse:@{@"message":@"No URL Set"}];
     } else {
-        [self makeRequestWithMethod:TRANSLOADIT_DELETE andObject:object callback:^(NSDictionary *json) {
+        [self makeRequestWithMethod:TRANSLOADIT_DELETE andObject:object callback:^(TransloaditResponse *json) {
             NSError *error = [[NSError alloc] init];
             if([json valueForKey:@"error"]){
                 switch (object.apiType) {
@@ -110,10 +114,10 @@
 }
 
 - (void) get:(APIObject *) object {
-    if ([[object urlString] isEqualToString:nil]) {
+    if ([[object urlString] isEqual:[NSNull null]]) {
         [self.delegate transloaditTemplateCreationError:nil withResponse:@{@"message":@"No URL Set"}];
     } else {
-        [self makeRequestWithMethod:TRANSLOADIT_GET andObject:object callback:^(NSDictionary *json) {
+        [self makeRequestWithMethod:TRANSLOADIT_GET andObject:object callback:^(TransloaditResponse *json) {
             NSError *error = [[NSError alloc] init];
             if([json valueForKey:@"error"]){
                 switch (object.apiType) {
@@ -141,7 +145,7 @@
 }
 
 - (void) update: (APIObject *) object {
-    [self makeRequestWithMethod:TRANSLOADIT_PUT andObject:object callback:^(NSDictionary *callback) {
+    [self makeRequestWithMethod:TRANSLOADIT_PUT andObject:object callback:^(TransloaditResponse *callback) {
         //callback;
     }];
 }
@@ -153,11 +157,11 @@
     
     for (int x = 0; x < [files count]; x++) {
         NSString* fileName = [[assembly fileNames] objectAtIndex:x];
-        TUSResumableUpload *upload = [_tusSession createUploadFromFile:[files  objectAtIndex:x] headers:@{} metadata:@{@"filename":fileName, @"fieldname":@"file-input", @"assembly_url": [assembly urlString]}];
-        upload.progressBlock = _uploadProgressBlock;
-        upload.resultBlock = _uploadResultBlock;
-        upload.failureBlock = _uploadFailureBlock;
-        [upload resume];
+//        TUSResumableUpload *upload = [_tusSession createUploadFromFile:[files  objectAtIndex:x] headers:@{} metadata:@{@"filename":fileName, @"fieldname":@"file-input", @"assembly_url": [assembly urlString]}];
+//        upload.progressBlock = _uploadProgressBlock;
+//        upload.resultBlock = _uploadResultBlock;
+//        upload.failureBlock = _uploadFailureBlock;
+//        [upload resume];
     }
 }
 
@@ -239,6 +243,14 @@
         completion(json);
     }];
     [assemblyTask resume];
+}
+
+//__deprecated
+-(void) createAssembly:(id)assembly {
+
+}
+-(void) createTemplate:(id)template {
+
 }
 
 

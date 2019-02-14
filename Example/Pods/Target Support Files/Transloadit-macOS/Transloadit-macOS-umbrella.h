@@ -19,6 +19,7 @@
 #import "Template.h"
 #import "URLConstants.h"
 #import "Resources.h"
+#import "TransloaditConstants.h"
 #import "Transloadit.h"
 #import "TransloaditDelegate.h"
 #import "TransloaditProtocol.h"
