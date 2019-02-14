@@ -12,8 +12,6 @@
 @implementation Transloadit
 @class APIObject;
 
-
-
 - (id)init {
     self = [super init];
     if(self) {
@@ -28,7 +26,6 @@
         NSURL * applicationSupportURL = [[[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] firstObject];
         _tusStore = [[TUSFileUploadStore alloc] initWithURL:[applicationSupportURL URLByAppendingPathComponent:@"Example"]];
         _tus = [TUSResumableUpload alloc];
-        
     }
     return self;
 }

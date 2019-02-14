@@ -6,6 +6,7 @@
 //
 
 #import "TransloaditRequest.h"
+#import "Resources/TransloaditConstants.h"
 
 @implementation TransloaditRequest
 
@@ -29,7 +30,7 @@
         [self setCachePolicy:NSURLRequestReturnCacheDataElseLoad];
         [self setTimeoutInterval:120.0];
         [self addValue:@"application/json" forHTTPHeaderField:@"Accept"];
-        [self addValue:@"" forHTTPHeaderField:@"Transloadit-Client"];
+        [self addValue:TRANSLOADITKIT_VERSION forHTTPHeaderField:@"Transloadit-Client"];
 
         [self setHTTPMethod:method];
     }
@@ -93,8 +94,4 @@
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     [self setHTTPBody:body];
 }
-
-
-
-
 @end

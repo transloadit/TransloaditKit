@@ -28,6 +28,7 @@
 		1FC295A3290CCA6D0A2E85B7A307CBF4 /* Pods-Transloadit_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7F1EB69EC58E2C1A3C16C58BDC5E92 /* Pods-Transloadit_Example-dummy.m */; };
 		245160A2CFF294514F28FB680E9C5553 /* Pods-Transloadit_MacOS_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 99F05D0C5728915468952105371E516E /* Pods-Transloadit_MacOS_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		283C6F53F7C0CDB0D60F7638C94E4959 /* TUSKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C01C92F30E9D4937B1389B1B99951469 /* TUSKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		284B314B22151F3D00B16088 /* TransloaditConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 284B314A22151F3D00B16088 /* TransloaditConstants.h */; };
 		29CCE17D247F8AEF132E26B6FD733BFC /* TUSData.h in Headers */ = {isa = PBXBuildFile; fileRef = D65A47AAAFDE4D82D17BA4394384602D /* TUSData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2D62D52968CB34FC42A364B3E69787E8 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7021ECBB6C655A48850DBF1CA1910ACD /* NSString+Utils.m */; };
 		2DE1159A0FFB66F8686D75276954639E /* Transloadit-macOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C8A62AE3D9DA8821B5740EFDDA86FC /* Transloadit-macOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -210,8 +211,9 @@
 		189992BC0221986A241BCD893CCFBA39 /* TUSKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = TUSKit.xcconfig; path = Pod/Classes/TUSKit.xcconfig; sourceTree = "<group>"; };
 		1F943C83E973B5872AF960FB19323FBE /* TUSKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TUSKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		203EB4A309B6AF22FD4A94873B1D35A3 /* Pods-Transloadit_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Transloadit_Example-umbrella.h"; sourceTree = "<group>"; };
-		236FCADD06F6EA148E45AAD88A3820B0 /* TUSKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TUSKit.framework; path = "TUSKit-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		236FCADD06F6EA148E45AAD88A3820B0 /* TUSKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TUSKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2595BB609C53FE468A8DD9798F97A767 /* UIApplication+StrictKeyWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIApplication+StrictKeyWindow.h"; path = "FBSnapshotTestCase/Categories/UIApplication+StrictKeyWindow.h"; sourceTree = "<group>"; };
+		284B314A22151F3D00B16088 /* TransloaditConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransloaditConstants.h; sourceTree = "<group>"; };
 		29ABE98ECE07CEFB58DBFCC702663580 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		2C1FE0C78C46434795DC3BD3A021F18A /* UIImage+Snapshot.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Snapshot.m"; path = "FBSnapshotTestCase/Categories/UIImage+Snapshot.m"; sourceTree = "<group>"; };
 		2E4D41C43C4D22719FFEB9777B4D3596 /* TransloaditDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TransloaditDelegate.h; path = Transloadit/Classes/TransloaditDelegate.h; sourceTree = "<group>"; };
@@ -226,19 +228,19 @@
 		37DFFC7D19F8D94DE6DFC9FBD0A0FE18 /* TUSFileData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TUSFileData.m; path = Pod/Classes/TUSFileData.m; sourceTree = "<group>"; };
 		39F2741AE70B62CC0EA6534C0B5E4FB8 /* FBSnapshotTestCase-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FBSnapshotTestCase-dummy.m"; sourceTree = "<group>"; };
 		3A6DBF0DD6D5640D00C59854631409C3 /* TUSErrors.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TUSErrors.h; path = Pod/Classes/TUSErrors.h; sourceTree = "<group>"; };
-		3CE8EA4D49E08660992E3A1B1A6BBFF7 /* Pods_Transloadit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Transloadit_Tests.framework; path = "Pods-Transloadit_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3CE8EA4D49E08660992E3A1B1A6BBFF7 /* Pods_Transloadit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Transloadit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D13F0BC20B88F07C2BB2AC392E3284A /* TUSKit-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TUSKit-iOS-prefix.pch"; sourceTree = "<group>"; };
 		3F797D1605FA238767063DC2DE24888E /* module.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = module.modulemap; sourceTree = "<group>"; };
 		3F89DD6707E47142CD393365757A9AA7 /* TUSFileData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TUSFileData.h; path = Pod/Classes/TUSFileData.h; sourceTree = "<group>"; };
 		404EC8483288FE3615CC43833EEEA20A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		414C7F77BAD2A123205C980024EE2A4E /* Transloadit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Transloadit.framework; path = "Transloadit-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		414C7F77BAD2A123205C980024EE2A4E /* Transloadit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Transloadit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BDF15DE77A3FE47377A3BAE3AC73BC4 /* Pods-Transloadit_MacOS_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Transloadit_MacOS_Example-dummy.m"; sourceTree = "<group>"; };
 		509AAF4070CE2369B45A0A47B0844F72 /* Pods-Transloadit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Transloadit_Example.release.xcconfig"; sourceTree = "<group>"; };
-		50FC84EF3BD153D97B7FD7C558419EE5 /* TUSKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = TUSKit.framework; path = "TUSKit-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		50FC84EF3BD153D97B7FD7C558419EE5 /* TUSKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TUSKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		541320C309EABC3EC96FAEB750A06A05 /* TUSKit-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TUSKit-iOS-dummy.m"; sourceTree = "<group>"; };
 		54C1E0A65F10AB4C81479E747C50025B /* FBSnapshotTestController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSnapshotTestController.m; path = FBSnapshotTestCase/FBSnapshotTestController.m; sourceTree = "<group>"; };
 		55CEC51BC397C9046E61903DC4E0E3FF /* FBSnapshotTestCase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBSnapshotTestCase.m; path = FBSnapshotTestCase/FBSnapshotTestCase.m; sourceTree = "<group>"; };
-		5649B695C55BF761163A78AA8FD8606C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		5649B695C55BF761163A78AA8FD8606C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		569E46792E2F54C4FFD5B46F901C14BF /* APIObjectType.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = APIObjectType.h; sourceTree = "<group>"; };
 		5800300BEB76D2A4243B1B6C2261852B /* Transloadit-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "Transloadit-macOS.modulemap"; path = "../Transloadit-macOS/Transloadit-macOS.modulemap"; sourceTree = "<group>"; };
 		625BEF60BCA4C0D0C90830CDC3F7A404 /* UIApplication+StrictKeyWindow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIApplication+StrictKeyWindow.m"; path = "FBSnapshotTestCase/Categories/UIApplication+StrictKeyWindow.m"; sourceTree = "<group>"; };
@@ -247,7 +249,7 @@
 		639F8B1096A2D129845C89411E2CE63B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		694389C17D082D741BFFB4030E339351 /* FBSnapshotTestCase-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FBSnapshotTestCase-prefix.pch"; sourceTree = "<group>"; };
 		698A3E96D04CB82F4583860BBECF75E1 /* TUSSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TUSSession.h; path = Pod/Classes/TUSSession.h; sourceTree = "<group>"; };
-		69B7F1D9E60A9EC62C2465D618D2AA46 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		69B7F1D9E60A9EC62C2465D618D2AA46 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		69C05AD8FD9F58F46F1408C4BA29036B /* Pods-Transloadit_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Transloadit_Tests-resources.sh"; sourceTree = "<group>"; };
 		6A87FAC826A9F84C522733D574C1168C /* TUSData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TUSData.m; path = Pod/Classes/TUSData.m; sourceTree = "<group>"; };
 		6EF0611911C049957FA124C061F626BA /* Pods-Transloadit_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Transloadit_Tests-frameworks.sh"; sourceTree = "<group>"; };
@@ -262,14 +264,14 @@
 		8D3CDFEECB6CC3A0D71C630BF458D5EB /* Pods-Transloadit_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Transloadit_Example-resources.sh"; sourceTree = "<group>"; };
 		8DE502E17BCF1CF94C239B17C5889EBA /* Step.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Step.m; sourceTree = "<group>"; };
 		8E42F588A1E944A8BF88B64A135C8059 /* Template.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Template.h; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9401982880FE4AE230E1F801BA80FE67 /* Pods-Transloadit_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Transloadit_Example.modulemap"; sourceTree = "<group>"; };
 		967E73C7333A2162C018A79EEC1CEBBC /* Transloadit-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Transloadit-iOS.modulemap"; sourceTree = "<group>"; };
 		97135479E160D1BBC9B4ADB9F4612714 /* TUSResumableUpload+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "TUSResumableUpload+Private.h"; path = "Pod/Classes/TUSResumableUpload+Private.h"; sourceTree = "<group>"; };
 		99F05D0C5728915468952105371E516E /* Pods-Transloadit_MacOS_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Transloadit_MacOS_Example-umbrella.h"; sourceTree = "<group>"; };
 		9B678E30DEC22184183ABCADBFD8AEEA /* Pods-Transloadit_MacOS_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Transloadit_MacOS_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		9CF8982FA5030FB07D1869CEFBEE2604 /* Pods-Transloadit_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Transloadit_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		9D9A087858776D0BE33346C9D079EF30 /* Transloadit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Transloadit.framework; path = "Transloadit-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D9A087858776D0BE33346C9D079EF30 /* Transloadit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Transloadit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DC688730311D2D12CC7CA436BD24447 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../TUSKit-macOS/Info.plist"; sourceTree = "<group>"; };
 		A055E0722A340438236FBED8F83471D3 /* Pods-Transloadit_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Transloadit_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		A139E45C6E9304C85ED2BF527121B7B3 /* UIImage+Diff.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Diff.m"; path = "FBSnapshotTestCase/Categories/UIImage+Diff.m"; sourceTree = "<group>"; };
@@ -277,7 +279,7 @@
 		A4528B06DB73A24C2FAC6F9D25F467F4 /* Pods-Transloadit_MacOS_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Transloadit_MacOS_Example-resources.sh"; sourceTree = "<group>"; };
 		A6236DB26F784F70831887EDAE90DA99 /* Pods-Transloadit_MacOS_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Transloadit_MacOS_Example-frameworks.sh"; sourceTree = "<group>"; };
 		A989C2D511D3D23CE44FDE4E7BA68118 /* Transloadit-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Transloadit-macOS-prefix.pch"; path = "../Transloadit-macOS/Transloadit-macOS-prefix.pch"; sourceTree = "<group>"; };
-		AA4E2BAA60CB9861DF24BC41341D3F79 /* Pods_Transloadit_MacOS_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Transloadit_MacOS_Example.framework; path = "Pods-Transloadit_MacOS_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA4E2BAA60CB9861DF24BC41341D3F79 /* Pods_Transloadit_MacOS_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Transloadit_MacOS_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB19D271BBD0EBE7B5DC267FF0F919EA /* APIObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = APIObject.h; sourceTree = "<group>"; };
 		AD7F1EB69EC58E2C1A3C16C58BDC5E92 /* Pods-Transloadit_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Transloadit_Example-dummy.m"; sourceTree = "<group>"; };
 		B11F5AD1D903B5F67A239409ACC0BEB0 /* Pods-Transloadit_MacOS_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Transloadit_MacOS_Example.modulemap"; sourceTree = "<group>"; };
@@ -293,7 +295,7 @@
 		C3DE5053E402315B732155910121EAA2 /* Transloadit-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Transloadit-macOS.xcconfig"; path = "../Transloadit-macOS/Transloadit-macOS.xcconfig"; sourceTree = "<group>"; };
 		C69BDB1FEB5503691D03870E39682054 /* Transloadit-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "Transloadit-macOS-dummy.m"; path = "../Transloadit-macOS/Transloadit-macOS-dummy.m"; sourceTree = "<group>"; };
 		C953ACDEDAE99662A55130C3BBF053DB /* FBSnapshotTestCase.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FBSnapshotTestCase.xcconfig; sourceTree = "<group>"; };
-		C994AE1FC57D87A682D5EB2053EAD60A /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FBSnapshotTestCase.framework; path = FBSnapshotTestCase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C994AE1FC57D87A682D5EB2053EAD60A /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FBSnapshotTestCase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99E7A49B1BB8F7EE13B66755B4E3B0E /* Pods-Transloadit_MacOS_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Transloadit_MacOS_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		CA52A85FD5E0C17F203D206D05BE0BA9 /* TUSAssetData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TUSAssetData.m; path = Pod/Classes/TUSAssetData.m; sourceTree = "<group>"; };
 		CC6889A94BEF6A435F72ACB2FAD060B6 /* Assembly.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Assembly.h; sourceTree = "<group>"; };
@@ -301,7 +303,7 @@
 		D5C8A62AE3D9DA8821B5740EFDDA86FC /* Transloadit-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Transloadit-macOS-umbrella.h"; path = "../Transloadit-macOS/Transloadit-macOS-umbrella.h"; sourceTree = "<group>"; };
 		D632FDD7CA64095C21BB543A20314524 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D65A47AAAFDE4D82D17BA4394384602D /* TUSData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TUSData.h; path = Pod/Classes/TUSData.h; sourceTree = "<group>"; };
-		D8AF987782A59E832F84CA016A068C27 /* Transloadit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = Transloadit.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D8AF987782A59E832F84CA016A068C27 /* Transloadit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = Transloadit.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D8E50A81B13E7D6CA4865302FDDD29E6 /* Pods-Transloadit_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Transloadit_Tests.modulemap"; sourceTree = "<group>"; };
 		D91A9D1F1A8C3C508EFB4AC63989C3C6 /* Pods-Transloadit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Transloadit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		DA3E19A63D24B1B29ACEF61FF3C260FC /* UIImage+Compare.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Compare.h"; path = "FBSnapshotTestCase/Categories/UIImage+Compare.h"; sourceTree = "<group>"; };
@@ -312,7 +314,7 @@
 		E114B3B2FB2AD2D8047CE3F36993BEFC /* TUSKit-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "TUSKit-macOS-prefix.pch"; path = "../TUSKit-macOS/TUSKit-macOS-prefix.pch"; sourceTree = "<group>"; };
 		E2A260487B853C5C26AC326AC43B4215 /* Pods-Transloadit_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Transloadit_Tests-umbrella.h"; sourceTree = "<group>"; };
 		E3196E45B6D2E0EFBF18014E26457351 /* TransloaditResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TransloaditResponse.m; path = Transloadit/Classes/TransloaditResponse.m; sourceTree = "<group>"; };
-		E6E5D055AE87ACD4A8D15C4EF5BF18E4 /* Pods_Transloadit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Transloadit_Example.framework; path = "Pods-Transloadit_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6E5D055AE87ACD4A8D15C4EF5BF18E4 /* Pods_Transloadit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Transloadit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9563EAFFCED151670532FA0968B3377 /* Resources.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Resources.h; sourceTree = "<group>"; };
 		EB894B178B76F5D8DA0B0FA152D93A6C /* Template.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Template.m; sourceTree = "<group>"; };
 		EC211E0DC71A6918B24EA8ABF33B19A0 /* UIImage+Diff.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Diff.h"; path = "FBSnapshotTestCase/Categories/UIImage+Diff.h"; sourceTree = "<group>"; };
@@ -476,6 +478,7 @@
 		379E4CBC0526ECC67DE238CCC151313E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				284B314A22151F3D00B16088 /* TransloaditConstants.h */,
 				E9563EAFFCED151670532FA0968B3377 /* Resources.h */,
 				A4924B89518EB56842B829B1058EA4DB /* API */,
 			);
@@ -507,7 +510,6 @@
 				BD3AB8D6112AD3FD7F47BFEE2358193A /* TUSUploadStore.m */,
 				8CDE8B32A227E77D37897F96DFEF9399 /* Support Files */,
 			);
-			name = TUSKit;
 			path = TUSKit;
 			sourceTree = "<group>";
 		};
@@ -640,7 +642,6 @@
 				EB894B178B76F5D8DA0B0FA152D93A6C /* Template.m */,
 				37318DEC52D87C8A87EDA0C63DC6A734 /* URLConstants.h */,
 			);
-			name = API;
 			path = API;
 			sourceTree = "<group>";
 		};
@@ -732,7 +733,6 @@
 				86E0FEC97A27A70229F122F560A64079 /* Support Files */,
 				8D7379DF33B351B9997481906FDAC08F /* SwiftSupport */,
 			);
-			name = FBSnapshotTestCase;
 			path = FBSnapshotTestCase;
 			sourceTree = "<group>";
 		};
@@ -843,6 +843,7 @@
 				9673CF780F48C8E4EC2A331717B1F67C /* FBSnapshotTestCase.h in Headers */,
 				BFCE460CC33E8872B7156D4166340178 /* FBSnapshotTestCasePlatform.h in Headers */,
 				2F485B69F51E4F723A38410F31F08550 /* FBSnapshotTestController.h in Headers */,
+				284B314B22151F3D00B16088 /* TransloaditConstants.h in Headers */,
 				BC952FC04FC963C1294DCD619C9B6B3B /* UIApplication+StrictKeyWindow.h in Headers */,
 				CAFA5E486BCE117A7D8C0FBF9DA6666B /* UIImage+Compare.h in Headers */,
 				051A816D6DD0CAE13496DDCFE0829167 /* UIImage+Diff.h in Headers */,

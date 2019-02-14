@@ -16,6 +16,7 @@
 #import "APIObjectType.h"
 #import "NSString+Utils.h"
 #import "APIObject.h"
+#import "Resources/TransloaditConstants.h"
 
 #import "TransloaditDelegate.h"
 #import <TUSKit/TUSKit.h>
