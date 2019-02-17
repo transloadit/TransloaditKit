@@ -8,11 +8,13 @@
 
 #import "Transloadit.h"
 #import "Resources/API/APIObject.h"
-
+#import "Resources/API//Template.h"
+#import "Resources/API/Assembly.h"
 
 @implementation Transloadit
 @synthesize tus;
 @synthesize tusStore;
+
 
 
 - (id)init {
@@ -40,41 +42,33 @@
 }
 
 
-- (void)create:(APIObject *)object {
-    switch (object.apiType) {
-        case TRANSLOADIT_ASSEMBLY:
-            [object setUrlString:[NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_ASSEMBLIES]];
-            break;
-        case TRANSLOADIT_TEMPLATE:
-            [object setUrlString:[NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_TEMPLATES]];
-            break;
+- (void)create:(id)object {
+    if ([object isKindOfClass:[Assembly class]]) {
+        [object setUrlString:[NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_ASSEMBLIES]];
+    } else if([object isKindOfClass:[Template class]]) {
+        [object setUrlString:[NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_TEMPLATES]];
     }
+
     [self makeRequestWithMethod:TRANSLOADIT_POST andObject:object callback:^(TransloaditResponse *json) {
         NSError *error = [[NSError alloc] init];
         if([json valueForKey:@"error"]){
-            switch (object.apiType) {
-                case TRANSLOADIT_ASSEMBLY:
-                    [self.delegate transloaditAssemblyCreationError:NULL withResponse:json];
-                    break;
-                case TRANSLOADIT_TEMPLATE:
-                    [self.delegate transloaditTemplateCreationError:error withResponse:json];
-                    break;
-            }
             NSError *error = [NSError errorWithDomain:@"TRANSLOADIT"
                                                  code:-57
                                              userInfo:nil];
+            if ([object isKindOfClass:[Assembly class]]) {
+                [self.delegate transloaditAssemblyCreationError:NULL withResponse:json];
+            } else if([object isKindOfClass:[Template class]]) {
+                [self.delegate transloaditTemplateCreationError:error withResponse:json];
+            }
             return;
         } else {
-            switch (object.apiType) {
-                case TRANSLOADIT_ASSEMBLY:
-                    [(Assembly *)object setUrlString: [json valueForKey:@"assembly_ssl_url"]];
-//                    _tusSession = [[TUSSession alloc] initWithEndpoint:[[NSURL alloc] initWithString:[json valueForKey:@"tus_url"]] dataStore:_tusStore allowsCellularAccess:YES];
-                    [self.delegate transloaditAssemblyCreationResult:object];
-                    break;
-                case TRANSLOADIT_TEMPLATE:
-                    [(Template *)object setTemplate_id:[json valueForKey:@"id"]];
-                    [self.delegate transloaditTemplateCreationResult:object];
-                    break;
+            if ([object isKindOfClass:[Assembly class]]) {
+                [(Assembly *)object setUrlString: [json valueForKey:@"assembly_ssl_url"]];
+                //                    _tusSession = [[TUSSession alloc] initWithEndpoint:[[NSURL alloc] initWithString:[json valueForKey:@"tus_url"]] dataStore:_tusStore allowsCellularAccess:YES];
+                [self.delegate transloaditAssemblyCreationResult:object];
+            } else if([object isKindOfClass:[Template class]]) {
+                [(Template *)object setTemplate_id:[json valueForKey:@"id"]];
+                [self.delegate transloaditTemplateCreationResult:object];
             }
         }
     }];
@@ -87,26 +81,20 @@
         [self makeRequestWithMethod:TRANSLOADIT_DELETE andObject:object callback:^(TransloaditResponse *json) {
             NSError *error = [[NSError alloc] init];
             if([json valueForKey:@"error"]){
-                switch (object.apiType) {
-                    case TRANSLOADIT_ASSEMBLY:
-                        [self.delegate transloaditAssemblyDeletionError:error withResponse:json];
-                        break;
-                    case TRANSLOADIT_TEMPLATE:
-                        [self.delegate transloaditTemplateDeletionError:error withResponse:json];
-                        break;
-                }
                 NSError *error = [NSError errorWithDomain:@"TRANSLOADIT"
                                                      code:-57
                                                  userInfo:nil];
+                if ([object isKindOfClass:[Assembly class]]) {
+                    [self.delegate transloaditAssemblyDeletionError:error withResponse:json];
+                } else if([object isKindOfClass:[Template class]]) {
+                    [self.delegate transloaditTemplateDeletionError:error withResponse:json];
+                }
                 return;
             } else {
-                switch (object.apiType) {
-                    case TRANSLOADIT_ASSEMBLY:
-                        [self.delegate transloaditAssemblyDeletionResult:object];
-                        break;
-                    case TRANSLOADIT_TEMPLATE:
-                        [self.delegate transloaditTemplateDeletionResult:object];
-                        break;
+                if ([object isKindOfClass:[Assembly class]]) {
+                    [self.delegate transloaditAssemblyDeletionResult:object];
+                } else if([object isKindOfClass:[Template class]]) {
+                    [self.delegate transloaditTemplateDeletionResult:object];
                 }
             }
         }];
@@ -120,24 +108,23 @@
         [self makeRequestWithMethod:TRANSLOADIT_GET andObject:object callback:^(TransloaditResponse *json) {
             NSError *error = [[NSError alloc] init];
             if([json valueForKey:@"error"]){
-                switch (object.apiType) {
-                    case TRANSLOADIT_ASSEMBLY:
-                        [self.delegate transloaditAssemblyGetError:error withResponse:json];
-                        break;
-                    case TRANSLOADIT_TEMPLATE:
-                        [self.delegate transloaditTemplateGetError:error withResponse:json];
-                        break;
-                }
                 NSError *error = [NSError errorWithDomain:@"TRANSLOADIT" code:-57 userInfo:nil];
+
+                
+                
+                if ([object isKindOfClass:[Assembly class]]) {
+                    [self.delegate transloaditAssemblyGetError:error withResponse:json];
+                } else if([object isKindOfClass:[Template class]]) {
+                    [self.delegate transloaditTemplateGetError:error withResponse:json];
+                }
+            
                 return;
             } else {
-                switch (object.apiType) {
-                    case TRANSLOADIT_ASSEMBLY:
-                        [self.delegate transloaditAssemblyGetResult:object];
-                        break;
-                    case TRANSLOADIT_TEMPLATE:
-                        [self.delegate transloaditTemplateGetResult:object];
-                        break;
+                
+                if ([object isKindOfClass:[Assembly class]]) {
+                    [self.delegate transloaditAssemblyGetResult:object];
+                } else if([object isKindOfClass:[Template class]]) {
+                    [self.delegate transloaditTemplateGetResult:object];
                 }
             }
         }];
