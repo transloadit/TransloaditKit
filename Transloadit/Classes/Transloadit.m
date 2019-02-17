@@ -50,7 +50,6 @@
     }
 
     [self makeRequestWithMethod:TRANSLOADIT_POST andObject:object callback:^(TransloaditResponse *json) {
-        NSError *error = [[NSError alloc] init];
         if([json valueForKey:@"error"]){
             NSError *error = [NSError errorWithDomain:@"TRANSLOADIT"
                                                  code:-57
@@ -74,12 +73,11 @@
     }];
 }
 
-- (void) delete:(APIObject *) object {
+- (void) delete:(id) object {
     if ([[object urlString] isEqual:[NSNull null]]) {
-        [self.delegate transloaditTemplateCreationError:nil withResponse:@{@"message":@"No URL Set"}];
+        [self.delegate transloaditTemplateCreationError:nil withResponse:[[TransloaditResponse alloc] initWithResponseDictionary:@{@"message":@"No URL Set"}]];
     } else {
         [self makeRequestWithMethod:TRANSLOADIT_DELETE andObject:object callback:^(TransloaditResponse *json) {
-            NSError *error = [[NSError alloc] init];
             if([json valueForKey:@"error"]){
                 NSError *error = [NSError errorWithDomain:@"TRANSLOADIT"
                                                      code:-57
@@ -101,12 +99,11 @@
     }
 }
 
-- (void) get:(APIObject *) object {
+- (void) get:(id) object {
     if ([[object urlString] isEqual:[NSNull null]]) {
-        [self.delegate transloaditTemplateCreationError:nil withResponse:@{@"message":@"No URL Set"}];
+        [self.delegate transloaditTemplateCreationError:nil withResponse:[[TransloaditResponse alloc] initWithResponseDictionary:@{@"message":@"No URL Set"}]];
     } else {
         [self makeRequestWithMethod:TRANSLOADIT_GET andObject:object callback:^(TransloaditResponse *json) {
-            NSError *error = [[NSError alloc] init];
             if([json valueForKey:@"error"]){
                 NSError *error = [NSError errorWithDomain:@"TRANSLOADIT" code:-57 userInfo:nil];
 
