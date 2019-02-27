@@ -55,57 +55,29 @@ Assembly *testAssembly;
     [step1 setValue:@"75" forOption:@"width"];
     [step1 setValue:@"75" forOption:@"height"];
     [step1 setValue:@"/image/resize" forOption:@"robot"];
-    
-    //
-    //        // Add the step to the array
     [steps addObject:step1];
     
-    testAssembly = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
-
     
-    //MARK: We then create an Assembly Object with the steps and files
-    [testAssembly addFile:[NSURL fileURLWithPath:path] andFileName:@"file.jpg"];
+    Template *newTemplate = [[Template alloc] initWithSteps:steps andName:@"New templates"];
+    Assembly *newAssembly = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
+    [transloadit create:newAssembly];
     
-    //CRUD Operations
-    //    [transloadit get: testAssembly];
-    //    [transloadit update: testAssembly];
-    //    [transloadit delete: testAssembly];
-    
-    transloadit.assemblyCreationResultBlock = ^(Assembly* assembly, NSDictionary* completionDictionary){
-        NSLog(@"Assembly creation success");
-        NSLog(@"%@", @"Invoking assembly.");
-        [transloadit invokeAssembly:assembly];
-    };
-    
-    transloadit.assemblyCreationFailureBlock = ^(NSDictionary* completionDictionary){
-        NSLog(@"Assembly creation failed: %@", [completionDictionary debugDescription]);
-    };
-
-    transloadit.assemblyStatusBlock = ^(NSDictionary* completionDictionary){
-        NSLog(@"Assembly status: %@", [completionDictionary debugDescription]);
-    };
-    
-    transloadit.assemblyResultBlock = ^(NSDictionary* completionDictionary){
-        NSLog(@"Assembly finished : %@", [completionDictionary debugDescription]);
-    };
-    
-    transloadit.assemblyFailureBlock = ^(NSDictionary* completionDictionary){
-        NSLog(@"Assembly failed: %@", [completionDictionary debugDescription]);
-    };
-}
-
-- (IBAction)upload:(id)sender {
-    [transloadit create: testAssembly];
 
 }
 
-- (IBAction)runAssembly:(id)sender {
-    [transloadit create: testAssembly];
-    
-}
 
 - (void) transloaditAssemblyCreationError:(NSError *)error withResponse:(TransloaditResponse *)response {
     NSLog(@"%@", [response debugDescription]);
+}
+
+// DELEGATE
+- (void) transloaditTemplateCreationResult:(Template *)template {
+    NSLog(@"%@", @"Created Template");
+}
+
+- (void) transloaditTemplateCreationError:(NSError *)error withResponse:(TransloaditResponse *)response {
+    NSLog(@"%@", @"Failed Creating Template");
+
 }
 
 - (void)didReceiveMemoryWarning

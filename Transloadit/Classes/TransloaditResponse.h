@@ -9,7 +9,7 @@
 
 @interface TransloaditResponse : NSObject
 
-@property (nonatomic, strong) NSDictionary * _Nonnull dictionary;
+@property (nonatomic, strong) NSDictionary * dictionary;
 
 - (id)initWithResponseDictionary:(NSDictionary *)responseDictionary;
 

@@ -185,13 +185,13 @@
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 }
 
-- (void) makeRequestWithMethod:(NSString *)method andObject:(APIObject *) object callback:(void(^)(TransloaditResponse *))callback {
-    NSLog(@"%@", [object urlString]);
+- (void) makeRequestWithMethod:(NSString *)method andObject:(id) object callback:(void(^)(TransloaditResponse *))callback {
     TransloaditRequest *request = [[TransloaditRequest alloc] initWith:_key andSecret:_secret andMethod:method andURL:[object urlString]];
     if ([[request method] isEqualToString:TRANSLOADIT_POST] || [[request method] isEqualToString:TRANSLOADIT_PUT]) {
+        NSLog(@"%@", [object debugDescription]);
         [request appendParams:[object getParams]];
     }
-    
+    NSLog(@"%@", [[object getParams] debugDescription]);
     NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             NSLog(@"%@", [error debugDescription]);
@@ -201,8 +201,10 @@
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
                                                              options:NSJSONReadingMutableContainers
                                                                error:nil];
-        TransloaditResponse *responseObject = [[TransloaditResponse alloc] initWithResponseDictionary:json];
-        callback(responseObject);
+        NSLog(@"%@", [json debugDescription]);
+
+//        TransloaditResponse *responseObject = [[TransloaditResponse alloc] init];
+//        callback(responseObject);
     }];
     [assemblyTask resume];
 }
