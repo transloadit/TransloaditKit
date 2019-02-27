@@ -14,6 +14,7 @@
 @implementation Transloadit
 @synthesize tus;
 @synthesize tusStore;
+@synthesize tusSession;
 
 
 
@@ -29,8 +30,8 @@
         }
         
         NSURL * applicationSupportURL = [[[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] firstObject];
-//        tusStore = [[TUSFileUploadStore alloc] initWithURL:[applicationSupportURL URLByAppendingPathComponent:@"Example"]];
-//        tus = [TUSResumableUpload alloc];
+        tusStore = [[TUSFileUploadStore alloc] initWithURL:[applicationSupportURL URLByAppendingPathComponent:@"Example"]];
+        tus = [TUSResumableUpload alloc];
     }
     return self;
 }
@@ -50,7 +51,7 @@
     }
 
     [self makeRequestWithMethod:TRANSLOADIT_POST andObject:object callback:^(TransloaditResponse *json) {
-        if([json valueForKey:@"error"]){
+        if([[json dictionary] valueForKey:@"error"]){
             NSError *error = [NSError errorWithDomain:@"TRANSLOADIT"
                                                  code:-57
                                              userInfo:nil];
@@ -62,11 +63,11 @@
             return;
         } else {
             if ([object isKindOfClass:[Assembly class]]) {
-                [(Assembly *)object setUrlString: [json valueForKey:@"assembly_ssl_url"]];
-                //                    _tusSession = [[TUSSession alloc] initWithEndpoint:[[NSURL alloc] initWithString:[json valueForKey:@"tus_url"]] dataStore:_tusStore allowsCellularAccess:YES];
+                [(Assembly *)object setUrlString: [[json dictionary] valueForKey:@"assembly_ssl_url"]];
+                tusSession = [[TUSSession alloc] initWithEndpoint:[[NSURL alloc] initWithString:[[json dictionary] valueForKey:@"tus_url"]] dataStore:tusStore allowsCellularAccess:YES];
                 [self.delegate transloaditAssemblyCreationResult:object];
             } else if([object isKindOfClass:[Template class]]) {
-                [(Template *)object setTemplate_id:[json valueForKey:@"id"]];
+                [(Template *)object setTemplate_id:[[json dictionary] valueForKey:@"id"]];
                 [self.delegate transloaditTemplateCreationResult:object];
             }
         }
@@ -78,23 +79,23 @@
         [self.delegate transloaditTemplateCreationError:nil withResponse:[[TransloaditResponse alloc] initWithResponseDictionary:@{@"message":@"No URL Set"}]];
     } else {
         [self makeRequestWithMethod:TRANSLOADIT_DELETE andObject:object callback:^(TransloaditResponse *json) {
-            if([json valueForKey:@"error"]){
-                NSError *error = [NSError errorWithDomain:@"TRANSLOADIT"
-                                                     code:-57
-                                                 userInfo:nil];
-                if ([object isKindOfClass:[Assembly class]]) {
-                    [self.delegate transloaditAssemblyDeletionError:error withResponse:json];
-                } else if([object isKindOfClass:[Template class]]) {
-                    [self.delegate transloaditTemplateDeletionError:error withResponse:json];
-                }
-                return;
-            } else {
-                if ([object isKindOfClass:[Assembly class]]) {
-                    [self.delegate transloaditAssemblyDeletionResult:object];
-                } else if([object isKindOfClass:[Template class]]) {
-                    [self.delegate transloaditTemplateDeletionResult:object];
-                }
-            }
+//            if([json valueForKey:@"error"]){
+//                NSError *error = [NSError errorWithDomain:@"TRANSLOADIT"
+//                                                     code:-57
+//                                                 userInfo:nil];
+//                if ([object isKindOfClass:[Assembly class]]) {
+//                    [self.delegate transloaditAssemblyDeletionError:error withResponse:json];
+//                } else if([object isKindOfClass:[Template class]]) {
+//                    [self.delegate transloaditTemplateDeletionError:error withResponse:json];
+//                }
+//                return;
+//            } else {
+//                if ([object isKindOfClass:[Assembly class]]) {
+//                    [self.delegate transloaditAssemblyDeletionResult:object];
+//                } else if([object isKindOfClass:[Template class]]) {
+//                    [self.delegate transloaditTemplateDeletionResult:object];
+//                }
+//            }
         }];
     }
 }
@@ -135,17 +136,17 @@
 }
 
 
-- (void) invokeAssembly: (Assembly *)assembly{
+- (void) invokeAssembly: (Assembly *)assembly retry:(int)retryCount{
     [self checkAssembly:assembly];
     NSArray *files = [assembly files];
     
     for (int x = 0; x < [files count]; x++) {
         NSString* fileName = [[assembly fileNames] objectAtIndex:x];
-//        TUSResumableUpload *upload = [_tusSession createUploadFromFile:[files  objectAtIndex:x] headers:@{} metadata:@{@"filename":fileName, @"fieldname":@"file-input", @"assembly_url": [assembly urlString]}];
-//        upload.progressBlock = _uploadProgressBlock;
-//        upload.resultBlock = _uploadResultBlock;
-//        upload.failureBlock = _uploadFailureBlock;
-//        [upload resume];
+        TUSResumableUpload *upload = [tusSession createUploadFromFile:[files  objectAtIndex:x] retry:retryCount headers:@{} metadata:@{@"filename":fileName, @"fieldname":@"file-input", @"assembly_url": [assembly urlString]}];
+        upload.progressBlock = _uploadProgressBlock;
+        upload.resultBlock = _uploadResultBlock;
+        upload.failureBlock = _uploadFailureBlock;
+        [upload resume];
     }
 }
 
@@ -185,12 +186,30 @@
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 }
 
-- (void) makeRequestWithMethod:(NSString *)method andObject:(APIObject *) object callback:(void(^)(TransloaditResponse *))callback {
-    NSLog(@"%@", [object urlString]);
-    TransloaditRequest *request = [[TransloaditRequest alloc] initWith:_key andSecret:_secret andMethod:method andURL:[object urlString]];
-    if ([[request method] isEqualToString:TRANSLOADIT_POST] || [[request method] isEqualToString:TRANSLOADIT_PUT]) {
-        [request appendParams:[object getParams]];
+- (void) makeRequestWithMethod:(NSString *)method andObject:(id) object callback:(void(^)(TransloaditResponse *))callback {
+    
+    TransloaditRequest *request;
+
+    if ([method  isEqual: TRANSLOADIT_DELETE]) {
+        NSString *url;
+        if ([object isKindOfClass:[Template class]]) {
+            url = [NSString stringWithFormat:@"%@%@%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_TEMPLATES, @"/", [object template_id]];
+        }
+        if ([object isKindOfClass:[Assembly class]]) {
+            url = [NSString stringWithFormat:@"%@%@%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_ASSEMBLIES, @"/", [object id]];
+        }
+
+         request = [[TransloaditRequest alloc] initWith:_key andSecret:_secret andMethod:method andURL:url];
+
+    }else if ([method  isEqual: TRANSLOADIT_POST]) {
+        request = [[TransloaditRequest alloc] initWith:_key andSecret:_secret andMethod:method andURL:[object urlString]];
+        
     }
+//    if ([[request method] isEqualToString:TRANSLOADIT_POST] || [[request method] isEqualToString:TRANSLOADIT_PUT]) {
+        [request appendParams:[object getParams]];
+//    }
+    NSLog(@"%@", [request debugDescription]);
+    NSLog(@"%@", [[object getParams] debugDescription]);
     
     NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
@@ -208,25 +227,27 @@
 }
 
 - (void) assemblyStatus: (Assembly *)assembly completion:(void (^)(NSDictionary *))completion {
-    NSMutableURLRequest *request = [[[TransloaditRequest alloc] initWithKey:_key andSecret:_secret] createRequestWithMethod:TRANSLOADIT_GET andURL:[assembly urlString]];
-    NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"%@", [error debugDescription]);
-            return;
-        }
-        NSString* body = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
-                                                             options:NSJSONReadingMutableContainers
-                                                               error:nil];
-        if([json valueForKey:@"error"]){
-            NSLog(@"%@", [json valueForKey:@"error"]);
-            return;
-        } else {
-            //
-        }
-        completion(json);
-    }];
-    [assemblyTask resume];
+    
+    
+//    NSMutableURLRequest *request = [[[TransloaditRequest alloc] initWithKey:_key andSecret:_secret] createRequestWithMethod:TRANSLOADIT_GET andURL:[assembly urlString]];
+//    NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+//        if (error) {
+//            NSLog(@"%@", [error debugDescription]);
+//            return;
+//        }
+//        NSString* body = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
+//                                                             options:NSJSONReadingMutableContainers
+//                                                               error:nil];
+//        if([json valueForKey:@"error"]){
+//            NSLog(@"%@", [json valueForKey:@"error"]);
+//            return;
+//        } else {
+//            //
+//        }
+//        completion(json);
+//    }];
+//    [assemblyTask resume];
 }
 
 //__deprecated

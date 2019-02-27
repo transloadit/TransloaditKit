@@ -9,7 +9,7 @@
 //import UIKit
 //import Transloadit
 //
-//class TransloaditViewControllerSwifty: UIViewController, UIPickerViewDelegate, UINavigationBarDelegate {
+//class TransloaditViewControllerSwifty: Transl UIViewController, UIPickerViewDelegate, UINavigationBarDelegate {
 //    
 //    let transloadit: Transloadit = Transloadit()
 //    var TestTemplate: Template?
@@ -28,7 +28,9 @@
 //        Step1?.setValue("75", forOption: "width")
 //        Step1?.setValue("75", forOption: "height")
 //        StepArray.add(Step1)
-//
+//        
+//        transloadit.delegate = self
+//        
 //        self.transloadit.assemblyCreationResultBlock = { assembly, completionDictionary in
 //            print("Assembly created!")
 //            print("Assembly invoking!")

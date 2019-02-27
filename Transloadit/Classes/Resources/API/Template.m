@@ -19,6 +19,7 @@
     if(self) {
         NSLog(@"_init: %@", self);
         [self setApiType: TRANSLOADIT_TEMPLATE];
+        [self setName:@""];
         [self setTemplate_id:template_id];
     }
     return self;
@@ -28,7 +29,6 @@
     self = [super init];
     if(self) {
         NSLog(@"_init: %@", self);
-        [self setApiType: TRANSLOADIT_TEMPLATE];
         [self setStepsArray:steps];
         [self setName:name];
     }
@@ -44,19 +44,17 @@
             [stepsMutableDictionary addEntriesFromDictionary:tempOptions];
         }
     }
-    NSParameterAssert(stepsMutableDictionary);
-    NSMutableDictionary *params = @{@"steps":stepsMutableDictionary};
-    
+
     return stepsMutableDictionary;
 }
 
 - (NSMutableDictionary *) getParams {
-    NSMutableDictionary *steps = [self getSteps];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *templateJSON = [[NSMutableDictionary alloc] init];
-    [templateJSON setObject:steps forKey:@"steps"];
-    [self.params setObject:templateJSON forKey:@"template"];
+    [templateJSON setObject:[self getSteps] forKey:@"steps"];
+    [params setObject:templateJSON forKey:@"template"];
     
-    [self.params setObject:[self name] forKey:@"name"];
-    return self.params;
+    [params setObject:[self name] forKey:@"name"];
+    return params;
 }
 @end

@@ -29,6 +29,16 @@
     return self;
 }
 
+- (id)initWithId:(NSString* )id{
+    self = [super init];
+    if(self) {
+        NSLog(@"_init: %@", self);
+        [self setId:id];
+        
+    }
+    return self;
+}
+
 - (id)initWithTemplate:(Template *)template andNumberOfFiles:(int)numberOfFiles {
     self = [super init];
     if(self) {

@@ -12,6 +12,8 @@
 
 @interface Assembly : APIObject
 
+@property (nonatomic, strong)NSString* id;
+
 @property (nonatomic, strong)NSString* notify_url;
 
 @property (nonatomic, strong)NSMutableArray<Step *>* stepsArray;
@@ -33,6 +35,7 @@
 
 - (id)initWithTemplate:(Template *)template andNumberOfFiles:(int)numberOfFiles;
 
+- (id)initWithId:(NSString* )id;
 
 //MARK: Steps
 - (void)addStepWithStep:(Step *)step;
