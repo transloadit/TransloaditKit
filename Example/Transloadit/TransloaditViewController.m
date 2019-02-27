@@ -58,11 +58,14 @@ Assembly *testAssembly;
     [steps addObject:step1];
     
     
-    Template *newTemplate = [[Template alloc] initWithSteps:steps andName:@"New templates"];
-    Assembly *newAssembly = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
-    [transloadit create:newAssembly];
+//    Template *newTemplate = [[Template alloc] initWithSteps:steps andName:@"New templates"];
+//    Assembly *newAssembly = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
+//    [transloadit create:newAssembly];
     
-
+    Template *newTemplate = [[Template alloc] initWithTemplateId:@"d3d774803a5311e9b4f8bd2d638915d1"];
+    
+    Assembly *newAssembly = [[Assembly alloc] initWithId:@"49a2f4603a5811e992bf77da2e974230"];
+    [transloadit delete:newAssembly];
 }
 
 

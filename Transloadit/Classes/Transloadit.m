@@ -78,23 +78,24 @@
         [self.delegate transloaditTemplateCreationError:nil withResponse:[[TransloaditResponse alloc] initWithResponseDictionary:@{@"message":@"No URL Set"}]];
     } else {
         [self makeRequestWithMethod:TRANSLOADIT_DELETE andObject:object callback:^(TransloaditResponse *json) {
-            if([json valueForKey:@"error"]){
-                NSError *error = [NSError errorWithDomain:@"TRANSLOADIT"
-                                                     code:-57
-                                                 userInfo:nil];
-                if ([object isKindOfClass:[Assembly class]]) {
-                    [self.delegate transloaditAssemblyDeletionError:error withResponse:json];
-                } else if([object isKindOfClass:[Template class]]) {
-                    [self.delegate transloaditTemplateDeletionError:error withResponse:json];
-                }
-                return;
-            } else {
-                if ([object isKindOfClass:[Assembly class]]) {
-                    [self.delegate transloaditAssemblyDeletionResult:object];
-                } else if([object isKindOfClass:[Template class]]) {
-                    [self.delegate transloaditTemplateDeletionResult:object];
-                }
-            }
+            NSLog(@"%@", [object debugDescription]);
+//            if([json valueForKey:@"error"]){
+//                NSError *error = [NSError errorWithDomain:@"TRANSLOADIT"
+//                                                     code:-57
+//                                                 userInfo:nil];
+//                if ([object isKindOfClass:[Assembly class]]) {
+//                    [self.delegate transloaditAssemblyDeletionError:error withResponse:json];
+//                } else if([object isKindOfClass:[Template class]]) {
+//                    [self.delegate transloaditTemplateDeletionError:error withResponse:json];
+//                }
+//                return;
+//            } else {
+//                if ([object isKindOfClass:[Assembly class]]) {
+//                    [self.delegate transloaditAssemblyDeletionResult:object];
+//                } else if([object isKindOfClass:[Template class]]) {
+//                    [self.delegate transloaditTemplateDeletionResult:object];
+//                }
+//            }
         }];
     }
 }
@@ -186,11 +187,28 @@
 }
 
 - (void) makeRequestWithMethod:(NSString *)method andObject:(id) object callback:(void(^)(TransloaditResponse *))callback {
-    TransloaditRequest *request = [[TransloaditRequest alloc] initWith:_key andSecret:_secret andMethod:method andURL:[object urlString]];
-    if ([[request method] isEqualToString:TRANSLOADIT_POST] || [[request method] isEqualToString:TRANSLOADIT_PUT]) {
+    
+    TransloaditRequest *request;
+
+    if ([method  isEqual: TRANSLOADIT_DELETE]) {
+        NSString *url;
+        if ([object isKindOfClass:[Template class]]) {
+            url = [NSString stringWithFormat:@"%@%@%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_TEMPLATES, @"/", [object template_id]];
+        }
+        if ([object isKindOfClass:[Assembly class]]) {
+            url = [NSString stringWithFormat:@"%@%@%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_ASSEMBLIES, @"/", [object id]];
+        }
+
+        NSLog(@"%@", url);
+         request = [[TransloaditRequest alloc] initWith:_key andSecret:_secret andMethod:method andURL:url];
+
+    }else if ([method  isEqual: TRANSLOADIT_POST]) {
+        request = [[TransloaditRequest alloc] initWith:_key andSecret:_secret andMethod:method andURL:[object urlString]];
+    }
+//    if ([[request method] isEqualToString:TRANSLOADIT_POST] || [[request method] isEqualToString:TRANSLOADIT_PUT]) {
         NSLog(@"%@", [object debugDescription]);
         [request appendParams:[object getParams]];
-    }
+//    }
     NSLog(@"%@", [[object getParams] debugDescription]);
     NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {

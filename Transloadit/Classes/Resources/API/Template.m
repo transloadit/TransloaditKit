@@ -19,6 +19,7 @@
     if(self) {
         NSLog(@"_init: %@", self);
         [self setApiType: TRANSLOADIT_TEMPLATE];
+        [self setName:@""];
         [self setTemplate_id:template_id];
     }
     return self;
