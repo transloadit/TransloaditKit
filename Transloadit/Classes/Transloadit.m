@@ -29,8 +29,8 @@
         }
         
         NSURL * applicationSupportURL = [[[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] firstObject];
-//        tusStore = [[TUSFileUploadStore alloc] initWithURL:[applicationSupportURL URLByAppendingPathComponent:@"Example"]];
-//        tus = [TUSResumableUpload alloc];
+        tusStore = [[TUSFileUploadStore alloc] initWithURL:[applicationSupportURL URLByAppendingPathComponent:@"Example"]];
+        tus = [TUSResumableUpload alloc];
     }
     return self;
 }
@@ -142,11 +142,11 @@
     
     for (int x = 0; x < [files count]; x++) {
         NSString* fileName = [[assembly fileNames] objectAtIndex:x];
-//        TUSResumableUpload *upload = [_tusSession createUploadFromFile:[files  objectAtIndex:x] headers:@{} metadata:@{@"filename":fileName, @"fieldname":@"file-input", @"assembly_url": [assembly urlString]}];
-//        upload.progressBlock = _uploadProgressBlock;
-//        upload.resultBlock = _uploadResultBlock;
-//        upload.failureBlock = _uploadFailureBlock;
-//        [upload resume];
+        TUSResumableUpload *upload = [_tusSession createUploadFromFile:[files  objectAtIndex:x] headers:@{} metadata:@{@"filename":fileName, @"fieldname":@"file-input", @"assembly_url": [assembly urlString]}];
+        upload.progressBlock = _uploadProgressBlock;
+        upload.resultBlock = _uploadResultBlock;
+        upload.failureBlock = _uploadFailureBlock;
+        [upload resume];
     }
 }
 
@@ -228,25 +228,28 @@
 }
 
 - (void) assemblyStatus: (Assembly *)assembly completion:(void (^)(NSDictionary *))completion {
-    NSMutableURLRequest *request = [[[TransloaditRequest alloc] initWithKey:_key andSecret:_secret] createRequestWithMethod:TRANSLOADIT_GET andURL:[assembly urlString]];
-    NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"%@", [error debugDescription]);
-            return;
-        }
-        NSString* body = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
-                                                             options:NSJSONReadingMutableContainers
-                                                               error:nil];
-        if([json valueForKey:@"error"]){
-            NSLog(@"%@", [json valueForKey:@"error"]);
-            return;
-        } else {
-            //
-        }
-        completion(json);
-    }];
-    [assemblyTask resume];
+    
+    NSLog(@"%@", [completion debugDescription]);
+    
+//    NSMutableURLRequest *request = [[[TransloaditRequest alloc] initWithKey:_key andSecret:_secret] createRequestWithMethod:TRANSLOADIT_GET andURL:[assembly urlString]];
+//    NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+//        if (error) {
+//            NSLog(@"%@", [error debugDescription]);
+//            return;
+//        }
+//        NSString* body = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
+//                                                             options:NSJSONReadingMutableContainers
+//                                                               error:nil];
+//        if([json valueForKey:@"error"]){
+//            NSLog(@"%@", [json valueForKey:@"error"]);
+//            return;
+//        } else {
+//            //
+//        }
+//        completion(json);
+//    }];
+//    [assemblyTask resume];
 }
 
 //__deprecated

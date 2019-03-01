@@ -35,16 +35,11 @@ static TransloaditUploadFailureBlock failureBlock = ^(NSError* error){
 @implementation TransloaditViewController
 
 Transloadit *transloadit;
-Assembly *testAssembly;
+Template *newAssembly;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     transloadit = [[Transloadit alloc] init];
-// Blocks have been depreciated
-//    transloadit.uploadFailureBlock = failureBlock;
-//    transloadit.uploadProgressBlock = progressBlock;
-//    transloadit.uploadResultBlock = resultBlock;
-    
     [transloadit setDelegate:self];
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"jpg"];
@@ -62,10 +57,8 @@ Assembly *testAssembly;
 //    Assembly *newAssembly = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
 //    [transloadit create:newAssembly];
     
-    Template *newTemplate = [[Template alloc] initWithTemplateId:@"d3d774803a5311e9b4f8bd2d638915d1"];
     
-    Assembly *newAssembly = [[Assembly alloc] initWithId:@"49a2f4603a5811e992bf77da2e974230"];
-    [transloadit delete:newAssembly];
+    
 }
 
 
@@ -82,6 +75,76 @@ Assembly *testAssembly;
     NSLog(@"%@", @"Failed Creating Template");
 
 }
+
+-(void)viewDidAppear:(BOOL)animated {
+    [self selectFile:nil];
+    
+}
+
+- (IBAction)selectFile:(id)sender {
+    //MARK: Image Picker
+    //Basic UIImagePicker Controller Setup
+    UIImagePickerController *imagePicker = [UIImagePickerController new];
+    imagePicker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:imagePicker.sourceType];
+    imagePicker.delegate = self;
+    
+    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+    if(status == PHAuthorizationStatusNotDetermined) {
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            [self presentViewController:imagePicker animated:YES completion:nil];
+        }];
+    } else if (status == PHAuthorizationStatusAuthorized) {
+        [self presentViewController:imagePicker animated:YES completion:nil];
+    } else if (status == PHAuthorizationStatusRestricted) {
+        //Permisions Needed
+    } else if (status == PHAuthorizationStatusDenied) {
+        // Permisions Needed
+    }
+}
+
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    //-----------------------------------------------------
+    // MARK: Picker
+    //-----------------------------------------------------
+    // !! NOTE !!
+    // This is boilerplate imagepicker code. You do NOT need this for Transloadit.
+    // This is strictly for the Example, and grabbing an image.
+    [self dismissViewControllerAnimated:YES completion:nil];
+    NSURL *assetUrl = [info valueForKey:UIImagePickerControllerReferenceURL];
+    PHFetchResult *result = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum
+                                                                     subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary
+                                                                     options:nil];
+    PHAssetCollection *assetCollection = result.firstObject;
+    NSLog(@"%@", assetCollection.localizedTitle);
+    
+    NSArray<NSURL *> *array = [[NSArray alloc] initWithObjects:assetUrl, nil];
+    PHFetchResult *fetchResult = [PHAsset fetchAssetsWithALAssetURLs:array options:nil];
+    PHAsset *asset = [fetchResult firstObject];
+    [[[PHImageManager alloc] init] requestImageDataForAsset:asset options:nil resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+        
+        NSURL *documentDirectory = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSAllDomainsMask][0];
+        NSURL *fileUrl = [documentDirectory URLByAppendingPathComponent:[[NSUUID alloc] init].UUIDString];
+        NSError *error;
+        if (![imageData writeToURL:fileUrl options:NSDataWritingAtomic error:&error]) {
+            NSLog(@"%li", (long)error.code);
+        }
+        
+        NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
+        
+        Step *step1 = [[Step alloc] initWithKey:@"encode"];
+        [step1 setValue:@"/image/resize" forOption:@"robot"];
+        
+        // Add the step to the array
+        [steps addObject:step1];
+        
+        //MARK: We then create an Assembly Object with the steps and files
+        Assembly *TestAssemblyWithSteps = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
+        [TestAssemblyWithSteps addFile:fileUrl andFileName:@"NAME.jpg"];
+        [TestAssemblyWithSteps setNotify_url:@""];
+    }];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
