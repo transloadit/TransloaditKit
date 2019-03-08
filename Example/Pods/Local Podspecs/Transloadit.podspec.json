@@ -23,7 +23,7 @@
   "source_files": "Transloadit/Classes/**/*",
   "dependencies": {
     "TUSKit": [
-
+      "1.3.11"
     ]
   }
 }

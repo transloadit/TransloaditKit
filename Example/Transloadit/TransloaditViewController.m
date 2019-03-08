@@ -55,6 +55,7 @@ Template *newAssembly;
     
 //    Template *newTemplate = [[Template alloc] initWithSteps:steps andName:@"New templates"];
 //    Assembly *newAssembly = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
+    
 //    [transloadit create:newAssembly];
     
     
@@ -63,7 +64,8 @@ Template *newAssembly;
 
 
 - (void) transloaditAssemblyCreationError:(NSError *)error withResponse:(TransloaditResponse *)response {
-    NSLog(@"%@", [response debugDescription]);
+    
+    NSLog(@"%@: %@", @"FAILED!", [[response dictionary] description]);
 }
 
 // DELEGATE
@@ -131,19 +133,31 @@ Template *newAssembly;
         }
         
         NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
-        
+
         Step *step1 = [[Step alloc] initWithKey:@"encode"];
         [step1 setValue:@"/image/resize" forOption:@"robot"];
-        
+
         // Add the step to the array
         [steps addObject:step1];
-        
+//
         //MARK: We then create an Assembly Object with the steps and files
         Assembly *TestAssemblyWithSteps = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
-        [TestAssemblyWithSteps addFile:fileUrl andFileName:@"NAME.jpg"];
+        [TestAssemblyWithSteps addFile:fileUrl andFileName:@"thisIsNew.jpg"];
         [TestAssemblyWithSteps setNotify_url:@""];
+        [transloadit create:TestAssemblyWithSteps];
+//        Assembly *alreadyCreated = [[Assembly alloc] initWithId:@"63d028303a5811e9b44f2f1f0370e845"];
+//
+//        [alreadyCreated addFile:fileUrl andFileName:@"test22.jpg"];
+        
     }];
 }
+
+- (void) transloaditAssemblyCreationResult:(Assembly *)assembly {
+    NSLog(@"%@", [assembly urlString]);
+    [transloadit invokeAssembly:assembly];
+}
+
+
 
 
 - (void)didReceiveMemoryWarning

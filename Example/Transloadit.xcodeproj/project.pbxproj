@@ -76,7 +76,7 @@
 
 /* Begin PBXFileReference section */
 		00527FF412666775D11D7EF3 /* Pods-Transloadit_MacOS_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Transloadit_MacOS_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Transloadit_MacOS_Example/Pods-Transloadit_MacOS_Example.release.xcconfig"; sourceTree = "<group>"; };
-		28123E871F832782004CD204 /* Transloadit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Transloadit.podspec; path = ../Transloadit.podspec; sourceTree = "<group>"; };
+		28123E871F832782004CD204 /* Transloadit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Transloadit.podspec; path = ../Transloadit.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		28296E861F5DFB36006892E3 /* TransloaditViewControllerSwifty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransloaditViewControllerSwifty.swift; sourceTree = "<group>"; };
 		2858DA341F68BF7D005325A3 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
 		2858DA361F68C27C005325A3 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = test.jpg; path = ../../../../../Downloads/mpdf60/examples/test.jpg; sourceTree = "<group>"; };

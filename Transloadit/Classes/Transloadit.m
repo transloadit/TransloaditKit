@@ -14,6 +14,7 @@
 @implementation Transloadit
 @synthesize tus;
 @synthesize tusStore;
+@synthesize tusSession;
 
 
 
@@ -50,7 +51,7 @@
     }
 
     [self makeRequestWithMethod:TRANSLOADIT_POST andObject:object callback:^(TransloaditResponse *json) {
-        if([json valueForKey:@"error"]){
+        if([[json dictionary] valueForKey:@"error"]){
             NSError *error = [NSError errorWithDomain:@"TRANSLOADIT"
                                                  code:-57
                                              userInfo:nil];
@@ -62,8 +63,8 @@
             return;
         } else {
             if ([object isKindOfClass:[Assembly class]]) {
-                [(Assembly *)object setUrlString: [json valueForKey:@"assembly_ssl_url"]];
-                //                    _tusSession = [[TUSSession alloc] initWithEndpoint:[[NSURL alloc] initWithString:[json valueForKey:@"tus_url"]] dataStore:_tusStore allowsCellularAccess:YES];
+                [(Assembly *)object setUrlString: [[json dictionary] valueForKey:@"assembly_ssl_url"]];
+                tusSession = [[TUSSession alloc] initWithEndpoint:[[NSURL alloc] initWithString:[[json dictionary] valueForKey:@"tus_url"]] dataStore:tusStore allowsCellularAccess:YES];
                 [self.delegate transloaditAssemblyCreationResult:object];
             } else if([object isKindOfClass:[Template class]]) {
                 [(Template *)object setTemplate_id:[json valueForKey:@"id"]];
@@ -142,7 +143,7 @@
     
     for (int x = 0; x < [files count]; x++) {
         NSString* fileName = [[assembly fileNames] objectAtIndex:x];
-        TUSResumableUpload *upload = [_tusSession createUploadFromFile:[files  objectAtIndex:x] headers:@{} metadata:@{@"filename":fileName, @"fieldname":@"file-input", @"assembly_url": [assembly urlString]}];
+        TUSResumableUpload *upload = [tusSession createUploadFromFile:[files  objectAtIndex:x] headers:@{} metadata:@{@"filename":fileName, @"fieldname":@"file-input", @"assembly_url": [assembly urlString]}];
         upload.progressBlock = _uploadProgressBlock;
         upload.resultBlock = _uploadResultBlock;
         upload.failureBlock = _uploadFailureBlock;
@@ -219,10 +220,9 @@
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
                                                              options:NSJSONReadingMutableContainers
                                                                error:nil];
-        NSLog(@"%@", [json debugDescription]);
-
-//        TransloaditResponse *responseObject = [[TransloaditResponse alloc] init];
-//        callback(responseObject);
+        NSLog(@"%@", [json description]);
+        TransloaditResponse *responseObject = [[TransloaditResponse alloc] initWithResponseDictionary:json];
+        callback(responseObject);
     }];
     [assemblyTask resume];
 }
