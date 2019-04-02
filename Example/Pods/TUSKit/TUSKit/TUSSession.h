@@ -28,8 +28,17 @@
  Create an upload, but do not start it
  */
 - (TUSResumableUpload * _Nullable) createUploadFromFile:(NSURL * _Nonnull)fileURL
-                                       headers:(NSDictionary <NSString *, NSString *> * __nullable)headers
-                                      metadata:(NSDictionary <NSString *, NSString *> * __nullable)metadata;
+                                                  retry:(int)retryCount
+                                                headers:(NSDictionary <NSString *, NSString *> * __nullable)headers
+                                               metadata:(NSDictionary <NSString *, NSString *> * __nullable)metadata;
+
+/**
+ Create an upload with a uploadUrl
+ */
+- (TUSResumableUpload * _Nullable) createUploadFromFile:(NSURL * _Nonnull)fileURL
+                                                headers:(NSDictionary <NSString *, NSString *> * __nullable)headers
+                                               metadata:(NSDictionary <NSString *, NSString *> * __nullable)metadata
+                                              uploadUrl:(NSURL * _Nonnull)uploadUrl;
 
 /**
  Restore an upload, but do not start it.  Uploads must be restored by ID because file URLs can change between launch.

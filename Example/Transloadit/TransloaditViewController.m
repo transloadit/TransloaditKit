@@ -75,6 +75,7 @@ Template *newAssembly;
 
 - (void) transloaditTemplateCreationError:(NSError *)error withResponse:(TransloaditResponse *)response {
     NSLog(@"%@", @"Failed Creating Template");
+    //NSLog(@"%@", [[response dictionary] debugDescription]);
 
 }
 
@@ -142,8 +143,11 @@ Template *newAssembly;
 //
         //MARK: We then create an Assembly Object with the steps and files
         Assembly *TestAssemblyWithSteps = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
-        [TestAssemblyWithSteps addFile:fileUrl andFileName:@"thisIsNew.jpg"];
-        [TestAssemblyWithSteps setNotify_url:@""];
+        
+        Template *testTemplate = [[Template alloc] initWithSteps:steps andName:@"New Template"];
+
+//        [TestAssemblyWithSteps addFile:fileUrl andFileName:@"thisIsNew.jpg"];
+//        [TestAssemblyWithSteps setNotify_url:@""];
         [transloadit create:TestAssemblyWithSteps];
 //        Assembly *alreadyCreated = [[Assembly alloc] initWithId:@"63d028303a5811e9b44f2f1f0370e845"];
 //
@@ -154,7 +158,7 @@ Template *newAssembly;
 
 - (void) transloaditAssemblyCreationResult:(Assembly *)assembly {
     NSLog(@"%@", [assembly urlString]);
-    [transloadit invokeAssembly:assembly];
+    //[transloadit invokeAssembly:assembly retry:3];
 }
 
 

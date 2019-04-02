@@ -66,9 +66,17 @@
 
 - (instancetype _Nullable)initWithUploadId:(NSString * _Nonnull)uploadId
                                       file:(NSURL * _Nonnull)fileUrl
+                                    retry:(int)retryCount
                                   delegate:(id <TUSResumableUploadDelegate> _Nonnull)delegate
                              uploadHeaders:(NSDictionary <NSString *, NSString *>* _Nonnull)headers
                                   metadata:(NSDictionary <NSString *, NSString *>* _Nullable)metadata;
+
+- (instancetype _Nullable)initWithUploadId:(NSString * _Nonnull)uploadId
+                                      file:(NSURL * _Nonnull)fileUrl
+                                  delegate:(id <TUSResumableUploadDelegate> _Nonnull)delegate
+                             uploadHeaders:(NSDictionary <NSString *, NSString *>* _Nonnull)headers
+                                  metadata:(NSDictionary <NSString *, NSString *>* _Nullable)metadata
+                                 uploadUrl:(NSURL * _Nonnull)uploadUrl;
 
 /**
  Progress callback method for a task associated with this upload. 

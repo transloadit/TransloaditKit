@@ -67,7 +67,7 @@
                 tusSession = [[TUSSession alloc] initWithEndpoint:[[NSURL alloc] initWithString:[[json dictionary] valueForKey:@"tus_url"]] dataStore:tusStore allowsCellularAccess:YES];
                 [self.delegate transloaditAssemblyCreationResult:object];
             } else if([object isKindOfClass:[Template class]]) {
-                [(Template *)object setTemplate_id:[json valueForKey:@"id"]];
+                [(Template *)object setTemplate_id:[[json dictionary] valueForKey:@"id"]];
                 [self.delegate transloaditTemplateCreationResult:object];
             }
         }
@@ -79,7 +79,6 @@
         [self.delegate transloaditTemplateCreationError:nil withResponse:[[TransloaditResponse alloc] initWithResponseDictionary:@{@"message":@"No URL Set"}]];
     } else {
         [self makeRequestWithMethod:TRANSLOADIT_DELETE andObject:object callback:^(TransloaditResponse *json) {
-            NSLog(@"%@", [object debugDescription]);
 //            if([json valueForKey:@"error"]){
 //                NSError *error = [NSError errorWithDomain:@"TRANSLOADIT"
 //                                                     code:-57
@@ -137,13 +136,13 @@
 }
 
 
-- (void) invokeAssembly: (Assembly *)assembly{
+- (void) invokeAssembly: (Assembly *)assembly retry:(int)retryCount{
     [self checkAssembly:assembly];
     NSArray *files = [assembly files];
     
     for (int x = 0; x < [files count]; x++) {
         NSString* fileName = [[assembly fileNames] objectAtIndex:x];
-        TUSResumableUpload *upload = [tusSession createUploadFromFile:[files  objectAtIndex:x] headers:@{} metadata:@{@"filename":fileName, @"fieldname":@"file-input", @"assembly_url": [assembly urlString]}];
+        TUSResumableUpload *upload = [tusSession createUploadFromFile:[files  objectAtIndex:x] retry:retryCount headers:@{} metadata:@{@"filename":fileName, @"fieldname":@"file-input", @"assembly_url": [assembly urlString]}];
         upload.progressBlock = _uploadProgressBlock;
         upload.resultBlock = _uploadResultBlock;
         upload.failureBlock = _uploadFailureBlock;
@@ -200,17 +199,18 @@
             url = [NSString stringWithFormat:@"%@%@%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_ASSEMBLIES, @"/", [object id]];
         }
 
-        NSLog(@"%@", url);
          request = [[TransloaditRequest alloc] initWith:_key andSecret:_secret andMethod:method andURL:url];
 
     }else if ([method  isEqual: TRANSLOADIT_POST]) {
         request = [[TransloaditRequest alloc] initWith:_key andSecret:_secret andMethod:method andURL:[object urlString]];
+        
     }
 //    if ([[request method] isEqualToString:TRANSLOADIT_POST] || [[request method] isEqualToString:TRANSLOADIT_PUT]) {
-        NSLog(@"%@", [object debugDescription]);
         [request appendParams:[object getParams]];
 //    }
+    NSLog(@"%@", [request debugDescription]);
     NSLog(@"%@", [[object getParams] debugDescription]);
+    
     NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             NSLog(@"%@", [error debugDescription]);
@@ -220,7 +220,6 @@
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
                                                              options:NSJSONReadingMutableContainers
                                                                error:nil];
-        NSLog(@"%@", [json description]);
         TransloaditResponse *responseObject = [[TransloaditResponse alloc] initWithResponseDictionary:json];
         callback(responseObject);
     }];
@@ -229,7 +228,6 @@
 
 - (void) assemblyStatus: (Assembly *)assembly completion:(void (^)(NSDictionary *))completion {
     
-    NSLog(@"%@", [completion debugDescription]);
     
 //    NSMutableURLRequest *request = [[[TransloaditRequest alloc] initWithKey:_key andSecret:_secret] createRequestWithMethod:TRANSLOADIT_GET andURL:[assembly urlString]];
 //    NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {

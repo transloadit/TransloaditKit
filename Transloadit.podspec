@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
 s.name             = 'Transloadit'
-s.version          = '1.0.4'
+s.version          = '1.0.5'
 s.summary          = 'An iOS and MacOS SDK for Transloadit.'
 
 # This description is used to generate tags and improve search results.
@@ -40,6 +40,6 @@ s.source_files = 'Transloadit/Classes/**/*'
 
 # s.public_header_files = 'Pod/Classes/**/*.h'
 # s.frameworks = 'UIKit', 'MapKit'
-s.dependency 'TUSKit', '1.3.11'
+s.dependency 'TUSKit'
 
 end

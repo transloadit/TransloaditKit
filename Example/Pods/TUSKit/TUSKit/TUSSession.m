@@ -5,6 +5,7 @@
 //  Copyright (c) 2016 Findyr. All rights reserved.
 
 #import "TUSKit.h"
+#import "TUSSession.h"
 #import "TUSResumableUpload+Private.h"
 
 @interface TUSSession() <TUSResumableUploadDelegate, NSURLSessionDataDelegate>
@@ -83,15 +84,40 @@
 
 #pragma mark public methods
 - (TUSResumableUpload *) createUploadFromFile:(NSURL *)fileURL
-                                       headers:(NSDictionary <NSString *, NSString *> * __nullable)headers
-                                      metadata:(NSDictionary <NSString *, NSString *> * __nullable)metadata
+                                        retry:(int)retryCount
+                                      headers:(NSDictionary <NSString *, NSString *> * __nullable)headers
+                                     metadata:(NSDictionary <NSString *, NSString *> * __nullable)metadata
 {
-    TUSResumableUpload *upload = [[TUSResumableUpload alloc]  initWithUploadId:[self.store generateUploadId] file:fileURL delegate:self uploadHeaders:headers?:@{} metadata:metadata];
+    TUSResumableUpload *upload = [[TUSResumableUpload alloc]  initWithUploadId:[self.store generateUploadId]
+                                                                          file:fileURL
+                                                                         retry:retryCount
+                                                                      delegate:self
+                                                                 uploadHeaders:headers?:@{}
+                                                                      metadata:metadata];
     
     if (upload){
         self.uploads[upload.uploadId] = upload; // Save the upload by ID for later
     }
     
+    return upload;
+}
+
+- (TUSResumableUpload * _Nullable) createUploadFromFile:(NSURL * _Nonnull)fileURL
+                                                headers:(NSDictionary <NSString *, NSString *> * __nullable)headers
+                                               metadata:(NSDictionary <NSString *, NSString *> * __nullable)metadata
+                                              uploadUrl:(NSURL * _Nonnull)uploadUrl
+{
+    TUSResumableUpload *upload = [[TUSResumableUpload alloc] initWithUploadId:[self.store generateUploadId]
+                                                                         file:fileURL
+                                                                     delegate:self
+                                                                uploadHeaders:headers?:@{}
+                                                                     metadata:metadata
+                                                                    uploadUrl:uploadUrl];
+
+    if (upload){
+        self.uploads[upload.uploadId] = upload; // Save the upload by ID for later
+    }
+
     return upload;
 }
 
