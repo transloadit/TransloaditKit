@@ -9,7 +9,6 @@ Please refer to the changelog for a full list.
 
 ## Intro
 
-
 [Transloadit](https://transloadit.com) is a service that helps you handle file
 uploads, resize, crop and watermark your images, make GIFs, transcode your
 videos, extract thumbnails, generate audio waveforms, and so much more. In
@@ -31,6 +30,7 @@ If there are no errors, you can start using the pod.
 
 ## Usage
 
+
 ### Import TransloaditKit
 *Objective-C*
 ```objc
@@ -43,9 +43,85 @@ import Transloadit
 ```
 
 
-### Setup Transloadit 
-To setup Transloadit, be sure add the delegate to your ViewController and then set the delegate to your ViewController.
+### Define your blocks
+`Objective-C`
+```objc
+transloadit.uploadingProgressBlock = ^(int64_t bytesWritten, int64_t bytesTotal){
+// Update your progress bar here
+NSLog(@"progress: %llu / %llu", (unsigned long long)bytesWritten, (unsigned long long)bytesTotal);
+};
 
+transloadit.uploadingResultBlock = ^(NSURL* fileURL){
+// Use the upload url
+NSLog(@"url: %@", fileURL);
+};
+
+transloadit.uploadingFailureBlock = ^(NSError* error){
+// Handle the error
+NSLog(@"error: %@", error);
+};
+
+transloadit.assemblyCreationResultBlock = ^(Assembly* assembly, NSDictionary* completionDictionary){
+NSLog(@"Assembly creation success");
+NSLog(@"%@", @"Invoking assembly.");
+};
+
+transloadit.assemblyCreationFailureBlock = ^(NSDictionary* completionDictionary){
+NSLog(@"Assembly creation failed: %@", [completionDictionary debugDescription]);
+};
+
+transloadit.assemblyStatusBlock = ^(NSDictionary* completionDictionary){
+NSLog(@"Assembly status: %@", [completionDictionary debugDescription]);
+};
+
+transloadit.assemblyResultBlock = ^(NSDictionary* completionDictionary){
+NSLog(@"Assembly finished : %@", [completionDictionary debugDescription]);
+};
+
+transloadit.assemblyFailureBlock = ^(NSDictionary* completionDictionary){
+NSLog(@"Assembly failed: %@", [completionDictionary debugDescription]);
+};
+```
+`Swift`
+```Swift
+self.transloadit.assemblyCreationResultBlock = { assembly, completionDictionary in
+print("Assembly created!")
+}
+self.transloadit.assemblyCreationFailureBlock = { completionDictionary in
+print("Assembly creation failed")
+}
+
+self.transloadit.assemblyResultBlock = { completionDictionary in
+print("Assembly finished executing!")
+}
+self.transloadit.assemblyStatusBlock = { completionDictionary in
+print("Assembly is executing!")
+}
+
+self.transloadit.assemblyFailureBlock = { completionDictionary in
+print("Assembly failed executing!")
+}
+
+self.transloadit.uploadResultBlock = { url in
+print("file uploaded!")
+}
+self.transloadit.uploadProgressBlock =  {bytesWritten, bytesTotal in
+print("Assembly uploading!")
+}
+self.transloadit.uploadFailureBlock = { error in
+print("Assembly failed uploading!")
+}
+
+self.transloadit.templateCreationResultBlock = { template, completionDictionary in
+print("Template created!")
+}
+
+self.transloadit.templateCreationFailureBlock = { completionDictionary in
+print("Template failed creating!")
+}
+```
+
+### Setup TransloaditKit
 `Objective-C`
 ```objc
 @interface TransloaditViewController () <TransloaditDelegate>
