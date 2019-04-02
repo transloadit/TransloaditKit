@@ -12,18 +12,7 @@
 		28296E871F5DFB36006892E3 /* TransloaditViewControllerSwifty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28296E861F5DFB36006892E3 /* TransloaditViewControllerSwifty.swift */; };
 		2858DA351F68BF7D005325A3 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2858DA341F68BF7D005325A3 /* test.jpg */; };
 		28615CFE209F8AD000E3D237 /* transloadit.png in Resources */ = {isa = PBXBuildFile; fileRef = 28615CFD209F8AD000E3D237 /* transloadit.png */; };
-		289616D2203D1EBE0023EE37 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289616C9203D1EBD0023EE37 /* CommonCrypto.framework */; };
-		289616D9203D1EBE0023EE37 /* CommonCryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289616D8203D1EBE0023EE37 /* CommonCryptoTests.swift */; };
-		289616DB203D1EBE0023EE37 /* CommonCrypto.h in Headers */ = {isa = PBXBuildFile; fileRef = 289616CB203D1EBE0023EE37 /* CommonCrypto.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		289616DE203D1EBE0023EE37 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289616C9203D1EBD0023EE37 /* CommonCrypto.framework */; };
-		289616DF203D1EBE0023EE37 /* CommonCrypto.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 289616C9203D1EBD0023EE37 /* CommonCrypto.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		289616E8203D1EF00023EE37 /* CommonCrypto.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 289616E7203D1EF00023EE37 /* CommonCrypto.xcconfig */; };
-		289616E9203D1EF00023EE37 /* CommonCrypto.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 289616E7203D1EF00023EE37 /* CommonCrypto.xcconfig */; };
-		289616EA203D1EF00023EE37 /* CommonCrypto.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 289616E7203D1EF00023EE37 /* CommonCrypto.xcconfig */; };
-		289616EB203D1EF00023EE37 /* CommonCrypto.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 289616E7203D1EF00023EE37 /* CommonCrypto.xcconfig */; };
-		289616EC203D1EF00023EE37 /* CommonCrypto.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 289616E7203D1EF00023EE37 /* CommonCrypto.xcconfig */; };
-		289616ED203D1EF00023EE37 /* CommonCrypto.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 289616E7203D1EF00023EE37 /* CommonCrypto.xcconfig */; };
-		289616EE203D1EF00023EE37 /* CommonCrypto.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 289616E7203D1EF00023EE37 /* CommonCrypto.xcconfig */; };
+		287BD35120EC709900A599C3 /* TransloaditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* TransloaditViewController.m */; };
 		28C00B3C1ECD8F1900430748 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C00B3B1ECD8F1900430748 /* AppDelegate.m */; };
 		28C00B3F1ECD8F1900430748 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C00B3E1ECD8F1900430748 /* main.m */; };
 		28C00B421ECD8F1900430748 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C00B411ECD8F1900430748 /* ViewController.m */; };
@@ -37,7 +26,6 @@
 		6003F598195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F596195388D20070C39A /* InfoPlist.strings */; };
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
 		6003F59E195388D20070C39A /* TransloaditAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* TransloaditAppDelegate.m */; };
-		6003F5A7195388D20070C39A /* TransloaditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* TransloaditViewController.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -50,27 +38,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		289616D3203D1EBE0023EE37 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6003F582195388D10070C39A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 289616C8203D1EBD0023EE37;
-			remoteInfo = CommonCrypto;
-		};
-		289616D5203D1EBE0023EE37 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6003F582195388D10070C39A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6003F589195388D20070C39A;
-			remoteInfo = Transloadit_Example;
-		};
-		289616DC203D1EBE0023EE37 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6003F582195388D10070C39A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 289616C8203D1EBD0023EE37;
-			remoteInfo = CommonCrypto;
-		};
 		28C00B4E1ECD8F1900430748 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6003F582195388D10070C39A /* Project object */;
@@ -101,7 +68,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				289616DF203D1EBE0023EE37 /* CommonCrypto.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -110,21 +76,16 @@
 
 /* Begin PBXFileReference section */
 		00527FF412666775D11D7EF3 /* Pods-Transloadit_MacOS_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Transloadit_MacOS_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Transloadit_MacOS_Example/Pods-Transloadit_MacOS_Example.release.xcconfig"; sourceTree = "<group>"; };
-		28123E871F832782004CD204 /* Transloadit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Transloadit.podspec; path = ../Transloadit.podspec; sourceTree = "<group>"; };
+		28123E871F832782004CD204 /* Transloadit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Transloadit.podspec; path = ../Transloadit.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		28296E861F5DFB36006892E3 /* TransloaditViewControllerSwifty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransloaditViewControllerSwifty.swift; sourceTree = "<group>"; };
 		2858DA341F68BF7D005325A3 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
 		2858DA361F68C27C005325A3 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = test.jpg; path = ../../../../../Downloads/mpdf60/examples/test.jpg; sourceTree = "<group>"; };
 		28615CFD209F8AD000E3D237 /* transloadit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transloadit.png; sourceTree = "<group>"; };
-		289616C9203D1EBD0023EE37 /* CommonCrypto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CommonCrypto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		289616CB203D1EBE0023EE37 /* CommonCrypto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonCrypto.h; sourceTree = "<group>"; };
 		289616CC203D1EBE0023EE37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		289616D1203D1EBE0023EE37 /* CommonCryptoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CommonCryptoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		289616D8203D1EBE0023EE37 /* CommonCryptoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonCryptoTests.swift; sourceTree = "<group>"; };
 		289616DA203D1EBE0023EE37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		289616E7203D1EF00023EE37 /* CommonCrypto.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = CommonCrypto.xcconfig; sourceTree = "<group>"; };
-		289616EF203D1F4B0023EE37 /* iphoneos.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = iphoneos.modulemap; sourceTree = "<group>"; };
-		289616F0203D1FB30023EE37 /* iphonesimulator.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = iphonesimulator.modulemap; sourceTree = "<group>"; };
-		289616F1203D1FD00023EE37 /* macosx.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = macosx.modulemap; sourceTree = "<group>"; };
 		28AB283D1D8E46600094CC86 /* Transloadit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Transloadit.framework; path = "../../../Library/Developer/Xcode/DerivedData/Transloadit-dcwevxtjgrywgzecrcibpfehoswo/Build/Products/Debug-iphoneos/Transloadit/Transloadit.framework"; sourceTree = "<group>"; };
 		28C00B381ECD8F1900430748 /* Transloadit_MacOS_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transloadit_MacOS_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28C00B3A1ECD8F1900430748 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -174,21 +135,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		289616C5203D1EBD0023EE37 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		289616CE203D1EBE0023EE37 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				289616D2203D1EBE0023EE37 /* CommonCrypto.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		28C00B351ECD8F1900430748 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -218,7 +164,6 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				289616DE203D1EBE0023EE37 /* CommonCrypto.framework in Frameworks */,
 				D1E49B677AD700363064E990 /* Pods_Transloadit_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,9 +257,6 @@
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
-				289616F1203D1FD00023EE37 /* macosx.modulemap */,
-				289616F0203D1FB30023EE37 /* iphonesimulator.modulemap */,
-				289616EF203D1F4B0023EE37 /* iphoneos.modulemap */,
 				289616E7203D1EF00023EE37 /* CommonCrypto.xcconfig */,
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* Example for Transloadit */,
@@ -338,8 +280,6 @@
 				28C00B381ECD8F1900430748 /* Transloadit_MacOS_Example.app */,
 				28C00B4D1ECD8F1900430748 /* Transloadit_MacOS_ExampleTests.xctest */,
 				28C00B581ECD8F1900430748 /* Transloadit_MacOS_ExampleUITests.xctest */,
-				289616C9203D1EBD0023EE37 /* CommonCrypto.framework */,
-				289616D1203D1EBE0023EE37 /* CommonCryptoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -420,55 +360,7 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		289616C6203D1EBD0023EE37 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				289616DB203D1EBE0023EE37 /* CommonCrypto.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		289616C8203D1EBD0023EE37 /* CommonCrypto */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 289616E4203D1EBE0023EE37 /* Build configuration list for PBXNativeTarget "CommonCrypto" */;
-			buildPhases = (
-				289616C4203D1EBD0023EE37 /* Sources */,
-				289616C5203D1EBD0023EE37 /* Frameworks */,
-				289616C6203D1EBD0023EE37 /* Headers */,
-				289616C7203D1EBD0023EE37 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = CommonCrypto;
-			productName = CommonCrypto;
-			productReference = 289616C9203D1EBD0023EE37 /* CommonCrypto.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		289616D0203D1EBE0023EE37 /* CommonCryptoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 289616E6203D1EBE0023EE37 /* Build configuration list for PBXNativeTarget "CommonCryptoTests" */;
-			buildPhases = (
-				289616CD203D1EBE0023EE37 /* Sources */,
-				289616CE203D1EBE0023EE37 /* Frameworks */,
-				289616CF203D1EBE0023EE37 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				289616D4203D1EBE0023EE37 /* PBXTargetDependency */,
-				289616D6203D1EBE0023EE37 /* PBXTargetDependency */,
-			);
-			name = CommonCryptoTests;
-			productName = CommonCryptoTests;
-			productReference = 289616D1203D1EBE0023EE37 /* CommonCryptoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		28C00B371ECD8F1900430748 /* Transloadit_MacOS_Example */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 28C00B651ECD8F1900430748 /* Build configuration list for PBXNativeTarget "Transloadit_MacOS_Example" */;
@@ -478,7 +370,6 @@
 				28C00B351ECD8F1900430748 /* Frameworks */,
 				28C00B361ECD8F1900430748 /* Resources */,
 				22FBCA1DC0CB045C07DDF17E /* [CP] Embed Pods Frameworks */,
-				312FE0762CA44E4AE1A24883 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -534,13 +425,11 @@
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
 				CFEFA047554B697A3CC73F8F /* [CP] Embed Pods Frameworks */,
-				D4C307B8E3631C42981C862F /* [CP] Copy Pods Resources */,
 				289616E5203D1EBE0023EE37 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				289616DD203D1EBE0023EE37 /* PBXTargetDependency */,
 			);
 			name = Transloadit_Example;
 			productName = Transloadit;
@@ -556,7 +445,6 @@
 				6003F5AB195388D20070C39A /* Frameworks */,
 				6003F5AC195388D20070C39A /* Resources */,
 				11B2651EA631D513374950F1 /* [CP] Embed Pods Frameworks */,
-				B890FABA3696EB1A6D271395 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -576,20 +464,9 @@
 			attributes = {
 				CLASSPREFIX = Transloadit;
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Mark R. Masterson";
 				TargetAttributes = {
-					289616C8203D1EBD0023EE37 = {
-						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = MPKS94G26Q;
-						ProvisioningStyle = Automatic;
-					};
-					289616D0203D1EBE0023EE37 = {
-						CreatedOnToolsVersion = 9.2;
-						DevelopmentTeam = MPKS94G26Q;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 6003F589195388D20070C39A;
-					};
 					28C00B371ECD8F1900430748 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = MPKS94G26Q;
@@ -635,36 +512,17 @@
 				28C00B371ECD8F1900430748 /* Transloadit_MacOS_Example */,
 				28C00B4C1ECD8F1900430748 /* Transloadit_MacOS_ExampleTests */,
 				28C00B571ECD8F1900430748 /* Transloadit_MacOS_ExampleUITests */,
-				289616C8203D1EBD0023EE37 /* CommonCrypto */,
-				289616D0203D1EBE0023EE37 /* CommonCryptoTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		289616C7203D1EBD0023EE37 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				289616ED203D1EF00023EE37 /* CommonCrypto.xcconfig in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		289616CF203D1EBE0023EE37 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				289616EE203D1EF00023EE37 /* CommonCrypto.xcconfig in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		28C00B361ECD8F1900430748 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				28C00B441ECD8F1900430748 /* Assets.xcassets in Resources */,
 				28C00B471ECD8F1900430748 /* Main.storyboard in Resources */,
-				289616EA203D1EF00023EE37 /* CommonCrypto.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -672,7 +530,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				289616EB203D1EF00023EE37 /* CommonCrypto.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -680,7 +537,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				289616EC203D1EF00023EE37 /* CommonCrypto.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -690,7 +546,6 @@
 			files = (
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				2858DA351F68BF7D005325A3 /* test.jpg in Resources */,
-				289616E8203D1EF00023EE37 /* CommonCrypto.xcconfig in Resources */,
 				28123E881F832782004CD204 /* Transloadit.podspec in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				28615CFE209F8AD000E3D237 /* transloadit.png in Resources */,
@@ -702,7 +557,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				289616E9203D1EF00023EE37 /* CommonCrypto.xcconfig in Resources */,
 				6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -716,9 +570,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Transloadit_Tests/Pods-Transloadit_Tests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/FBSnapshotTestCase/FBSnapshotTestCase.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSnapshotTestCase.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -731,28 +588,18 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Transloadit_MacOS_Example/Pods-Transloadit_MacOS_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/TUSKit-macOS/TUSKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Transloadit-macOS/Transloadit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TUSKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Transloadit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Transloadit_MacOS_Example/Pods-Transloadit_MacOS_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		312FE0762CA44E4AE1A24883 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Transloadit_MacOS_Example/Pods-Transloadit_MacOS_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		92F8071A6315FC3F2D0B29C1 /* [CP] Check Pods Manifest.lock */ = {
@@ -761,28 +608,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Transloadit_Tests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		B890FABA3696EB1A6D271395 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Transloadit_Tests/Pods-Transloadit_Tests-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BF8396DE923B742A8F715289 /* [CP] Check Pods Manifest.lock */ = {
@@ -791,13 +626,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Transloadit_MacOS_Example-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BF982985A8D7CDAB14BB9F29 /* [CP] Check Pods Manifest.lock */ = {
@@ -806,13 +644,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Transloadit_Example-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CFEFA047554B697A3CC73F8F /* [CP] Embed Pods Frameworks */ = {
@@ -821,48 +662,23 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Transloadit_Example/Pods-Transloadit_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/TUSKit-iOS/TUSKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Transloadit-iOS/Transloadit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TUSKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Transloadit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Transloadit_Example/Pods-Transloadit_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D4C307B8E3631C42981C862F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Transloadit_Example/Pods-Transloadit_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		289616C4203D1EBD0023EE37 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		289616CD203D1EBE0023EE37 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				289616D9203D1EBE0023EE37 /* CommonCryptoTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		28C00B341ECD8F1900430748 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -894,8 +710,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* TransloaditAppDelegate.m in Sources */,
-				6003F5A7195388D20070C39A /* TransloaditViewController.m in Sources */,
 				28296E871F5DFB36006892E3 /* TransloaditViewControllerSwifty.swift in Sources */,
+				287BD35120EC709900A599C3 /* TransloaditViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -911,21 +727,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		289616D4203D1EBE0023EE37 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 289616C8203D1EBD0023EE37 /* CommonCrypto */;
-			targetProxy = 289616D3203D1EBE0023EE37 /* PBXContainerItemProxy */;
-		};
-		289616D6203D1EBE0023EE37 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6003F589195388D20070C39A /* Transloadit_Example */;
-			targetProxy = 289616D5203D1EBE0023EE37 /* PBXContainerItemProxy */;
-		};
-		289616DD203D1EBE0023EE37 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 289616C8203D1EBD0023EE37 /* CommonCrypto */;
-			targetProxy = 289616DC203D1EBE0023EE37 /* PBXContainerItemProxy */;
-		};
 		28C00B4F1ECD8F1900430748 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 28C00B371ECD8F1900430748 /* Transloadit_MacOS_Example */;
@@ -971,156 +772,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		289616E0203D1EBE0023EE37 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 289616E7203D1EF00023EE37 /* CommonCrypto.xcconfig */;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = MPKS94G26Q;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = CommonCrypto/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = io.masterson.CommonCrypto;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		289616E1203D1EBE0023EE37 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 289616E7203D1EF00023EE37 /* CommonCrypto.xcconfig */;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = MPKS94G26Q;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = CommonCrypto/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = io.masterson.CommonCrypto;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		289616E2203D1EBE0023EE37 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = MPKS94G26Q;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = CommonCryptoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = io.masterson.CommonCryptoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Transloadit_Example.app/Transloadit_Example";
-			};
-			name = Debug;
-		};
-		289616E3203D1EBE0023EE37 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = MPKS94G26Q;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = CommonCryptoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = io.masterson.CommonCryptoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Transloadit_Example.app/Transloadit_Example";
-			};
-			name = Release;
-		};
 		28C00B5F1ECD8F1900430748 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 65E16A8EE569809861EF1D39 /* Pods-Transloadit_MacOS_Example.debug.xcconfig */;
@@ -1295,14 +946,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1341,14 +998,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1476,24 +1139,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		289616E4203D1EBE0023EE37 /* Build configuration list for PBXNativeTarget "CommonCrypto" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				289616E0203D1EBE0023EE37 /* Debug */,
-				289616E1203D1EBE0023EE37 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		289616E6203D1EBE0023EE37 /* Build configuration list for PBXNativeTarget "CommonCryptoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				289616E2203D1EBE0023EE37 /* Debug */,
-				289616E3203D1EBE0023EE37 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		28C00B651ECD8F1900430748 /* Build configuration list for PBXNativeTarget "Transloadit_MacOS_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

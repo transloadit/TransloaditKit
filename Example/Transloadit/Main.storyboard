@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="whP-gf-Uak">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="whP-gf-Uak">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Transloadit View Controller Swifty-->
+        <!--Transloadit View Controller-->
         <scene sceneID="wQg-tq-qST">
             <objects>
-                <viewController id="whP-gf-Uak" customClass="TransloaditViewControllerSwifty" customModule="Transloadit_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="whP-gf-Uak" customClass="TransloaditViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uEw-UM-LJ8"/>
                         <viewControllerLayoutGuide type="bottom" id="Mvr-aV-6Um"/>
@@ -20,29 +20,7 @@
                     <view key="view" contentMode="scaleToFill" id="TpU-gO-2f1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H6s-P0-0Wk">
-                                <rect key="frame" x="109" y="518" width="156" height="30"/>
-                                <state key="normal" title="Run Template Example"/>
-                                <connections>
-                                    <action selector="runTemplate:" destination="whP-gf-Uak" eventType="touchUpInside" id="yUA-eH-t4c"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DJe-IQ-aha">
-                                <rect key="frame" x="107" y="118" width="160" height="30"/>
-                                <state key="normal" title="Run Assembly Example"/>
-                                <connections>
-                                    <action selector="runAssembly:" destination="whP-gf-Uak" eventType="touchUpInside" id="yz1-wg-ysP"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="Mvr-aV-6Um" firstAttribute="top" secondItem="H6s-P0-0Wk" secondAttribute="bottom" constant="119" id="1Zw-ZS-GDV"/>
-                            <constraint firstItem="DJe-IQ-aha" firstAttribute="centerX" secondItem="TpU-gO-2f1" secondAttribute="centerX" id="1mr-9y-lbM"/>
-                            <constraint firstItem="DJe-IQ-aha" firstAttribute="centerX" secondItem="H6s-P0-0Wk" secondAttribute="centerX" id="Va9-qe-O6Q"/>
-                            <constraint firstItem="DJe-IQ-aha" firstAttribute="top" secondItem="uEw-UM-LJ8" secondAttribute="bottom" constant="98" id="q56-6h-vQq"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tc2-Qw-aMS" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -6,14 +6,33 @@
 //
 
 #import "TransloaditRequest.h"
+#import "Resources/TransloaditConstants.h"
 
 @implementation TransloaditRequest
+
 
 -(id)initWithKey:(NSString *)key andSecret:(NSString *)secret {
     self = [super init];
     if(self) {
         _key = key;
         _secret = secret;
+    }
+    return self;
+}
+
+- (id) initWith:(NSString *)key andSecret:(NSString *)secret andMethod:(NSString *)method andURL:(NSString *) url {
+    self = [super init];
+    if(self) {
+        _key = key;
+        _secret = secret;
+        _method = method;
+        [self setURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@", url]]];
+        [self setCachePolicy:NSURLRequestReturnCacheDataElseLoad];
+        [self setTimeoutInterval:120.0];
+        [self addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [self addValue:TRANSLOADITKIT_VERSION forHTTPHeaderField:@"Transloadit-Client"];
+
+        [self setHTTPMethod:method];
     }
     return self;
 }
@@ -53,28 +72,15 @@
     return [[NSUUID UUID] UUIDString];
 }
 
--(NSMutableURLRequest *) createRequestWithParams:(NSMutableDictionary *)params andURL:(NSString *)url {
-    return [self createRequestWithParams:params andFinalURL:url];
-}
-
--(NSMutableURLRequest *) createRequestWithParams:(NSMutableDictionary *)params andEndpoint:(NSString *)endpoint {
-    return [self createRequestWithParams:params andFinalURL:[NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, endpoint]];
-}
-
-- (NSMutableURLRequest *) createRequestWithParams:(NSMutableDictionary *) params andFinalURL:(NSString *)url {
-    NSMutableDictionary *auth = [self createAuth];
-    [params setObject:auth forKey:@"auth"];
+- (void) appendParams:(NSMutableDictionary *) params {
+    [params setObject:[self createAuth] forKey:@"auth"];
     NSString *signature = [self generateSignatureWithParams: params];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@", url]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];    
-    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setHTTPMethod:@"POST"];
+    
     NSString *boundary = [self generateBoundary];
     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@ ", boundary];
-    [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
+    [self addValue:contentType forHTTPHeaderField:@"Content-Type"];
     NSMutableData *body = [NSMutableData data];
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params
-                                                       options:0
-                                                         error:nil];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:nil];
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"tus_num_expected_upload_files\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
     int i = 2;
@@ -86,18 +92,6 @@
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"params\"\r\n\r\n%@",  [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    NSString *responseData = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    responseData = [responseData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-    [request setHTTPBody:body];
-    return request;
-}
-
-- (NSMutableURLRequest *) createGetRequestWithURL:(NSString *) url {
-   
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@", url]] cachePolicy: NSURLRequestReturnCacheDataElseLoad timeoutInterval:120.0];
-    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setHTTPMethod:@"GET"];
-
-    return request;
+    [self setHTTPBody:body];
 }
 @end

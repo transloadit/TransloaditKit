@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "APIObject.h"
+#import "Template.h"
 
+@interface Assembly : APIObject
 
-@interface Assembly : NSObject<APIObject>
-
-@property (nonatomic, strong)NSString* urlString;
+@property (nonatomic, strong)NSString* id;
 
 @property (nonatomic, strong)NSString* notify_url;
 
@@ -35,6 +35,7 @@
 
 - (id)initWithTemplate:(Template *)template andNumberOfFiles:(int)numberOfFiles;
 
+- (id)initWithId:(NSString* )id;
 
 //MARK: Steps
 - (void)addStepWithStep:(Step *)step;

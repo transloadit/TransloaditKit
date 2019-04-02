@@ -22,7 +22,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 ## The Protocol
 You'll need a tus.io friendly server before using TUSKit or any other tus client. You can find a list of [tus implementations here](http://tus.io/implementations.html).
 
-# Usage (1.3.0)
+# Usage (1.4.0)
 ------
 ## TUSSession
 A NSURLSession that manages, creates, and reloads TUS uploads using a single NSURLSession and data store.
@@ -50,10 +50,13 @@ The data storage for uploads.
 ## TUSResumableUpload
 Easily add uploads to your data storage using the your TUSSession.
 
-    TUSResumableUpload *upload = [self.tusSession createUploadFromFile:fileUrl headers:@{} metadata:@{}];
+TUSResumableUpload *upload = [self.tusSession createUploadFromFile:fileUrl retry:3 headers:@{} metadata:@{}];
 
 
 **fileUrl** - URL To Local File.
+
+**retry** - The number of times you wish the upload to retry. 
+
 
 **Headers** - An `NSDictionary` of your custom headers for the upload.
 
@@ -97,7 +100,7 @@ Set it to your `TUSResumableUpload` object.
     upload.failureBlock = failureBlock;
     
 ### Result Block
-A block fired when your upload fails.
+A block fired when your upload is successful.
 
     static TUSUploadResultBlock resultBlock = ^(NSURL* fileURL){
         // Use the upload url
@@ -120,6 +123,9 @@ Please refrence the Example Project for more usage examples
 
 TUSKit is a ready to use tus client for iOS.
 
+# Todo
+------
+-   [SSL Pinning](https://github.com/tus/TUSKit/issues/32)
 
 # License
 ------

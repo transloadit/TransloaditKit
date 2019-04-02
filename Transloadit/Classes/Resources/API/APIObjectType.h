@@ -1,4 +1,4 @@
-typedef enum : NSUInteger {
-    Assembly_API_Object = 0,
-    Tenplate_API_OBject = 1,
+typedef enum {
+    TRANSLOADIT_ASSEMBLY = 0,
+    TRANSLOADIT_TEMPLATE = 1,
 } APIObjectType;
