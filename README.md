@@ -42,12 +42,7 @@ If there are no errors, you can start using the pod.
 import Transloadit
 ```
 
-<<<<<<< HEAD
 
-### Setup Transloadit 
-To setup Transloadit, be sure add the delegate to your ViewController and then set the delegate to your ViewController.
-
-=======
 ### Define your blocks
 `Objective-C`
 ```objc
@@ -127,7 +122,6 @@ print("Template failed creating!")
 ```
 
 ### Setup TransloaditKit
->>>>>>> 8de0863... export sdk docs
 `Objective-C`
 ```objc
 @interface TransloaditViewController () <TransloaditDelegate>
