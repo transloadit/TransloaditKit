@@ -191,39 +191,43 @@
  @param assembly The assembly object you wish to check
  */
 - (void) checkAssembly: (Assembly *)assembly {
-    NSTimer *timer = [NSTimer timerWithTimeInterval:1.0 repeats:true block:^(NSTimer * _Nonnull timer) {
-        [self assemblyStatus:assembly completion:^(NSDictionary *response) {
-            NSArray *responseArray = @[@"REQUEST_ABORTED", @"ASSEMBLY_CANCELED", @"ASSEMBLY_COMPLETED"];
-            int responseInterger = [responseArray indexOfObject:[response valueForKey:@"ok"]];
-            
-            switch (responseInterger) {
-                case 0:
-                    //Aborted
-                    [timer invalidate];
-//                    self.assemblyFailureBlock(response);
-                    [self.delegate transloaditAssemblyProcessError:nil withResponse:nil];
-                    break;
-                case 1:
-                    //canceld
-                    [timer invalidate];
-//                    self.assemblyFailureBlock(response);
-                    [self.delegate transloaditAssemblyProcessError:nil withResponse:nil];
-                    break;
-                case 2:
-                    //completed
-                    [timer invalidate];
-//                    self.assemblyResultBlock(response);
-                    TransloaditResponse *responseObject = [[TransloaditResponse alloc] initWithResponseDictionary:response];
-                    [self.delegate transloaditAssemblyProcessResult:responseObject];
-                    break;
-                }
-            
-            if ([[response valueForKey:@"error"] isEqualToString:@"ASSEMBLY_CRASHED"]) {
+    if (@available(iOS 10.0, *)) {
+        NSTimer *timer = [NSTimer timerWithTimeInterval:1.0 repeats:true block:^(NSTimer * _Nonnull timer) {
+            [self assemblyStatus:assembly completion:^(NSDictionary *response) {
+                NSArray *responseArray = @[@"REQUEST_ABORTED", @"ASSEMBLY_CANCELED", @"ASSEMBLY_COMPLETED"];
+                int responseInterger = [responseArray indexOfObject:[response valueForKey:@"ok"]];
                 
-            }
+                switch (responseInterger) {
+                        case 0:
+                        //Aborted
+                        [timer invalidate];
+                        //                    self.assemblyFailureBlock(response);
+                        [self.delegate transloaditAssemblyProcessError:nil withResponse:nil];
+                        break;
+                        case 1:
+                        //canceld
+                        [timer invalidate];
+                        //                    self.assemblyFailureBlock(response);
+                        [self.delegate transloaditAssemblyProcessError:nil withResponse:nil];
+                        break;
+                        case 2:
+                        //completed
+                        [timer invalidate];
+                        //                    self.assemblyResultBlock(response);
+                        TransloaditResponse *responseObject = [[TransloaditResponse alloc] initWithResponseDictionary:response];
+                        [self.delegate transloaditAssemblyProcessResult:responseObject];
+                        break;
+                }
+                
+                if ([[response valueForKey:@"error"] isEqualToString:@"ASSEMBLY_CRASHED"]) {
+                    
+                }
+            }];
         }];
-    }];
-    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+        [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+    } else {
+        // Fallback on earlier versions
+    }
 }
 
 #pragma mark Private methods
