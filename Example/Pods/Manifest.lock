@@ -4,7 +4,7 @@ PODS:
   - FBSnapshotTestCase/Core (2.1.4)
   - FBSnapshotTestCase/SwiftSupport (2.1.4):
     - FBSnapshotTestCase/Core
-  - Transloadit (1.0.5):
+  - Transloadit (1.0.6):
     - TUSKit
   - TUSKit (1.4.0)
 
@@ -23,7 +23,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
-  Transloadit: bb6f437eb5eff185d9afdefcef8e8d007e1ed1b8
+  Transloadit: 769457fead2957fe3ce4a810084c1c3f98774beb
   TUSKit: 5f3271aeb4d048faee05ba69536ce0e07c9ff7f6
 
 PODFILE CHECKSUM: 1a3d11a4b32f23ad1fa04200c3d1b012c1b2fce7

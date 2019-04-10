@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
 s.name             = 'Transloadit'
-s.version          = '1.0.5'
+s.version          = '1.0.6'
 s.summary          = 'An iOS and MacOS SDK for Transloadit.'
 
 # This description is used to generate tags and improve search results.
@@ -26,7 +26,6 @@ s.homepage         = 'https://github.com/Transloadit/TransloaditKit'
 s.license          = { :type => 'MIT', :file => 'LICENSE' }
 s.author           = { 'Mark R. Masterson' => 'mark@masterson.io' }
 s.source           = { :git => 'https://github.com/Transloadit/TransloaditKit.git', :tag => s.version.to_s }
-# s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
 s.ios.deployment_target = '8.0'
 s.osx.deployment_target = '10.10'

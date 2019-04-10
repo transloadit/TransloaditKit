@@ -16,6 +16,7 @@
 
 - (id) initWithKey:(NSString *)key andSecret:(NSString *)secret;
 - (id) initWith:(NSString *)key andSecret:(NSString *)secret andMethod:(NSString *)method andURL:(NSString *) url;
+
 - (NSMutableURLRequest *) createRequestWithMethod:(NSString *)method andURL:(NSString *) url;
 
 

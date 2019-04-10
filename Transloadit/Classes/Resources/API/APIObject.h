@@ -30,6 +30,4 @@
 
 - (NSMutableDictionary*) getParams;
 
-- (NSString*)buildParametersJSON;
-
 @end
