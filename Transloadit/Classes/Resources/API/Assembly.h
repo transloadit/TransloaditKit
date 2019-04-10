@@ -31,8 +31,6 @@
 
 - (id)initWithSteps:(NSMutableArray<Step *>*)steps andNumberOfFiles:(int)numberOfFiles;
 
-- (id)initWithStepsJSONString:(NSString *)steps andNumberOfFiles:(int)numberOfFiles;
-
 - (id)initWithTemplate:(Template *)template andNumberOfFiles:(int)numberOfFiles;
 
 - (id)initWithId:(NSString* )id;
@@ -42,8 +40,6 @@
 
 -(NSMutableDictionary *)getSteps;
 
-
--(void)setExpirationWithMinutes:(int)minutes;
 
 //MARK: Files
 - (void)addFile:(NSURL* )file andFileName:(NSString* ) fileName;
