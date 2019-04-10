@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		20D2CCD5F9B4E4DD7A240B0E /* Pods_Transloadit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88F9C60B95E8311E4F861123 /* Pods_Transloadit_Tests.framework */; };
+		1EAA0DBBF4988C5D23A4A301 /* Pods_Transloadit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AF3FB3BFCFF6D64B6D2AE2 /* Pods_Transloadit_Tests.framework */; };
+		2446A28F2B64F070A84FBAD7 /* Pods_Transloadit_MacOS_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19B76181F661058890B1C36C /* Pods_Transloadit_MacOS_Example.framework */; };
 		28123E881F832782004CD204 /* Transloadit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 28123E871F832782004CD204 /* Transloadit.podspec */; };
-		28296E871F5DFB36006892E3 /* TransloaditViewControllerSwifty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28296E861F5DFB36006892E3 /* TransloaditViewControllerSwifty.swift */; };
 		2858DA351F68BF7D005325A3 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2858DA341F68BF7D005325A3 /* test.jpg */; };
 		28615CFE209F8AD000E3D237 /* transloadit.png in Resources */ = {isa = PBXBuildFile; fileRef = 28615CFD209F8AD000E3D237 /* transloadit.png */; };
 		287BD35120EC709900A599C3 /* TransloaditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* TransloaditViewController.m */; };
@@ -19,7 +19,7 @@
 		28C00B441ECD8F1900430748 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28C00B431ECD8F1900430748 /* Assets.xcassets */; };
 		28C00B471ECD8F1900430748 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28C00B451ECD8F1900430748 /* Main.storyboard */; };
 		28C00B521ECD8F1900430748 /* Transloadit_MacOS_ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C00B511ECD8F1900430748 /* Transloadit_MacOS_ExampleTests.m */; };
-		28C00B5D1ECD8F1900430748 /* Transloadit_MacOS_ExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C00B5C1ECD8F1900430748 /* Transloadit_MacOS_ExampleUITests.m */; };
+		2FB9C8D74C411896B72BCB96 /* Pods_Transloadit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95A15976B509852E99F93FD7 /* Pods_Transloadit_Example.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -27,14 +27,11 @@
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
 		6003F59E195388D20070C39A /* TransloaditAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* TransloaditAppDelegate.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
-		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
-		A11E119A2D9F278B67946AC3 /* Pods_Transloadit_MacOS_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB1B9CF04DF851B2D2B70C65 /* Pods_Transloadit_MacOS_Example.framework */; };
-		D1E49B677AD700363064E990 /* Pods_Transloadit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C787B4E759C64C2F1B605B31 /* Pods_Transloadit_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,17 +73,10 @@
 
 /* Begin PBXFileReference section */
 		00527FF412666775D11D7EF3 /* Pods-Transloadit_MacOS_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Transloadit_MacOS_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Transloadit_MacOS_Example/Pods-Transloadit_MacOS_Example.release.xcconfig"; sourceTree = "<group>"; };
+		19B76181F661058890B1C36C /* Pods_Transloadit_MacOS_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Transloadit_MacOS_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		28123E871F832782004CD204 /* Transloadit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Transloadit.podspec; path = ../Transloadit.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		28296E861F5DFB36006892E3 /* TransloaditViewControllerSwifty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransloaditViewControllerSwifty.swift; sourceTree = "<group>"; };
 		2858DA341F68BF7D005325A3 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
-		2858DA361F68C27C005325A3 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = test.jpg; path = ../../../../../Downloads/mpdf60/examples/test.jpg; sourceTree = "<group>"; };
 		28615CFD209F8AD000E3D237 /* transloadit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transloadit.png; sourceTree = "<group>"; };
-		289616CB203D1EBE0023EE37 /* CommonCrypto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonCrypto.h; sourceTree = "<group>"; };
-		289616CC203D1EBE0023EE37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		289616D8203D1EBE0023EE37 /* CommonCryptoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonCryptoTests.swift; sourceTree = "<group>"; };
-		289616DA203D1EBE0023EE37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		289616E7203D1EF00023EE37 /* CommonCrypto.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = CommonCrypto.xcconfig; sourceTree = "<group>"; };
-		28AB283D1D8E46600094CC86 /* Transloadit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Transloadit.framework; path = "../../../Library/Developer/Xcode/DerivedData/Transloadit-dcwevxtjgrywgzecrcibpfehoswo/Build/Products/Debug-iphoneos/Transloadit/Transloadit.framework"; sourceTree = "<group>"; };
 		28C00B381ECD8F1900430748 /* Transloadit_MacOS_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transloadit_MacOS_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28C00B3A1ECD8F1900430748 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		28C00B3B1ECD8F1900430748 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -100,9 +90,8 @@
 		28C00B511ECD8F1900430748 /* Transloadit_MacOS_ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Transloadit_MacOS_ExampleTests.m; sourceTree = "<group>"; };
 		28C00B531ECD8F1900430748 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		28C00B581ECD8F1900430748 /* Transloadit_MacOS_ExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Transloadit_MacOS_ExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		28C00B5C1ECD8F1900430748 /* Transloadit_MacOS_ExampleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Transloadit_MacOS_ExampleUITests.m; sourceTree = "<group>"; };
-		28C00B5E1ECD8F1900430748 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B2B7C90177ACBFEB3A9A510 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		44AF3FB3BFCFF6D64B6D2AE2 /* Pods_Transloadit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Transloadit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		537323ADD6A7804CD526F2EC /* Pods-Transloadit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Transloadit_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Transloadit_Example/Pods-Transloadit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* Transloadit_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transloadit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -118,7 +107,6 @@
 		6003F5A6195388D20070C39A /* TransloaditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransloaditViewController.m; sourceTree = "<group>"; };
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F5AE195388D20070C39A /* Transloadit_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Transloadit_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
@@ -127,11 +115,9 @@
 		77D471307D08D37EA8C02241 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		7D68932393C52ADDAE39EEB9 /* Pods-Transloadit_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Transloadit_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Transloadit_Tests/Pods-Transloadit_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		88F9C60B95E8311E4F861123 /* Pods_Transloadit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Transloadit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		95A15976B509852E99F93FD7 /* Pods_Transloadit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Transloadit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4DC71FF827E294252051851 /* Pods-Transloadit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Transloadit_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Transloadit_Tests/Pods-Transloadit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		C787B4E759C64C2F1B605B31 /* Pods_Transloadit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Transloadit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA9F4436920D9BD937E967A2 /* Pods-Transloadit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Transloadit_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Transloadit_Example/Pods-Transloadit_Example.release.xcconfig"; sourceTree = "<group>"; };
-		FB1B9CF04DF851B2D2B70C65 /* Pods_Transloadit_MacOS_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Transloadit_MacOS_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,7 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A11E119A2D9F278B67946AC3 /* Pods_Transloadit_MacOS_Example.framework in Frameworks */,
+				2446A28F2B64F070A84FBAD7 /* Pods_Transloadit_MacOS_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,7 +150,7 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				D1E49B677AD700363064E990 /* Pods_Transloadit_Example.framework in Frameworks */,
+				2FB9C8D74C411896B72BCB96 /* Pods_Transloadit_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,34 +158,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				20D2CCD5F9B4E4DD7A240B0E /* Pods_Transloadit_Tests.framework in Frameworks */,
+				1EAA0DBBF4988C5D23A4A301 /* Pods_Transloadit_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		289616CA203D1EBE0023EE37 /* CommonCrypto */ = {
-			isa = PBXGroup;
-			children = (
-				289616CB203D1EBE0023EE37 /* CommonCrypto.h */,
-				289616CC203D1EBE0023EE37 /* Info.plist */,
-			);
-			path = CommonCrypto;
-			sourceTree = "<group>";
-		};
-		289616D7203D1EBE0023EE37 /* CommonCryptoTests */ = {
-			isa = PBXGroup;
-			children = (
-				289616D8203D1EBE0023EE37 /* CommonCryptoTests.swift */,
-				289616DA203D1EBE0023EE37 /* Info.plist */,
-			);
-			path = CommonCryptoTests;
-			sourceTree = "<group>";
-		};
 		28C00B391ECD8F1900430748 /* Transloadit_MacOS_Example */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,15 +199,6 @@
 			path = Transloadit_MacOS_ExampleTests;
 			sourceTree = "<group>";
 		};
-		28C00B5B1ECD8F1900430748 /* Transloadit_MacOS_ExampleUITests */ = {
-			isa = PBXGroup;
-			children = (
-				28C00B5C1ECD8F1900430748 /* Transloadit_MacOS_ExampleUITests.m */,
-				28C00B5E1ECD8F1900430748 /* Info.plist */,
-			);
-			path = Transloadit_MacOS_ExampleUITests;
-			sourceTree = "<group>";
-		};
 		3D2A6C041422882E64BB9C94 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,15 +215,11 @@
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
-				289616E7203D1EF00023EE37 /* CommonCrypto.xcconfig */,
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* Example for Transloadit */,
 				6003F5B5195388D20070C39A /* Tests */,
 				28C00B391ECD8F1900430748 /* Transloadit_MacOS_Example */,
 				28C00B501ECD8F1900430748 /* Transloadit_MacOS_ExampleTests */,
-				28C00B5B1ECD8F1900430748 /* Transloadit_MacOS_ExampleUITests */,
-				289616CA203D1EBE0023EE37 /* CommonCrypto */,
-				289616D7203D1EBE0023EE37 /* CommonCryptoTests */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
 				3D2A6C041422882E64BB9C94 /* Pods */,
@@ -287,14 +241,12 @@
 		6003F58C195388D20070C39A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				28AB283D1D8E46600094CC86 /* Transloadit.framework */,
 				6003F58D195388D20070C39A /* Foundation.framework */,
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
-				6003F5AF195388D20070C39A /* XCTest.framework */,
-				C787B4E759C64C2F1B605B31 /* Pods_Transloadit_Example.framework */,
-				88F9C60B95E8311E4F861123 /* Pods_Transloadit_Tests.framework */,
-				FB1B9CF04DF851B2D2B70C65 /* Pods_Transloadit_MacOS_Example.framework */,
+				95A15976B509852E99F93FD7 /* Pods_Transloadit_Example.framework */,
+				19B76181F661058890B1C36C /* Pods_Transloadit_MacOS_Example.framework */,
+				44AF3FB3BFCFF6D64B6D2AE2 /* Pods_Transloadit_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -310,7 +262,6 @@
 				6003F5A6195388D20070C39A /* TransloaditViewController.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
-				28296E861F5DFB36006892E3 /* TransloaditViewControllerSwifty.swift */,
 			);
 			name = "Example for Transloadit";
 			path = Transloadit;
@@ -319,7 +270,6 @@
 		6003F594195388D20070C39A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				2858DA361F68C27C005325A3 /* test.jpg */,
 				6003F595195388D20070C39A /* Transloadit-Info.plist */,
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,
@@ -701,7 +651,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28C00B5D1ECD8F1900430748 /* Transloadit_MacOS_ExampleUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -710,7 +659,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* TransloaditAppDelegate.m in Sources */,
-				28296E871F5DFB36006892E3 /* TransloaditViewControllerSwifty.swift in Sources */,
 				287BD35120EC709900A599C3 /* TransloaditViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
@@ -1090,7 +1038,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C4DC71FF827E294252051851 /* Pods-Transloadit_Tests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1117,7 +1064,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7D68932393C52ADDAE39EEB9 /* Pods-Transloadit_Tests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (

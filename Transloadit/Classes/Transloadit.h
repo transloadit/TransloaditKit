@@ -8,11 +8,11 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import <Foundation/Foundation.h>
-#import <TUSKit/TUSKit.h>
-#import "Assembly.h"
-#import "Template.h"
 #import "TransloaditProtocol.h"
 #import "TransloaditRequest.h"
+
+#import "Assembly.h"
+#import "Template.h"
 
 #import "Step.h"
 #import "APIState.h"
@@ -20,7 +20,7 @@
 #import "NSString+Utils.h"
 
 #import "TransloaditDelegate.h"
-
+#import <TUSKit/TUSKit.h>
 #pragma mark - Resource Includes
 
 typedef void (^TransloaditUploadResultBlock)(NSURL* _Nonnull fileURL);
@@ -46,18 +46,19 @@ typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completion
 @property (readwrite, copy) _Nullable TransloaditUploadFailureBlock uploadFailureBlock;
 @property (readwrite, copy) _Nullable TransloaditUploadProgressBlock uploadProgressBlock;
 
-/*
- Legacy - Keep for a few versions
- */
-@property (readwrite, copy) _Nullable TransloaditAssemblyCreationResultBlock assemblyCreationResultBlock;
-@property (readwrite, copy) _Nullable TransloaditAssemblyCreationFailureBlock assemblyCreationFailureBlock;
-
-@property (readwrite, copy) _Nullable TransloaditTemplateCreationResultBlock templateCreationResultBlock;
-@property (readwrite, copy) _Nullable TransloaditTemplateCreationFailureBlock templateCreationFailureBlock;
-
-@property (readwrite, copy) _Nullable TransloaditAssemblyResultBlock assemblyResultBlock;
-@property (readwrite, copy) _Nullable TransloaditAssemblyFailureBlock assemblyFailureBlock;
-@property (readwrite, copy) _Nullable TransloaditAssemblyStatusBlock assemblyStatusBlock;
+//todo: Remove before release
+///*
+// Legacy - Keep for a few versions
+// */
+//@property (readwrite, copy) _Nullable TransloaditAssemblyCreationResultBlock assemblyCreationResultBlock;
+//@property (readwrite, copy) _Nullable TransloaditAssemblyCreationFailureBlock assemblyCreationFailureBlock;
+//
+//@property (readwrite, copy) _Nullable TransloaditTemplateCreationResultBlock templateCreationResultBlock;
+//@property (readwrite, copy) _Nullable TransloaditTemplateCreationFailureBlock templateCreationFailureBlock;
+//
+//@property (readwrite, copy) _Nullable TransloaditAssemblyResultBlock assemblyResultBlock;
+//@property (readwrite, copy) _Nullable TransloaditAssemblyFailureBlock assemblyFailureBlock;
+//@property (readwrite, copy) _Nullable TransloaditAssemblyStatusBlock assemblyStatusBlock;
 
 @property (nonatomic, strong) NSString * _Nonnull secret; // Transloadit Secret
 @property (nonatomic, strong) NSString  * _Nonnull key; // Transloadit Key
@@ -78,7 +79,6 @@ typedef void (^TransloaditAssemblyStatusBlock)(NSDictionary* _Nonnull completion
 - (void) update:(APIObject *) object;
 - (void) delete:(APIObject *) object;
 
-- (void) createTemplate: (Template *_Nonnull)template __deprecated;
 - (void) invokeAssembly: (Assembly *_Nonnull)assembly retry:(int) retryCount;
 - (void) createAssembly: (Assembly *_Nonnull)assembly __deprecated;
 - (void) checkAssembly: (Assembly *_Nonnull)assembly;

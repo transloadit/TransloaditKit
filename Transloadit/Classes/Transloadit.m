@@ -17,7 +17,6 @@
 @synthesize tusSession;
 
 
-
 /**
  Init Transloadit
 
@@ -201,24 +200,23 @@
                 case 0:
                     //Aborted
                     [timer invalidate];
-                    self.assemblyFailureBlock(response);
+//                    self.assemblyFailureBlock(response);
                     [self.delegate transloaditAssemblyProcessError:nil withResponse:nil];
                     break;
                 case 1:
                     //canceld
                     [timer invalidate];
-                    self.assemblyFailureBlock(response);
+//                    self.assemblyFailureBlock(response);
                     [self.delegate transloaditAssemblyProcessError:nil withResponse:nil];
                     break;
                 case 2:
                     //completed
                     [timer invalidate];
-                    self.assemblyResultBlock(response);
-                    TransloaditResponse *responseObject = [[TransloaditResponse alloc] initWithResponseDictionary:json];
+//                    self.assemblyResultBlock(response);
+                    TransloaditResponse *responseObject = [[TransloaditResponse alloc] initWithResponseDictionary:response];
                     [self.delegate transloaditAssemblyProcessResult:responseObject];
-                default:
                     break;
-            }
+                }
             
             if ([[response valueForKey:@"error"] isEqualToString:@"ASSEMBLY_CRASHED"]) {
                 
@@ -302,6 +300,31 @@
         completion(json);
     }];
     [assemblyTask resume];
+}
+
+// MARK: Your Tansloadit Progress Blocks
+static TransloaditUploadProgressBlock progressBlock = ^(int64_t bytesWritten, int64_t bytesTotal){
+    // Update your progress bar here
+    NSLog(@"progress: %llu / %llu", (unsigned long long)bytesWritten, (unsigned long long)bytesTotal);
+};
+
+static TransloaditUploadResultBlock resultBlock = ^(NSURL* fileURL){
+    // Use the upload url
+    NSLog(@"url: %@", fileURL);
+};
+
+static TransloaditUploadFailureBlock failureBlock = ^(NSError* error){
+    // Handle the error
+    NSLog(@"error: %@", error);
+};
+
+
+//__deprecated
+-(void) createAssembly:(id)assembly {
+    
+}
+-(void) createTemplate:(id)template {
+    
 }
 
 @end
