@@ -63,22 +63,6 @@ Template *newAssembly;
 }
 
 
-- (void) transloaditAssemblyCreationError:(NSError *)error withResponse:(TransloaditResponse *)response {
-    
-    NSLog(@"%@: %@", @"FAILED!", [[response dictionary] description]);
-}
-
-// DELEGATE
-- (void) transloaditTemplateCreationResult:(Template *)template {
-    NSLog(@"%@", @"Created Template");
-}
-
-- (void) transloaditTemplateCreationError:(NSError *)error withResponse:(TransloaditResponse *)response {
-    NSLog(@"%@", @"Failed Creating Template");
-    //NSLog(@"%@", [[response dictionary] debugDescription]);
-
-}
-
 -(void)viewDidAppear:(BOOL)animated {
     [self selectFile:nil];
     
@@ -161,7 +145,20 @@ Template *newAssembly;
     //[transloadit invokeAssembly:assembly retry:3];
 }
 
+- (void) transloaditAssemblyCreationError:(NSError *)error withResponse:(TransloaditResponse *)response {
+    NSLog(@"%@: %@", @"FAILED!", [[response dictionary] description]);
+}
 
+// DELEGATE
+- (void) transloaditTemplateCreationResult:(Template *)template {
+    NSLog(@"%@", @"Created Template");
+}
+
+- (void) transloaditTemplateCreationError:(NSError *)error withResponse:(TransloaditResponse *)response {
+    NSLog(@"%@", @"Failed Creating Template");
+    //NSLog(@"%@", [[response dictionary] debugDescription]);
+    
+}
 
 
 - (void)didReceiveMemoryWarning

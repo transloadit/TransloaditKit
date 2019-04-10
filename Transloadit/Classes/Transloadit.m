@@ -18,6 +18,11 @@
 
 
 
+/**
+ Init Transloadit
+
+ @return Main Transloadit object
+ */
 - (id)init {
     self = [super init];
     if(self) {
@@ -36,6 +41,11 @@
     return self;
 }
 
+/**
+ Set the delegate for Transloadit
+
+ @param tDelegate the location of the delegate callbacks
+ */
 - (void)setDelegate: (_Nullable id<TransloaditDelegate>)tDelegate {
     if (_delegate != tDelegate) {
         _delegate = tDelegate;
@@ -43,6 +53,11 @@
 }
 
 
+/**
+ Create a Template or Assembly
+
+ @param object A Template or Assembly object
+ */
 - (void)create:(id)object {
     if ([object isKindOfClass:[Assembly class]]) {
         [object setUrlString:[NSString stringWithFormat:@"%@%@%@", TRANSLOADIT_API_DEFAULT_PROTOCOL, TRANSLOADIT_API_DEFAULT_BASE_URL, TRANSLOADIT_API_ASSEMBLIES]];
@@ -74,6 +89,11 @@
     }];
 }
 
+/**
+ Delete a Template or stop an Assembly
+
+ @param object A Template or Assembly object
+ */
 - (void) delete:(id) object {
     if ([[object urlString] isEqual:[NSNull null]]) {
         [self.delegate transloaditTemplateCreationError:nil withResponse:[[TransloaditResponse alloc] initWithResponseDictionary:@{@"message":@"No URL Set"}]];
@@ -100,6 +120,11 @@
     }
 }
 
+/**
+ Get a Template or Assembly
+
+ @param object A Template or Assembly object - all you need is the id's set to retreive a full object
+ */
 - (void) get:(id) object {
     if ([[object urlString] isEqual:[NSNull null]]) {
         [self.delegate transloaditTemplateCreationError:nil withResponse:[[TransloaditResponse alloc] initWithResponseDictionary:@{@"message":@"No URL Set"}]];
@@ -129,6 +154,11 @@
     }
 }
 
+/**
+ Update a Template or Assembly
+
+ @param object A Template or Assembly
+ */
 - (void) update: (APIObject *) object {
     [self makeRequestWithMethod:TRANSLOADIT_PUT andObject:object callback:^(TransloaditResponse *callback) {
         //callback;
@@ -136,6 +166,12 @@
 }
 
 
+/**
+ Start the upload and assebmly steps
+
+ @param assembly Assembly you wish to invoke
+ @param retryCount number of times you'd like to try before failing out.
+ */
 - (void) invokeAssembly: (Assembly *)assembly retry:(int)retryCount{
     [self checkAssembly:assembly];
     NSArray *files = [assembly files];
@@ -150,6 +186,11 @@
     }
 }
 
+/**
+ Get the current status of your Assembly
+
+ @param assembly The assembly object you wish to check
+ */
 - (void) checkAssembly: (Assembly *)assembly {
     NSTimer *timer = [NSTimer timerWithTimeInterval:1.0 repeats:true block:^(NSTimer * _Nonnull timer) {
         [self assemblyStatus:assembly completion:^(NSDictionary *response) {
@@ -173,7 +214,8 @@
                     //completed
                     [timer invalidate];
                     self.assemblyResultBlock(response);
-                    [self.delegate transloaditAssemblyProcessResult:nil];
+                    TransloaditResponse *responseObject = [[TransloaditResponse alloc] initWithResponseDictionary:json];
+                    [self.delegate transloaditAssemblyProcessResult:responseObject];
                 default:
                     break;
             }
@@ -186,6 +228,15 @@
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 }
 
+#pragma mark Private methods
+
+/**
+ The method used to make API calls to Transloadit
+
+ @param method The method of the request
+ @param object The Template or Assembly object you wish to pass
+ @param callback The callback containing the response from the server
+ */
 - (void) makeRequestWithMethod:(NSString *)method andObject:(id) object callback:(void(^)(TransloaditResponse *))callback {
     
     TransloaditRequest *request;
@@ -226,38 +277,31 @@
     [assemblyTask resume];
 }
 
+/**
+ The private method to check the assembly status
+
+ @param assembly The Assembly you wish to check
+ @param completion The callback from the server containing the server response
+ */
 - (void) assemblyStatus: (Assembly *)assembly completion:(void (^)(NSDictionary *))completion {
     
-    
-//    NSMutableURLRequest *request = [[[TransloaditRequest alloc] initWithKey:_key andSecret:_secret] createRequestWithMethod:TRANSLOADIT_GET andURL:[assembly urlString]];
-//    NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        if (error) {
-//            NSLog(@"%@", [error debugDescription]);
-//            return;
-//        }
-//        NSString* body = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
-//                                                             options:NSJSONReadingMutableContainers
-//                                                               error:nil];
-//        if([json valueForKey:@"error"]){
-//            NSLog(@"%@", [json valueForKey:@"error"]);
-//            return;
-//        } else {
-//            //
-//        }
-//        completion(json);
-//    }];
-//    [assemblyTask resume];
+    NSMutableURLRequest *request = [[[TransloaditRequest alloc] initWithKey:_key andSecret:_secret] createRequestWithMethod:TRANSLOADIT_GET andURL:[assembly urlString]];
+    NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"%@", [error debugDescription]);
+            return;
+        }
+        NSString* body = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[body dataUsingEncoding:NSUTF8StringEncoding]
+                                                             options:NSJSONReadingMutableContainers
+                                                               error:nil];
+        if([json valueForKey:@"error"]){
+            NSLog(@"%@", [json valueForKey:@"error"]);
+            return;
+        }
+        completion(json);
+    }];
+    [assemblyTask resume];
 }
-
-//__deprecated
--(void) createAssembly:(id)assembly {
-
-}
--(void) createTemplate:(id)template {
-
-}
-
-
 
 @end
