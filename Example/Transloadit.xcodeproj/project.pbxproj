@@ -520,7 +520,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Transloadit_Tests/Pods-Transloadit_Tests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Transloadit_Tests/Pods-Transloadit_Tests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/FBSnapshotTestCase/FBSnapshotTestCase.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -529,7 +529,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Transloadit_Tests/Pods-Transloadit_Tests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Transloadit_Tests/Pods-Transloadit_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		22FBCA1DC0CB045C07DDF17E /* [CP] Embed Pods Frameworks */ = {
@@ -538,7 +538,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Transloadit_MacOS_Example/Pods-Transloadit_MacOS_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Transloadit_MacOS_Example/Pods-Transloadit_MacOS_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/TUSKit-macOS/TUSKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Transloadit-macOS/Transloadit.framework",
 			);
@@ -549,7 +549,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Transloadit_MacOS_Example/Pods-Transloadit_MacOS_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Transloadit_MacOS_Example/Pods-Transloadit_MacOS_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		92F8071A6315FC3F2D0B29C1 /* [CP] Check Pods Manifest.lock */ = {
@@ -612,7 +612,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Transloadit_Example/Pods-Transloadit_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Transloadit_Example/Pods-Transloadit_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/TUSKit-iOS/TUSKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Transloadit-iOS/Transloadit.framework",
 			);
@@ -623,7 +623,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Transloadit_Example/Pods-Transloadit_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Transloadit_Example/Pods-Transloadit_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

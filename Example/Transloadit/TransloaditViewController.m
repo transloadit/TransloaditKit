@@ -48,6 +48,23 @@ Template *newAssembly;
     [transloadit create:TestAssemblyWithSteps];
 }
 
+-(void)createTemplate {
+    //An Array holding AssemblySteps
+    NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
+    //An Example AssemblyStep
+    Step *step1 = [[Step alloc] initWithKey:@"encode"];
+    [step1 setValue:@"/image/resize" forOption:@"robot"];
+    
+    // Add the step to the array
+    [steps addObject:step1];
+    
+    //MARK: We then create an Template Object with the steps
+    Template *TestTemplateWithSteps = [[Template alloc] initWithSteps:steps andName:@"Test Template"];
+    
+    //Create the Template
+    [transloadit create:TestTemplateWithSteps];
+}
+
 //-----------------------------------------------------
 // MARK: Picker
 //-----------------------------------------------------
@@ -75,7 +92,6 @@ Template *newAssembly;
         // Permisions Needed
     }
 }
-
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -115,7 +131,6 @@ Template *newAssembly;
     NSLog(@"%@: %@", @"FAILED!", [[response dictionary] description]);
 }
 
-
 - (void) transloaditTemplateCreationResult:(Template *)template {
     NSLog(@"%@", @"Created Template");
 }
@@ -125,8 +140,7 @@ Template *newAssembly;
 }
 
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
