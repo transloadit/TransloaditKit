@@ -44,6 +44,9 @@ Template *newAssembly;
     //MARK: We then create an Assembly Object with the steps and files
     Assembly *TestAssemblyWithSteps = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
     
+    //Add the file
+    [TestAssemblyWithSteps addFile:url andFileName:@"test.jpg"];
+    
     //Create the Assembly
     [transloadit create:TestAssemblyWithSteps];
 }
@@ -124,7 +127,8 @@ Template *newAssembly;
 
 - (void) transloaditAssemblyCreationResult:(Assembly *)assembly {
     NSLog(@"%@", [assembly urlString]);
-    //[transloadit invokeAssembly:assembly retry:3];
+    [assembly setUrlString:[assembly urlString]];
+    [transloadit invokeAssembly:assembly retry:3];
 }
 
 - (void) transloaditAssemblyCreationError:(NSError *)error withResponse:(TransloaditResponse *)response {
