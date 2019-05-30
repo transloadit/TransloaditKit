@@ -144,6 +144,10 @@ Template *newAssembly;
 }
 
 
+- (void) transloaditAssemblyProcessResult:(TransloaditResponse *)response {
+    NSLog(@"%@", [response debugDescription]);
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
