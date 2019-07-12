@@ -7,6 +7,7 @@
 
 #import "TransloaditRequest.h"
 #import "Resources/TransloaditConstants.h"
+@import MobileCoreServices;    // only needed in iOS
 
 @implementation TransloaditRequest
 
@@ -75,23 +76,64 @@
 - (void) appendParams:(NSMutableDictionary *) params {
     [params setObject:[self createAuth] forKey:@"auth"];
     NSString *signature = [self generateSignatureWithParams: params];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:nil];
+    NSString * jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    [parameters setObject:jsonString forKey:@"params"];
+    [parameters setObject:signature forKey:@"signature"];
+    [parameters setObject:@"1" forKey:@"tus_num_expected_upload_files"];
+
+    NSString *boundary = [self generateBoundaryString];
+    NSData *body2 = [self createBodyWithBoundary:boundary parameters:parameters paths:nil fieldName:nil];
     
-    NSString *boundary = [self generateBoundary];
-    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@ ", boundary];
-    [self addValue:contentType forHTTPHeaderField:@"Content-Type"];
-    NSMutableData *body = [NSMutableData data];
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:params options:0 error:nil];
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"tus_num_expected_upload_files\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-//    int i = 2;
-//    NSData *intData = [NSData dataWithBytes: &i length: sizeof(i)];
-    [body appendData:[@"1" dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"signature\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[signature dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"params\"\r\n\r\n%@",  [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [self setHTTPBody:body];
+    
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+    [self setValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    [self setHTTPBody:body2];
+
+    
 }
+
+
+- (NSData *)createBodyWithBoundary:(NSString *)boundary
+                        parameters:(NSDictionary *)parameters
+                             paths:(NSArray *)paths
+                         fieldName:(NSString *)fieldName {
+    NSMutableData *httpBody = [NSMutableData data];
+    
+    // add params (all params are strings)
+
+    [parameters enumerateKeysAndObjectsUsingBlock:^(NSString *parameterKey, NSString *parameterValue, BOOL *stop) {
+        NSLog(@"Setting %@ with value %@", parameterKey, parameterValue);
+        [httpBody appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [httpBody appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", parameterKey] dataUsingEncoding:NSUTF8StringEncoding]];
+        [httpBody appendData:[[NSString stringWithFormat:@"%@\r\n", parameterValue] dataUsingEncoding:NSUTF8StringEncoding]];
+    }];
+    
+    [httpBody appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    return httpBody;
+}
+
+- (NSString *)mimeTypeForPath:(NSString *)path {
+    // get a mime type for an extension using MobileCoreServices.framework
+    
+    CFStringRef extension = (__bridge CFStringRef)[path pathExtension];
+    CFStringRef UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, extension, NULL);
+    assert(UTI != NULL);
+    
+    NSString *mimetype = CFBridgingRelease(UTTypeCopyPreferredTagWithClass(UTI, kUTTagClassMIMEType));
+    assert(mimetype != NULL);
+    
+    CFRelease(UTI);
+    
+    return mimetype;
+}
+
+- (NSString *)generateBoundaryString {
+    return [NSString stringWithFormat:@"Boundary-%@", [[NSUUID UUID] UUIDString]];
+}
+
+
 @end

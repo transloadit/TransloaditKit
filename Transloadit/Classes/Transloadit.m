@@ -36,6 +36,7 @@
         NSURL * applicationSupportURL = [[[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] firstObject];
         tusStore = [[TUSFileUploadStore alloc] initWithURL:[applicationSupportURL URLByAppendingPathComponent:@"Example"]];
         tus = [TUSResumableUpload alloc];
+        tusSession = [[TUSSession alloc] init];
     }
     return self;
 }
@@ -78,7 +79,7 @@
         } else {
             if ([object isKindOfClass:[Assembly class]]) {
                 [(Assembly *)object setUrlString: [[json dictionary] valueForKey:@"assembly_ssl_url"]];
-                tusSession = [[TUSSession alloc] initWithEndpoint:[[NSURL alloc] initWithString:[[json dictionary] valueForKey:@"tus_url"]] dataStore:tusStore allowsCellularAccess:YES];
+                self->tusSession = [[TUSSession alloc] initWithEndpoint:[[NSURL alloc] initWithString:[[json dictionary] valueForKey:@"tus_url"]] dataStore:tusStore allowsCellularAccess:YES];
                 [self.delegate transloaditAssemblyCreationResult:object];
             } else if([object isKindOfClass:[Template class]]) {
                 [(Template *)object setTemplate_id:[[json dictionary] valueForKey:@"id"]];
@@ -196,7 +197,7 @@
             [self assemblyStatus:assembly completion:^(NSDictionary *response) {
                 NSArray *responseArray = @[@"REQUEST_ABORTED", @"ASSEMBLY_CANCELED", @"ASSEMBLY_COMPLETED"];
                 int responseInterger = [responseArray indexOfObject:[response valueForKey:@"ok"]];
-                
+
                 switch (responseInterger) {
                         case 0:
                         //Aborted
@@ -218,9 +219,9 @@
                         [self.delegate transloaditAssemblyProcessResult:responseObject];
                         break;
                 }
-                
+
                 if ([[response valueForKey:@"error"] isEqualToString:@"ASSEMBLY_CRASHED"]) {
-                    
+
                 }
             }];
         }];
@@ -256,6 +257,9 @@
 
     }else if ([method  isEqual: TRANSLOADIT_POST]) {
         request = [[TransloaditRequest alloc] initWith:_key andSecret:_secret andMethod:method andURL:[object urlString]];
+      
+
+
         
     }
 //    if ([[request method] isEqualToString:TRANSLOADIT_POST] || [[request method] isEqualToString:TRANSLOADIT_PUT]) {
@@ -263,8 +267,7 @@
 //    }
     NSLog(@"%@", [request debugDescription]);
     NSLog(@"%@", [[object getParams] debugDescription]);
-    
-    NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSURLSessionDataTask *assemblyTask = [[tusSession session] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             NSLog(@"%@", [error debugDescription]);
             return;
@@ -286,9 +289,15 @@
  @param completion The callback from the server containing the server response
  */
 - (void) assemblyStatus: (Assembly *)assembly completion:(void (^)(NSDictionary *))completion {
+    NSLog(@"%@", [assembly urlString]);
+    TransloaditRequest *request;
     
-    NSMutableURLRequest *request = [[[TransloaditRequest alloc] initWithKey:_key andSecret:_secret] createRequestWithMethod:TRANSLOADIT_GET andURL:[assembly urlString]];
-    NSURLSessionDataTask *assemblyTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    request = [[TransloaditRequest alloc] initWith:_key andSecret:_secret andMethod:TRANSLOADIT_GET andURL:[assembly urlString]];
+    
+//    = [[[TransloaditRequest alloc] initWithKey:_key andSecret:_secret] createRequestWithMethod:TRANSLOADIT_GET andURL:[assembly urlString]];
+    
+    
+    NSURLSessionDataTask *assemblyTask = [[tusSession session] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
             NSLog(@"%@", [error debugDescription]);
             return;

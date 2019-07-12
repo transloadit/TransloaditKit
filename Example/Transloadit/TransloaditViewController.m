@@ -44,8 +44,28 @@ Template *newAssembly;
     //MARK: We then create an Assembly Object with the steps and files
     Assembly *TestAssemblyWithSteps = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
     
+    //Add the file
+    [TestAssemblyWithSteps addFile:url andFileName:@"test.jpg"];
+    
     //Create the Assembly
     [transloadit create:TestAssemblyWithSteps];
+}
+
+-(void)createTemplate {
+    //An Array holding AssemblySteps
+    NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
+    //An Example AssemblyStep
+    Step *step1 = [[Step alloc] initWithKey:@"encode"];
+    [step1 setValue:@"/image/resize" forOption:@"robot"];
+    
+    // Add the step to the array
+    [steps addObject:step1];
+    
+    //MARK: We then create an Template Object with the steps
+    Template *TestTemplateWithSteps = [[Template alloc] initWithSteps:steps andName:@"Test Template"];
+    
+    //Create the Template
+    [transloadit create:TestTemplateWithSteps];
 }
 
 //-----------------------------------------------------
@@ -75,7 +95,6 @@ Template *newAssembly;
         // Permisions Needed
     }
 }
-
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -108,13 +127,13 @@ Template *newAssembly;
 
 - (void) transloaditAssemblyCreationResult:(Assembly *)assembly {
     NSLog(@"%@", [assembly urlString]);
-    //[transloadit invokeAssembly:assembly retry:3];
+    [assembly setUrlString:[assembly urlString]];
+    [transloadit invokeAssembly:assembly retry:3];
 }
 
 - (void) transloaditAssemblyCreationError:(NSError *)error withResponse:(TransloaditResponse *)response {
     NSLog(@"%@: %@", @"FAILED!", [[response dictionary] description]);
 }
-
 
 - (void) transloaditTemplateCreationResult:(Template *)template {
     NSLog(@"%@", @"Created Template");
@@ -125,8 +144,11 @@ Template *newAssembly;
 }
 
 
-- (void)didReceiveMemoryWarning
-{
+- (void) transloaditAssemblyProcessResult:(TransloaditResponse *)response {
+    NSLog(@"%@", [response debugDescription]);
+}
+
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
