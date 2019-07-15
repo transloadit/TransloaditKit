@@ -104,6 +104,7 @@ There are two main objects that interact with `TransloaditKit`, they are `Assemb
 
 **Steps**
 Typically, if you aren't referencing an already created `Assembly` or `Template` with steps, you will need to create one locally before calling Trandloadit. To create your steps, create a few `Step` objects and an array to hold them.
+
 *Objective-C*
 ```objc
 NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
@@ -123,6 +124,7 @@ steps.append(step1)
 
 After creating your steps, you will be able to create a local `APIObject` object.
 **Assembly**
+
 *Objective-C*
 ```objc
 Assembly *assebmly = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
@@ -136,6 +138,7 @@ let assembly: Assembly = Assembly(steps: steps, andNumberOfFiles: 1)
 assembly.addFile(fileURL, andFileName: "test.jpg")
 ```
 **Template**
+
 *objective-c*
 ```objc
 Template *template = [[Template alloc] initWithSteps:steps andName:@"Test Template"];
@@ -148,6 +151,7 @@ Template *template = [[Template alloc] initWithSteps:steps andName:@"Test Templa
 
 However if you do have an already created `APIObject`, simply create a simple `APIObject` by initalizing with the respective id
 **Assembly**
+
 *objective-c*
 ```objc
 Assembly *assembly = [[Assembly alloc] initWithId:@"ID_HERE"];
@@ -157,6 +161,7 @@ Assembly *assembly = [[Assembly alloc] initWithId:@"ID_HERE"];
 var assembly: Assembly = Assembly(id: "ID_HERE")
 ```
 **Template**
+
 *objective-c*
 ```objc
 Template *template = [[Template alloc] initWithId:@"ID_HERE"];
@@ -172,6 +177,7 @@ var template: Template = Template(id: "ID_HERE")
 ### Create
 ##### Assembly
 After creating your `Assembly` object wuith steps, you are ready to call `Transloadit` and create your assembly
+
 *objective-c*
 ```objc
 [transloadit create:assembly];
@@ -182,6 +188,7 @@ transloadit.create(assembly)
 ```
 
 A succesfull Assembly creation will fire the deleagte method: 
+
 *objective-c*
 ```objc
 transloaditAssemblyCreationResult:(Assembly *)assembly
@@ -192,6 +199,7 @@ transloaditAssemblyCreationResult(_ assembly: Assembly!)
 ```
 
 A failed Assembly creation will fire the deleagte method: 
+
 *objective-c*
 ```objc
 transloaditAssemblyCreationError:(NSError *)error withResponse:(TransloaditResponse *)response
@@ -204,6 +212,7 @@ transloaditAssemblyCreationError(_ error: Error!, with response: TransloaditResp
 ----
 #### Template
 After creating your `Template` object, you are ready to call `Transloadit` and create your template
+
 *objective-c*
 ```objc
 [transloadit create:template];
@@ -214,6 +223,7 @@ transloadit.create(template)
 ```
 
 A succesfull `Template` creation will fire the deleagte method: 
+
 *objective-c*
 ```objc
 transloaditTemplateCreationResult:(Template *)template
@@ -224,6 +234,7 @@ transloaditTemplateCreationResult(_ template: Template!)
 ```
 
 A failed `Template` creation will fire the deleagte method: 
+
 *objective-c*
 ```objc
 transloaditTemplateCreationError:(NSError *)error withResponse:(TransloaditResponse *)response
@@ -236,6 +247,7 @@ transloaditTemplateCreationError(_ error: Error!, with response: TransloaditResp
 ### Get (Read)
 To get a full `Assembly` or `Template` object, your local `APIObject` must at-least contain the `id`. After you are sure it holds the `APIObject`'s `id` you are ready to call `Transloadit`
 #### Assembly
+
 *objective-c*
 ```objc
 [transloadit get:assembly];
@@ -245,6 +257,7 @@ To get a full `Assembly` or `Template` object, your local `APIObject` must at-le
 transloadit.get(assembly)
 ```
 A succesful get will result in 
+
 *objectice-c*
 ```objc
 - (void)transloaditAssemblyGetResult:(Assembly *)assembly
@@ -254,6 +267,7 @@ A succesful get will result in
 func transloaditAssemblyGetResult(_ assembly: Assembly!)
 ```
 A failed get will result in 
+
 *objective-c*
 ```objc
 - (void)transloaditAssemblyGetError:(NSError *)error withResponse:(TransloaditResponse *)response
@@ -263,6 +277,7 @@ A failed get will result in
 func transloaditAssemblyGetError(_ error: Error!, with response: TransloaditResponse!)
 ```
 #### Template
+
 *objective-c*
 ```objc
 [transloadit get:template];
@@ -272,6 +287,7 @@ func transloaditAssemblyGetError(_ error: Error!, with response: TransloaditResp
 transloadit.get(template)
 ```
 A succesful get will result in 
+
 *objectice-c*
 ```objc
 - (void)transloaditTemplateGetResult:(Template *)assembly
@@ -281,6 +297,7 @@ A succesful get will result in
 func transloaditTemplateetResult(_ template: Template!)
 ```
 A failed get will result in 
+
 *objective-c*
 ```objc
 - (void)transloaditTemplateGetError:(NSError *)error withResponse:(TransloaditResponse *)response
@@ -293,6 +310,7 @@ func transloaditTemplateError(_ error: Error!, with response: TransloaditRespons
 ### Delete
 #### Assembly
 Sending a delete to an assembly will cancel the assembly from processsing
+
 *objective-c*
 ```objc
 [transloadit delete:assembly];
@@ -302,6 +320,7 @@ Sending a delete to an assembly will cancel the assembly from processsing
 transloadit.delete(assembly)
 ```
 A succesful delete will result in
+
 *objective-c*
 ```obc
 - (void)transloaditAssemblyDeletionResult:(TransloaditResponse *)assembly
@@ -311,6 +330,7 @@ A succesful delete will result in
 func transloaditAssemblyDeletionResult(_ assembly: TransloaditResponse!)
 ```
 A failed delete will result in
+
 *objective-c*
 ```objc
 (void)transloaditAssemblyDeletionError:(NSError *)error withResponse:(TransloaditResponse *)response
@@ -320,6 +340,7 @@ A failed delete will result in
 func transloaditAssemblyDeletionError(_ error: Error!, with response: TransloaditResponse!)
 ```
 #### Template
+
 *objective-c*
 ```objc
 [transloadit delete:template];
@@ -329,6 +350,7 @@ func transloaditAssemblyDeletionError(_ error: Error!, with response: Transloadi
 transloadit.delete(template)
 ```
 A succesful delete will result in
+
 *objective-c*
 ```obc
 - (void)transloaditTemplateDeletionResult:(TransloaditResponse *)template
@@ -338,6 +360,7 @@ A succesful delete will result in
 func transloaditTemplateDeletionResult(_ template: TransloaditResponse!)
 ```
 A failed delete will result in
+
 *objective-c*
 ```objc
 (void)transloaditTemplateDeletionError:(NSError *)error withResponse:(TransloaditResponse *)response
@@ -382,6 +405,7 @@ Invoking the assembly results in the firing of a few delegate methods
 
 
 **The progress of the upload**
+
 *objective-c*
 ```
 - (void)tranloaditUploadProgress:(int64_t *)written bytesTotal:(int64_t *)total
@@ -392,6 +416,7 @@ func tranloaditUploadProgress(_ written: <Int64>!, bytesTotal total: <Int64>!)
 ```
 
 **The failure of the upload**
+
 *objective-c*
 ```
 - (void)transloaditUploadFailureBlock:(NSError *)error
@@ -402,6 +427,7 @@ func transloaditUploadFailureBlock(_ error: Error!)
 ```
 
 **The progress of the assembly**
+
 *objective-c*
 ```
 - (void)transloaditAssemblyProcessProgress:(TransloaditResponse *)response
@@ -412,6 +438,7 @@ func transloaditAssemblyProcessProgress(_ response: TransloaditResponse!)
 ```
 
 **The result of the assembly**
+
 *objective-c*
 ```
 - (void)transloaditAssemblyProcessResult:(TransloaditResponse *)response
@@ -422,6 +449,7 @@ func transloaditAssemblyProcessResult(_ response: TransloaditResponse!)
 ```
 
 **The failure of the assembly**
+
 *objective-c*
 ```
 - (void)transloaditAssemblyProcessError:(NSError *)error withResponse:(TransloaditResponse *)response
