@@ -17,142 +17,32 @@ files.
 
 This is an **iOS** and **MacOS**  SDK to make it easy to talk to the
 [Transloadit](https://transloadit.com) REST API.
-
+# Setup
+---
 ## Install
 
+### CocoaPods
 Inside your podfile add,
 
 ```bash
 pod 'Transloadit'
 ```
 
-If there are no errors, you can start using the pod.
+### Carthage
 
-## Usage
+Insdie your Cartfile add,
 
-
-### Import TransloaditKit
-*Objective-C*
-```objc
-#import <TransloaditKit/Transloadit.h>
+```bash
+github "transloadit/TransloaditKit"
 ```
 
-*Swift*
-```Swift
-import Transloadit
-```
+### Manual
+1. Download and unpack the ZIP file
+2. Drag the Transloadit directory into your project
 
+## API Keys
+Befiore you begin using `TransloaditKit`, you will need to add your API keys to your project's `.plist`. 
 
-### Define your blocks
-`Objective-C`
-```objc
-transloadit.uploadingProgressBlock = ^(int64_t bytesWritten, int64_t bytesTotal){
-// Update your progress bar here
-NSLog(@"progress: %llu / %llu", (unsigned long long)bytesWritten, (unsigned long long)bytesTotal);
-};
-
-transloadit.uploadingResultBlock = ^(NSURL* fileURL){
-// Use the upload url
-NSLog(@"url: %@", fileURL);
-};
-
-transloadit.uploadingFailureBlock = ^(NSError* error){
-// Handle the error
-NSLog(@"error: %@", error);
-};
-
-transloadit.assemblyCreationResultBlock = ^(Assembly* assembly, NSDictionary* completionDictionary){
-NSLog(@"Assembly creation success");
-NSLog(@"%@", @"Invoking assembly.");
-};
-
-transloadit.assemblyCreationFailureBlock = ^(NSDictionary* completionDictionary){
-NSLog(@"Assembly creation failed: %@", [completionDictionary debugDescription]);
-};
-
-transloadit.assemblyStatusBlock = ^(NSDictionary* completionDictionary){
-NSLog(@"Assembly status: %@", [completionDictionary debugDescription]);
-};
-
-transloadit.assemblyResultBlock = ^(NSDictionary* completionDictionary){
-NSLog(@"Assembly finished : %@", [completionDictionary debugDescription]);
-};
-
-transloadit.assemblyFailureBlock = ^(NSDictionary* completionDictionary){
-NSLog(@"Assembly failed: %@", [completionDictionary debugDescription]);
-};
-```
-`Swift`
-```Swift
-self.transloadit.assemblyCreationResultBlock = { assembly, completionDictionary in
-print("Assembly created!")
-}
-self.transloadit.assemblyCreationFailureBlock = { completionDictionary in
-print("Assembly creation failed")
-}
-
-self.transloadit.assemblyResultBlock = { completionDictionary in
-print("Assembly finished executing!")
-}
-self.transloadit.assemblyStatusBlock = { completionDictionary in
-print("Assembly is executing!")
-}
-
-self.transloadit.assemblyFailureBlock = { completionDictionary in
-print("Assembly failed executing!")
-}
-
-self.transloadit.uploadResultBlock = { url in
-print("file uploaded!")
-}
-self.transloadit.uploadProgressBlock =  {bytesWritten, bytesTotal in
-print("Assembly uploading!")
-}
-self.transloadit.uploadFailureBlock = { error in
-print("Assembly failed uploading!")
-}
-
-self.transloadit.templateCreationResultBlock = { template, completionDictionary in
-print("Template created!")
-}
-
-self.transloadit.templateCreationFailureBlock = { completionDictionary in
-print("Template failed creating!")
-}
-```
-
-### Setup TransloaditKit
-`Objective-C`
-```objc
-@interface TransloaditViewController () <TransloaditDelegate>
-@end
-...
-Transloadit *transloadit;
-....
-- (void)viewDidLoad {
-[super viewDidLoad];
-transloadit = [[Transloadit alloc] init];
-[transloadit setDelegate:self];
-...
-}
-```
-`Swift`
-```Swift
-class TransloaditViewControllerSwifty: UIViewController, TransloaditDelegate {
-...
-let transloadit: Transloadit = Transloadit()
-override func viewDidLoad() {
-super.viewDidLoad()
-self.transloadit.delegate = self;
-...
-}
-
-}
-```
-
-### API Keys
-You will also need to add your API key credentials to your `plist`.
-An easy way to do this is:
 1. Locate your `.plist` file, normally named *`{PROJECT_NAME}.plist`*
 2. Right click and select `View As Source`
 3. Copy and paste the snippet below into your `.plist`
@@ -167,128 +57,379 @@ An easy way to do this is:
 <string>API_KEY_HERE</string>
 ```
 
-### Templates and Assemblies
 ---
-### Assembly
-`Objective-C`
+## Usage
+
+### Import TransloaditKit
+*Objective-C*
 ```objc
+#import <TransloaditKit/Transloadit.h>
+```
+
+*Swift*
+```Swift
+import Transloadit
+```
+
+### Initializing TransloaditKit
+*Objective-C*
+```objc
+@interface TransloaditViewController () <TransloaditDelegate>
+@end
 ...
+Transloadit *transloadit;
+....
+- (void)viewDidLoad {
+[super viewDidLoad];
+transloadit = [[Transloadit alloc] init];
+[transloadit setDelegate:self];
+...
+}
+```
+*Swift*
+```Swift
+class TransloaditViewControllerSwifty: UIViewController, TransloaditDelegate {
+...
+let transloadit: Transloadit = Transloadit()
+override func viewDidLoad() {
+super.viewDidLoad()
+self.transloadit.delegate = self;
+...
+}
+
+}
+```
+## API Objects
+There are two main objects that interact with `TransloaditKit`, they are `Assembly` and `Template`, herein known as `APIObject`s. Most Transloadit methods require an `APIObject` as a parameter. 
+
+**Steps**
+Typically, if you aren't referencing an already created `Assembly` or `Template` with steps, you will need to create one locally before calling Trandloadit. To create your steps, create a few `Step` objects and an array to hold them.
+*Objective-C*
+```objc
 NSMutableArray<Step *> *steps = [[NSMutableArray alloc] init];
-//MARK: A Sample step
+
 Step *step1 = [[Step alloc] initWithKey:@"encode"];
 [step1 setValue:@"/image/resize" forOption:@"robot"];
-// Add the step to the array
 [steps addObject:step1];
-
-//MARK: Create an assembly with steps
-Assembly *TestAssemblyWithSteps = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
-[TestAssemblyWithSteps addFile:fileUrl];
-[TestAssemblyWithSteps setNotify_url:@""];
-...
 ```
-`Swift`
+*Swift*
 ```swift
-...
-let AssemblyStepsArray: NSMutableArray = NSMutableArray()
-let Step1 = Step (key: "encode")
-Step1?.setValue("/image/resize", forOption: "robot")
+var steps: Array<Step> = Array()
 
-TestAssembly = Assembly(steps: AssemblyStepsArray, andNumberOfFiles: 1)
-self.TestAssembly?.addFile(fileURL)
-...
+let step1: Step = Step()
+step1.setValue("/image/resize", forOption: "robot")
+steps.append(step1)
 ```
 
-### Assembly and Template CRUD 
----
-For basic CRUD functions, an `Assembly` and `Template` are interchangeable when it comes to creating the requests. After the request is made they return to their own seperate delegate methods.
-#### Create - Request
-`Objective-C`
+After creating your steps, you will be able to create a local `APIObject` object.
+**Assembly**
+*Objective-C*
 ```objc
-[transloadit create: TestAssembly];
-[transloadit create: TestTemplate];
-```
-`Swift`
-```swift
-transloadit.create(TestAssembly)
-transloadit.create(TestTemplate)
-```
+Assembly *assebmly = [[Assembly alloc] initWithSteps:steps andNumberOfFiles:1];
 
-#### Create - Response
-`Objective-C`
+[assebmly addFile:fileURL andFileName:@"test.jpg"];
+```
+*Swift*
+```swift
+let assembly: Assembly = Assembly(steps: steps, andNumberOfFiles: 1)
+
+assembly.addFile(fileURL, andFileName: "test.jpg")
+```
+**Template**
+*objective-c*
 ```objc
-//Assembly Creation Success
-- (void) transloaditAssemblyCreationResult:(Assembly *)assembly {
-}
-
-//Template Creation Success
-- (void) transloaditTemplateCreationResult:(Template *)template {
-}
-
-//Assembly Creation Failure
-- (void) transloaditAssemblyCreationError:(NSError *)error withResponse:(TransloaditResponse *)response {
-}
-
-//Template Creation Failure
-- (void) transloaditTemplateCreationError:(NSError *)error withResponse:(TransloaditResponse *)response {
-}
+Template *template = [[Template alloc] initWithSteps:steps andName:@"Test Template"];
 ```
-`Swift`
+
+*swift*
 ```swift
-//Assembly Creation Success
-override func transloaditAssemblyCreationResult(_ assembly: Assembly!) {
-}
-
-//Assembly Creation Failure
-override func transloaditAssemblyCreationError(_ error: Error!, with response: TransloaditResponse!) {
-}
-
-//Templtate Creation Success
-override func transloaditTemplateCreationResult(_ assembly: Assembly!) {
-}
-
-//Template Creation Failure
-override func transloaditTemplateCreationError(_ error: Error!, with response: TransloaditResponse!) {
-}
-
+ var template: Template = Template(steps: steps, andName: "Template Name")
 ```
 
-#### Read (Get)
-`Objective-C`
+However if you do have an already created `APIObject`, simply create a simple `APIObject` by initalizing with the respective id
+**Assembly**
+*objective-c*
 ```objc
-[transloadit get: TestAssembly];
-[transloadit get: TestTemplate];
+Assembly *assembly = [[Assembly alloc] initWithId:@"ID_HERE"];
 ```
-`Swift`
+*swfit*
 ```swift
-transloadit.get(TestAssembly)
-transloadit.get(TestTemplate)
+var assembly: Assembly = Assembly(id: "ID_HERE")
 ```
-
-#### Update
-`Objective-C`
+**Template**
+*objective-c*
 ```objc
-[transloadit update: TestAssembly];
-[transloadit update: TestTemplate];
+Template *template = [[Template alloc] initWithId:@"ID_HERE"];
 ```
-`Swift`
+*swfit*
 ```swift
-transloadit.update(TestAssembly)
-transloadit.update(TestTemplate)
+var template: Template = Template(id: "ID_HERE")
 ```
 
-#### Delete
-`Objective-C`
+
+## Functions
+`TransloaditKit` uses a very simple API for the core CRUD functions. Examples of each CRUD function are defined below:
+### Create
+##### Assembly
+After creating your `Assembly` object wuith steps, you are ready to call `Transloadit` and create your assembly
+*objective-c*
 ```objc
-[transloadit delete: TestAssembly];
-[transloadit delete: TestTemplate];
+[transloadit create:assembly];
 ```
-`Swift`
+*swfit*
 ```swift
-transloadit.delete(TestAssembly)
-transloadit.delete(TestTemplate)
+transloadit.create(assembly)
 ```
 
+A succesfull Assembly creation will fire the deleagte method: 
+*objective-c*
+```objc
+transloaditAssemblyCreationResult:(Assembly *)assembly
+```
+*swift*
+```swift
+transloaditAssemblyCreationResult(_ assembly: Assembly!)
+```
+
+A failed Assembly creation will fire the deleagte method: 
+*objective-c*
+```objc
+transloaditAssemblyCreationError:(NSError *)error withResponse:(TransloaditResponse *)response
+```
+*swift*
+```swift
+transloaditAssemblyCreationError(_ error: Error!, with response: TransloaditResponse!)
+```
+
+----
+#### Template
+After creating your `Template` object, you are ready to call `Transloadit` and create your template
+*objective-c*
+```objc
+[transloadit create:template];
+```
+*swfit*
+```swift
+transloadit.create(template)
+```
+
+A succesfull `Template` creation will fire the deleagte method: 
+*objective-c*
+```objc
+transloaditTemplateCreationResult:(Template *)template
+```
+*swift*
+```swift
+transloaditTemplateCreationResult(_ template: Template!)
+```
+
+A failed `Template` creation will fire the deleagte method: 
+*objective-c*
+```objc
+transloaditTemplateCreationError:(NSError *)error withResponse:(TransloaditResponse *)response
+```
+*swift*
+```swift
+transloaditTemplateCreationError(_ error: Error!, with response: TransloaditResponse!)
+```
 ------
+### Get (Read)
+To get a full `Assembly` or `Template` object, your local `APIObject` must at-least contain the `id`. After you are sure it holds the `APIObject`'s `id` you are ready to call `Transloadit`
+#### Assembly
+*objective-c*
+```objc
+[transloadit get:assembly];
+```
+*swfit*
+```swift
+transloadit.get(assembly)
+```
+A succesful get will result in 
+*objectice-c*
+```objc
+- (void)transloaditAssemblyGetResult:(Assembly *)assembly
+```
+*swfit*
+```Swift
+func transloaditAssemblyGetResult(_ assembly: Assembly!)
+```
+A failed get will result in 
+*objective-c*
+```objc
+- (void)transloaditAssemblyGetError:(NSError *)error withResponse:(TransloaditResponse *)response
+```
+*swfit*
+```Swift
+func transloaditAssemblyGetError(_ error: Error!, with response: TransloaditResponse!)
+```
+#### Template
+*objective-c*
+```objc
+[transloadit get:template];
+```
+*swfit*
+```swift
+transloadit.get(template)
+```
+A succesful get will result in 
+*objectice-c*
+```objc
+- (void)transloaditTemplateGetResult:(Template *)assembly
+```
+*swfit*
+```Swift
+func transloaditTemplateetResult(_ template: Template!)
+```
+A failed get will result in 
+*objective-c*
+```objc
+- (void)transloaditTemplateGetError:(NSError *)error withResponse:(TransloaditResponse *)response
+```
+*swfit*
+```Swift
+func transloaditTemplateError(_ error: Error!, with response: TransloaditResponse!)
+```
+
+### Delete
+#### Assembly
+Sending a delete to an assembly will cancel the assembly from processsing
+*objective-c*
+```objc
+[transloadit delete:assembly];
+```
+*swfit*
+```swift
+transloadit.delete(assembly)
+```
+A succesful delete will result in
+*objective-c*
+```obc
+- (void)transloaditAssemblyDeletionResult:(TransloaditResponse *)assembly
+```
+*swift*
+```swift
+func transloaditAssemblyDeletionResult(_ assembly: TransloaditResponse!)
+```
+A failed delete will result in
+*objective-c*
+```objc
+(void)transloaditAssemblyDeletionError:(NSError *)error withResponse:(TransloaditResponse *)response
+```
+*Swift*
+```Swift
+func transloaditAssemblyDeletionError(_ error: Error!, with response: TransloaditResponse!)
+```
+#### Template
+*objective-c*
+```objc
+[transloadit delete:template];
+```
+*swfit*
+```swift
+transloadit.delete(template)
+```
+A succesful delete will result in
+*objective-c*
+```obc
+- (void)transloaditTemplateDeletionResult:(TransloaditResponse *)template
+```
+*swift*
+```swift
+func transloaditTemplateDeletionResult(_ template: TransloaditResponse!)
+```
+A failed delete will result in
+*objective-c*
+```objc
+(void)transloaditTemplateDeletionError:(NSError *)error withResponse:(TransloaditResponse *)response
+```
+*Swift*
+```Swift
+func transloaditTemplateDeletionError(_ error: Error!, with response: TransloaditResponse!)
+```
+----
+## Invoking
+Once an `Assembly` is created, you are able to start the processing of said `Assembly` and files, otherwise known as "invoking". The invoking process takes two parameters, the `Assembly` you are trying to invoke and tne number of retries you'd like the operation to perform incase of a failure.
+
+*objective-c*
+```
+[transloadit invokeAssembly:assembly retry:3];
+```
+
+*swift*
+```
+transloadit .invokeAssembly(assembly, retry: 3)
+
+```
+
+Typically done in the `transloaditAssemblyCreationResult` delegate method, you can start the invoking process as shown below
+
+*objectice-c*
+```objective-c
+- (void) transloaditAssemblyCreationResult:(Assembly *)assembly {
+    [assembly setUrlString:[assembly urlString]];
+    [transloadit invokeAssembly:assembly retry:3];
+}
+```
+*swift*
+```swift
+func transloaditAssemblyCreationResult(_ assembly: Assembly!) {
+assembly.urlString = assembly.urlString
+transloadit .invokeAssembly(assembly, retry: 3)
+}
+```
+
+Invoking the assembly results in the firing of a few delegate methods
+
+
+**The progress of the upload**
+*objective-c*
+```
+- (void)tranloaditUploadProgress:(int64_t *)written bytesTotal:(int64_t *)total
+```
+*swift*
+```Swift
+func tranloaditUploadProgress(_ written: <Int64>!, bytesTotal total: <Int64>!) 
+```
+
+**The failure of the upload**
+*objective-c*
+```
+- (void)transloaditUploadFailureBlock:(NSError *)error
+```
+*swift*
+```Swift
+func transloaditUploadFailureBlock(_ error: Error!)
+```
+
+**The progress of the assembly**
+*objective-c*
+```
+- (void)transloaditAssemblyProcessProgress:(TransloaditResponse *)response
+```
+*swift*
+```Swift
+func transloaditAssemblyProcessProgress(_ response: TransloaditResponse!)
+```
+
+**The result of the assembly**
+*objective-c*
+```
+- (void)transloaditAssemblyProcessResult:(TransloaditResponse *)response
+```
+*swift*
+```Swift
+func transloaditAssemblyProcessResult(_ response: TransloaditResponse!)
+```
+
+**The failure of the assembly**
+*objective-c*
+```
+- (void)transloaditAssemblyProcessError:(NSError *)error withResponse:(TransloaditResponse *)response
+```
+*swift*
+```Swift
+func transloaditAssemblyProcessError(_ error: Error!, with response: TransloaditResponse!)
+```
 
 ## Example
 
@@ -303,24 +444,13 @@ We'd be happy to accept pull requests. If you plan on working on something big, 
 
 The SDK is written in Objective-C for both iOS and MacOS. 
 
-
-### Releasing
-
-Releasing a new version to CocoaPods can be done via CocoaPods Trunk:
-
-- Bump the version inside the `Transloadit.podspec`
-- Save a release commit with the updated version in Git
-- Push a tag to Github
-- Publish to Cocoapods with Trunk
-
 ### To Do
 
--  bridge TUSKit networking
 - websockets
 
 ## Dependencies
 
-* [TUSKit](https://github.com/tus/tuskit) _note `TUSKit` is installed along side `Transloadit` via CocoaPods_
+* [TUSKit](https://github.com/tus/tuskit) _note `TUSKit` is installed along side `Transloadit` via CocoaPods and included in the Carthage framework_
 
 ## Authors
 
