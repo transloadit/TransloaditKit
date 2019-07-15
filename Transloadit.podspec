@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
 s.name             = 'Transloadit'
-s.version          = '1.1.0'
+s.version          = '1.1.1'
 s.summary          = 'An iOS and MacOS SDK for Transloadit.'
 
 # This description is used to generate tags and improve search results.
