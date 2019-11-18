@@ -270,10 +270,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Transloadit_Example/Pods-Transloadit_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/TUSKit/TUSKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Transloadit/Transloadit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TUSKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Transloadit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
