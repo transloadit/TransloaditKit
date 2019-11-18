@@ -21,15 +21,84 @@ class Transloadit: NSObject {
     // MARK: CRUD
     
     public func create(_ object: APIObject) {
+        
+        self.makeRequest(withMethod: .POST, andObject: object, callback: { response in
+            if (response.success) {
+                if object.isKind(of: Assembly.self) {
+                    self.delegate?.transloaditAssemblyCreationResult()
+                }
+                if object.isKind(of: Template.self) {
+                    self.delegate?.transloaditTemplateCreationResult()
+                }
+            } else {
+                if object.isKind(of: Assembly.self) {
+                    self.delegate?.transloaditAssemblyCreationError()
+                }
+                if object.isKind(of: Template.self) {
+                    self.delegate?.transloaditTemplateCreationError()
+                }
+            }
+        })
     }
     
     public func get(_ object: APIObject) {
+        self.makeRequest(withMethod: .GET, andObject: object, callback: { response in
+            if (response.success) {
+                if object.isKind(of: Assembly.self) {
+                    self.delegate?.transloaditAssemblyGetResult()
+                }
+                if object.isKind(of: Template.self) {
+                    self.delegate?.transloaditTemplateGetResult()
+                }
+            } else {
+                if object.isKind(of: Assembly.self) {
+                    self.delegate?.transloaditAssemblyGetError()
+                }
+                if object.isKind(of: Template.self) {
+                    self.delegate?.transloaditTemplateGetError()
+                }
+            }
+        })
     }
     
     public func update(_ object: APIObject) {
+        self.makeRequest(withMethod: .PUT, andObject: object, callback: { response in
+            if (response.success) {
+                if object.isKind(of: Assembly.self) {
+                    self.delegate?.transloaditAssemblyGetResult()
+                }
+                if object.isKind(of: Template.self) {
+                    self.delegate?.transloaditTemplateGetResult()
+                }
+            } else {
+                if object.isKind(of: Assembly.self) {
+                    self.delegate?.transloaditAssemblyGetError()
+                }
+                if object.isKind(of: Template.self) {
+                    self.delegate?.transloaditTemplateGetError()
+                }
+            }
+        })
     }
     
     public func delete(_ object: APIObject) {
+        self.makeRequest(withMethod: .DELETE, andObject: object, callback: { response in
+            if (response.success) {
+                if object.isKind(of: Assembly.self) {
+                    self.delegate?.transloaditAssemblyDeletionResult()
+                }
+                if object.isKind(of: Template.self) {
+                    self.delegate?.transloaditTemplateDeletionResult()
+                }
+            } else {
+                if object.isKind(of: Assembly.self) {
+                    self.delegate?.transloaditAssemblyDeletionError()
+                }
+                if object.isKind(of: Template.self) {
+                    self.delegate?.transloaditTemplateDeletionError()
+                }
+            }
+        })
     }
     
     // MARK: Assembly

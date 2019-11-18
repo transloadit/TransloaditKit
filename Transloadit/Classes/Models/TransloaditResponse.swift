@@ -8,5 +8,6 @@
 import UIKit
 
 class TransloaditResponse: Codable {
+    var success: Bool = true
 
 }
