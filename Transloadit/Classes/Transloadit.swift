@@ -11,7 +11,6 @@ import TUSKit
 class Transloadit: NSObject {
 
     var delegate: TransloaditDelegate?
-    
     var tusSession: TUSSession?
     
     public override init() {
