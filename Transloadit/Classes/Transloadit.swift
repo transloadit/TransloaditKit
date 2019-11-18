@@ -16,27 +16,21 @@ class Transloadit: NSObject {
     
     public override init() {
         super.init()
-        
         tusSession = TUSSession()
-        
     }
     
     // MARK: CRUD
     
     public func create(_ object: APIObject) {
-        
     }
     
     public func get(_ object: APIObject) {
-        
     }
     
     public func update(_ object: APIObject) {
-        
     }
     
     public func delete(_ object: APIObject) {
-        
     }
     
     // MARK: Assembly
@@ -49,7 +43,7 @@ class Transloadit: NSObject {
     
     // MARK: Networking
     
-    private func makeRequest(withMethod method: MethodType, andObject object: APIObject) {
+    private func makeRequest(withMethod method: MethodType, andObject object: APIObject, callback: @escaping (_ reponse: TransloaditResponse) -> Void ){
         
         var endpoint: String = ""
         var request: TransloaditRequest?
@@ -62,8 +56,8 @@ class Transloadit: NSObject {
         request = TransloaditRequest()
         var url: String = String(format: "%@%@", TRANSLOADIT_BASE_PROTOCOL, TRANSLOADIT_BASE_URL, endpoint)
         
-        let dataTask = tusSession!.session().dataTask(with: request as! URLRequest) { (data, response, error) in
-            //
+        let dataTask = tusSession!.session().dataTask(with: request! as URLRequest) { (data, response, error) in
+            callback(TransloaditResponse())
         }
         
         dataTask.resume()
