@@ -4,8 +4,9 @@ An **iOS** and **MacOS** integration for [Transloadit](https://transloadit.com)'
 uploading and encoding service.
 
 ## Upgrade Notice:
+
 `Transloadit` version `1.1.0` contains several breaking changes from the previous version, the main being the deprecation of blocks and introduction of the `TransloaditDelegate`. 
-Please refer to the changelog for a full list. 
+Please refer to the changelog for a full list.
 
 ## Intro
 
@@ -19,7 +20,9 @@ This is an **iOS** and **MacOS**  SDK to make it easy to talk to the
 [Transloadit](https://transloadit.com) REST API.
 # Setup
 ---
+
 ## Install
+
 
 ### CocoaPods
 Inside your podfile add,
@@ -41,6 +44,7 @@ github "transloadit/TransloaditKit"
 2. Drag the Transloadit directory into your project
 
 ## API Keys
+
 Befiore you begin using `TransloaditKit`, you will need to add your API keys to your project's `.plist`. 
 
 1. Locate your `.plist` file, normally named *`{PROJECT_NAME}.plist`*
@@ -58,7 +62,9 @@ Befiore you begin using `TransloaditKit`, you will need to add your API keys to 
 ```
 
 ---
+
 ## Usage
+
 
 ### Import TransloaditKit
 *Objective-C*
@@ -99,7 +105,9 @@ self.transloadit.delegate = self;
 
 }
 ```
+
 ## API Objects
+
 There are two main objects that interact with `TransloaditKit`, they are `Assembly` and `Template`, herein known as `APIObject`s. Most Transloadit methods require an `APIObject` as a parameter. 
 
 **Steps**
@@ -171,8 +179,8 @@ Template *template = [[Template alloc] initWithId:@"ID_HERE"];
 var template: Template = Template(id: "ID_HERE")
 ```
 
-
 ## Functions
+
 `TransloaditKit` uses a very simple API for the core CRUD functions. Examples of each CRUD function are defined below:
 ### Create
 ##### Assembly
@@ -370,7 +378,9 @@ A failed delete will result in
 func transloaditTemplateDeletionError(_ error: Error!, with response: TransloaditResponse!)
 ```
 ----
+
 ## Invoking
+
 Once an `Assembly` is created, you are able to start the processing of said `Assembly` and files, otherwise known as "invoking". The invoking process takes two parameters, the `Assembly` you are trying to invoke and tne number of retries you'd like the operation to perform incase of a failure.
 
 *objective-c*
