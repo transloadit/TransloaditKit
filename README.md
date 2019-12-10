@@ -25,6 +25,7 @@ This is an **iOS** and **MacOS**  SDK to make it easy to talk to the
 
 
 ### CocoaPods
+
 Inside your podfile add,
 
 ```bash
