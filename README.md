@@ -34,13 +34,14 @@ pod 'Transloadit'
 
 ### Carthage
 
-Insdie your Cartfile add,
+Inside your Cartfile add,
 
 ```bash
 github "transloadit/TransloaditKit"
 ```
 
 ### Manual
+
 1. Download and unpack the ZIP file
 2. Drag the Transloadit directory into your project
 
@@ -68,6 +69,7 @@ Befiore you begin using `TransloaditKit`, you will need to add your API keys to 
 
 
 ### Import TransloaditKit
+
 *Objective-C*
 ```objc
 #import <TransloaditKit/Transloadit.h>
@@ -79,7 +81,9 @@ import Transloadit
 ```
 
 ### Initializing TransloaditKit
+
 *Objective-C*
+
 ```objc
 @interface TransloaditViewController () <TransloaditDelegate>
 @end
@@ -87,23 +91,24 @@ import Transloadit
 Transloadit *transloadit;
 ....
 - (void)viewDidLoad {
-[super viewDidLoad];
-transloadit = [[Transloadit alloc] init];
-[transloadit setDelegate:self];
-...
+  [super viewDidLoad];
+  transloadit = [[Transloadit alloc] init];
+  [transloadit setDelegate:self];
+  ...
 }
 ```
+
 *Swift*
+
 ```Swift
 class TransloaditViewControllerSwifty: UIViewController, TransloaditDelegate {
-...
-let transloadit: Transloadit = Transloadit()
-override func viewDidLoad() {
-super.viewDidLoad()
-self.transloadit.delegate = self;
-...
-}
-
+  ...
+  let transloadit: Transloadit = Transloadit()
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.transloadit.delegate = self;
+    ...
+  }
 }
 ```
 
