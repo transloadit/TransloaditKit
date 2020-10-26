@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import TUSKit
 
 public class Assembly: APIObject {
 
     var numberOfFiles: Int?
+    
+    internal var tusUpload: TUSUpload?
     
     internal var steps: [String: Any] = [:]
     
@@ -23,7 +26,7 @@ public class Assembly: APIObject {
     }
     
     public func addFile(withPathURL: URL) {
-        
+        tusUpload = TUSUpload(withId: withPathURL.lastPathComponent, andFilePathURL: withPathURL, andFileType: withPathURL.pathExtension)
     }
 
     

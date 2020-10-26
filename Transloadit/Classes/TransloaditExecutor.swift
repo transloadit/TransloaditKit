@@ -7,6 +7,7 @@
 
 import Foundation
 import CommonCrypto
+import TUSKit
 
 class TransloaditExecutor {
     // MARK: CRUD
@@ -49,6 +50,10 @@ class TransloaditExecutor {
         self.urlRequest(withMethod: "POST", andObject: object, callback: { response in
             if (response.success) {
                 if object.isKind(of: Assembly.self) {
+                    
+                    TUSClient.shared.uploadURL = URL(string: response.tusURL)
+                    TUSClient.shared.createOrResume(forUpload: (object as! Assembly).tusUpload!)
+                    
                     Transloadit.shared.delegate?.transloaditAssemblyCreationResult()
                 }
                 if object.isKind(of: Template.self) {
@@ -168,6 +173,8 @@ class TransloaditExecutor {
         print(request.debugDescription)
         let dataTask = Transloadit.shared.transloaditSession.session.dataTask(with: request as URLRequest) { (data, response, error) in
             let outputStr  = String(data: data!, encoding: String.Encoding.utf8) as String!
+            print(outputStr)
+            TransloaditResponse().tusURL = ""
             callback(TransloaditResponse())
         }
         
