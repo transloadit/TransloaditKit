@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Transloadit'
-  s.version          = '0.1.0'
+  s.version          = '2.0.0'
   s.summary          = 'A short description of Transloadit.'
 
 # This description is used to generate tags and improve search results.
@@ -28,7 +28,7 @@ TODO: Add long description of the pod here.
   s.source           = { :git => 'https://github.com/mmasterson/Transloadit.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '12.0'
 
   s.source_files = 'Transloadit/Classes/**/*'
   
@@ -39,5 +39,5 @@ TODO: Add long description of the pod here.
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
-    s.dependency 'TUSKit'
+    s.dependency 'TUSKit', '~> 2.1.3.alpha'
 end

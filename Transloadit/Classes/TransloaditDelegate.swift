@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol TransloaditDelegate {
+public protocol TransloaditDelegate {
     
     // MARK: Upload Progress
     func tranloaditUploadProgress()
