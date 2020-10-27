@@ -1,29 +1,114 @@
-# Transloadit
+# TransloaditKit
+An **iOS & macOS** Integration for [Transloadit](https://transloadit.com)'s file uploading and encoding service
 
-[![CI Status](https://img.shields.io/travis/mmasterson/Transloadit.svg?style=flat)](https://travis-ci.org/mmasterson/Transloadit)
-[![Version](https://img.shields.io/cocoapods/v/Transloadit.svg?style=flat)](https://cocoapods.org/pods/Transloadit)
-[![License](https://img.shields.io/cocoapods/l/Transloadit.svg?style=flat)](https://cocoapods.org/pods/Transloadit)
-[![Platform](https://img.shields.io/cocoapods/p/Transloadit.svg?style=flat)](https://cocoapods.org/pods/Transloadit)
+## Intro
+
+[Transloadit](https://transloadit.com) is a service that helps you handle file uploads, resize, crop and watermark your images, make GIFs, transcode your videos, extract thumbnails, generate audio waveforms, and so much more. In short, [Transloadit](https://transloadit.com) is the Swiss Army Knife for your files.
+
+This is an **iOS and macOS** SDK to make it easy to talk to the [Transloadit](https://transloadit.com) REST API.
+
+## Install
+
+The library can be downloaded manualy from this repo, or installed with your favorite package managment software
+
+**CocoaPods:**
+
+```shell
+pod 'transloadit'
+```
+
+**Carthage:**
+
+**Swift Package Manager:**
+
+
+
+## Setup
+
+All interactions with the SDK begin with the `import Transloadit`
+Before utilzing, you'll need to configure your TransloaditKit library with desired config.
+
+### Implement
+
+You can implement directly in your `AppDelegate`
+```Swift
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        var config = TransloaditConfig(withKey: "", andSecret: "")
+        Transloadit.setup(with: config)
+        return true
+    }
+```
+
+or add your keys to `Transloadit.plist` in your root directory and enter a default config
+
+```Swift
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        var config = TransloaditConfig()
+        Transloadit.setup(with: config)
+        return true
+    }
+```
+Transloadit.plist
+```plist
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+    	<key>key</key>
+    	    <string>PUT_KEY_HERE</string>
+    	<key>secret</key>
+    	    <string>PUT_SECRET_HERE</string>
+    </dict>
+</plist>
+```
+
+#### Other Configs
+
+##### Logging
+```Swift
+config.logLevel = .All
+```
+
+##### URLSession
+```
+```
+
+#### Delegate
+Be sure to set the delgate in order to recieve proper callbacks from the library 
+
+```Swift
+Transloadit.shared.delegate = self
+```
+
+## Usage 
+
+### Create an Assembly
+
+To create an assembly, you use the `newAssembly` method.
+
+```Swift
+// Create the assembly
+let assembly: Assembly = Transloadit.shared.newAssembly()
+
+//Create the steps
+var resizeSteps: [String: Any] = [:]
+                newSteps["robot"] = "/image/resize"
+                newSteps["width"] = 75
+            
+//Add the steps
+assembly.addStep(name: "resize", options: resizeSteps)
+
+//Add the file
+assembly.addFile(withPathURL: imageURL as! URL)
+
+//Create and run the assembly
+assembly.save()
+```
 
 ## Example
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
-## Requirements
-
-## Installation
-
-Transloadit is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod 'Transloadit'
-```
-
-## Author
-
-mmasterson, mark@masterson.io
+//Link to example projject
 
 ## License
 
-Transloadit is available under the MIT license. See the LICENSE file for more info.
+[The MIT License](LICENSE).
