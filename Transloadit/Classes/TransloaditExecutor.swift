@@ -177,8 +177,6 @@ class TransloaditExecutor {
         request.httpMethod = method
         print(request.debugDescription)
         let dataTask = Transloadit.shared.transloaditSession.session.dataTask(with: request as URLRequest) { (data, response, error) in
-            let outputStr  = String(data: data!, encoding: String.Encoding.utf8) as String!
-             print(outputStr!)
             var movieData = [String: Any]()
 
             guard let data = data, error == nil else { return }

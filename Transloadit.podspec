@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Transloadit'
-  s.version          = '2.0.1.alpha'
+  s.version          = '2.0.2.alpha'
   s.summary          = 'A short description of Transloadit.'
   s.swift_version = '5.0'
 
@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/mmasterson/Transloadit'
+  s.homepage         = 'https://github.com/transloadit/TransloaditKit'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'mmasterson' => 'mark@masterson.io' }
