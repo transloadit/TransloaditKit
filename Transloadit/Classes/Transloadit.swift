@@ -29,9 +29,9 @@ public class Transloadit: NSObject, URLSessionTaskDelegate {
             fatalError("Error - you must call setup before accessing Transloadit")
         }
         var tusConfig = TUSConfig(withUploadURLString: "https://tusd.tusdemo.net/files")
-//        config.logLevel = .All
+        tusConfig.logLevel = .All
         TUSClient.setup(with: tusConfig)
-        executor = TransloaditExecutor(withKey: "", andSecret: "")
+        executor = TransloaditExecutor(withKey: Transloadit.config!.publicKey, andSecret: Transloadit.config!.privateKey)
         super.init()
         transloaditSession = TransloaditSession(customConfiguration: URLSessionConfiguration.default, andDelegate: self)
 

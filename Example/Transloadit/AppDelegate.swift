@@ -16,10 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        var config = TransloaditConfig(withKey: "", andSecret: "")
-        Transloadit.setup(with: config)
 
+        var config = TransloaditConfig(withKey: "5ae6b9c0f10c11e594a0bfa14ca2ffe1", andSecret: "a9d351b355bb47b21af79d89aa9d8a54a6f27a41")
+        Transloadit.setup(with: config)
         return true
     }
 

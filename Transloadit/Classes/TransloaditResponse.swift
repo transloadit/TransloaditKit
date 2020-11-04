@@ -9,5 +9,7 @@ import UIKit
 
 class TransloaditResponse: Codable {
     var success: Bool = true
+    var tusURL: String = ""
+    var assemblyURL: String = ""
 
 }
