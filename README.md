@@ -22,6 +22,27 @@ pod 'transloadit'
 **Swift Package Manager:**
 
 
+## nstall Troubleshooting
+
+**CocoaPods**
+
+If during install you recieve an error resembling
+```
+[!] CocoaPods could not find compatible versions for pod "TUSKit":
+  In Podfile:
+    Transloadit (from `../`) was resolved to 2.0.5.alpha, which depends on
+      TUSKit (~> 2.1.5.alpha)
+
+None of your spec sources contain a spec satisfying the dependency: `TUSKit (~> 2.1.5.alpha)`.
+
+You have either:
+ * out-of-date source repos which you can update with `pod repo update` or with `pod install --repo-update`.
+ * mistyped the name or version.
+ * not added the source repo that hosts the Podspec to your Podfile.
+ ```
+ Please follow instructuions and run `pod repo update`
+
+
 
 ## Setup
 
