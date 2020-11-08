@@ -17,7 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        var config = TransloaditConfig(withKey: "5ae6b9c0f10c11e594a0bfa14ca2ffe1", andSecret: "a9d351b355bb47b21af79d89aa9d8a54a6f27a41")
+        
+        //Config with Transloadit.plist
+        let config = TransloaditConfig()
+        
+        //Config without secret
+//        let config = TransloaditConfig(withKey: "")
+
+        //Config with public and secret
+//        let config = TransloaditConfig(withKey: "", andSecret: "")
+        
         Transloadit.setup(with: config)
         return true
     }
