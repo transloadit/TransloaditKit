@@ -22,7 +22,7 @@ pod 'transloadit'
 **Swift Package Manager:**
 
 
-## nstall Troubleshooting
+## Install Troubleshooting
 
 **CocoaPods**
 

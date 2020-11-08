@@ -10,7 +10,42 @@ import UIKit
 import Transloadit
 import TUSKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, TransloaditDelegate {
+    func tranloaditUploadProgress() {
+        //
+    }
+    
+    func transloaditUploadFailureBlock() {
+        //
+    }
+    
+    func transloaditCreationResult(forObject: APIObject, withResult: TransloaditResponse) {
+        //
+        if (withResult.success) {
+            print("We did it!")
+        } else {
+            print(withResult.error)
+
+        }
+    }
+    
+    func transloaditGetResult(forObject: APIObject, withResult: TransloaditResponse) {
+        //
+    }
+    
+    func transloaditDeletionResult(forObject: APIObject, withResult: TransloaditResponse) {
+        //
+    }
+    
+    func transloaditProcessResult() {
+        //
+    }
+    
+    
+    func transloaditProcessProgress() {
+        //
+    }
+    
 
     let imagePicker = UIImagePickerController()
 
@@ -19,7 +54,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewDidLoad()
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
-        //Transloadit.shared.delegate = self
+        Transloadit.shared.delegate = self
         
         present(imagePicker, animated: true, completion: nil)
 

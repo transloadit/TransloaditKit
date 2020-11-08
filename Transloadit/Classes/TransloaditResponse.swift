@@ -7,9 +7,11 @@
 
 import UIKit
 
-class TransloaditResponse: Codable {
-    var success: Bool = true
-    var tusURL: String = ""
-    var assemblyURL: String = ""
+public class TransloaditResponse: Codable {
+    public var success: Bool = true
+    public var tusURL: String = ""
+    public var assemblyURL: String = ""
+    public var statusCode: Int = 0
+    public var error: String = ""
 
 }

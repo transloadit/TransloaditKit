@@ -14,26 +14,18 @@ public protocol TransloaditDelegate {
     func transloaditUploadFailureBlock()
     
     // MARK: Create
-    func transloaditAssemblyCreationResult()
-    func transloaditAssemblyCreationError()
-    func transloaditTemplateCreationResult()
-    func transloaditTemplateCreationError()
+    func transloaditCreationResult(forObject: APIObject, withResult: TransloaditResponse)
     
     // MARK: GET
-    func transloaditAssemblyGetResult()
-    func transloaditAssemblyGetError()
-    func transloaditTemplateGetResult()
-    func transloaditTemplateGetError()
+    func transloaditGetResult(forObject: APIObject, withResult: TransloaditResponse)
+    
     
     // MARK: DELETE
-    func transloaditAssemblyDeletionResult()
-    func transloaditAssemblyDeletionError()
-    func transloaditTemplateDeletionResult()
-    func transloaditTemplateDeletionError()
+    func transloaditDeletionResult(forObject: APIObject, withResult: TransloaditResponse)
+
     
     // MARK: Processing
-    func transloaditAssemblyProcessResult()
-    func transloaditAssemblyProcessError()
-    func transloaditAssemblyProcessProgress()
+    func transloaditProcessResult()
+    func transloaditProcessProgress()
     
 }

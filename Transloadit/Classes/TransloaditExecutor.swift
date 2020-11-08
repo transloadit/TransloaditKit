@@ -14,6 +14,7 @@ class TransloaditExecutor {
     private var SECRET = ""
     private var KEY = ""
     
+    
     internal init(withKey key: String, andSecret secret: String) {
         KEY = key
         SECRET = secret
@@ -41,11 +42,14 @@ class TransloaditExecutor {
         }
         let paramsJsonString = String(data: paramsData!, encoding: .utf8)
         
+        var response = ["params": paramsJsonString!, "tus_num_expected_upload_files": "1"]
         
-        return ["signature": paramsJsonString!.hmac(key: SECRET), "params": paramsJsonString!, "tus_num_expected_upload_files": "1"]
-        
+        if (!SECRET.isEmpty) {
+            response["signature"] = paramsJsonString!.hmac(key: SECRET)
+        }
+        return response
     }
-        
+    
     public func create(_ object: APIObject) {
         self.urlRequest(withMethod: "POST", andObject: object, callback: { response in
             if (response.success) {
@@ -59,19 +63,23 @@ class TransloaditExecutor {
                     let metadata = String(format: "%@ %@,%@ %@,%@ %@", "assembly_url", response.assemblyURL.data(using: .utf8)?.base64EncodedString() as! CVarArg,"filename","file".data(using: .utf8)?.base64EncodedString() as! CVarArg,"fieldname","file-input".data(using: .utf8)?.base64EncodedString() as! CVarArg)
                     
                     TUSClient.shared.createOrResume(forUpload: (object as! Assembly).tusUpload!, withCustomHeaders: ["Upload-Metadata":metadata])
-                    Transloadit.shared.delegate?.transloaditAssemblyCreationResult()
                 }
                 if object.isKind(of: Template.self) {
-                    Transloadit.shared.delegate?.transloaditTemplateCreationResult()
+//                    Transloadit.shared.delegate?.transloaditCreationResult(forObject: object)
                 }
+
             } else {
                 if object.isKind(of: Assembly.self) {
-                    Transloadit.shared.delegate?.transloaditAssemblyCreationError()
+//                    Transloadit.shared.delegate?.transloaditCreationResult(forObject: object)
                 }
                 if object.isKind(of: Template.self) {
-                    Transloadit.shared.delegate?.transloaditTemplateCreationError()
+//                    Transloadit.shared.delegate?.transloaditTemplateCreationError()
                 }
+//                Transloadit.shared.delegate?.transloaditCreationResult(forObject: object)
+
             }
+            Transloadit.shared.delegate?.transloaditCreationResult(forObject: object, withResult: response)
+
         })
     }
     
@@ -79,19 +87,24 @@ class TransloaditExecutor {
         self.urlRequest(withMethod: "GET", andObject: object, callback: { response in
             if (response.success) {
                 if object.isKind(of: Assembly.self) {
-                    Transloadit.shared.delegate?.transloaditAssemblyGetResult()
+//                    Transloadit.shared.delegate?.transloaditGetResult(forObject: object)
                 }
                 if object.isKind(of: Template.self) {
-                    Transloadit.shared.delegate?.transloaditTemplateGetResult()
+//                    Transloadit.shared.delegate?.transloaditTemplateGetResult()
                 }
+//                Transloadit.shared.delegate?.transloaditGetResult(forObject: object, withResult: response)
             } else {
                 if object.isKind(of: Assembly.self) {
-                    Transloadit.shared.delegate?.transloaditAssemblyGetError()
+//                    Transloadit.shared.delegate?.transloaditGetResult(forObject: object)
                 }
                 if object.isKind(of: Template.self) {
-                    Transloadit.shared.delegate?.transloaditTemplateGetError()
+//                    Transloadit.shared.delegate?.transloaditTemplateGetError()
                 }
+//                Transloadit.shared.delegate?.transloaditGetResult(forObject: object)
+
             }
+            Transloadit.shared.delegate?.transloaditGetResult(forObject: object, withResult: response)
+
         })
     }
     
@@ -99,19 +112,20 @@ class TransloaditExecutor {
         self.urlRequest(withMethod: "PUT", andObject: object, callback: { response in
             if (response.success) {
                 if object.isKind(of: Assembly.self) {
-                    Transloadit.shared.delegate?.transloaditAssemblyGetResult()
+//                    Transloadit.shared.delegate?.transloaditAssemblyGetResult()
                 }
                 if object.isKind(of: Template.self) {
-                    Transloadit.shared.delegate?.transloaditTemplateGetResult()
+//                    Transloadit.shared.delegate?.transloaditTemplateGetResult()
                 }
             } else {
                 if object.isKind(of: Assembly.self) {
-                    Transloadit.shared.delegate?.transloaditAssemblyGetError()
+//                    Transloadit.shared.delegate?.transloaditAssemblyGetError()
                 }
                 if object.isKind(of: Template.self) {
-                    Transloadit.shared.delegate?.transloaditTemplateGetError()
+//                    Transloadit.shared.delegate?.transloaditTemplateGetError()
                 }
             }
+            Transloadit.shared.delegate?.transloaditGetResult(forObject: object, withResult: response)
         })
     }
     
@@ -119,19 +133,20 @@ class TransloaditExecutor {
         self.urlRequest(withMethod: "DELETE", andObject: object, callback: { response in
             if (response.success) {
                 if object.isKind(of: Assembly.self) {
-                    Transloadit.shared.delegate?.transloaditAssemblyDeletionResult()
+//                    Transloadit.shared.delegate?.transloaditAssemblyDeletionResult()
                 }
                 if object.isKind(of: Template.self) {
-                    Transloadit.shared.delegate?.transloaditTemplateDeletionResult()
+//                    Transloadit.shared.delegate?.transloaditTemplateDeletionResult()
                 }
             } else {
                 if object.isKind(of: Assembly.self) {
-                    Transloadit.shared.delegate?.transloaditAssemblyDeletionError()
+//                    Transloadit.shared.delegate?.transloaditAssemblyDeletionError()
                 }
                 if object.isKind(of: Template.self) {
-                    Transloadit.shared.delegate?.transloaditTemplateDeletionError()
+//                    Transloadit.shared.delegate?.transloaditTemplateDeletionError()
                 }
             }
+            Transloadit.shared.delegate?.transloaditDeletionResult(forObject: object, withResult: response)
         })
     }
     
@@ -155,7 +170,7 @@ class TransloaditExecutor {
         
         let boundary = UUID.init().uuidString
         let headers = ["Content-Type": String(format: "multipart/form-data; boundary=%@", boundary)]
-
+        
         
         let formFields = generateBody(forAPIObject: object, includeSecret: true)
         var body: Data = Data()
@@ -167,8 +182,8 @@ class TransloaditExecutor {
         body.append(String(format: "--%@--\r\n", boundary).data(using: .utf8)!)
         
         let url: String = String(format: "%@%@%@", TRANSLOADIT_BASE_PROTOCOL, TRANSLOADIT_BASE_URL, endpoint)
-               var request: URLRequest = URLRequest(url: URL(string: url)!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
-
+        var request: URLRequest = URLRequest(url: URL(string: url)!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
+        
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = headers
         request.httpBody = body
@@ -177,22 +192,29 @@ class TransloaditExecutor {
         request.httpMethod = method
         print(request.debugDescription)
         let dataTask = Transloadit.shared.transloaditSession.session.dataTask(with: request as URLRequest) { (data, response, error) in
-            var movieData = [String: Any]()
-
+            var resonseData = [String: Any]()
+            let transloaditResponse = TransloaditResponse()
             guard let data = data, error == nil else { return }
             do {
-                movieData = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: Any]
-                var response = TransloaditResponse()
-                response.tusURL = movieData["tus_url"]! as! String
-                response.assemblyURL = movieData["assembly_ssl_url"]! as! String
-
-                print("made it")
-                callback(response)
+                resonseData = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: Any]
+                if let httpResponse = response as? HTTPURLResponse {
+                    if (httpResponse.statusCode >= 400) {
+                        //TODO: Fix to JSON Serialization
+                        transloaditResponse.success = false
+                        transloaditResponse.statusCode = httpResponse.statusCode
+                        transloaditResponse.error = resonseData["error"] as! String
+                    } else {
+                        //TODO: Fix to JSON Serialization
+                        transloaditResponse.tusURL = resonseData["tus_url"]! as! String
+                        transloaditResponse.assemblyURL = resonseData["assembly_ssl_url"]! as! String
+                    }
+                    callback(transloaditResponse)
+                }
             } catch let error as NSError {
                 print(error)
             }
             //let outputStr  = String(data: data!, encoding: String.Encoding.utf8) as String!
-           // print(outputStr)
+            // print(outputStr)
             
             
         }
