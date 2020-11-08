@@ -23,7 +23,7 @@ class TransloaditExecutor: TUSDelegate {
     }
     
     private func generateBody(forAPIObject object: APIObject, includeSecret: Bool) -> Dictionary<String,String> {
-        var steps: [String:Any] = [:]
+        var steps: NSMutableDictionary = [:]
         if (object.isKind(of: Assembly.self)) {
             steps = (object as! Assembly).steps
         } else if (object.isKind(of: Template.self)) {
@@ -35,7 +35,7 @@ class TransloaditExecutor: TUSDelegate {
         let dateTime: String = formatter.string(from: Date().addingTimeInterval(300))
         let authObject = ["key": KEY, "expires": dateTime]
         
-        let params = ["auth": authObject, "steps": steps]
+        let params = ["auth": authObject, "steps": steps] as [String : Any]
         let paramsData: Data?
         if #available(iOS 13.0, *) {
             paramsData = try! JSONSerialization.data(withJSONObject: params, options:.withoutEscapingSlashes)

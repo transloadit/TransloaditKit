@@ -16,7 +16,7 @@ public class Assembly: APIObject {
     internal var assemblyURL: String?
 
     
-    internal var steps: [String: Any] = [:]
+    internal var steps: NSMutableDictionary = [:]
     
     public override init() {
         //
