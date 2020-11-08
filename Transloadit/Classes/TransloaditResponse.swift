@@ -13,5 +13,6 @@ public class TransloaditResponse: Codable {
     public var assemblyURL: String = ""
     public var statusCode: Int = 0
     public var error: String = ""
+    public var processing: Bool = false
 
 }

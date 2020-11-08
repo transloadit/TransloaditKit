@@ -10,22 +10,23 @@ import Foundation
 public protocol TransloaditDelegate {
     
     // MARK: Upload Progress
-    func tranloaditUploadProgress()
-    func transloaditUploadFailureBlock()
+    func tranloaditUploadProgress(bytesUploaded uploaded: Int, bytesRemaining remaining: Int)
+    func transloaditUploadFailure()
     
     // MARK: Create
-    func transloaditCreationResult(forObject: APIObject, withResult: TransloaditResponse)
+    func transloaditCreation(forObject: APIObject, withResult: TransloaditResponse)
     
     // MARK: GET
-    func transloaditGetResult(forObject: APIObject, withResult: TransloaditResponse)
+    func transloaditGet(forObject: APIObject, withResult: TransloaditResponse)
     
     
     // MARK: DELETE
-    func transloaditDeletionResult(forObject: APIObject, withResult: TransloaditResponse)
+    func transloaditDeletion(forObject: APIObject, withResult: TransloaditResponse)
 
     
     // MARK: Processing
-    func transloaditProcessResult()
-    func transloaditProcessProgress()
+    func transloaditProcessing(forObject: APIObject, withResult: TransloaditResponse)
+    func transloaditProcessingFailure(forObject: APIObject, withResult: TransloaditResponse)
+
     
 }

@@ -13,6 +13,8 @@ public class Assembly: APIObject {
     var numberOfFiles: Int?
     
     internal var tusUpload: TUSUpload?
+    internal var assemblyURL: String?
+
     
     internal var steps: [String: Any] = [:]
     

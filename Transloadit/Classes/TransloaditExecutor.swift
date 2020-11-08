@@ -9,15 +9,17 @@ import Foundation
 import CommonCrypto
 import TUSKit
 
-class TransloaditExecutor {
+class TransloaditExecutor: TUSDelegate {
     // MARK: CRUD
     private var SECRET = ""
     private var KEY = ""
+    private var timer: Timer?
     
     
     internal init(withKey key: String, andSecret secret: String) {
         KEY = key
         SECRET = secret
+        TUSClient.shared.delegate = self
     }
     
     private func generateBody(forAPIObject object: APIObject, includeSecret: Bool) -> Dictionary<String,String> {
@@ -57,11 +59,9 @@ class TransloaditExecutor {
                     print(response.tusURL)
                     TUSClient.shared.uploadURL = URL(string: response.tusURL)
                     //TUSClient.shared.startOrResume(forUpload: (object as! Assembly).tusUpload!, withExisitingURL: "")
-                    
-                    
-                    
                     let metadata = String(format: "%@ %@,%@ %@,%@ %@", "assembly_url", response.assemblyURL.data(using: .utf8)?.base64EncodedString() as! CVarArg,"filename","file".data(using: .utf8)?.base64EncodedString() as! CVarArg,"fieldname","file-input".data(using: .utf8)?.base64EncodedString() as! CVarArg)
-                    
+                    (object as! Assembly).assemblyURL = response.assemblyURL
+                    self.assemblyStatus(forAssembly: (object as! Assembly))
                     TUSClient.shared.createOrResume(forUpload: (object as! Assembly).tusUpload!, withCustomHeaders: ["Upload-Metadata":metadata])
                 }
                 if object.isKind(of: Template.self) {
@@ -78,7 +78,7 @@ class TransloaditExecutor {
 //                Transloadit.shared.delegate?.transloaditCreationResult(forObject: object)
 
             }
-            Transloadit.shared.delegate?.transloaditCreationResult(forObject: object, withResult: response)
+            Transloadit.shared.delegate?.transloaditCreation(forObject: object, withResult: response)
 
         })
     }
@@ -103,7 +103,7 @@ class TransloaditExecutor {
 //                Transloadit.shared.delegate?.transloaditGetResult(forObject: object)
 
             }
-            Transloadit.shared.delegate?.transloaditGetResult(forObject: object, withResult: response)
+            Transloadit.shared.delegate?.transloaditGet(forObject: object, withResult: response)
 
         })
     }
@@ -125,7 +125,7 @@ class TransloaditExecutor {
 //                    Transloadit.shared.delegate?.transloaditTemplateGetError()
                 }
             }
-            Transloadit.shared.delegate?.transloaditGetResult(forObject: object, withResult: response)
+            Transloadit.shared.delegate?.transloaditGet(forObject: object, withResult: response)
         })
     }
     
@@ -146,15 +146,44 @@ class TransloaditExecutor {
 //                    Transloadit.shared.delegate?.transloaditTemplateDeletionError()
                 }
             }
-            Transloadit.shared.delegate?.transloaditDeletionResult(forObject: object, withResult: response)
+            Transloadit.shared.delegate?.transloaditDeletion(forObject: object, withResult: response)
         })
     }
     
     // MARK: Assembly
     
-    public func invokeAssembly() {
-        
+    public func assemblyStatus(forAssembly: Assembly) {
+        print(forAssembly.assemblyURL!)
+        Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { timer in
+            var request: URLRequest = URLRequest(url: URL(string: forAssembly.assemblyURL!)!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
+            request.httpMethod = "GET"
+            Transloadit.shared.transloaditSession.session.dataTask(with: request as URLRequest) { (data, response, error) in
+                var resonseData = [String: Any]()
+                let transloaditResponse = TransloaditResponse()
+
+                guard let data = data, error == nil else { return }
+                do {
+                    resonseData = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: Any]
+                    if (resonseData["ok"] as! String == "ASSEMBLY_COMPLETED") {
+                        transloaditResponse.processing = false
+                        transloaditResponse.success = true
+                        timer.invalidate()
+                    } else {
+                        transloaditResponse.processing = true
+                    }
+                    Transloadit.shared.delegate?.transloaditProcessing(forObject: forAssembly, withResult: transloaditResponse)
+                } catch let error as NSError {
+                    print(error)
+                }
+            }.resume()
+//            runCount += 1
+
+//            if runCount == 3 {
+//                timer.invalidate()
+//            }
+        }
     }
+    
     
     //MARK: PRIVATE
     
@@ -220,6 +249,26 @@ class TransloaditExecutor {
         }
         
         dataTask.resume()
+    }
+    
+    //MARK: TUS Delegate
+    
+    func TUSProgress(bytesUploaded uploaded: Int, bytesRemaining remaining: Int) {
+        //
+        Transloadit.shared.delegate?.tranloaditUploadProgress(bytesUploaded: uploaded, bytesRemaining: remaining)
+    }
+    
+    func TUSProgress(forUpload upload: TUSUpload, bytesUploaded uploaded: Int, bytesRemaining remaining: Int) {
+        //
+    }
+    
+    func TUSSuccess(forUpload upload: TUSUpload) {
+//        Transloadit.shared.delegate?.tranloaditUploadProgress(bytesUploaded: Int(upload.contentLength), bytesRemaining: Int(upload.contentLength))
+    }
+    
+    func TUSFailure(forUpload upload: TUSUpload?, withResponse response: TUSResponse?, andError error: Error?) {
+        //
+        Transloadit.shared.delegate?.transloaditUploadFailure()
     }
     
     
