@@ -29,7 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1205DC9F3DC2DDBE2EB8208A /* Transloadit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Transloadit.podspec; path = ../Transloadit.podspec; sourceTree = "<group>"; };
+		1205DC9F3DC2DDBE2EB8208A /* Transloadit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Transloadit.podspec; path = ../Transloadit.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		39AC5B09BF00DD78371F6439 /* Pods-Transloadit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Transloadit_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Transloadit_Tests/Pods-Transloadit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		4230C79F5438221084B5D4E3 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		4D8FE8C12558A41000F76117 /* Transloadit.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Transloadit.plist; sourceTree = "<group>"; };

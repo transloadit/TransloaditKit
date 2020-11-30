@@ -37,9 +37,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             var newSteps: [String: Any] = [:]
             newSteps["robot"] = "/image/resize"
             newSteps["width"] = 75
+            
             let assembly: Assembly = Transloadit.shared.newAssembly()
             
             assembly.addStep(name: "resize", options: newSteps)
+            assembly.addCustomParam(key: "Custom", dictionary: ["TestKey": "TestValue"])
             assembly.addFile(withPathURL: imageURL as! URL)
             assembly.save()
             

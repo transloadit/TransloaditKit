@@ -35,7 +35,8 @@ class TransloaditExecutor: TUSDelegate {
         let dateTime: String = formatter.string(from: Date().addingTimeInterval(300))
         let authObject = ["key": KEY, "expires": dateTime]
         
-        let params = ["auth": authObject, "steps": steps] as [String : Any]
+        let paramsOg = ["auth": authObject, "steps": steps] as [String : Any]
+        let params = paramsOg.merging((object as! Assembly).custom as! [String : Any]) { (current, _) in current }
         let paramsData: Data?
         if #available(iOS 13.0, *) {
             paramsData = try! JSONSerialization.data(withJSONObject: params, options:.withoutEscapingSlashes)
@@ -43,7 +44,6 @@ class TransloaditExecutor: TUSDelegate {
             paramsData = try! JSONSerialization.data(withJSONObject: params, options: [])
         }
         let paramsJsonString = String(data: paramsData!, encoding: .utf8)
-        
         var response = ["params": paramsJsonString!, "tus_num_expected_upload_files": "1"]
         
         if (!SECRET.isEmpty) {

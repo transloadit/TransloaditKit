@@ -17,6 +17,8 @@ public class Assembly: APIObject {
 
     
     internal var steps: NSMutableDictionary = [:]
+    internal var custom: NSMutableDictionary = [:]
+
     
     public override init() {
         //
@@ -34,6 +36,10 @@ public class Assembly: APIObject {
     
     public func addStep(name: String, options: [String: Any]) {
         steps[name] = options
+    }
+    
+    public func addCustomParam(key: String, dictionary: [String: Any]) {
+        custom[key] = dictionary
     }
     
     public func save() {
