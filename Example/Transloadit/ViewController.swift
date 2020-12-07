@@ -42,6 +42,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             
             assembly.addStep(name: "resize", options: newSteps)
             assembly.addCustomParam(key: "Custom", dictionary: ["TestKey": "TestValue"])
+            assembly.addCustomParam(key: "Custom2", string: "TestValue2")
+
             assembly.addFile(withPathURL: imageURL as! URL)
             assembly.save()
             

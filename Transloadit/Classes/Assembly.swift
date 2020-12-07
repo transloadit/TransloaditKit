@@ -42,6 +42,10 @@ public class Assembly: APIObject {
         custom[key] = dictionary
     }
     
+    public func addCustomParam(key: String, string: String) {
+        custom[key] = string
+    }
+    
     public func save() {
 
         Transloadit.shared.invoke(assembly: self)
