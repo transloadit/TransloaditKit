@@ -46,8 +46,12 @@ public class Assembly: APIObject {
         custom[key] = string
     }
     
+    @available(*, deprecated, renamed: "create")
     public func save() {
-
+        Transloadit.shared.invoke(assembly: self)
+    }
+    
+    public func create() {
         Transloadit.shared.invoke(assembly: self)
     }
     

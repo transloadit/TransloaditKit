@@ -176,11 +176,6 @@ class TransloaditExecutor: TUSDelegate {
                     print(error)
                 }
             }.resume()
-//            runCount += 1
-
-//            if runCount == 3 {
-//                timer.invalidate()
-//            }
         }
     }
     
