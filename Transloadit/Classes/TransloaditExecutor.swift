@@ -59,10 +59,12 @@ class TransloaditExecutor: TUSDelegate {
                     print(response.tusURL)
                     TUSClient.shared.uploadURL = URL(string: response.tusURL)
                     //TUSClient.shared.startOrResume(forUpload: (object as! Assembly).tusUpload!, withExisitingURL: "")
-                    let metadata = String(format: "%@ %@,%@ %@,%@ %@", "assembly_url", response.assemblyURL.data(using: .utf8)?.base64EncodedString() as! CVarArg,"filename","file".data(using: .utf8)?.base64EncodedString() as! CVarArg,"fieldname","file-input".data(using: .utf8)?.base64EncodedString() as! CVarArg)
+                    (object as! Assembly).tusUpload?.metadata = ["fieldname": "file-input",
+                                                                 "assembly_url": response.assemblyURL,
+                                                                 "filename": "file"]
                     (object as! Assembly).assemblyURL = response.assemblyURL
                     self.assemblyStatus(forAssembly: (object as! Assembly))
-                    TUSClient.shared.createOrResume(forUpload: (object as! Assembly).tusUpload!, withCustomHeaders: ["Upload-Metadata":metadata])
+                    TUSClient.shared.createOrResume(forUpload: (object as! Assembly).tusUpload!)
                 }
                 if object.isKind(of: Template.self) {
 //                    Transloadit.shared.delegate?.transloaditCreationResult(forObject: object)
