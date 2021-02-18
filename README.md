@@ -21,7 +21,6 @@ pod 'transloadit'
 
 **Swift Package Manager:**
 
-
 ## Install Troubleshooting
 
 **CocoaPods**
@@ -41,8 +40,6 @@ You have either:
  * not added the source repo that hosts the Podspec to your Podfile.
  ```
  Please follow instructuions and run `pod repo update`
-
-
 
 ## Setup
 
@@ -133,3 +130,52 @@ assembly.save()
 ## License
 
 [The MIT License](LICENSE).
+
+
+
+## Usage
+
+
+### Import TransloaditKit
+
+*Objective-C*
+```objc
+#import <TransloaditKit/Transloadit.h>
+```
+
+*Swift*
+```Swift
+import Transloadit
+```
+
+### Initializing TransloaditKit
+
+*Objective-C*
+
+```objc
+@interface TransloaditViewController () <TransloaditDelegate>
+@end
+...
+Transloadit *transloadit;
+....
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  transloadit = [[Transloadit alloc] init];
+  [transloadit setDelegate:self];
+  ...
+}
+```
+
+*Swift*
+
+```Swift
+class TransloaditViewControllerSwifty: UIViewController, TransloaditDelegate {
+  ...
+  let transloadit: Transloadit = Transloadit()
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.transloadit.delegate = self;
+    ...
+  }
+}
+```
