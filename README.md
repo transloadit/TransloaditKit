@@ -1,7 +1,6 @@
 # TransloaditKit
-An **iOS & macOS** Integration for [Transloadit](https://transloadit.com)'s file uploading and encoding service
 
-## Intro
+An **iOS & macOS** Integration for [Transloadit](https://transloadit.com)'s file uploading and encoding service
 
 [Transloadit](https://transloadit.com) is a service that helps you handle file uploads, resize, crop and watermark your images, make GIFs, transcode your videos, extract thumbnails, generate audio waveforms, and so much more. In short, [Transloadit](https://transloadit.com) is the Swiss Army Knife for your files.
 
@@ -22,7 +21,7 @@ pod 'transloadit'
 **Swift Package Manager:**
 
 
-## Install Troubleshooting
+### Install Troubleshooting
 
 **CocoaPods**
 
@@ -41,8 +40,6 @@ You have either:
  * not added the source repo that hosts the Podspec to your Podfile.
  ```
  Please follow instructuions and run `pod repo update`
-
-
 
 ## Setup
 
@@ -69,7 +66,9 @@ or add your keys to `Transloadit.plist` in your root directory and enter a defau
         return true
     }
 ```
-Transloadit.plist
+
+`Transloadit.plist`:
+
 ```plist
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -86,15 +85,18 @@ Transloadit.plist
 #### Other Configs
 
 ##### Logging
+
 ```Swift
 config.logLevel = .All
 ```
 
 ##### URLSession
+
 ```
 ```
 
 #### Delegate
+
 Be sure to set the delgate in order to recieve proper callbacks from the library 
 
 ```Swift
@@ -105,7 +107,7 @@ Transloadit.shared.delegate = self
 
 ### Create an Assembly
 
-To create an assembly, you use the `newAssembly` method.
+To create an Assembly, you use the `newAssembly` method.
 
 ```Swift
 // Create the assembly
@@ -128,7 +130,7 @@ assembly.save()
 
 ## Example
 
-//Link to example projject
+Download the GitHub repo and open the [`Example/`](https://github.com/transloadit/TransloaditKit/tree/master/Example) folder.
 
 ## License
 
