@@ -25,7 +25,8 @@ pod 'transloadit'
 
 **CocoaPods**
 
-If during install you recieve an error resembling
+If during install you receive an error resembling:
+
 ```
 [!] CocoaPods could not find compatible versions for pod "TUSKit":
   In Podfile:
@@ -39,7 +40,8 @@ You have either:
  * mistyped the name or version.
  * not added the source repo that hosts the Podspec to your Podfile.
  ```
- Please follow instructuions and run `pod repo update`
+ 
+ Please follow instructions and run `pod repo update`
 
 ## Setup
 
