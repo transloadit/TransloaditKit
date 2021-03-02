@@ -20,7 +20,6 @@ pod 'transloadit'
 
 **Swift Package Manager:**
 
-
 ### Install Troubleshooting
 
 **CocoaPods**
@@ -46,7 +45,7 @@ You have either:
 ## Setup
 
 All interactions with the SDK begin with the `import Transloadit`
-Before utilzing, you'll need to configure your TransloaditKit library with desired config.
+Before utilizing, you'll need to configure your TransloaditKit library with desired config.
 
 ### Implement
 
@@ -99,7 +98,7 @@ config.logLevel = .All
 
 #### Delegate
 
-Be sure to set the delgate in order to recieve proper callbacks from the library 
+Be sure to set the delegate in order to receive proper callbacks from the library 
 
 ```Swift
 Transloadit.shared.delegate = self
@@ -137,3 +136,52 @@ Download the GitHub repo and open the [`Example/`](https://github.com/transloadi
 ## License
 
 [The MIT License](LICENSE).
+
+
+
+## Usage
+
+
+### Import TransloaditKit
+
+*Objective-C*
+```objc
+#import <TransloaditKit/Transloadit.h>
+```
+
+*Swift*
+```Swift
+import Transloadit
+```
+
+### Initializing TransloaditKit
+
+*Objective-C*
+
+```objc
+@interface TransloaditViewController () <TransloaditDelegate>
+@end
+...
+Transloadit *transloadit;
+....
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  transloadit = [[Transloadit alloc] init];
+  [transloadit setDelegate:self];
+  ...
+}
+```
+
+*Swift*
+
+```Swift
+class TransloaditViewControllerSwifty: UIViewController, TransloaditDelegate {
+  ...
+  let transloadit: Transloadit = Transloadit()
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.transloadit.delegate = self;
+    ...
+  }
+}
+```
