@@ -13,7 +13,7 @@ public class Assembly: APIObject {
     var numberOfFiles: Int?
     
     internal var tusUpload: TUSUpload?
-    public var assemblyURL: String?
+    internal var assemblyURL: String?
 
     
     internal var steps: NSMutableDictionary = [:]
@@ -25,6 +25,9 @@ public class Assembly: APIObject {
     }
     
     
+    public func addFile(withData: Data) {
+        
+    }
     
     public func addFile(withPathURL: URL) {
         tusUpload = TUSUpload(withId: withPathURL.lastPathComponent, andFilePathURL: withPathURL, andFileType: withPathURL.pathExtension)
