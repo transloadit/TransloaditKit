@@ -56,8 +56,8 @@ class TransloaditExecutor: TUSDelegate {
         self.urlRequest(withMethod: "POST", andObject: object, callback: { response in
             if (response.success) {
                 if object.isKind(of: Assembly.self) {
-                    print(response.tusURL)
-                    TUSClient.shared.uploadURL = URL(string: response.tusURL)
+                    Transloadit.shared.delegate?.transloaditCreation(forObject: object as! Assembly, withResult: response)
+                    TUSClient.shared.uploadURL = URL(string: response.tusURL)!
                     //TUSClient.shared.startOrResume(forUpload: (object as! Assembly).tusUpload!, withExisitingURL: "")
                     (object as! Assembly).tusUpload?.metadata = ["fieldname": "file-input",
                                                                  "assembly_url": response.assemblyURL,
@@ -72,7 +72,7 @@ class TransloaditExecutor: TUSDelegate {
 
             } else {
                 if object.isKind(of: Assembly.self) {
-//                    Transloadit.shared.delegate?.transloaditCreationResult(forObject: object)
+                    Transloadit.shared.delegate?.transloaditCreation(forObject: object as! Assembly, withResult: response)
                 }
                 if object.isKind(of: Template.self) {
 //                    Transloadit.shared.delegate?.transloaditTemplateCreationError()
@@ -238,10 +238,10 @@ class TransloaditExecutor: TUSDelegate {
                 }
             } catch let error as NSError {
                 print(error)
+                transloaditResponse.error = error.debugDescription
+                callback(transloaditResponse)
+
             }
-            //let outputStr  = String(data: data!, encoding: String.Encoding.utf8) as String!
-            // print(outputStr)
-            
             
         }
         

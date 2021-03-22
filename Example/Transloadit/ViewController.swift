@@ -94,7 +94,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func transloaditProcessing(forObject: APIObject, withResult: TransloaditResponse) {
         if (withResult.success) {
-            print("We did it!")
+            if(withResult.processing) {
+                print("Processing")
+            } else {
+                var assembly: Assembly = forObject as! Assembly
+                print("Processed")
+            }
         } else {
             print(withResult.error)
         }
