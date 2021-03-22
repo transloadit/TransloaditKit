@@ -11,9 +11,9 @@ PODS:
     - FBSnapshotTestCase (~> 2.0)
     - Nimble (~> 7.0)
   - Quick (1.2.0)
-  - Transloadit (2.1.1.alpha):
-    - TUSKit (~> 2.1.5.alpha)
-  - TUSKit (2.1.5.alpha)
+  - Transloadit (2.1.0):
+    - TUSKit (~> 2.1.0)
+  - TUSKit (2.1.0)
 
 DEPENDENCIES:
   - FBSnapshotTestCase (~> 2.1.4)
@@ -39,8 +39,8 @@ SPEC CHECKSUMS:
   Nimble: 051e3d8912d40138fa5591c78594f95fb172af37
   Nimble-Snapshots: f5459b5b091678dc942d03ec4741cacb58ba4a52
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
-  Transloadit: 04579bc6c47e394226ad990dcd1f50988c8cf2cd
-  TUSKit: 848e7da5efd00aedb649e838ff968fb11dd664d5
+  Transloadit: 37ec9471fb4d82119bcd788e6a0305995642fd9f
+  TUSKit: 2fe53b42c248596a219c991096ca785997e72eb2
 
 PODFILE CHECKSUM: c54fe98a78e285d7620018f91160940d9909bc2a
 
