@@ -27,7 +27,7 @@ public class Assembly: APIObject {
     
     
     public func addFile(withPathURL: URL) {
-        tusUpload = TUSUpload(withId: withPathURL.lastPathComponent, andFilePathURL: withPathURL, andFileType: withPathURL.pathExtension)
+        tusUpload = TUSUpload(withId: withPathURL.deletingPathExtension().lastPathComponent, andFilePathURL: withPathURL, andFileType: withPathURL.pathExtension)
     }
 
     
