@@ -8,7 +8,7 @@ This is an **iOS and macOS** SDK to make it easy to talk to the [Transloadit](ht
 
 ## Install
 
-The library can be downloaded manualy from this repo, or installed with your favorite package managment software
+The library can be downloaded manually from this repo, or installed with your favorite package managment software
 
 **CocoaPods:**
 
