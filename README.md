@@ -104,7 +104,7 @@ Be sure to set the delegate in order to receive proper callbacks from the librar
 Transloadit.shared.delegate = self
 ```
 
-## Usage 
+## Usage
 
 ### Create an Assembly
 
