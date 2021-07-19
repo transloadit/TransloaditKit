@@ -30,8 +30,13 @@ class TransloaditExecutor: TUSDelegate {
         }
         
         let formatter: DateFormatter = DateFormatter()
-        formatter.dateFormat = "YYYY/MM/dd HH:mm:s+00:00"
+        // The locale and time zone are fixed to allow reproducible conversions,
+        // independent of the locale and time setting on the user's device.
+        // As recommend in the 'Working With Fixed Format Date Representations' section on
+        // https://developer.apple.com/documentation/foundation/dateformatter
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.timeZone = TimeZone(abbreviation: "UTC")
+        formatter.dateFormat = "YYYY/MM/dd HH:mm:ss+00:00"
         let dateTime: String = formatter.string(from: Date().addingTimeInterval(300))
         let authObject = ["key": KEY, "expires": dateTime]
         
