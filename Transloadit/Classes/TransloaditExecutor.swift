@@ -9,17 +9,20 @@ import Foundation
 import CommonCrypto
 import TUSKit
 
-class TransloaditExecutor: TUSDelegate {
+class TransloaditExecutor {
     // MARK: CRUD
     private var SECRET = ""
     private var KEY = ""
     private var timer: Timer?
     
+    let tusClient: TUSClient
     
     internal init(withKey key: String, andSecret secret: String) {
         KEY = key
         SECRET = secret
-        TUSClient.shared.delegate = self
+        tusClient = TUSClient(config: TUSConfig(server: URL(string: "https://tusd.tusdemo.net/files")!), sessionIdentifier: "TransloadItKit", storageDirectory: nil)
+        tusClient.delegate = self
+        tusClient.start()
     }
     
     private func generateBody(forAPIObject object: APIObject, includeSecret: Bool) -> Dictionary<String,String> {
@@ -53,21 +56,47 @@ class TransloaditExecutor: TUSDelegate {
     }
     
     public func create(_ object: APIObject) {
-        self.urlRequest(withMethod: "POST", andObject: object, callback: { response in
+        self.urlRequest(withMethod: "POST", andObject: object, callback: { [weak tusClient] response in
             if (response.success) {
-                if object.isKind(of: Assembly.self) {
-                    Transloadit.shared.delegate?.transloaditCreation(forObject: object as! Assembly, withResult: response)
-                    TUSClient.shared.uploadURL = URL(string: response.tusURL)!
-                    //TUSClient.shared.startOrResume(forUpload: (object as! Assembly).tusUpload!, withExisitingURL: "")
-                    (object as! Assembly).tusUpload?.metadata = ["fieldname": "file-input",
-                                                                 "assembly_url": response.assemblyURL,
-                                                                 "filename": "file"]
-                    (object as! Assembly).assemblyURL = response.assemblyURL
-                    self.assemblyStatus(forAssembly: (object as! Assembly))
-                    TUSClient.shared.createOrResume(forUpload: (object as! Assembly).tusUpload!)
+                guard let tusClient = tusClient else {
+                    return
                 }
-                if object.isKind(of: Template.self) {
-//                    Transloadit.shared.delegate?.transloaditCreationResult(forObject: object)
+                
+                guard let assembly = object as? Assembly else {
+                    assertionFailure("Only assemblies are supported")
+                    return
+                }
+                
+                guard let filePath = assembly.filePath else {
+                    assertionFailure("Assembly passed without a file path")
+                    return
+                }
+                
+                Transloadit.shared.delegate?.transloaditCreation(forObject: assembly, withResult: response)
+//                TUSClient.shared.uploadURL = URL(string: response.tusURL)! // TODO Update URL?
+                //TUSClient.shared.startOrResume(forUpload: (object as! Assembly).tusUpload!, withExisitingURL: "")
+                let metaData = ["fieldname": "file-input",
+                                     "assembly_url": response.assemblyURL,
+                                     "filename": "file"]
+                assembly.metaData = metaData
+                assembly.assemblyURL = response.assemblyURL
+                self.assemblyStatus(forAssembly: assembly)
+                guard let uploadURL = URL(string: response.tusURL) else {
+                    // TODO: Make real error
+                    assertionFailure("No URL retrieved")
+                    return
+                }
+                
+                
+                // TODO: Figure out why tusURL isn't working for create call.
+                
+                // TODO: Maybe skip straight to uploading?
+                
+                
+                do {
+                    try tusClient.uploadFileAt(filePath: filePath, uploadURL: uploadURL, customHeaders: metaData)
+                } catch {
+                    assertionFailure("Error \(error) for \(filePath)")
                 }
 
             } else {
@@ -160,13 +189,13 @@ class TransloaditExecutor: TUSDelegate {
             var request: URLRequest = URLRequest(url: URL(string: forAssembly.assemblyURL!)!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
             request.httpMethod = "GET"
             Transloadit.shared.transloaditSession.session.dataTask(with: request as URLRequest) { (data, response, error) in
-                var resonseData = [String: Any]()
+                var responseData = [String: Any]()
                 let transloaditResponse = TransloaditResponse()
 
                 guard let data = data, error == nil else { return }
                 do {
-                    resonseData = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: Any]
-                    if (resonseData["ok"] as! String == "ASSEMBLY_COMPLETED") {
+                    responseData = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: Any]
+                    if (responseData["ok"] as! String == "ASSEMBLY_COMPLETED") {
                         transloaditResponse.processing = false
                         transloaditResponse.success = true
                         timer.invalidate()
@@ -250,23 +279,47 @@ class TransloaditExecutor: TUSDelegate {
     
     //MARK: TUS Delegate
     
-    func TUSProgress(bytesUploaded uploaded: Int, bytesRemaining remaining: Int) {
-        //
-        Transloadit.shared.delegate?.tranloaditUploadProgress(bytesUploaded: uploaded, bytesRemaining: remaining)
+//    func TUSProgress(bytesUploaded uploaded: Int, bytesRemaining remaining: Int) {
+//        //
+//        Transloadit.shared.delegate?.tranloaditUploadProgress(bytesUploaded: uploaded, bytesRemaining: remaining)
+//    }
+//
+//    func TUSProgress(forUpload upload: TUSUpload, bytesUploaded uploaded: Int, bytesRemaining remaining: Int) {
+//        //
+//    }
+//
+//    func TUSSuccess(forUpload upload: TUSUpload) {
+////        Transloadit.shared.delegate?.tranloaditUploadProgress(bytesUploaded: Int(upload.contentLength), bytesRemaining: Int(upload.contentLength))
+//    }
+//
+//    func TUSFailure(forUpload upload: TUSUpload?, withResponse response: TUSResponse?, andError error: Error?) {
+//        //
+//        Transloadit.shared.delegate?.transloaditUploadFailure()
+//    }
+    
+    
+}
+
+extension TransloaditExecutor: TUSClientDelegate {
+    public func didStartUpload(id: UUID, client: TUSClient) {
+        print("TUSClient started upload, id is \(id)")
+        print("TUSClient remaining is \(client.remainingUploads)")
     }
     
-    func TUSProgress(forUpload upload: TUSUpload, bytesUploaded uploaded: Int, bytesRemaining remaining: Int) {
-        //
+    public func didFinishUpload(id: UUID, url: URL, client: TUSClient) {
+        print("TUSClient finished upload, id is \(id) url is \(url)")
+        print("TUSClient remaining is \(client.remainingUploads)")
+        if client.remainingUploads == 0 {
+            print("Finished uploading")
+        }
     }
     
-    func TUSSuccess(forUpload upload: TUSUpload) {
-//        Transloadit.shared.delegate?.tranloaditUploadProgress(bytesUploaded: Int(upload.contentLength), bytesRemaining: Int(upload.contentLength))
+    public func uploadFailed(id: UUID, error: Error, client: TUSClient) {
+        print("TUSClient upload failed for \(id) error \(error)")
     }
     
-    func TUSFailure(forUpload upload: TUSUpload?, withResponse response: TUSResponse?, andError error: Error?) {
-        //
+    public func fileError(error: TUSClientError, client: TUSClient) {
+        print("TUSClient File error \(error)")
         Transloadit.shared.delegate?.transloaditUploadFailure()
     }
-    
-    
 }

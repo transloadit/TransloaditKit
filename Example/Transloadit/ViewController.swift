@@ -47,7 +47,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             assembly.addFile(withPathURL: imageURL as! URL)
             assembly.create()
             
-            
         }
         
         dismiss(animated: true) {

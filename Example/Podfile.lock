@@ -1,47 +1,22 @@
 PODS:
-  - FBSnapshotTestCase (2.1.4):
-    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
-  - FBSnapshotTestCase/Core (2.1.4)
-  - FBSnapshotTestCase/SwiftSupport (2.1.4):
-    - FBSnapshotTestCase/Core
-  - Nimble (7.3.4)
-  - Nimble-Snapshots (6.3.0):
-    - Nimble-Snapshots/Core (= 6.3.0)
-  - Nimble-Snapshots/Core (6.3.0):
-    - FBSnapshotTestCase (~> 2.0)
-    - Nimble (~> 7.0)
-  - Quick (1.2.0)
-  - Transloadit (2.1.0):
-    - TUSKit (~> 2.1.0)
-  - TUSKit (2.1.0)
+  - Transloadit (2.0.3):
+    - TUSKit
+  - TUSKit (3.0.0)
 
 DEPENDENCIES:
-  - FBSnapshotTestCase (~> 2.1.4)
-  - Nimble (~> 7.0)
-  - Nimble-Snapshots (~> 6.3.0)
-  - Quick (~> 1.2.0)
   - Transloadit (from `../`)
-
-SPEC REPOS:
-  trunk:
-    - FBSnapshotTestCase
-    - Nimble
-    - Nimble-Snapshots
-    - Quick
-    - TUSKit
+  - TUSKit (from `../../TUSKit`)
 
 EXTERNAL SOURCES:
   Transloadit:
     :path: "../"
+  TUSKit:
+    :path: "../../TUSKit"
 
 SPEC CHECKSUMS:
-  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
-  Nimble: 051e3d8912d40138fa5591c78594f95fb172af37
-  Nimble-Snapshots: f5459b5b091678dc942d03ec4741cacb58ba4a52
-  Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
-  Transloadit: 37ec9471fb4d82119bcd788e6a0305995642fd9f
-  TUSKit: 2fe53b42c248596a219c991096ca785997e72eb2
+  Transloadit: 3085a728a33e00ba7fce5745a7b7d9d40e358c64
+  TUSKit: 7e8b2df929a9e85778da317da3fac2720c89b502
 
-PODFILE CHECKSUM: c54fe98a78e285d7620018f91160940d9909bc2a
+PODFILE CHECKSUM: 8d0c241bac2c4c8ccde2689b63d57ca5557eb299
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1

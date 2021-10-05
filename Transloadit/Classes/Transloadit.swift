@@ -10,14 +10,13 @@ import TUSKit
 
 public class Transloadit: NSObject, URLSessionTaskDelegate {
 
-    var tusClient: TUSClient?
     private static var config: TransloaditConfig?
-    private let executor: TransloaditExecutor
 
     internal var transloaditSession: TransloaditSession = TransloaditSession()
 
     static public var shared: Transloadit = Transloadit()
-    
+    private let executor: TransloaditExecutor
+
     public var delegate: TransloaditDelegate?
     
     public class func setup(with config:TransloaditConfig){
@@ -25,16 +24,11 @@ public class Transloadit: NSObject, URLSessionTaskDelegate {
     }
     
     private override init() {
-        guard let config = Transloadit.config else {
-            fatalError("Error - you must call setup before accessing Transloadit")
-        }
-        var tusConfig = TUSConfig(withUploadURLString: "https://tusd.tusdemo.net/files")
-        tusConfig.logLevel = .All
-        TUSClient.setup(with: tusConfig)
         executor = TransloaditExecutor(withKey: Transloadit.config!.publicKey, andSecret: Transloadit.config!.privateKey)
-        super.init()
-        transloaditSession = TransloaditSession(customConfiguration: URLSessionConfiguration.default, andDelegate: self)
 
+        super.init()
+        
+        transloaditSession = TransloaditSession(customConfiguration: URLSessionConfiguration.default, andDelegate: self)
     }
     
     internal func invoke(assembly: Assembly) {
@@ -44,11 +38,5 @@ public class Transloadit: NSObject, URLSessionTaskDelegate {
     public func newAssembly() -> Assembly {
         return Assembly()
     }
-
-    
-    
-    
-    
-    
     
 }
