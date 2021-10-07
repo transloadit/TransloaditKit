@@ -301,6 +301,12 @@ class TransloaditExecutor {
 }
 
 extension TransloaditExecutor: TUSClientDelegate {
+    func totalProgress(progress: Float, client: TUSClient) {
+    }
+    
+    func progressFor(id: UUID, progress: Float, client: TUSClient) {
+    }
+    
     public func didStartUpload(id: UUID, client: TUSClient) {
         print("TUSClient started upload, id is \(id)")
         print("TUSClient remaining is \(client.remainingUploads)")
