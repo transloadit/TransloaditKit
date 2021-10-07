@@ -301,10 +301,12 @@ class TransloaditExecutor {
 }
 
 extension TransloaditExecutor: TUSClientDelegate {
-    func totalProgress(progress: Float, client: TUSClient) {
+    func progressFor(id: UUID, bytesUploaded: Int, totalBytes: Int, client: TUSClient) {
+        //
     }
     
-    func progressFor(id: UUID, progress: Float, client: TUSClient) {
+    func totalProgress(bytesUploaded: Int, totalBytes: Int, client: TUSClient) {
+        Transloadit.shared.delegate?.tranloaditUploadProgress(bytesUploaded: bytesUploaded, bytesRemaining: totalBytes - bytesUploaded)
     }
     
     public func didStartUpload(id: UUID, client: TUSClient) {
