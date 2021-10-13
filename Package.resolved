@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "TUSKit",
+        "repositoryURL": "https://github.com/tus/TUSKit",
+        "state": {
+          "branch": "rewrite/start",
+          "revision": "8b2be3c8f6f3b190849278414369368614d4f381",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
