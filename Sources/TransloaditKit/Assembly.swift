@@ -39,17 +39,19 @@ public struct Assembly: Decodable {
 //    /// id is always a 32 char UUIDv4 string without dashes
     public let id: String // TODO: UUID? type?
 //    public let status: Status
+    let error: String?
 
     /// Used to upload images
-    let tusURL: URL
+    public let tusURL: URL
     /// Used to check the status
-    let assemblySSLURL: URL
+    public let assemblySSLURL: URL
     
     enum CodingKeys: String, CodingKey {
         case id = "assemblyId"
         // Since the names are tus_url and assembly_ssl_url we only snakecase the breakoff point. So, tusUrl turns into tus_url
         case tusURL = "tusUrl"
         case assemblySSLURL = "assemblySslUrl"
+        case error
     }
 }
 

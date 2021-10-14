@@ -14,10 +14,7 @@ final class MyUploader: ObservableObject {
     
     func upload(_ urls: [URL]) {
         let resizeStep = StepFactory.makeResizeStep(width: 200, height: 100)
-        
-        let customStep = Step(name: "custom", robot: "/blabla/custom", options: [ "resize_strategy": "fit",
-                                                                                 "result": true])
-        transloadit.createAssembly(steps: [resizeStep, customStep], file: urls[0])
+        transloadit.createAssembly(steps: [resizeStep], file: urls[0])
     }
     
     init() {

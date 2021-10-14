@@ -10,6 +10,8 @@ import CommonCrypto
 
 enum TransloaditAPIError: Error {
     case cantSerialize
+    case couldNotCreateAssembly(Error)
+    case assemblyError(String)
 }
 
 final class TransloaditAPI {
@@ -37,16 +39,36 @@ final class TransloaditAPI {
         self.session = session
     }
     
-    public func createAssembly(steps: [Step], file: URL, completion: @escaping((Result<Assembly, TransloaditError>) -> Void)) {
-        DispatchQueue.main.async {
-            try? self.makeRequest(steps: steps)
-            let assembly = Assembly(id: "abc", tusURL: URL(string: "abc")!, assemblySSLURL: URL(string: "def")!)
-//            let assembly = Assembly(id: UUID().uuidString, /* status: .completed, */ statusCode: 200, error: nil, tusURL: URL(string: "abc")!, assemblySSLURL: URL(string: "def")!, bytesReceived: 200, bytesExpected: 200)
-            completion(.success(assembly))
+    public func createAssembly(steps: [Step], file: URL, completion: @escaping((Result<Assembly, TransloaditAPIError>) -> Void)) {
+        guard let request = try? makeRequest(steps: steps) else {
+            // Next runloop to make the API consistent with the network runloop. Otherwise it would return instantly, can give weird effects
+            DispatchQueue.main.async {
+                completion(.failure(TransloaditAPIError.cantSerialize))
+            }
+            return
         }
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
+            if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let assembly = try decoder.decode(Assembly.self, from: data)
+                    
+                    if let error = assembly.error {
+                        completion(.failure(.assemblyError(error)))
+                    } else {
+                        completion(.success(assembly))
+                    }
+                } catch {
+                    completion(.failure(TransloaditAPIError.couldNotCreateAssembly(error)))
+                }
+            }
+        }
+        task.resume()
     }
     
-    private func makeRequest(steps: [Step]) throws {
+    private func makeRequest(steps: [Step]) throws -> URLRequest {
         
         func makeBody(includeSecret: Bool) throws -> [String: String] {
             // TODO: Why + 300?
@@ -108,28 +130,8 @@ final class TransloaditAPI {
         
         let request = try makeRequest()
         
-        let task = session.dataTask(with: request) { (data, response, error) in
-    
-            if let data = data {
-                do {
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    let assembly = try decoder.decode(Assembly.self, from: data)
-                    print(assembly)
-                } catch {
-                    print(try? JSONSerialization.jsonObject(with: data, options: .allowFragments))
 
-                    print(error)
-                }
-            }
-            
-        }
-        
-        task.resume()
-                            
-        
-        
-//        let dataTask = Transloadit.shared.transloaditSession.session.dataTask(with: request as URLRequest) { (data, response, error) in
+        return request
 //            var resonseData = [String: Any]()
     }
     
@@ -211,6 +213,7 @@ extension String {
 }
 
 extension Array where Element == Step {
+    /// Generate API friendly dictionary to create an Assembly, based on steps.
     var toDictionary: [String: Any] {
         var values = [String: Any]()
         

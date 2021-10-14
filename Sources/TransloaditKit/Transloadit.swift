@@ -40,7 +40,7 @@ public final class Transloadit {
         
         // TODO: Mock network for testing?
         // TODO: Add config and session and storage dir
-        self.tusClient = TUSClient(config: TUSConfig(server: URL(string:"abc")!), sessionIdentifier: "TransloadIt", storageDirectory: nil)
+        self.tusClient = TUSClient(config: TUSConfig(server: URL(string:"https://api2-kishtw.transloadit.com/resumable/files/")!), sessionIdentifier: "TransloadIt", storageDirectory: nil)
         tusClient.delegate = self
     }
     
@@ -52,13 +52,21 @@ public final class Transloadit {
             case .success(let assembly):
                 self.delegate?.didCreateAssembly(assembly: assembly, client: self)
                 do {
-                    // TODO: Re-enable or mock out 
-//                    try self.tusClient.uploadFileAt(filePath: file, uploadURL: assembly.tusURL)
+                    // TODO: Re-enable or mock out
+                    let metaData: [String: String] = ["fieldname": "file-input",
+                                                      "assembly_url": assembly.assemblySSLURL.absoluteString,
+                                                      "filename": "file"]
+                    
+                    print("Tus url is \(assembly.tusURL)")
+                    print("metaData is \(metaData)")
+                    
+                    try self.tusClient.uploadFileAt(filePath: file, uploadURL: assembly.tusURL, customHeaders: metaData)
                 } catch {
-                    assertionFailure("TODO: Handle error")
+                    // TODO: Handle error
                 }
-            case .failure:
-                assertionFailure("TODO: Handle error")
+            case .failure(let error):
+                print(error)
+                // TODO: Handle error
             }
         }
     }
@@ -67,19 +75,19 @@ public final class Transloadit {
 
 extension Transloadit: TUSClientDelegate {
     public func didStartUpload(id: UUID, client: TUSClient) {
-        
+        print("TUS Starting upload")
     }
     
     public func didFinishUpload(id: UUID, url: URL, client: TUSClient) {
-        
+        print("TUS Finishing upload \(url)")
     }
     
     public func fileError(error: TUSClientError, client: TUSClient) {
-        
+        print("TUS file error")
     }
     
     public func progressFor(id: UUID, bytesUploaded: Int, totalBytes: Int, client: TUSClient) {
-        
+        print("progress \(bytesUploaded) of \(totalBytes)")
     }
     
     public func totalProgress(bytesUploaded: Int, totalBytes: Int, client: TUSClient) {
@@ -88,7 +96,7 @@ extension Transloadit: TUSClientDelegate {
 
     
     public func uploadFailed(id: UUID, error: Error, client: TUSClient) {
-        
+        print("upload failed \(error)")
     }
 }
 
