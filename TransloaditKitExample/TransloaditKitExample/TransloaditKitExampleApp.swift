@@ -14,7 +14,7 @@ final class MyUploader: ObservableObject {
     
     func upload(_ urls: [URL]) {
         let resizeStep = StepFactory.makeResizeStep(width: 200, height: 100)
-        transloadit.createAssembly(steps: [resizeStep], file: urls[0])
+        transloadit.createAssemblyAndUpload(steps: [resizeStep], files: urls)
     }
     
     init() {
@@ -42,16 +42,24 @@ enum StepFactory {
 }
 
 extension MyUploader: TransloaditDelegate {
-    func didCreateAssembly(assembly: Assembly, client: Transloadit) {
-        print("didCreateAssembly")
+    func didErrorOnAssembly(errror: Error, assembly: Assembly, client: Transloadit) {
+        print("didErrorOnAssembly")
     }
     
-    func didError(assembly: Assembly) {
+    func didError(error: Error, client: Transloadit) {
         print("didError")
+    }
+    
+    func didCreateAssembly(assembly: Assembly, client: Transloadit) {
+        print("didCreateAssembly \(assembly)")
     }
     
     func didFinishUpload(assembly: Assembly, client: Transloadit) {
         print("didFinishUpload")
+        
+        transloadit.fetchStatus(assemblyURL: assembly.url) { result in
+            print("status result \(result)")
+        }
     }
     
     func didStartUpload(assembly: Assembly, client: Transloadit) {
