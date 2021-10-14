@@ -10,29 +10,29 @@ import CommonCrypto
 
 enum TransloaditAPIError: Error {
     case cantSerialize
+    case couldNotFetchStatus
     case couldNotCreateAssembly(Error)
     case assemblyError(String)
 }
 
 final class TransloaditAPI {
     
-    let basePath = URL(string: "https://api2.transloadit.com")!
+    private let basePath = URL(string: "https://api2.transloadit.com")!
     
     enum Endpoint: String {
         case assemblies = "/assemblies"
     }
     
-    let session: URLSession
+    private let session: URLSession
     
-    static let formatter: DateFormatter = {
+    static private let formatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY/MM/dd HH:mm:s+00:00"
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         return dateFormatter
     }()
     
-    // TODO: Security
-    let credentials: Transloadit.Credentials
+    private let credentials: Transloadit.Credentials
     
     init(credentials: Transloadit.Credentials, session: URLSession) {
         self.credentials = credentials
@@ -115,7 +115,6 @@ final class TransloaditAPI {
             return body
         }
         
-        
         func makeRequest() throws -> URLRequest {
             let path = basePath.appendingPathComponent(Endpoint.assemblies.rawValue)
             var request: URLRequest = URLRequest(url: path, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
@@ -132,8 +131,66 @@ final class TransloaditAPI {
         
 
         return request
-//            var resonseData = [String: Any]()
     }
+    
+    func fetchStatus(assemblyURL: URL, completion: @escaping (Result<AssemblyStatus, TransloaditAPIError>) -> Void) {
+        
+        func makeRequest() -> URLRequest {
+            var request = URLRequest(url: assemblyURL, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
+            request.httpMethod = "GET"
+            return request
+        }
+        
+        let task = session.dataTask(request: makeRequest()) { result in
+            switch result {
+            case .success(let data?, let response):
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let status = try decoder.decode(AssemblyStatus.self, from: data)
+                    completion(.success(status))
+                } catch {
+                    completion(.failure(.couldNotFetchStatus))
+                }
+            case .success(nil, _):
+                completion(.failure(.couldNotFetchStatus))
+            case .failure(let error):
+                // TODO: Underlying error?
+                completion(.failure(.couldNotFetchStatus))
+            }
+        }
+        
+        task.resume()
+    }
+    
+    /*
+    public func assemblyStatus(forAssembly: Assembly) {
+        print(forAssembly.assemblyURL!)
+        Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { timer in
+            var request: URLRequest = URLRequest(url: URL(string: forAssembly.assemblyURL!)!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
+            request.httpMethod = "GET"
+            Transloadit.shared.transloaditSession.session.dataTask(with: request as URLRequest) { (data, response, error) in
+                var responseData = [String: Any]()
+                let transloaditResponse = TransloaditResponse()
+
+                guard let data = data, error == nil else { return }
+                do {
+                    responseData = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: Any]
+                    if (responseData["ok"] as! String == "ASSEMBLY_COMPLETED") {
+                        transloaditResponse.processing = false
+                        transloaditResponse.success = true
+                        timer.invalidate()
+                    } else {
+                        transloaditResponse.processing = true
+                    }
+                    Transloadit.shared.delegate?.transloaditProcessing(forObject: forAssembly, withResult: transloaditResponse)
+                } catch let error as NSError {
+                    print(error)
+                }
+            }.resume()
+        }
+    }
+     */
     
     /*
     private func urlRequest(withMethod method: String, andObject object: APIObject, callback: @escaping (_ reponse: TransloaditResponse) -> Void ){
