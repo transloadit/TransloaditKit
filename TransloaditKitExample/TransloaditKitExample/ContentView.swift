@@ -10,11 +10,6 @@ import SwiftUI
 struct ContentView: View {
     
     @ObservedObject var uploader: MyUploader
-    
-    init(uploader: MyUploader) {
-        self.uploader = uploader
-    }
-    
     @State private var showingImagePicker = false
     
     var body: some View {

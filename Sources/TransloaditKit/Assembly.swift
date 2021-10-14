@@ -7,31 +7,49 @@
 
 import Foundation
 
-/// An Assembly type, retrieved from a server
-public struct Assembly {
+
+// Services overview
+// https://transloadit.com/docs/transcoding/#document-convert
+// https://transloadit.com/services/
+
+/// A step that's used to create an Assembly.
+public struct Step {
+    let name: String
+    let robot: String
+    let options: [String: Any]
     
-    public enum Status {
-        case canceled
-        case completed
-        case executing
-        case replaying
-        case uploading
+    public init(name: String, robot: String, options: [String: Any]) {
+        self.name = name
+        self.robot = robot
+        self.options = options
     }
+}
+
+/// An Assembly type, retrieved from a server
+public struct Assembly: Decodable {
     
-    /// id is always a 32 char UUIDv4 string without dashes
-    public let id: UUID // TODO: UUID? type?
-    public let status: Status
-    public let statusCode: Int
-    let error: String? // TODO: Maybe enum?
+//    public enum Status {
+//        case canceled
+//        case completed
+//        case executing
+//        case replaying
+//        case uploading
+//    }
     
+//    /// id is always a 32 char UUIDv4 string without dashes
+    public let id: String // TODO: UUID? type?
+//    public let status: Status
+
     /// Used to upload images
-    let tusURL: String
+    let tusURL: URL
     /// Used to check the status
-    let assemblySSLURL: String
+    let assemblySSLURL: URL
     
-    /// Upload status bytes received
-    let bytesReceived: Int
-    /// Upload status bytes expected
-    let bytesExpected: Int
+    enum CodingKeys: String, CodingKey {
+        case id = "assemblyId"
+        // Since the names are tus_url and assembly_ssl_url we only snakecase the breakoff point. So, tusUrl turns into tus_url
+        case tusURL = "tusUrl"
+        case assemblySSLURL = "assemblySslUrl"
+    }
 }
 

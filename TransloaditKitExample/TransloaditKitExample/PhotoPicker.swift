@@ -12,7 +12,6 @@ import TUSKit
 
 struct PhotoPicker: UIViewControllerRepresentable {
 
-//    @Binding var urls: [URL]
     var didPickPhotos: ([URL]) -> Void
     @Environment(\.presentationMode) var presentationMode
     
