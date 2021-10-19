@@ -9,7 +9,6 @@ import SwiftUI
 import TransloaditKit
 
 final class MyUploader: ObservableObject {
-    let config = ["key": "MY KEY", "secret": "MY SECRET", "bucket": "MY BUCKET"]
     let transloadit: Transloadit
     
     func upload(_ urls: [URL]) {
@@ -18,7 +17,8 @@ final class MyUploader: ObservableObject {
     }
     
     init() {
-        self.transloadit = Transloadit(config: config, session: URLSession.shared)
+        // TODO: Offer credentials example
+        self.transloadit = Transloadit(credentials: credentials, session: URLSession.shared)
         self.transloadit.delegate = self
         
         /*
