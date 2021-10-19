@@ -5,6 +5,7 @@ public struct TransloaditError: Error {
     let code: Int
     
     public static let couldNotFetchStatus = TransloaditError(code: 1)
+    public static let couldNotCreateAssembly = TransloaditError(code: 2)
 }
 
 public protocol TransloaditDelegate: AnyObject {
@@ -57,8 +58,15 @@ public final class Transloadit {
     
     /// Create an assembly, do not upload a file
     /// - Parameter steps: The steps of an Assembly.
-    public func createAssembly(steps: [Step]) {
-        assertionFailure("Implement me")
+    public func createAssembly(steps: [Step], completion: @escaping (Result<Assembly, TransloaditError>) -> Void) {
+        // TODO: Support multiple files
+        api.createAssembly(steps: steps) { result in
+            completion(
+            result.mapError { apiError in
+                // TODO: Pass underlying error?
+                TransloaditError.couldNotCreateAssembly
+            })
+        }
     }
     
     // TODO: Support assembly creation without uploading a file
@@ -71,8 +79,7 @@ public final class Transloadit {
     public func createAssemblyAndUpload(steps: [Step], files: [URL]) {
         // TODO: Support multiple files
         let file = files[0]
-        print("Creating assembly")
-        api.createAssembly(steps: steps, file: file) { [weak self] result in
+        api.createAssembly(steps: steps) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let assembly):

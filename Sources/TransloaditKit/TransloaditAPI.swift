@@ -39,7 +39,7 @@ final class TransloaditAPI {
         self.session = session
     }
     
-    public func createAssembly(steps: [Step], file: URL, completion: @escaping((Result<Assembly, TransloaditAPIError>) -> Void)) {
+    func createAssembly(steps: [Step], completion: @escaping((Result<Assembly, TransloaditAPIError>) -> Void)) {
         guard let request = try? makeRequest(steps: steps) else {
             // Next runloop to make the API consistent with the network runloop. Otherwise it would return instantly, can give weird effects
             DispatchQueue.main.async {
@@ -71,9 +71,9 @@ final class TransloaditAPI {
     private func makeRequest(steps: [Step]) throws -> URLRequest {
         
         func makeBody(includeSecret: Bool) throws -> [String: String] {
-            // TODO: Why + 300?
+            // TODO: Why + 300? Remainder from previous codebase.
             let dateTime: String = type(of: self).formatter.string(from: Date().addingTimeInterval(300))
-            
+           
             let authObject = ["key": credentials.key, "expires": dateTime]
             
             // TODO: Merge custom values?
@@ -96,8 +96,6 @@ final class TransloaditAPI {
                 body["signature"] = paramsJSONString.hmac(key: credentials.secret)
             }
             
-            print(body)
-            
             return body
         }
         
@@ -107,6 +105,7 @@ final class TransloaditAPI {
             let formFields = try makeBody(includeSecret: true)
             var body: Data = Data()
             for field in formFields {
+                // TODO: Force unwrap
                 body.append(String(format: "--%@\r\n", boundary).data(using: .utf8)!)
                 body.append(String(format: "Content-Disposition: form-data; name=\"%@\"\r\n\r\n", field.key).data(using: .utf8)!)
                 body.append(String(format: "%@\r\n", field.value).data(using: .utf8)!)
@@ -143,7 +142,7 @@ final class TransloaditAPI {
         
         let task = session.dataTask(request: makeRequest()) { result in
             switch result {
-            case .success(let data?, let response):
+            case .success((let data?, _)):
                 do {
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -152,9 +151,9 @@ final class TransloaditAPI {
                 } catch {
                     completion(.failure(.couldNotFetchStatus))
                 }
-            case .success(nil, _):
+            case .success((nil, _)):
                 completion(.failure(.couldNotFetchStatus))
-            case .failure(let error):
+            case .failure:
                 // TODO: Underlying error?
                 completion(.failure(.couldNotFetchStatus))
             }

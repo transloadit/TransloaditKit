@@ -26,13 +26,12 @@ public struct Step {
 }
 
 /// An Assembly type, retrieved from a server
-public struct Assembly: Decodable {
+public struct Assembly: Codable, Equatable {
     
     // Not a UUID type since the server doesn't hyphenate.
     /// id is always a 32 char UUIDv4 string without dashes
     public let id: String
 
-//    public let status: Status
     let error: String?
 
     /// Used to upload images
