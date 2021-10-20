@@ -50,7 +50,7 @@ public struct Assembly: Codable, Equatable {
 }
 
 
-public struct AssemblyStatus: Decodable {
+public struct AssemblyStatus: Codable {
     
     // TODO: you get status.status, weird naming
     // TODO: Public enum.... new cases can break public API or document that new cases can be added for unknown default.
@@ -65,12 +65,19 @@ public struct AssemblyStatus: Decodable {
     
     public let assemblyId: String // Not a UUID type since the server doesn't hyphenate.
     public let message: String
-    
-    let status: Status
+    public let status: Status
     
     enum CodingKeys: String, CodingKey {
         case assemblyId
         case message
         case status = "ok"
     }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(assemblyId, forKey: .assemblyId)
+        try container.encode(message, forKey: .message)
+        try container.encode(status.rawValue, forKey: .status)
+    }
+    
 }
