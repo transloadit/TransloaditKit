@@ -38,9 +38,8 @@ final class TransloaditAPI {
         self.credentials = credentials
         self.session = session
     }
-    
-    func createAssembly(steps: [Step], completion: @escaping((Result<Assembly, TransloaditAPIError>) -> Void)) {
-        guard let request = try? makeRequest(steps: steps) else {
+    func createAssembly(steps: [Step], expectedNumberOfFiles: Int, completion: @escaping (Result<Assembly, TransloaditAPIError>) -> Void) {
+        guard let request = try? makeRequest(steps: steps, expectedNumberOfFiles: expectedNumberOfFiles) else {
             // Next runloop to make the API consistent with the network runloop. Otherwise it would return instantly, can give weird effects
             DispatchQueue.main.async {
                 completion(.failure(TransloaditAPIError.cantSerialize))
@@ -68,7 +67,7 @@ final class TransloaditAPI {
         task.resume()
     }
     
-    private func makeRequest(steps: [Step]) throws -> URLRequest {
+    private func makeRequest(steps: [Step], expectedNumberOfFiles: Int) throws -> URLRequest {
         
         func makeBody(includeSecret: Bool) throws -> [String: String] {
             // TODO: Why + 300? Remainder from previous codebase.
@@ -91,7 +90,7 @@ final class TransloaditAPI {
             }
             
             // TODO: Support multiple upload files
-            var body: [String: String] = ["params": paramsJSONString, "tus_num_expected_upload_files": "1"]
+            var body: [String: String] = ["params": paramsJSONString, "tus_num_expected_upload_files": String(expectedNumberOfFiles)]
             if !credentials.secret.isEmpty {
                 body["signature"] = paramsJSONString.hmac(key: credentials.secret)
             }

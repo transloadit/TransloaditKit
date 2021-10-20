@@ -55,6 +55,11 @@ final class TUSMockDelegate: TUSClientDelegate {
     }
 }
 
+struct PreparedResponseEndpoint: Hashable {
+    let url: URL
+    let method: String
+}
+
 /// MockURLProtocol to support mocking the network
 final class MockURLProtocol: URLProtocol {
     
@@ -66,7 +71,7 @@ final class MockURLProtocol: URLProtocol {
         let data: Data?
     }
     
-    static var responses = [String: (Headers) -> Response]()
+    static var responses = [PreparedResponseEndpoint: (Headers) -> Response]()
     static var receivedRequests = [URLRequest]()
     
     static func reset() {
@@ -78,8 +83,9 @@ final class MockURLProtocol: URLProtocol {
     /// - Parameters:
     ///   - method: The http method (POST PATCH etc)
     ///   - makeResponse: A closure that returns a Response
-    static func prepareResponse(for method: String, makeResponse: @escaping (Headers) -> Response) {
-        responses[method] = makeResponse
+    static func prepareResponse(for url: URL, method: String, makeResponse: @escaping (Headers) -> Response) {
+        let prepResponseEndpoint = PreparedResponseEndpoint(url: url, method: method)
+        responses[prepResponseEndpoint] = makeResponse
     }
     
     override class func canInit(with request: URLRequest) -> Bool {
@@ -94,9 +100,12 @@ final class MockURLProtocol: URLProtocol {
     
     override func startLoading() {
         guard let client = client else { return }
+        guard let requestURL = request.url, let method = request.httpMethod else {
+            return }
         
-        guard let method = request.httpMethod, let preparedResponseClosure = type(of: self).responses[method] else {
-//            assertionFailure("No response found for \(String(describing: request.httpMethod)) prepared \(type(of: self).responses)")
+        let endpoint = PreparedResponseEndpoint(url: requestURL, method: method)
+        guard let preparedResponseClosure = type(of: self).responses[endpoint] else {
+            assertionFailure("No response found for \(String(describing: request.httpMethod)) request URL: \(String(describing: request.url)) \n prepared \(type(of: self).responses)")
             return
         }
         
