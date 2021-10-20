@@ -5,7 +5,10 @@ public struct TransloaditError: Error {
     let code: Int
     
     public static let couldNotFetchStatus = TransloaditError(code: 1)
+    // TODO: Add underlying error?
     public static let couldNotCreateAssembly = TransloaditError(code: 2)
+    // TODO: Pass underlying error?
+    public static let couldNotUploadFile = TransloaditError(code: 3)
 }
 
 public protocol TransloaditDelegate: AnyObject {
@@ -37,6 +40,7 @@ public final class Transloadit {
     }
     
     typealias FileId = UUID
+    /// A list of assemblies and its associated file ids
     var assemblies = [FileId: Assembly]()
     
     private let api: TransloaditAPI
@@ -51,21 +55,19 @@ public final class Transloadit {
         // TODO: That also means that tus can be lazy because someone may not need it.
         
         // TODO: Mock network for testing?
-        // TODO: Add config and session and storage dir
-        self.tusClient = TUSClient(config: TUSConfig(server: URL(string:"https://api2-kishtw.transloadit.com/resumable/files/")!), sessionIdentifier: "TransloadIt", storageDirectory: nil)
+        // TODO: Add config and storage dir
+        self.tusClient = TUSClient(config: TUSConfig(server: URL(string:"https://api2-kishtw.transloadit.com/resumable/files/")!), sessionIdentifier: "TransloadIt", storageDirectory: nil, session: session)
         tusClient.delegate = self
     }
     
-    /// Create an assembly, do not upload a file
+    /// Create an assembly, do not upload a file.
     /// - Parameter steps: The steps of an Assembly.
-    public func createAssembly(steps: [Step], completion: @escaping (Result<Assembly, TransloaditError>) -> Void) {
-        // TODO: Support multiple files
-        api.createAssembly(steps: steps) { result in
-            completion(
-            result.mapError { apiError in
-                // TODO: Pass underlying error?
-                TransloaditError.couldNotCreateAssembly
-            })
+    /// - Parameter expectedNumberOfFiles: The number of expected files to upload to this assembly
+    /// - Parameter completion: The created assembly
+    public func createAssembly(steps: [Step], expectedNumberOfFiles: Int = 1, completion: @escaping (Result<Assembly, TransloaditError>) -> Void) {
+        api.createAssembly(steps: steps, expectedNumberOfFiles: expectedNumberOfFiles) { result in
+            let transloaditResult = result.mapError { _ in TransloaditError.couldNotCreateAssembly }
+            completion(transloaditResult)
         }
     }
     
@@ -75,35 +77,36 @@ public final class Transloadit {
     /// Create an assembly and upload one or more files to it using the TUS protocol.
     /// - Parameters:
     ///   - steps: The steps of an assembly.
-    ///   - file: The files to upload.
-    public func createAssemblyAndUpload(steps: [Step], files: [URL]) {
-        // TODO: Support multiple files
-        let file = files[0]
-        api.createAssembly(steps: steps) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let assembly):
-                self.delegate?.didCreateAssembly(assembly: assembly, client: self)
-                do {
-                    // TODO: Re-enable or mock out
-                    let metaData: [String: String] = ["fieldname": "file-input",
-                                                      "assembly_url": assembly.url.absoluteString,
-                                                      "filename": "file"]
-                    
-                    print("Tus url is \(assembly.tusURL)")
-                    print("metaData is \(metaData)")
-                    
-                    let fileId = try self.tusClient.uploadFileAt(filePath: file, uploadURL: assembly.tusURL, customHeaders: metaData)
-                    self.assemblies[fileId] = assembly
-                } catch {
-                    // TODO: Handle error
-                }
-            case .failure(let error):
-                print(error)
-                // TODO: Handle error
-            }
+    ///   - files: The files to upload
+    ///   - completion: completion handler, called when upload is complete
+    public func createAssembly(steps: [Step], andUpload files: [URL], completion: @escaping (Result<Assembly, TransloaditError>) -> Void) {
+        func makeMetadata(assembly: Assembly) -> [String: String] {
+            ["fieldname": "file-input",
+             "assembly_url": assembly.url.absoluteString,
+             "filename": "file"]
         }
+        createAssembly(steps: steps, expectedNumberOfFiles: files.count, completion: { [weak self] result in
+            guard let self = self else { return }
+            
+            do {
+                let assembly = try result.get()
+                let ids = try self.tusClient.uploadFiles(filePaths: files,
+                                                         uploadURL: assembly.tusURL,
+                                                         customHeaders: makeMetadata(assembly: assembly))
+                
+                for id in ids {
+                    self.assemblies[id] = assembly
+                }
+                
+                completion(.success(assembly))
+            } catch is TransloaditAPIError {
+                completion(.failure(TransloaditError.couldNotCreateAssembly))
+            } catch {
+                completion(.failure(TransloaditError.couldNotUploadFile))
+            }
+        })
     }
+                   
     
     /// Keep fetching status until tit's completed or if it fails.
     /// - Parameters:
@@ -156,9 +159,10 @@ extension Transloadit: TUSClientDelegate {
         }
         delegate?.didFinishUpload(assembly: assembly, client: self)
         
-        pollStatus(assemblyURL: assembly.url) { result in
-            print(result)
-        }
+        // TODO: re-enable
+//        pollStatus(assemblyURL: assembly.url) { result in
+//            print(result)
+//        }
     }
     
     public func fileError(error: TUSClientError, client: TUSClient) {
