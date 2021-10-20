@@ -6,9 +6,9 @@ final class TransloaditKitTests: XCTestCase {
     public var transloadit: Transloadit!
     
     let resizeStep = Step(name: "resize", robot: "/image/resize", options: ["width": 50,
-                                                               "height": 75,
-                                                               "resize_strategy": "fit",
-                                                               "result": true])
+                                                                            "height": 75,
+                                                                            "resize_strategy": "fit",
+                                                                            "result": true])
     
     var data: Data!
     
@@ -23,12 +23,12 @@ final class TransloaditKitTests: XCTestCase {
         
         transloadit = Transloadit(credentials: credentials, session: session)
         data = Data("Hello".utf8)
-//        prepareNetworkForSuccesfulUploads(data: data)
+        //        prepareNetworkForSuccesfulUploads(data: data)
     }
     
     func testCreateAssembly() {
         let serverAssembly = Fixtures.makeAssembly()
-        prepareAssemblyResponse(assembly: serverAssembly)
+        Network.prepareAssemblyResponse(assembly: serverAssembly)
         let serverFinishedExpectation = expectation(description: "Waiting for createAssembly to be called")
         transloadit.createAssembly(steps: [resizeStep], completion: { result in
             switch result {
@@ -45,27 +45,8 @@ final class TransloaditKitTests: XCTestCase {
     }
     
     func testCreateAssembly_and_UploadFile() throws {
-        func storeFile() throws -> URL {
-            let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let targetLocation = docDir.appendingPathComponent("myfile.txt")
-            try data.write(to: targetLocation)
-            return targetLocation
-        }
-        
-        func storeTwoFiles() throws -> [URL] {
-            let urls = try (0..<2).map { _ in
-                try storeFile()
-            }
-            return urls
-        }
-        
-        let files = try storeTwoFiles()
-
-        let serverAssembly = Fixtures.makeAssembly()
-        prepareAssemblyResponse(assembly: serverAssembly)
-        prepareNetworkForSuccesfulUploads(url: serverAssembly.tusURL, data: data)
+        let (files, serverAssembly) = try Network.prepareForUploadingFiles(data: data)
         let serverFinishedExpectation = expectation(description: "Waiting for createAssembly to be called")
-        
         transloadit.createAssembly(steps: [resizeStep], andUpload: files, completion: { result in
             switch result {
             case .success(let receivedAssembly):
@@ -80,23 +61,115 @@ final class TransloaditKitTests: XCTestCase {
         waitForExpectations(timeout: 3, handler: nil)
     }
     
-    func testPolling() throws {
+    func testStatusUploadingOfFiles() throws {
+        // TODO: Test delegate
         XCTFail("Implement me")
+    }
+    
+    func testPolling() throws {
+        
+        let retryCount = 1
+        let serverFinishedExpectation = expectation(description: "Waiting for createAssembly to be called")
+        let pollingExpectation = expectation(description: "Waiting for polling to be called")
+        pollingExpectation.expectedFulfillmentCount = retryCount + 1// preparing status gives two calls
+        let pollingStatusCompleteExpectation = expectation(description: "Waiting for polling status to be complete")
+        
+        let (files, serverAssembly) = try Network.prepareForUploadingFiles(data: data, retryPollingCount: retryCount)
+        
+        transloadit.createAssembly(steps: [resizeStep], andUpload: files, completion: { result in
+            switch result {
+            case .success(let receivedAssembly):
+                XCTAssertEqual(serverAssembly, receivedAssembly)
+            case .failure:
+                XCTFail("Expected call to succeed")
+            }
+            
+            serverFinishedExpectation.fulfill()
+        }) .pollAssemblyStatus { result in
+            pollingExpectation.fulfill()
+            
+            switch result {
+            case .success(let status):
+                if status.status == .completed {
+                    pollingStatusCompleteExpectation.fulfill()
+                }
+            case .failure(let error):
+                XCTFail("Polling threw error \(error)")
+            }
+        }
+        
+        waitForExpectations(timeout: 8, handler: nil) // larger timeout time because of polling
+    }
+    
+    func testPollingSameURLSTwiceInARow() throws {
+        try testPolling()
+        try testPolling()
     }
     
     func testMakeSureTUSIsntInitializedForOnlyAssemblies() {
-    // TODO: Decide if we need this test. It's an optimization... but maybe we don't want to make sure the dir isn't created
+        // TODO: Decide if we need this test. It's an optimization... but maybe we don't want to make sure the dir isn't created
         XCTFail("Implement me")
     }
     
-    private func prepareAssemblyResponse(assembly: Assembly) {
+   
+}
+
+enum Files {
+    
+    static func clearDocumentsDirectory() {
+        let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        clearDirectory(dir: docDir)
+    }
+    
+    static func clearDirectory(dir: URL) {
+        do {
+            let names = try FileManager.default.contentsOfDirectory(atPath: dir.path)
+            for name in names
+            {
+                let path = "\(dir.path)/\(name)"
+                try FileManager.default.removeItem(atPath: path)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    static func storeFile(data: Data) throws -> URL {
+        let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let targetLocation = docDir.appendingPathComponent("myfile.txt")
+        try data.write(to: targetLocation)
+        return targetLocation
+    }
+    
+    static func storeFiles(data: Data, _ amount: Int = 2) throws -> [URL] {
+        let urls = try (0..<amount).map { _ in
+            try storeFile(data: data)
+        }
+        return urls
+    }
+    
+}
+
+enum Network {
+    
+    static func prepareForUploadingFiles(data: Data, retryPollingCount: Int = 0) throws -> ([URL], Assembly) {
+        let files = try Files.storeFiles(data: data, 2)
+        
+        let serverAssembly = Fixtures.makeAssembly()
+        Network.prepareAssemblyResponse(assembly: serverAssembly)
+        Network.prepareForSuccesfulUploads(url: serverAssembly.tusURL, data: data)
+        Network.prepareForStatusChecks(assembly: serverAssembly, retryCount: retryPollingCount)
+        return (files, serverAssembly)
+    }
+      
+    static func prepareAssemblyResponse(assembly: Assembly) {
         let url = URL(string: "https://api2.transloadit.com/assemblies")!
         MockURLProtocol.prepareResponse(for: url, method: "POST") { _ in
             MockURLProtocol.Response(status: 200, headers: [:], data: Fixtures.makeAssemblyResponse(assembly: assembly))
         }
     }
     
-    private func prepareNetworkForSuccesfulUploads(url: URL, data: Data, lowerCasedKeysInResponses: Bool = false) {
+    static func prepareForSuccesfulUploads(url: URL, data: Data, lowerCasedKeysInResponses: Bool = false) {
         let uploadURL = URL(string: "www.tus-image-upload-location-returned-for-creation-post.com")!
         MockURLProtocol.prepareResponse(for: url, method: "POST") { _ in
             let key: String
@@ -120,7 +193,7 @@ final class TransloaditKitTests: XCTestCase {
                       XCTFail(error)
                       fatalError(error)
                   }
-                  
+            
             let newOffset = offset + contentLength
             
             let key: String
@@ -133,23 +206,25 @@ final class TransloaditKitTests: XCTestCase {
         }
         
     }
-                                   
-}
-
-func clearDocumentsDirectory() {
-    let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-    clearDirectory(dir: docDir)
-}
-
-func clearDirectory(dir: URL) {
-    do {
-        let names = try FileManager.default.contentsOfDirectory(atPath: dir.path)
-        for name in names
-        {
-            let path = "\(dir.path)/\(name)"
-            try FileManager.default.removeItem(atPath: path)
+    
+    static func prepareForStatusChecks(assembly: Assembly, retryCount: Int) {
+        let statusURL = assembly.url
+        
+        var count = retryCount
+        MockURLProtocol.prepareResponse(for: statusURL, method: "GET") { _ in
+            let assemblyStatus: AssemblyStatus
+            if count == 0 {
+                assemblyStatus = Fixtures.makeAssemblyStatus(status: .completed)
+            } else {
+                assemblyStatus = Fixtures.makeAssemblyStatus(status: .uploading)
+            }
+            
+            count -= 1
+            
+            let response = Fixtures.makeAssemblyStatusResponse(assemblyStatus: assemblyStatus)
+            
+            return MockURLProtocol.Response(status: 200, headers: [:], data: response)
         }
-    } catch {
-        print(error.localizedDescription)
     }
+
 }

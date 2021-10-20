@@ -11,9 +11,7 @@ public struct TransloaditError: Error {
     public static let couldNotUploadFile = TransloaditError(code: 3)
 }
 
-public protocol TransloaditDelegate: AnyObject {
-
-    func didCreateAssembly(assembly: Assembly, client: Transloadit)
+public protocol TransloaditFileDelegate: AnyObject {
     
     func didStartUpload(assembly: Assembly, client: Transloadit)
     
@@ -21,10 +19,78 @@ public protocol TransloaditDelegate: AnyObject {
     
     func progress(assembly: Assembly, bytedUploaded: Int, bytesTotal: Int, client: Transloadit)
     
-    func didErrorOnAssembly(errror: Error, assembly: Assembly, client: Transloadit)
-    
     /// Any type of error, maybe files couldn't be cleaned up on start. For instance.
     func didError(error: Error, client: Transloadit)
+}
+
+    
+public final class TransloaditPoller {
+    
+    weak var transloadIt: Transloadit?
+    var assemblyURL: URL? {
+        didSet {
+            guard let newURL = assemblyURL else {
+                return
+            }
+
+            checkAndStartPolling(url: newURL)
+        }
+    }
+    
+    var completion: ((Result<AssemblyStatus, TransloaditError>) -> Void)?
+    
+    init(transloadit: Transloadit) {
+        self.transloadIt = transloadit
+    }
+    
+    public func pollAssemblyStatus(completion: @escaping (Result<AssemblyStatus, TransloaditError>) -> Void) {
+        self.completion = completion
+    }
+
+
+    private func checkAndStartPolling(url: URL) {
+        guard let completion = completion else {
+            // No listener set, no need to poll
+            return
+        }
+
+        pollStatus(assemblyURL: url, completion: completion)
+    }
+    
+    /// Keep fetching status until tit's completed or if it fails.
+    /// - Parameters:
+    ///   - assemblyURL: The url to check for the status
+    ///   - completion: Completion with the AssemblyStatus.
+    private func pollStatus(assemblyURL: URL, completion: @escaping (Result<AssemblyStatus, TransloaditError>) -> Void) {
+        // TODO: What to do when reference is lost
+        guard let transloadIt = transloadIt else {
+            assertionFailure("Transloadit reference is lost")
+            return
+        }
+
+        transloadIt.fetchStatus(assemblyURL: assemblyURL) { [weak transloadIt] result in
+            guard let transloadIt = transloadIt else {
+                // TODO: What to do when reference is lost
+                return
+            }
+
+            do {
+                let status = try result.get()
+                completion(result)
+                
+                if status.status != .completed {
+                    // Call succeeded, but not the finished status
+                    // TODO: Limit amount? Or timeout after?
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        transloadIt.fetchStatus(assemblyURL: assemblyURL, completion: completion)
+                    }
+                }
+            } catch {
+                completion(result) // End on call failure
+            }
+        }
+    }
+    
 }
 
 public final class Transloadit {
@@ -42,11 +108,12 @@ public final class Transloadit {
     typealias FileId = UUID
     /// A list of assemblies and its associated file ids
     var assemblies = [FileId: Assembly]()
+    var pollers = [[URL]: TransloaditPoller]()
     
     private let api: TransloaditAPI
     private let tusClient: TUSClient
     
-    public weak var delegate: TransloaditDelegate?
+    public weak var delegate: TransloaditFileDelegate?
     
     public init(credentials: Transloadit.Credentials, session: URLSession) {
         self.api = TransloaditAPI(credentials: credentials, session: session)
@@ -79,12 +146,17 @@ public final class Transloadit {
     ///   - steps: The steps of an assembly.
     ///   - files: The files to upload
     ///   - completion: completion handler, called when upload is complete
-    public func createAssembly(steps: [Step], andUpload files: [URL], completion: @escaping (Result<Assembly, TransloaditError>) -> Void) {
+    @discardableResult
+    public func createAssembly(steps: [Step], andUpload files: [URL], completion: @escaping (Result<Assembly, TransloaditError>) -> Void)  -> TransloaditPoller {
         func makeMetadata(assembly: Assembly) -> [String: String] {
             ["fieldname": "file-input",
              "assembly_url": assembly.url.absoluteString,
              "filename": "file"]
         }
+        
+        
+        let poller = TransloaditPoller(transloadit: self)
+        
         createAssembly(steps: steps, expectedNumberOfFiles: files.count, completion: { [weak self] result in
             guard let self = self else { return }
             
@@ -98,6 +170,7 @@ public final class Transloadit {
                     self.assemblies[id] = assembly
                 }
                 
+                poller.assemblyURL = assembly.url
                 completion(.success(assembly))
             } catch is TransloaditAPIError {
                 completion(.failure(TransloaditError.couldNotCreateAssembly))
@@ -105,33 +178,16 @@ public final class Transloadit {
                 completion(.failure(TransloaditError.couldNotUploadFile))
             }
         })
+        
+        if pollers[files] != nil {
+            // TODO: Remove poller once status is complete.
+            assertionFailure("Poller already exists for files.")
+        }
+        
+        pollers[files] = poller
+        return poller
     }
                    
-    
-    /// Keep fetching status until tit's completed or if it fails.
-    /// - Parameters:
-    ///   - assemblyURL: The url to check for the status
-    ///   - completion: Completion with the AssemblyStatus.
-    public func pollStatus(assemblyURL: URL, completion: @escaping (Result<AssemblyStatus, TransloaditError>) -> Void) {
-        fetchStatus(assemblyURL: assemblyURL) { result in
-            do {
-                let status = try result.get()
-                completion(result)
-                
-                if status.status != .completed {
-                    // Call succeeded, but not the finished status
-                    // TODO: Limit amount? Or timeout after?
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                        self.fetchStatus(assemblyURL: assemblyURL, completion: completion)
-                    }
-                }
-            } catch {
-                completion(result) // End on call failure
-            }
-        }
-    }
-    
-    
     public func fetchStatus(assemblyURL: URL, completion: @escaping (Result<AssemblyStatus, TransloaditError>) -> Void) {
         api.fetchStatus(assemblyURL: assemblyURL) { result in
             completion(result.mapError { _ in TransloaditError.couldNotFetchStatus })
@@ -158,11 +214,6 @@ extension Transloadit: TUSClientDelegate {
             return
         }
         delegate?.didFinishUpload(assembly: assembly, client: self)
-        
-        // TODO: re-enable
-//        pollStatus(assemblyURL: assembly.url) { result in
-//            print(result)
-//        }
     }
     
     public func fileError(error: TUSClientError, client: TUSClient) {
