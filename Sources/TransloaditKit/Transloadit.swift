@@ -37,10 +37,12 @@ public final class TransloaditPoller {
         }
     }
     
+    let didFinish: () -> Void
     var completion: ((Result<AssemblyStatus, TransloaditError>) -> Void)?
     
-    init(transloadit: Transloadit) {
+    init(transloadit: Transloadit, didFinish: @escaping () -> Void) {
         self.transloadIt = transloadit
+        self.didFinish = didFinish
     }
     
     public func pollAssemblyStatus(completion: @escaping (Result<AssemblyStatus, TransloaditError>) -> Void) {
@@ -68,24 +70,28 @@ public final class TransloaditPoller {
             return
         }
 
-        transloadIt.fetchStatus(assemblyURL: assemblyURL) { [weak transloadIt] result in
-            guard let transloadIt = transloadIt else {
+        transloadIt.fetchStatus(assemblyURL: assemblyURL) { [weak self] result in
+            guard let self = self else {
                 // TODO: What to do when reference is lost
                 return
             }
-
+            
             do {
                 let status = try result.get()
                 completion(result)
                 
-                if status.status != .completed {
+                if status.status == .completed || status.status == .canceled || status.status == .aborted {
+                    self.didFinish()
+                } else {
+                    print("continuing poll")
                     // Call succeeded, but not the finished status
                     // TODO: Limit amount? Or timeout after?
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                        transloadIt.fetchStatus(assemblyURL: assemblyURL, completion: completion)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        self.pollStatus(assemblyURL: assemblyURL, completion: completion)
                     }
                 }
             } catch {
+                print("ENDING POLL ON CALL FAILURE \(result)")
                 completion(result) // End on call failure
             }
         }
@@ -154,8 +160,14 @@ public final class Transloadit {
              "filename": "file"]
         }
         
+        let poller = TransloaditPoller(transloadit: self, didFinish: { [weak self] in
+            guard let self = self else { return }
+            self.pollers[files] = nil
+        })
         
-        let poller = TransloaditPoller(transloadit: self)
+        if let existingPoller = self.pollers[files], existingPoller === poller {
+            assertionFailure("Transloadit: Somehow already got a poller for this url and these files")
+        }
         
         createAssembly(steps: steps, expectedNumberOfFiles: files.count, completion: { [weak self] result in
             guard let self = self else { return }
@@ -171,6 +183,7 @@ public final class Transloadit {
                 }
                 
                 poller.assemblyURL = assembly.url
+                
                 completion(.success(assembly))
             } catch is TransloaditAPIError {
                 completion(.failure(TransloaditError.couldNotCreateAssembly))
@@ -179,10 +192,6 @@ public final class Transloadit {
             }
         })
         
-        if pollers[files] != nil {
-            // TODO: Remove poller once status is complete.
-            assertionFailure("Poller already exists for files.")
-        }
         
         pollers[files] = poller
         return poller
