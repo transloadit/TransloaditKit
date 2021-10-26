@@ -13,7 +13,21 @@ final class MyUploader: ObservableObject {
     
     func upload(_ urls: [URL]) {
         let resizeStep = StepFactory.makeResizeStep(width: 200, height: 100)
-        transloadit.createAssemblyAndUpload(steps: [resizeStep], files: urls)
+        transloadit.createAssembly(steps: [resizeStep], andUpload: urls) { result in
+            switch result {
+            case .success(let assembly):
+                print("Retrieved \(assembly)")
+            case .failure(let error):
+                print("Assembly error \(error)")
+            }
+        }.pollAssemblyStatus { result in
+            switch result {
+            case .success(let assemblyStatus):
+                print("Received assemblystatus \(assemblyStatus)")
+            case .failure(let error):
+                print("Caught polling error \(error)")
+            }
+        }
     }
     
     init() {
@@ -41,7 +55,15 @@ enum StepFactory {
     
 }
 
-extension MyUploader: TransloaditDelegate {
+extension MyUploader: TransloaditFileDelegate {
+    func progressFor(assembly: Assembly, bytesUploaded: Int, totalBytes: Int, client: Transloadit) {
+        
+    }
+    
+    func totalProgress(bytesUploaded: Int, totalBytes: Int, client: Transloadit) {
+        
+    }
+    
     func didErrorOnAssembly(errror: Error, assembly: Assembly, client: Transloadit) {
         print("didErrorOnAssembly")
     }
@@ -64,10 +86,6 @@ extension MyUploader: TransloaditDelegate {
     
     func didStartUpload(assembly: Assembly, client: Transloadit) {
         print("didStartUpload")
-    }
-    
-    func progress(assembly: Assembly, bytedUploaded: Int, bytesTotal: Int, client: Transloadit) {
-        print("progress")
     }
 }
 

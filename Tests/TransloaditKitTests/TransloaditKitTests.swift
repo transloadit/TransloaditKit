@@ -23,7 +23,6 @@ final class TransloaditKitTests: XCTestCase {
         
         transloadit = Transloadit(credentials: credentials, session: session)
         data = Data("Hello".utf8)
-        //        prepareNetworkForSuccesfulUploads(data: data)
     }
     
     func testCreateAssembly() {
@@ -59,6 +58,14 @@ final class TransloaditKitTests: XCTestCase {
         })
         
         waitForExpectations(timeout: 3, handler: nil)
+    }
+    
+    func testTransloaditDoesntPollIfAssemblyFails() throws {
+        XCTFail("Implement me")
+    }
+    
+    func testContinuingUploadsOnNewSession() throws {
+        XCTFail("Implement me")
     }
     
     func testPolling() throws {
