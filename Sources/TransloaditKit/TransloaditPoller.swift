@@ -15,8 +15,9 @@ public final class TransloaditPoller {
         }
     }
     
-    let didFinish: () -> Void
-    var completion: ((Result<AssemblyStatus, TransloaditError>) -> Void)?
+    private var isPolling = false
+    private let didFinish: () -> Void
+    private var completion: ((Result<AssemblyStatus, TransloaditError>) -> Void)?
     
     init(transloadit: Transloadit, didFinish: @escaping () -> Void) {
         self.transloadIt = transloadit
@@ -25,6 +26,9 @@ public final class TransloaditPoller {
     
     public func pollAssemblyStatus(completion: @escaping (Result<AssemblyStatus, TransloaditError>) -> Void) {
         self.completion = completion
+        if let assemblyURL = assemblyURL {
+            checkAndStartPolling(url: assemblyURL)
+        }
     }
 
 
@@ -33,6 +37,10 @@ public final class TransloaditPoller {
             // No listener set, no need to poll
             return
         }
+        
+        guard !isPolling else { return }
+        
+        isPolling = true
 
         pollStatus(assemblyURL: url, completion: completion)
     }
