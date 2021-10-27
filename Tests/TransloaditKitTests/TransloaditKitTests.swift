@@ -72,14 +72,9 @@ final class TransloaditKitTests: XCTestCase {
         data = Data("Hello".utf8)
     }
     
-    func testTransloaditDoesntPollIfAssemblyFails() throws {
-        XCTFail("Implement me")
+    override func tearDown() {
+        transloadit.delegate = nil
     }
-    
-    func testContinuingUploadsOnNewSession() throws {
-        XCTFail("Implement me")
-    }
-    
     
     // MARK: - File uploading
     
@@ -100,7 +95,8 @@ final class TransloaditKitTests: XCTestCase {
     }
     
     func testCreatingAssembly_And_Uploading_Of_Files() throws {
-        let numFiles = 2
+        let (files, serverAssembly) = try Network.prepareForUploadingFiles(data: data)
+        let numFiles = files.count
         let finishedUploadExpectation = self.expectation(description: "Finished file upload")
         finishedUploadExpectation.expectedFulfillmentCount = numFiles
         
@@ -110,7 +106,6 @@ final class TransloaditKitTests: XCTestCase {
         fileDelegate.finishUploadExpectation = finishedUploadExpectation
         fileDelegate.startUploadExpectation = startedUploadsExpectation
         
-        let (files, serverAssembly) = try Network.prepareForUploadingFiles(data: data)
         
         createAssembly(files, completed: { result in
                         
@@ -128,27 +123,53 @@ final class TransloaditKitTests: XCTestCase {
         XCTAssertEqual(numFiles, fileDelegate.startedUploads.count)
     }
     
-    func testCanCancelLocalUploads() throws {
-//        transloadit.cancelUploadsFor(assembly.id)
+    func testCanReset() throws {
+        // Preparation
+        let (files, _) = try Network.prepareForUploadingFiles(data: data)
+        
+        let finishedUploadExpectation = self.expectation(description: "Finished file upload")
+        finishedUploadExpectation.isInverted = true
+        
+        
+        fileDelegate.finishUploadExpectation = finishedUploadExpectation
+        
+        // Start
+        createAssembly(files)
+        try transloadit.reset()
+        
+        wait(for: [finishedUploadExpectation], timeout: 3)
+
+        XCTAssertEqual(0, fileDelegate.finishedUploads.count)
+    }
+    
+    func testStatusFetching() throws {
+        let (_, serverAssembly) = try Network.prepareForUploadingFiles(data: data)
+        prepareNetworkForStatusCheck(assemblyURL: serverAssembly.url, expectedStatus: .uploading)
+        let serverExpectation = self.expectation(description: "Expected server to respond with a success")
+        transloadit.fetchStatus(assemblyURL: serverAssembly.url, completion: { result in
+            switch result {
+            case .success:
+                serverExpectation.fulfill()
+            case .failure:
+                XCTFail("The status-check returned an error against expectations")
+            }
+        })
+        
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+    
+    // MARK: - Restoring upload sessions
+    
+    func testContinuingUploadsOnNewSession() throws {
         XCTFail("Implement me")
     }
-   
+    
+    func testTransloaditForwardsFileErrorsOnStart() throws {
+        XCTFail("Implement me")
+    }
     
     // MARK: - Polling
     
-    private func prepareNetworkForStatusCheck(assemblyURL: URL, expectedStatus: AssemblyStatus.Status = .completed) {
-        var count = 1
-        Network.prepareForStatusChecks(assemblyURL: assemblyURL) {
-            if count == 0 {
-                return Fixtures.makeAssemblyStatus(status: expectedStatus)
-            } else {
-                count -= 1
-                return Fixtures.makeAssemblyStatus(status: .uploading)
-            }
-        }
-      
-    }
-                
     func testPolling() throws {
         try poll(statusToTestAgainst: .completed)
     }
@@ -163,6 +184,31 @@ final class TransloaditKitTests: XCTestCase {
         try poll(statusToTestAgainst: .aborted)
     }
                 
+    func testTransloaditDoesntPollIfAssemblyFails() throws {
+        let (files, _) = try Network.prepareForUploadingFiles(data: data)
+        Network.prepareForFailingAssemblyResponse()
+        let serverFinishedExpectation = expectation(description: "Waiting for createAssembly to be called")
+        let poller = transloadit.createAssembly(steps: [resizeStep], andUpload: files, completion: { result in
+            switch result {
+            case .success:
+                XCTFail("Expected server to fail for this test")
+            case .failure:
+                serverFinishedExpectation.fulfill()
+            }
+        })
+        
+        wait(for: [serverFinishedExpectation], timeout: 3)
+        
+        // Now let's check polling
+        let pollerResponseThatShouldNotBeCalled = self.expectation(description: "Poller is called, but shouldn't have been called.")
+        pollerResponseThatShouldNotBeCalled.isInverted  = true
+        poller.pollAssemblyStatus { result in
+            pollerResponseThatShouldNotBeCalled.fulfill()
+        }
+        
+        let defaultPollingTime: Double = 3
+        waitForExpectations(timeout: defaultPollingTime + 1, handler: nil)
+    }
     
     func poll(statusToTestAgainst: AssemblyStatus.Status) throws {
         let defaultPollingTime: Double = 3
@@ -211,7 +257,7 @@ final class TransloaditKitTests: XCTestCase {
         try testPolling()
     }
     
-    // MARK: - Creating Assembly util
+    // MARK: - Utils
     
     @discardableResult
     private func createAssembly(_ files: [URL]) -> TransloaditPoller {
@@ -231,6 +277,19 @@ final class TransloaditKitTests: XCTestCase {
         return poller
     }
     
+    private func prepareNetworkForStatusCheck(assemblyURL: URL, expectedStatus: AssemblyStatus.Status = .completed) {
+        var count = 1
+        Network.prepareForStatusChecks(assemblyURL: assemblyURL) {
+            if count == 0 {
+                return Fixtures.makeAssemblyStatus(status: expectedStatus)
+            } else {
+                count -= 1
+                return Fixtures.makeAssemblyStatus(status: .uploading)
+            }
+        }
+      
+    }
+                
         
 }
 
@@ -287,6 +346,13 @@ enum Network {
         let url = URL(string: "https://api2.transloadit.com/assemblies")!
         MockURLProtocol.prepareResponse(for: url, method: "POST") { _ in
             MockURLProtocol.Response(status: 200, headers: [:], data: Fixtures.makeAssemblyResponse(assembly: assembly))
+        }
+    }
+    
+    static func prepareForFailingAssemblyResponse() {
+        let url = URL(string: "https://api2.transloadit.com/assemblies")!
+        MockURLProtocol.prepareResponse(for: url, method: "POST") { _ in
+            MockURLProtocol.Response(status: 400, headers: [:], data: nil)
         }
     }
     

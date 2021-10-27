@@ -9,6 +9,7 @@ public struct TransloaditError: Error {
     public static let couldNotCreateAssembly = TransloaditError(code: 2)
     // TODO: Pass underlying error?
     public static let couldNotUploadFile = TransloaditError(code: 3)
+    public static let couldNotClearCache = TransloaditError(code: 4)
 }
 
 public protocol TransloaditFileDelegate: AnyObject {
@@ -148,7 +149,21 @@ public final class Transloadit {
         pollers[files] = poller
         return poller
     }
-                   
+    
+    /// Stop all running uploads, reset local upload cache.
+    /// - Throws: TransloaditError
+    public func reset() throws {
+        do {
+            try tusClient.reset()
+        } catch {
+            throw TransloaditError.couldNotClearCache
+        }
+    }
+    
+    /// Retrieve the status of an Assembly.
+    /// - Parameters:
+    ///   - assemblyURL: The url to use
+    ///   - completion: A handler that's called when the status fetching call is completed.
     public func fetchStatus(assemblyURL: URL, completion: @escaping (Result<AssemblyStatus, TransloaditError>) -> Void) {
         api.fetchStatus(assemblyURL: assemblyURL) { result in
             completion(result.mapError { _ in TransloaditError.couldNotFetchStatus })
@@ -172,6 +187,7 @@ extension Transloadit: TUSClientDelegate {
             assertionFailure("Could not retrieve assembly for file id: \(id)")
             return
         }
+
         delegate?.didFinishUpload(assembly: assembly, client: self)
     }
     
@@ -194,5 +210,6 @@ extension Transloadit: TUSClientDelegate {
     }
     
     public func uploadFailed(id: UUID, error: Error, client: TUSClient) {
+        delegate?.didError(error: error, client: self)
     }
 }

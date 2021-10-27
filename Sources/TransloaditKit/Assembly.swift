@@ -53,7 +53,7 @@ public struct Assembly: Codable, Equatable {
 public struct AssemblyStatus: Codable {
     
     // TODO: you get status.status, weird naming
-    // TODO: Public enum.... new cases can break public API or document that new cases can be added for unknown default.
+    /// The stauts of an Assembly. Use an @unknown default switch on this, for if cases are added.
     public enum Status: String, Decodable {
         case canceled = "ASSEMBLY_CANCELED"
         case completed = "ASSEMBLY_COMPLETED"
