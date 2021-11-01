@@ -31,16 +31,10 @@ final class MyUploader: ObservableObject {
     }
     
     init() {
-        // TODO: Offer credentials example
+        let credentials = Transloadit.Credentials(key: "my_key", secret: "my_secret")
         self.transloadit = Transloadit(credentials: credentials, session: URLSession.shared)
         self.transloadit.delegate = self
         
-        /*
-        // Continuation
-        // TODO: Figure out restoring session together with TUS. Tus just starts now.
-        let assemblies = transloadit.continueUploads()
-        let assemblies = transloadit.continueUploads(ids: ids)
-        */
     }
     
 }

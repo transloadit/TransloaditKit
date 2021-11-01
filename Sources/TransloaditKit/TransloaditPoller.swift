@@ -64,7 +64,7 @@ public final class TransloaditPoller {
                 let status = try result.get()
                 completion(result)
                 
-                if status.status == .completed || status.status == .canceled || status.status == .aborted {
+                if status.processingStatus == .completed || status.processingStatus == .canceled || status.processingStatus == .aborted {
                     self.didFinish()
                 } else {
                     // Call succeeded, but not the finished status

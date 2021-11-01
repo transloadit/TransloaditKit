@@ -16,8 +16,8 @@ enum Fixtures {
         Assembly(id: "abc", error: nil, tusURL: URL(string: "https://my-tus.transloadit.com")!, url: URL(string: "https://transloadit.com")!)
     }
     
-    static func makeAssemblyStatus(status: AssemblyStatus.Status) -> AssemblyStatus {
-        AssemblyStatus(assemblyId: "Assembly ID", message: "I am a message", status: status)
+    static func makeAssemblyStatus(status: AssemblyStatus.ProcessingStatus) -> AssemblyStatus {
+        AssemblyStatus(assemblyId: "Assembly ID", message: "I am a message", processingStatus: status)
     }
     
     static func makeAssemblyResponse(assembly: Assembly) -> Data {

@@ -52,9 +52,8 @@ public struct Assembly: Codable, Equatable {
 
 public struct AssemblyStatus: Codable {
     
-    // TODO: you get status.status, weird naming
     /// The stauts of an Assembly. Use an @unknown default switch on this, for if cases are added.
-    public enum Status: String, Decodable {
+    public enum ProcessingStatus: String, Decodable {
         case canceled = "ASSEMBLY_CANCELED"
         case completed = "ASSEMBLY_COMPLETED"
         case executing = "ASSEMBLY_EXECUTING"
@@ -65,19 +64,19 @@ public struct AssemblyStatus: Codable {
     
     public let assemblyId: String // Not a UUID type since the server doesn't hyphenate.
     public let message: String
-    public let status: Status
+    public let processingStatus: ProcessingStatus
     
     enum CodingKeys: String, CodingKey {
         case assemblyId
         case message
-        case status = "ok"
+        case processingStatus = "ok"
     }
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(assemblyId, forKey: .assemblyId)
         try container.encode(message, forKey: .message)
-        try container.encode(status.rawValue, forKey: .status)
+        try container.encode(processingStatus.rawValue, forKey: .processingStatus)
     }
     
 }

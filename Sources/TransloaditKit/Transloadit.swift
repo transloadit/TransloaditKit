@@ -5,9 +5,7 @@ public struct TransloaditError: Error {
     let code: Int
     
     public static let couldNotFetchStatus = TransloaditError(code: 1)
-    // TODO: Add underlying error?
     public static let couldNotCreateAssembly = TransloaditError(code: 2)
-    // TODO: Pass underlying error?
     public static let couldNotUploadFile = TransloaditError(code: 3)
     public static let couldNotClearCache = TransloaditError(code: 4)
 }
@@ -32,6 +30,13 @@ public protocol TransloaditFileDelegate: AnyObject {
 }
 
 
+/// Use the `Transloadit` class to uploadi files using the underlying TUS protocol.
+/// You can either create an Assembly by itself, or create an Assembly and  upload files to it right away.
+///
+/// To create an Assembly and without uploading files, please refer to `createAssembly(steps: completion)`
+/// To create an Assembly and upload files and check the assembly status, use `createAssembly(steps: andUpload files: completion)`
+///
+/// To get granular feedback on file uploading and bytes, implement the `fileDelegate` property on `Transloadit`
 public final class Transloadit {
     
     public struct Credentials {
@@ -62,13 +67,13 @@ public final class Transloadit {
     
     let session: URLSession
     
-    public weak var delegate: TransloaditFileDelegate?
+    public weak var fileDelegate: TransloaditFileDelegate?
     
     /// Initialize Transloadit
     /// - Parameters:
     ///   - credentials: The credentials with required key and secret.
     ///   - session: A URLSession to use.
-    ///   - storageDir: A storagedirectory to use. Used by underlying TUSKit mechanism to store files. If left empty, no directory will be made when performing non-file related tasks, such as creating assemblies. However, if you start uploading files, then TUS will make a directory if you don't specify one.
+    ///   - storageDir: A storagedirectory to use. Used by underlying TUSKit mechanism to store files. If left empty, no directory will be made when performing non-file related tasks, such as creating assemblies. However, if you start uploading files, then TUS will make a directory, whether one you specify or a default one in the documents directory.
     public init(credentials: Transloadit.Credentials, session: URLSession, storageDir: URL? = nil) {
         self.api = TransloaditAPI(credentials: credentials, session: session)
         self.session = session
@@ -77,7 +82,10 @@ public final class Transloadit {
     
     /// Create an assembly, do not upload a file.
     ///
+    /// This is useful for when you want to import a file from a different source, such as a third party storage service.
+    ///
     /// If you wish to upload a file and check for its processing status, please refer to ` public func createAssembly(steps: andUpload files: completion:)`
+    ///
     /// - Parameter steps: The steps of an Assembly.
     /// - Parameter expectedNumberOfFiles: The number of expected files to upload to this assembly
     /// - Parameter completion: The created assembly
@@ -88,23 +96,27 @@ public final class Transloadit {
         }
     }
     
-    /// Create an assembly and upload one or more files to it using the TUS protocol. You can use polling to check its processing status on TransloadIt servers.
-    /// You can set the `delegate` for details about the file uploading.
+    /// Create an assembly and upload one or more files to it using the TUS protocol.
+    ///
+    /// Returns a poller that you can use to check its processing status. You don't need to retain the poller, the `TransloadIt` instance will do that for you.
+    ///
+    /// TIP: You can set transloadit's `delegate` for details about the file uploading.
     /// - Parameters:
     ///   - steps: The steps of an assembly.
-    ///   - files: The files to upload
+    ///   - files: Paths to the files to upload
     ///   - completion: completion handler, called when upload is complete
     ///
     /// Below you can see how you can create an assembly and poll for its upload status
     ///```swift
     ///
-    ///       transloadit.createAssembly(steps: [resizeStep], andUpload: files, completion: { result in
+    ///       transloadit.createAssembly(steps: [resizeStep], andUpload: files, completion: { assemblyResult in
     ///           // received assembly response
-    ///       }).pollAssemblyStatus { result in
+    ///           print(assemblyResult)
+    ///       }).pollAssemblyStatus { pollingResult in
     ///           // received polling status
+    ///           print(pollingResult)
     ///       }
     ///```
-
     @discardableResult
     public func createAssembly(steps: [Step], andUpload files: [URL], completion: @escaping (Result<Assembly, TransloaditError>) -> Void)  -> TransloaditPoller {
         func makeMetadata(assembly: Assembly) -> [String: String] {
@@ -179,7 +191,7 @@ extension Transloadit: TUSClientDelegate {
             return
         }
         
-        delegate?.didStartUpload(assembly: assembly, client: self)
+        fileDelegate?.didStartUpload(assembly: assembly, client: self)
     }
     
     public func didFinishUpload(id: UUID, url: URL, client: TUSClient) {
@@ -188,11 +200,11 @@ extension Transloadit: TUSClientDelegate {
             return
         }
 
-        delegate?.didFinishUpload(assembly: assembly, client: self)
+        fileDelegate?.didFinishUpload(assembly: assembly, client: self)
     }
     
     public func fileError(error: TUSClientError, client: TUSClient) {
-        delegate?.didError(error: error, client: self)
+        fileDelegate?.didError(error: error, client: self)
     }
     
     public func progressFor(id: UUID, bytesUploaded: Int, totalBytes: Int, client: TUSClient) {
@@ -202,14 +214,14 @@ extension Transloadit: TUSClientDelegate {
         }
         
         // TODO: Support bytes multiple uploads for one assembly
-        delegate?.progressFor(assembly: assembly, bytesUploaded: bytesUploaded, totalBytes: totalBytes, client: self)
+        fileDelegate?.progressFor(assembly: assembly, bytesUploaded: bytesUploaded, totalBytes: totalBytes, client: self)
     }
     
     public func totalProgress(bytesUploaded: Int, totalBytes: Int, client: TUSClient) {
-        delegate?.totalProgress(bytesUploaded: bytesUploaded, totalBytes: totalBytes, client: self)
+        fileDelegate?.totalProgress(bytesUploaded: bytesUploaded, totalBytes: totalBytes, client: self)
     }
     
     public func uploadFailed(id: UUID, error: Error, client: TUSClient) {
-        delegate?.didError(error: error, client: self)
+        fileDelegate?.didError(error: error, client: self)
     }
 }
