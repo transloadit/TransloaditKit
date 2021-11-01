@@ -68,12 +68,12 @@ final class TransloaditKitTests: XCTestCase {
         
         transloadit = Transloadit(credentials: credentials, session: session)
         fileDelegate = MockDelegate()
-        transloadit.delegate = fileDelegate
+        transloadit.fileDelegate = fileDelegate
         data = Data("Hello".utf8)
     }
     
     override func tearDown() {
-        transloadit.delegate = nil
+        transloadit.fileDelegate = nil
     }
     
     // MARK: - File uploading
@@ -210,7 +210,7 @@ final class TransloaditKitTests: XCTestCase {
         waitForExpectations(timeout: defaultPollingTime + 1, handler: nil)
     }
     
-    func poll(statusToTestAgainst: AssemblyStatus.Status) throws {
+    func poll(statusToTestAgainst: AssemblyStatus.ProcessingStatus) throws {
         let defaultPollingTime: Double = 3
         let pollingExpectation = expectation(description: "Waiting for polling to be called twice")
         pollingExpectation.expectedFulfillmentCount = 2 // The amount of calls required before a status check is finished (e.g. status is set to completed/canceled/aborted)
@@ -232,7 +232,7 @@ final class TransloaditKitTests: XCTestCase {
                 
                 switch result {
                 case .success(let status):
-                    if status.status == statusToTestAgainst {
+                    if status.processingStatus == statusToTestAgainst {
                         pollingStatusCompleteExpectation.fulfill()
                         // Now make sure that canceled isn't called any more
                         if isStatusCanceled {
@@ -277,7 +277,7 @@ final class TransloaditKitTests: XCTestCase {
         return poller
     }
     
-    private func prepareNetworkForStatusCheck(assemblyURL: URL, expectedStatus: AssemblyStatus.Status = .completed) {
+    private func prepareNetworkForStatusCheck(assemblyURL: URL, expectedStatus: AssemblyStatus.ProcessingStatus = .completed) {
         var count = 1
         Network.prepareForStatusChecks(assemblyURL: assemblyURL) {
             if count == 0 {
