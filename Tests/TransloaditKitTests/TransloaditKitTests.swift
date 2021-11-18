@@ -2,49 +2,6 @@ import XCTest
 import TransloaditKit // ⚠️ WARNING: We are not performing a testable import here. We want to test the real public API. By doing so, we'll know very quicklly if the public API is broken. Which is very important to prevent.
 import AVFoundation
 
-final class MockDelegate: TransloaditFileDelegate {
-    struct Progress {
-        let bytesUploaded: Int
-        let totalBytes: Int
-    }
-    
-    var finishedUploads = [Assembly]()
-    var startedUploads = [Assembly]()
-    var progressForUploads = [(Progress, Assembly)]()
-    var totalProgress = [Progress]()
-    var errors = [Error]()
-    
-    var finishUploadExpectation: XCTestExpectation?
-    var startUploadExpectation: XCTestExpectation?
-    var fileErrorExpectation: XCTestExpectation?
-
-    
-    func didFinishUpload(assembly: Assembly, client: Transloadit) {
-        finishedUploads.append(assembly)
-        finishUploadExpectation?.fulfill()
-    }
-    
-    func didStartUpload(assembly: Assembly, client: Transloadit) {
-        startedUploads.append(assembly)
-        startUploadExpectation?.fulfill()
-    }
-    
-    func progressFor(assembly: Assembly, bytesUploaded: Int, totalBytes: Int, client: Transloadit) {
-        let progress = Progress(bytesUploaded: bytesUploaded, totalBytes: totalBytes)
-        progressForUploads.append((progress, assembly))
-    }
-    
-    func totalProgress(bytesUploaded: Int, totalBytes: Int, client: Transloadit) {
-        let progress = Progress(bytesUploaded: bytesUploaded, totalBytes: totalBytes)
-        totalProgress.append(progress)
-    }
-    
-    func didError(error: Error, client: Transloadit) {
-        errors.append(error)
-        fileErrorExpectation?.fulfill()
-    }
-}
-
 final class TransloaditKitTests: XCTestCase {
     public var transloadit: Transloadit!
     
@@ -55,25 +12,34 @@ final class TransloaditKitTests: XCTestCase {
     
     var data: Data!
     
-    var fileDelegate: MockDelegate!
+    var fileDelegate: TransloadItMockDelegate!
     
     override func setUp() {
         super.setUp()
         
-        let credentials = Transloadit.Credentials(key: "I am a key", secret: "I am a secret")
-        
-        let configuration = URLSessionConfiguration.default
-        configuration.protocolClasses = [MockURLProtocol.self]
-        let session = URLSession.init(configuration: configuration)
-        
-        transloadit = Transloadit(credentials: credentials, session: session)
-        fileDelegate = MockDelegate()
+        transloadit = makeClient()
+        do {
+            try transloadit.reset()
+        } catch {
+            XCTFail("Could not reset transloadit \(error)")
+        }
+        fileDelegate = TransloadItMockDelegate()
         transloadit.fileDelegate = fileDelegate
         data = Data("Hello".utf8)
     }
     
     override func tearDown() {
         transloadit.fileDelegate = nil
+    }
+    
+    private func makeClient() -> Transloadit {
+        let credentials = Transloadit.Credentials(key: "I am a key", secret: "I am a secret")
+        
+        let configuration = URLSessionConfiguration.default
+        configuration.protocolClasses = [MockURLProtocol.self]
+        let session = URLSession.init(configuration: configuration)
+        
+        return Transloadit(credentials: credentials, session: session)
     }
     
     // MARK: - File uploading
@@ -85,7 +51,7 @@ final class TransloaditKitTests: XCTestCase {
         transloadit.createAssembly(steps: [resizeStep]) { result in
             switch result {
             case .success:
-            serverFinishedExpectation.fulfill()
+                serverFinishedExpectation.fulfill()
             case .failure:
                 XCTFail("Creating an assembly should have succeeded")
             }
@@ -106,9 +72,8 @@ final class TransloaditKitTests: XCTestCase {
         fileDelegate.finishUploadExpectation = finishedUploadExpectation
         fileDelegate.startUploadExpectation = startedUploadsExpectation
         
-        
         createAssembly(files, completed: { result in
-                        
+            
             switch result {
             case .success(let receivedAssembly):
                 XCTAssertEqual(serverAssembly, receivedAssembly)
@@ -118,7 +83,7 @@ final class TransloaditKitTests: XCTestCase {
         })
         
         wait(for: [startedUploadsExpectation, finishedUploadExpectation], timeout: 3)
-
+        
         XCTAssertEqual(numFiles, fileDelegate.finishedUploads.count)
         XCTAssertEqual(numFiles, fileDelegate.startedUploads.count)
     }
@@ -129,8 +94,6 @@ final class TransloaditKitTests: XCTestCase {
         
         let finishedUploadExpectation = self.expectation(description: "Finished file upload")
         finishedUploadExpectation.isInverted = true
-        
-        
         fileDelegate.finishUploadExpectation = finishedUploadExpectation
         
         // Start
@@ -138,7 +101,7 @@ final class TransloaditKitTests: XCTestCase {
         try transloadit.reset()
         
         wait(for: [finishedUploadExpectation], timeout: 3)
-
+        
         XCTAssertEqual(0, fileDelegate.finishedUploads.count)
     }
     
@@ -160,9 +123,88 @@ final class TransloaditKitTests: XCTestCase {
     
     // MARK: - Restoring upload sessions
     
-    func testContinuingUploadsOnNewSession() throws {
-        XCTFail("Implement me")
+    func testContinuingUploadsAfterStopping() throws {
+        // Stop uploads, resume them with the same client. Make sure uploads are finished.
+        let (files, _) = try Network.prepareForUploadingFiles(data: data)
+        Network.prepareForStatusResponse(data: data) // Because TUS will perform a status check after continuing.
+        let numFiles = files.count
+        
+        let startedUploadsExpectation = self.expectation(description: "Started uploads")
+        startedUploadsExpectation.expectedFulfillmentCount = numFiles
+        let finishedUploadExpectation = self.expectation(description: "Finished file upload")
+        finishedUploadExpectation.expectedFulfillmentCount = numFiles
+        
+        fileDelegate.startUploadExpectation = startedUploadsExpectation
+        
+        var localAssembly: Assembly!
+        transloadit.createAssembly(steps: [resizeStep], andUpload: files, completion: { result in
+            
+            switch result {
+            case .success(let assembly):
+                localAssembly = assembly
+            case .failure:
+                XCTFail("Expected assembly creation to succeed.")
+            }
+        })
+        
+        wait(for: [startedUploadsExpectation], timeout: 3)
+        
+        transloadit.stopUploads()
+        
+        // Restart uploads, continue where left off
+        
+        fileDelegate.finishUploadExpectation = finishedUploadExpectation
+        transloadit.start()
+        
+        wait(for: [finishedUploadExpectation], timeout: 5)
+        
+        XCTAssert(fileDelegate.finishedUploads.contains(localAssembly))
     }
+    
+    func testContinuingUploadsOnNewSession() throws {
+        // Stop uploads, resume them with a new client. Make sure uploads are finished.
+        let (files, _) = try Network.prepareForUploadingFiles(data: data)
+        Network.prepareForStatusResponse(data: data) // Because TUS will perform a status check after continuing.
+        let numFiles = files.count
+        
+        let startedUploadsExpectation = self.expectation(description: "Started uploads")
+        startedUploadsExpectation.expectedFulfillmentCount = numFiles
+        fileDelegate.startUploadExpectation = startedUploadsExpectation
+        
+        var localAssembly: Assembly!
+        transloadit.createAssembly(steps: [resizeStep], andUpload: files, completion: { result in
+            
+            switch result {
+            case .success(let assembly):
+                localAssembly = assembly
+            case .failure:
+                XCTFail("Expected assembly creation to succeed.")
+            }
+        })
+        
+        wait(for: [startedUploadsExpectation], timeout: 3)
+        
+        transloadit.stopUploads()
+        
+        // Restart uploads from new client, continue where left off
+        
+        let secondTransloadit = makeClient()
+        let secondFileDelegate = TransloadItMockDelegate()
+        
+        secondTransloadit.fileDelegate = secondFileDelegate
+        secondFileDelegate.name = "SECOND"
+        
+        let finishedUploadExpectation = self.expectation(description: "Finished file upload")
+        finishedUploadExpectation.expectedFulfillmentCount = numFiles
+        
+        secondFileDelegate.finishUploadExpectation = finishedUploadExpectation
+        secondTransloadit.start()
+        
+        wait(for: [finishedUploadExpectation], timeout: 5)
+        
+        XCTAssert(secondFileDelegate.finishedUploads.contains(localAssembly))
+    }
+    
     
     func testTransloaditForwardsFileErrorsOnStart() throws {
         XCTFail("Implement me")
@@ -183,7 +225,7 @@ final class TransloaditKitTests: XCTestCase {
         // It's one thing if polling stops when status is completed. But it needs to stop polling on errors and canceled actions
         try poll(statusToTestAgainst: .aborted)
     }
-                
+    
     func testTransloaditDoesntPollIfAssemblyFails() throws {
         let (files, _) = try Network.prepareForUploadingFiles(data: data)
         Network.prepareForFailingAssemblyResponse()
@@ -287,10 +329,10 @@ final class TransloaditKitTests: XCTestCase {
                 return Fixtures.makeAssemblyStatus(status: .uploading)
             }
         }
-      
-    }
-                
         
+    }
+    
+    
 }
 
 enum Files {
@@ -349,6 +391,14 @@ enum Network {
         }
     }
     
+    static func prepareForStatusResponse(data: Data) {
+        let url = URL(string: "www.tus-image-upload-location-returned-for-creation-post.com")!
+        MockURLProtocol.prepareResponse(for: url, method: "HEAD") { _ in
+            MockURLProtocol.Response(status: 200, headers: ["Upload-Length": String(data.count),
+                                                            "Upload-Offset": "0"], data: nil)
+        }
+    }
+    
     static func prepareForFailingAssemblyResponse() {
         let url = URL(string: "https://api2.transloadit.com/assemblies")!
         MockURLProtocol.prepareResponse(for: url, method: "POST") { _ in
@@ -370,7 +420,7 @@ enum Network {
         
         // Mimick chunk uploading with offsets
         MockURLProtocol.prepareResponse(for: uploadURL, method: "PATCH") { headers in
-            
+            sleep(1) // Upload delay
             guard let headers = headers,
                   let strOffset = headers["Upload-Offset"],
                   let offset = Int(strOffset),
@@ -400,9 +450,9 @@ enum Network {
             let assemblyStatus: AssemblyStatus = status()
             let response = Fixtures.makeAssemblyStatusResponse(assemblyStatus: assemblyStatus)
             
-
+            
             return MockURLProtocol.Response(status: 200, headers: [:], data: response)
         }
     }
-
+    
 }

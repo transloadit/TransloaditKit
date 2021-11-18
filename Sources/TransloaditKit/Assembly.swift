@@ -49,6 +49,27 @@ public struct Assembly: Codable, Equatable {
     }
 }
 
+extension Assembly: CustomStringConvertible {
+    public var description: String {
+        "\(id),\(error ?? ""),\(tusURL.absoluteString),\(url.absoluteString)"
+    }
+    
+    init?(fromString: String) {
+        let values = fromString.components(separatedBy: ",")
+        guard values.count == 4 else { return nil }
+        
+        self.id = values[0]
+        
+        self.error = values[1].isEmpty ? nil : values[1]
+        guard let tusURL = URL(string: values[2]) else { return nil }
+        guard let url = URL(string: values[3]) else { return nil }
+        
+        self.tusURL = tusURL
+        self.url = url
+    }
+    
+    
+}
 
 public struct AssemblyStatus: Codable {
     

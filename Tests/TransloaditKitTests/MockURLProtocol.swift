@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  TUSMockDelegate.swift
 //
 //
 //  Created by Tjeerd in ‘t Veen on 28/09/2021.
@@ -26,14 +26,23 @@ final class TUSMockDelegate: TUSClientDelegate {
     var fileErrorExpectation: XCTestExpectation?
     var uploadFailedExpectation: XCTestExpectation?
     
-    func didFinishUpload(id: UUID, url: URL, client: TUSClient) {
-        finishedUploads.append((id, url))
-        finishUploadExpectation?.fulfill()
-    }
+    var receivedContexts = [[String: String]]()
     
-    func didStartUpload(id: UUID, client: TUSClient) {
+    func didStartUpload(id: UUID, context: [String : String]?, client: TUSClient) {
         startedUploads.append(id)
         startUploadExpectation?.fulfill()
+        
+        if let context = context {
+            receivedContexts.append(context)
+        }
+    }
+
+    func didFinishUpload(id: UUID, url: URL, context: [String : String]?, client: TUSClient) {
+        finishedUploads.append((id, url))
+        finishUploadExpectation?.fulfill()
+        if let context = context {
+            receivedContexts.append(context)
+        }
     }
     
     func fileError(error: TUSClientError, client: TUSClient) {
@@ -41,9 +50,12 @@ final class TUSMockDelegate: TUSClientDelegate {
         fileErrorExpectation?.fulfill()
     }
     
-    func uploadFailed(id: UUID, error: Error, client: TUSClient) {
+    func uploadFailed(id: UUID, error: Error, context: [String : String]?, client: TUSClient) {
         failedUploads.append((id, error))
         uploadFailedExpectation?.fulfill()
+        if let context = context {
+            receivedContexts.append(context)
+        }
     }
     
     func totalProgress(bytesUploaded: Int, totalBytes: Int, client: TUSClient) {
@@ -105,7 +117,7 @@ final class MockURLProtocol: URLProtocol {
         
         let endpoint = PreparedResponseEndpoint(url: requestURL, method: method)
         guard let preparedResponseClosure = type(of: self).responses[endpoint] else {
-            assertionFailure("No response found for \(String(describing: request.httpMethod)) request URL: \(String(describing: request.url)) \n prepared \(type(of: self).responses)")
+            assertionFailure("No response found for endpoint \(endpoint) method \n request URL: \(String(describing: request.url)) \n prepared \(type(of: self).responses)")
             return
         }
         
