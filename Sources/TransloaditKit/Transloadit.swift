@@ -58,7 +58,7 @@ public final class Transloadit {
     private let storageDir: URL?
     
     lazy var tusClient: TUSClient = {
-        // TODO: Make url optional in TUS?
+        // TODO: Make url optional in TUS? or keep for status checks?
 //            let basePath = URL(string: "https://api2.transloadit.com")!
         let tusClient = TUSClient(config: TUSConfig(server: URL(string:"https://www.transloadit.com")!), sessionIdentifier: "TransloadIt", storageDirectory: storageDir, session: session)
         tusClient.delegate = self
@@ -78,6 +78,16 @@ public final class Transloadit {
         self.api = TransloaditAPI(credentials: credentials, session: session)
         self.session = session
         self.storageDir = storageDir
+    }
+    
+    public func start() {
+        tusClient.start()
+    }
+    
+    /// Stop all running uploads
+    public func stopUploads() {
+        // TODO: Maybe call it stop() and make sure assemblies that are running, are also stopped.
+        tusClient.stopAndCancelAll()
     }
     
     /// Create an assembly, do not upload a file.
@@ -141,7 +151,8 @@ public final class Transloadit {
                 let assembly = try result.get()
                 let ids = try self.tusClient.uploadFiles(filePaths: files,
                                                          uploadURL: assembly.tusURL,
-                                                         customHeaders: makeMetadata(assembly: assembly))
+                                                         customHeaders: makeMetadata(assembly: assembly),
+                                                         context: ["assembly": assembly.description])
                 
                 for id in ids {
                     self.assemblies[id] = assembly
@@ -182,22 +193,37 @@ public final class Transloadit {
         }
     }
     
+    /// For unfinished uploads, schedule background tasks to upload them.
+    /// iOS will decide per device when these tasks will be performed. E.g. with a wifi connection and late at night.
+    
+#if os(iOS)
+    @available(iOS 13.0, *)
+    public func scheduleBackgroundTasks() {
+        tusClient.scheduleBackgroundTasks()
+    }
+#endif
 }
 
 extension Transloadit: TUSClientDelegate {
-    public func didStartUpload(id: UUID, client: TUSClient) {
-        guard let assembly = assemblies[id] else {
-            assertionFailure("Could not retrieve assembly for file id: \(id)")
-            return
+    
+    public func didStartUpload(id: UUID, context: [String : String]?, client: TUSClient) {
+        
+        guard let context = context,
+              let assemblyStr = context["assembly"],
+              let assembly = Assembly(fromString: assemblyStr) else {
+                  assertionFailure("Could not retrieve assembly for file id: \(id)")
+                  return
         }
         
         fileDelegate?.didStartUpload(assembly: assembly, client: self)
     }
     
-    public func didFinishUpload(id: UUID, url: URL, client: TUSClient) {
-        guard let assembly = assemblies[id] else {
-            assertionFailure("Could not retrieve assembly for file id: \(id)")
-            return
+    public func didFinishUpload(id: UUID, url: URL, context: [String : String]?, client: TUSClient) {
+        guard let context = context,
+              let assemblyStr = context["assembly"],
+              let assembly = Assembly(fromString: assemblyStr) else {
+                  assertionFailure("Could not retrieve assembly for file id: \(id)")
+                  return
         }
 
         fileDelegate?.didFinishUpload(assembly: assembly, client: self)
@@ -208,20 +234,22 @@ extension Transloadit: TUSClientDelegate {
     }
     
     public func progressFor(id: UUID, bytesUploaded: Int, totalBytes: Int, client: TUSClient) {
-        guard let assembly = assemblies[id] else {
-            assertionFailure("Could not retrieve assembly for file id: \(id)")
-            return
-        }
-        
+        // TODO: Find assembly
+//        guard let assembly = assemblies[id] else {
+//            assertionFailure("Could not retrieve assembly for file id: \(id)")
+//            return
+//        }
+//
         // TODO: Support bytes multiple uploads for one assembly
-        fileDelegate?.progressFor(assembly: assembly, bytesUploaded: bytesUploaded, totalBytes: totalBytes, client: self)
+//        fileDelegate?.progressFor(assembly: assembly, bytesUploaded: bytesUploaded, totalBytes: totalBytes, client: self)
     }
     
     public func totalProgress(bytesUploaded: Int, totalBytes: Int, client: TUSClient) {
         fileDelegate?.totalProgress(bytesUploaded: bytesUploaded, totalBytes: totalBytes, client: self)
     }
     
-    public func uploadFailed(id: UUID, error: Error, client: TUSClient) {
+    public func uploadFailed(id: UUID, error: Error, context: [String : String]?, client: TUSClient) {
         fileDelegate?.didError(error: error, client: self)
     }
 }
+
