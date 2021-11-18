@@ -29,6 +29,7 @@ final class TransloaditAPI {
     static private let formatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY/MM/dd HH:mm:s+00:00"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         return dateFormatter
     }()
