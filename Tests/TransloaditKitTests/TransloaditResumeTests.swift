@@ -59,12 +59,6 @@ final class TransloaditKitResumeTests: XCTestCase {
         wait(for: [startedUploadsExpectation], timeout: 3)
     }
     
-//    func testContinueUpload() {
-//        XCTFail("Implement me")
-//        Network.prepareForStatusResponse(data: data) // Because TUS will perform a status check after continuing.
-//        XCTAssertFalse(transloadit.start().isEmpty)
-//    }
-//
     func testTransloaditForwardsAssembliesOnStart() throws {
         // Stop uploads, resume them with a new client. Make sure uploads are finished.
         let (files, _) = try Network.prepareForUploadingFiles(data: data)
