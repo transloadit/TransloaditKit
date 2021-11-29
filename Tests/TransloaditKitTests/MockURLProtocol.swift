@@ -77,6 +77,8 @@ final class MockURLProtocol: URLProtocol {
     
     typealias Headers = [String: String]?
     
+    let queue = DispatchQueue(label: "com.transloadit")
+    
     struct Response {
         let status: Int
         let headers: [String: String]
@@ -111,29 +113,31 @@ final class MockURLProtocol: URLProtocol {
     }
     
     override func startLoading() {
-        guard let client = client else { return }
-        guard let requestURL = request.url, let method = request.httpMethod else {
-            return }
-        
-        let endpoint = PreparedResponseEndpoint(url: requestURL, method: method)
-        guard let preparedResponseClosure = type(of: self).responses[endpoint] else {
-            assertionFailure("No response found for endpoint \(endpoint) method \n request URL: \(String(describing: request.url)) \n prepared \(type(of: self).responses)")
-            return
+        queue.async {
+            guard let client = self.client else { return }
+            guard let requestURL = self.request.url, let method = self.request.httpMethod else {
+                return }
+            
+            let endpoint = PreparedResponseEndpoint(url: requestURL, method: method)
+            guard let preparedResponseClosure = type(of: self).responses[endpoint] else {
+                assertionFailure("No response found for endpoint \(endpoint) method \n request URL: \(String(describing: self.request.url)) \n prepared \(type(of: self).responses)")
+                return
+            }
+            
+            let preparedResponse = preparedResponseClosure(self.request.allHTTPHeaderFields)
+            
+            type(of: self).receivedRequests.append(self.request)
+            
+            let url = URL(string: "https://api2.transloadit.com")!
+            let response = HTTPURLResponse(url: url, statusCode: preparedResponse.status, httpVersion: nil, headerFields: preparedResponse.headers)!
+            
+            client.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
+            
+            if let data = preparedResponse.data {
+                client.urlProtocol(self, didLoad: data)
+            }
+            client.urlProtocolDidFinishLoading(self)
         }
-        
-        let preparedResponse = preparedResponseClosure(request.allHTTPHeaderFields)
-        
-        type(of: self).receivedRequests.append(request)
-        
-        let url = URL(string: "https://api2.transloadit.com")!
-        let response = HTTPURLResponse(url: url, statusCode: preparedResponse.status, httpVersion: nil, headerFields: preparedResponse.headers)!
-        
-        client.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
-        
-        if let data = preparedResponse.data {
-            client.urlProtocol(self, didLoad: data)
-        }
-        client.urlProtocolDidFinishLoading(self)
     }
     
     override func stopLoading() {

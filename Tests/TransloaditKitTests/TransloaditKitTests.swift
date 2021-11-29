@@ -206,10 +206,6 @@ final class TransloaditKitTests: XCTestCase {
     }
     
     
-    func testTransloaditForwardsFileErrorsOnStart() throws {
-        XCTFail("Implement me")
-    }
-    
     // MARK: - Polling
     
     func testPolling() throws {
@@ -455,4 +451,16 @@ enum Network {
         }
     }
     
+    static func prepareForStatusCheckFailingOnce(assemblyURL: URL, expectedStatus: AssemblyStatus.ProcessingStatus = .completed) {
+        var count = 1
+        Network.prepareForStatusChecks(assemblyURL: assemblyURL) {
+            if count == 0 {
+                return Fixtures.makeAssemblyStatus(status: expectedStatus)
+            } else {
+                count -= 1
+                return Fixtures.makeAssemblyStatus(status: .uploading)
+            }
+        }
+        
+    }
 }

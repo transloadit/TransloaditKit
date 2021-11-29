@@ -7,6 +7,7 @@
 
 import Foundation
 import CommonCrypto
+import TUSKit
 
 enum TransloaditAPIError: Error {
     case cantSerialize
