@@ -50,8 +50,6 @@ public final class Transloadit {
     }
     
     typealias FileId = UUID
-    /// A list of assemblies and its associated file ids
-    var assemblies = [FileId: Assembly]()
     var pollers = [[URL]: TransloaditPoller]()
     
     private let api: TransloaditAPI
@@ -80,8 +78,21 @@ public final class Transloadit {
         self.storageDir = storageDir
     }
     
-    public func start() {
-        tusClient.start()
+    @discardableResult
+    /// Continue uploads where they were left off.
+    /// - Returns: The assemblies that are still queued.
+    public func start() -> [Assembly] {
+        let idsAndContexts = tusClient.start()
+        let assemblies = idsAndContexts.compactMap { (_, context) -> Assembly? in
+            guard let context = context,
+                  let assemblyStr = context["assembly"],
+                  let assembly = Assembly(fromString: assemblyStr) else {
+                      return nil
+                  }
+            return assembly
+        }
+        
+        return assemblies
     }
     
     /// Stop all running uploads
@@ -149,14 +160,10 @@ public final class Transloadit {
             
             do {
                 let assembly = try result.get()
-                let ids = try self.tusClient.uploadFiles(filePaths: files,
+                try self.tusClient.uploadFiles(filePaths: files,
                                                          uploadURL: assembly.tusURL,
                                                          customHeaders: makeMetadata(assembly: assembly),
                                                          context: ["assembly": assembly.description])
-                
-                for id in ids {
-                    self.assemblies[id] = assembly
-                }
                 
                 poller.assemblyURL = assembly.url
                 
@@ -207,7 +214,6 @@ public final class Transloadit {
 extension Transloadit: TUSClientDelegate {
     
     public func didStartUpload(id: UUID, context: [String : String]?, client: TUSClient) {
-        
         guard let context = context,
               let assemblyStr = context["assembly"],
               let assembly = Assembly(fromString: assemblyStr) else {

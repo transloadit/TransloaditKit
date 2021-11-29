@@ -3,10 +3,10 @@
     "pins": [
       {
         "package": "TUSKit",
-        "repositoryURL": "https://github.com/tus/TUSKit",
+        "repositoryURL": "/Users/tjeerdintveen/workspace/TUSKit",
         "state": {
-          "branch": "rewrite/start",
-          "revision": "8b2be3c8f6f3b190849278414369368614d4f381",
+          "branch": "context",
+          "revision": "77a5d0fd54e81e4f0c2fc5acf5ceb97b04044ce6",
           "version": null
         }
       }
