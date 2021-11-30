@@ -5,8 +5,8 @@
         "package": "TUSKit",
         "repositoryURL": "https://github.com/tus/TUSKit",
         "state": {
-          "branch": "context",
-          "revision": "77a5d0fd54e81e4f0c2fc5acf5ceb97b04044ce6",
+          "branch": "rewrite/start",
+          "revision": "0db91403347cce8e46ecffa4cf786f6f49b14ce2",
           "version": null
         }
       }
