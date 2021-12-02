@@ -248,7 +248,7 @@ final class TransloaditKitTests: XCTestCase {
         waitForExpectations(timeout: defaultPollingTime + 1, handler: nil)
     }
     
-    func poll(statusToTestAgainst: AssemblyStatus.ProcessingStatus) throws {
+    private func poll(statusToTestAgainst: AssemblyStatus.ProcessingStatus) throws {
         let defaultPollingTime: Double = 3
         let pollingExpectation = expectation(description: "Waiting for polling to be called twice")
         pollingExpectation.expectedFulfillmentCount = 2 // The amount of calls required before a status check is finished (e.g. status is set to completed/canceled/aborted)
