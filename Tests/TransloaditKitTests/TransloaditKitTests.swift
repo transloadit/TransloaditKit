@@ -21,7 +21,7 @@ final class TransloaditKitTests: XCTestCase {
         do {
             try transloadit.reset()
         } catch {
-            XCTFail("Could not reset transloadit \(error)")
+            // If there is no cache, that's okay.
         }
         fileDelegate = TransloadItMockDelegate()
         transloadit.fileDelegate = fileDelegate
