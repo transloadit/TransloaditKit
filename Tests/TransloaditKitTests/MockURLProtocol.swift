@@ -62,7 +62,7 @@ final class TUSMockDelegate: TUSClientDelegate {
         totalProgressReceived.append(bytesUploaded)
     }
     
-    func progressFor(id: UUID, bytesUploaded: Int, totalBytes: Int, client: TUSClient) {
+    func progressFor(id: UUID, context: [String: String]?, bytesUploaded: Int, totalBytes: Int, client: TUSClient) {
         progressPerId[id] = bytesUploaded
     }
 }

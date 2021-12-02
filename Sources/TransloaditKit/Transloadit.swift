@@ -29,7 +29,6 @@ public protocol TransloaditFileDelegate: AnyObject {
     func didError(error: Error, client: Transloadit)
 }
 
-
 /// Use the `Transloadit` class to uploadi files using the underlying TUS protocol.
 /// You can either create an Assembly by itself, or create an Assembly and  upload files to it right away.
 ///
@@ -95,10 +94,20 @@ public final class Transloadit {
         return assemblies
     }
     
-    /// Stop all running uploads
-    public func stopUploads() {
-        // TODO: Maybe call it stop() and make sure assemblies that are running, are also stopped.
+    /// Stop all running uploads. But cache is intact so you can continue later.
+    /// Also refer to : `reset()` to remove the cache.
+    public func stopRunningUploads() {
         tusClient.stopAndCancelAll()
+    }
+    
+    /// Stop all running uploads, reset local upload cache.
+    /// - Throws: TransloaditError
+    public func reset() throws {
+        do {
+            try tusClient.reset()
+        } catch {
+            throw TransloaditError.couldNotClearCache
+        }
     }
     
     /// Create an assembly, do not upload a file.
@@ -180,16 +189,6 @@ public final class Transloadit {
         return poller
     }
     
-    /// Stop all running uploads, reset local upload cache.
-    /// - Throws: TransloaditError
-    public func reset() throws {
-        do {
-            try tusClient.reset()
-        } catch {
-            throw TransloaditError.couldNotClearCache
-        }
-    }
-    
     /// Retrieve the status of an Assembly.
     /// - Parameters:
     ///   - assemblyURL: The url to use
@@ -214,40 +213,36 @@ public final class Transloadit {
 extension Transloadit: TUSClientDelegate {
     
     public func didStartUpload(id: UUID, context: [String : String]?, client: TUSClient) {
-        guard let context = context,
-              let assemblyStr = context["assembly"],
-              let assembly = Assembly(fromString: assemblyStr) else {
-                  assertionFailure("Could not retrieve assembly for file id: \(id)")
+        guard let fileDelegate = fileDelegate,
+              let assembly = context.flatMap(extractAssemblyFrom) else {
                   return
-        }
-        
-        fileDelegate?.didStartUpload(assembly: assembly, client: self)
+              }
+
+        fileDelegate.didStartUpload(assembly: assembly, client: self)
     }
     
     public func didFinishUpload(id: UUID, url: URL, context: [String : String]?, client: TUSClient) {
-        guard let context = context,
-              let assemblyStr = context["assembly"],
-              let assembly = Assembly(fromString: assemblyStr) else {
-                  assertionFailure("Could not retrieve assembly for file id: \(id)")
+        guard let fileDelegate = fileDelegate,
+              let assembly = context.flatMap(extractAssemblyFrom) else {
                   return
-        }
+              }
 
-        fileDelegate?.didFinishUpload(assembly: assembly, client: self)
+        fileDelegate.didFinishUpload(assembly: assembly, client: self)
     }
     
     public func fileError(error: TUSClientError, client: TUSClient) {
         fileDelegate?.didError(error: error, client: self)
     }
     
-    public func progressFor(id: UUID, bytesUploaded: Int, totalBytes: Int, client: TUSClient) {
-        // TODO: Find assembly
-//        guard let assembly = assemblies[id] else {
-//            assertionFailure("Could not retrieve assembly for file id: \(id)")
-//            return
-//        }
-//
-        // TODO: Support bytes multiple uploads for one assembly
-//        fileDelegate?.progressFor(assembly: assembly, bytesUploaded: bytesUploaded, totalBytes: totalBytes, client: self)
+    public func progressFor(id: UUID, context: [String: String]?, bytesUploaded: Int, totalBytes: Int, client: TUSClient) {
+        
+        guard let fileDelegate = fileDelegate,
+              let assembly = context.flatMap(extractAssemblyFrom) else {
+                  return
+              }
+        
+        // @Improvement: TUSKit handles multi-uploads for a file. But an Assembly also supports multiple files. An improvement would be to track multiple files and pass that.
+        fileDelegate.progressFor(assembly: assembly, bytesUploaded: bytesUploaded, totalBytes: totalBytes, client: self)
     }
     
     public func totalProgress(bytesUploaded: Int, totalBytes: Int, client: TUSClient) {
@@ -259,3 +254,15 @@ extension Transloadit: TUSClientDelegate {
     }
 }
 
+
+/// Small helper function to get an `Assembly` out of a context from TUSKit.
+/// - Parameter context: A dictionary that's passed when uploading a file via TUSKit
+/// - Returns: An Assembly, if one is found and can be converted.
+private func extractAssemblyFrom(context: [String: String]) -> Assembly? {
+    guard let assemblyStr = context["assembly"],
+          let assembly = Assembly(fromString: assemblyStr) else {
+              return nil
+    }
+    
+    return assembly
+}
