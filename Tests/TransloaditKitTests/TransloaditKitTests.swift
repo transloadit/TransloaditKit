@@ -149,7 +149,7 @@ final class TransloaditKitTests: XCTestCase {
         
         wait(for: [startedUploadsExpectation], timeout: 3)
         
-        transloadit.stopUploads()
+        transloadit.stopRunningUploads()
         
         // Restart uploads, continue where left off
         
@@ -184,7 +184,7 @@ final class TransloaditKitTests: XCTestCase {
         
         wait(for: [startedUploadsExpectation], timeout: 3)
         
-        transloadit.stopUploads()
+        transloadit.stopRunningUploads()
         
         // Restart uploads from new client, continue where left off
         
