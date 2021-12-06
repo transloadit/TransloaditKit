@@ -21,7 +21,7 @@ final class TransloaditKitTests: XCTestCase {
         do {
             try transloadit.reset()
         } catch {
-            // If there is no cache, that's okay.
+            // If there is no cache to delete, that's okay.
         }
         fileDelegate = TransloadItMockDelegate()
         transloadit.fileDelegate = fileDelegate
@@ -89,20 +89,16 @@ final class TransloaditKitTests: XCTestCase {
     }
     
     func testCanReset() throws {
+        XCTAssertEqual(0, transloadit.remainingUploads)
         // Preparation
         let (files, _) = try Network.prepareForUploadingFiles(data: data)
         
-        let finishedUploadExpectation = self.expectation(description: "Finished file upload")
-        finishedUploadExpectation.isInverted = true
-        fileDelegate.finishUploadExpectation = finishedUploadExpectation
-        
         // Start
         createAssembly(files)
-        try transloadit.reset()
-        
-        wait(for: [finishedUploadExpectation], timeout: 3)
-        
-        XCTAssertEqual(0, fileDelegate.finishedUploads.count)
+        XCTAssertEqual(files.count, transloadit.remainingUploads)
+        try? transloadit.reset()
+        try? transloadit.reset()
+        XCTAssertEqual(0, transloadit.remainingUploads)
     }
     
     func testStatusFetching() throws {

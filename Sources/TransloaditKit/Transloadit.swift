@@ -54,9 +54,11 @@ public final class Transloadit {
     private let api: TransloaditAPI
     private let storageDir: URL?
     
+    public var remainingUploads: Int {
+        tusClient.remainingUploads
+    }
+    
     lazy var tusClient: TUSClient = {
-        // TODO: Make url optional in TUS? or keep for status checks?
-//            let basePath = URL(string: "https://api2.transloadit.com")!
         let tusClient = TUSClient(config: TUSConfig(server: URL(string:"https://www.transloadit.com")!), sessionIdentifier: "TransloadIt", storageDirectory: storageDir, session: session)
         tusClient.delegate = self
         return tusClient
