@@ -1,13 +1,13 @@
 import TUSKit
 import Foundation
 
-public struct TransloaditError: Error {
-    let code: Int
+/// The errors that `Transloadit` can return
+public enum TransloaditError: Error {
     
-    public static let couldNotFetchStatus = TransloaditError(code: 1)
-    public static let couldNotCreateAssembly = TransloaditError(code: 2)
-    public static let couldNotUploadFile = TransloaditError(code: 3)
-    public static let couldNotClearCache = TransloaditError(code: 4)
+    case couldNotFetchStatus(underlyingError: Error)
+    case couldNotCreateAssembly(underlyingError: Error)
+    case couldNotUploadFile(underlyingError: Error)
+    case couldNotClearCache(underlyingError: Error)
 }
 
 public protocol TransloaditFileDelegate: AnyObject {
@@ -108,7 +108,7 @@ public final class Transloadit {
         do {
             try tusClient.reset()
         } catch {
-            throw TransloaditError.couldNotClearCache
+            throw TransloaditError.couldNotClearCache(underlyingError: error)
         }
     }
     
@@ -123,7 +123,7 @@ public final class Transloadit {
     /// - Parameter completion: The created assembly
     public func createAssembly(steps: [Step], expectedNumberOfFiles: Int = 1, completion: @escaping (Result<Assembly, TransloaditError>) -> Void) {
         api.createAssembly(steps: steps, expectedNumberOfFiles: expectedNumberOfFiles) { result in
-            let transloaditResult = result.mapError { _ in TransloaditError.couldNotCreateAssembly }
+            let transloaditResult = result.mapError { error in TransloaditError.couldNotCreateAssembly(underlyingError: error) }
             completion(transloaditResult)
         }
     }
@@ -179,10 +179,10 @@ public final class Transloadit {
                 poller.assemblyURL = assembly.url
                 
                 completion(.success(assembly))
-            } catch is TransloaditAPIError {
-                completion(.failure(TransloaditError.couldNotCreateAssembly))
+            } catch let error where error is TransloaditAPIError {
+                completion(.failure(TransloaditError.couldNotCreateAssembly(underlyingError: error)))
             } catch {
-                completion(.failure(TransloaditError.couldNotUploadFile))
+                completion(.failure(TransloaditError.couldNotUploadFile(underlyingError: error)))
             }
         })
         
@@ -197,7 +197,7 @@ public final class Transloadit {
     ///   - completion: A handler that's called when the status fetching call is completed.
     public func fetchStatus(assemblyURL: URL, completion: @escaping (Result<AssemblyStatus, TransloaditError>) -> Void) {
         api.fetchStatus(assemblyURL: assemblyURL) { result in
-            completion(result.mapError { _ in TransloaditError.couldNotFetchStatus })
+            completion(result.mapError { error in TransloaditError.couldNotFetchStatus(underlyingError: error) })
         }
     }
     
