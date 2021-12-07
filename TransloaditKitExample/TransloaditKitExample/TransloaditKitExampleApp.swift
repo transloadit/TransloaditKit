@@ -33,8 +33,7 @@ final class MyUploader: ObservableObject {
     init() {
         let credentials = Transloadit.Credentials(key: "my_key", secret: "my_secret")
         self.transloadit = Transloadit(credentials: credentials, session: URLSession.shared)
-        self.transloadit.delegate = self
-        
+        self.transloadit.fileDelegate = self
     }
     
 }
@@ -51,11 +50,12 @@ enum StepFactory {
 
 extension MyUploader: TransloaditFileDelegate {
     func progressFor(assembly: Assembly, bytesUploaded: Int, totalBytes: Int, client: Transloadit) {
+        print("Progress for \(assembly) is \(bytesUploaded) / \(totalBytes)")
         
     }
     
     func totalProgress(bytesUploaded: Int, totalBytes: Int, client: Transloadit) {
-        
+        print("Total bytes \(totalBytes)")
     }
     
     func didErrorOnAssembly(errror: Error, assembly: Assembly, client: Transloadit) {
