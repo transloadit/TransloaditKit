@@ -6,6 +6,7 @@ import AVFoundation
 
 // These tests are checking the async await public API of Transloadit
 
+@available(macOS 10.15, iOS 13, *)
 final class TransloaditKitAsyncAwaitTests: XCTestCase {
     public var transloadit: Transloadit!
     

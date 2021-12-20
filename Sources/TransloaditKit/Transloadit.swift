@@ -208,7 +208,7 @@ public final class Transloadit {
     }
     
     // TODO: Make sure name is different that completion block variant, or risk accidental overloading.
-    @available(macOS 10.15, *)
+    @available(macOS 10.15, iOS 13, *)
     public func createAssembly(steps: [Step], andUpload files: [URL]) async throws -> (Assembly, TransloaditPoller) {
         
         return try await withCheckedThrowingContinuation({ continuation in
