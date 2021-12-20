@@ -192,7 +192,6 @@ public final class Transloadit {
     
  #if compiler(>=5.5) && canImport(_Concurrency)
 
-    // TODO: Make sure name is different that completion block variant, or risk accidental overloading.
     @available(macOS 10.15, iOS 13, *)
     public func createAssembly(steps: [Step], expectedNumberOfFiles: Int = 1) async throws -> Assembly {
         return try await withCheckedThrowingContinuation { continuation in
@@ -207,7 +206,6 @@ public final class Transloadit {
         }
     }
     
-    // TODO: Make sure name is different that completion block variant, or risk accidental overloading.
     @available(macOS 10.15, iOS 13, *)
     public func createAssembly(steps: [Step], andUpload files: [URL]) async throws -> (Assembly, TransloaditPoller) {
         
