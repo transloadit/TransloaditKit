@@ -172,9 +172,9 @@ public final class Transloadit {
             do {
                 let assembly = try result.get()
                 try self.tusClient.uploadFiles(filePaths: files,
-                                                         uploadURL: assembly.tusURL,
-                                                         customHeaders: makeMetadata(assembly: assembly),
-                                                         context: ["assembly": assembly.description])
+                                               uploadURL: assembly.tusURL,
+                                               customHeaders: makeMetadata(assembly: assembly),
+                                               context: ["assembly": assembly.description])
                 
                 poller.assemblyURL = assembly.url
                 
@@ -186,10 +186,46 @@ public final class Transloadit {
             }
         })
         
-        
         pollers[files] = poller
         return poller
     }
+    
+ #if compiler(>=5.5) && canImport(_Concurrency)
+
+    // TODO: Make sure name is different that completion block variant, or risk accidental overloading.
+    @available(macOS 10.15, iOS 13, *)
+    public func createAssembly(steps: [Step], expectedNumberOfFiles: Int = 1) async throws -> Assembly {
+        return try await withCheckedThrowingContinuation { continuation in
+            createAssembly(steps: steps, expectedNumberOfFiles: expectedNumberOfFiles, completion: { result in
+                switch result {
+                case .success(let assembly):
+                    continuation.resume(returning: assembly)
+                case .failure(let transloaditError):
+                    continuation.resume(throwing: transloaditError)
+                }
+            })
+        }
+    }
+    
+    // TODO: Make sure name is different that completion block variant, or risk accidental overloading.
+    @available(macOS 10.15, *)
+    public func createAssembly(steps: [Step], andUpload files: [URL]) async throws -> (Assembly, TransloaditPoller) {
+        
+        return try await withCheckedThrowingContinuation({ continuation in
+            var poller: TransloaditPoller!
+            poller = createAssembly(steps: steps, andUpload: files) { result in
+
+                switch result {
+                case .success(let assembly):
+                    continuation.resume(returning: (assembly, poller))
+                case .failure(let transloaditError):
+                    continuation.resume(throwing: transloaditError)
+                }
+            }
+        })
+    }
+    
+#endif
     
     /// Retrieve the status of an Assembly.
     /// - Parameters:
