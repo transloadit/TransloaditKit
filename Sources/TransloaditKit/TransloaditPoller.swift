@@ -1,5 +1,9 @@
 import Foundation
 
+enum TransloaditPollerError: Error {
+    case noPollingURLAvailable
+}
+
 /// `TransloaditPoller` is returned by Transloadit when uploading files.
 /// You can use the `pollAssemblyStatus` method to polling for a file status.
 public final class TransloaditPoller {
@@ -17,6 +21,7 @@ public final class TransloaditPoller {
     
     private var isPolling = false
     private let didFinish: () -> Void
+    
     private var completion: ((Result<AssemblyStatus, TransloaditError>) -> Void)?
     
     init(transloadit: Transloadit, didFinish: @escaping () -> Void) {
@@ -24,6 +29,8 @@ public final class TransloaditPoller {
         self.didFinish = didFinish
     }
     
+    /// After making an assembly and uploading files, you can use this method to fetch the assembly's status.
+    /// - Parameter completion: Will pass a result containing the current status (or an error if status can't be fetched).
     public func pollAssemblyStatus(completion: @escaping (Result<AssemblyStatus, TransloaditError>) -> Void) {
         self.completion = completion
         if let assemblyURL = assemblyURL {
@@ -31,6 +38,34 @@ public final class TransloaditPoller {
         }
     }
 
+#if compiler(>=5.5) && canImport(_Concurrency)
+    @available(macOS 10.15, iOS 13, *)
+    /// Async / Await alternative to wait for the processing to complete.
+    /// Note that this will only return once the assembly is done processing (or failed).
+    /// If you want intermediate statuses you can use `pollAssemblyStatus`.
+    ///
+    /// - Important: This method might run indefinitely if server doesn't respond.
+    public func waitForProcessing() async throws {
+        guard let assemblyURL = assemblyURL else {
+            throw TransloaditPollerError.noPollingURLAvailable
+        }
+        // TODO: Timeout?
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            self.completion = { result in
+                switch result {
+                case .success(let status):
+                    if status.processingStatus == .completed {
+                        continuation.resume()
+                    }
+                case .failure(let statusError):
+                    continuation.resume(throwing: statusError)
+                }
+            }
+            checkAndStartPolling(url: assemblyURL)
+        }
+    }
+#endif
 
     private func checkAndStartPolling(url: URL) {
         guard let completion = completion else {
