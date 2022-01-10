@@ -1,4 +1,4 @@
-name: TransloaditKit CI
+name: CI
 on: [push]
 jobs:
   build:
