@@ -11,14 +11,14 @@ jobs:
     steps:
       - name: Extract Branch Name
         run: echo "BRANCH=$(echo ${GITHUB_REF##*/})" >> $GITHUB_ENV
-      - uses: fwal/setup-swift@v1.10.0
+      - uses: fwal/setup-swift@v1
         with:
           swift-version: ${{ matrix.swift }}
       - uses: actions/checkout@v2
       - name: Build
-        run: swift build -Xswiftc --disable-experimental-concurrency
+        run: swift build
       - name: Run tests
-        run: swift test -Xswiftc --disable-experimental-concurrency
+        run: swift test
       - uses: 8398a7/action-slack@v3
         if: failure() && env.BRANCH == 'master'
         with:
