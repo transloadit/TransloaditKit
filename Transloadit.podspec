@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Transloadit'
-  s.version          = '2.0.4'
-  s.summary          = 'A short description of Transloadit.'
+  s.version          = '3.0.0'
+  s.summary          = 'Transloadit client in Swift'
   s.swift_version = '5.0'
 
 # This description is used to generate tags and improve search results.
@@ -19,26 +19,19 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+Swift client for http://transloadit.com called TransloaditKit. Mac and iOS compatible.
                        DESC
 
   s.homepage         = 'https://github.com/transloadit/TransloaditKit'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'mmasterson' => 'mark@masterson.io' }
+  s.author           = { 'Tjeerd in t Veen' => 'tjeerd@twinapps.co' }
   s.source           = { :git => 'https://github.com/transloadit/TransloaditKit.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '10.0'
+  s.osx.deployment_target  = '10.10'
 
-  s.source_files = 'Transloadit/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'Transloadit' => ['Transloadit/Assets/*.png']
-  # }
+  s.source_files = 'Sources/TransloaditKit/**/*'
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
-    s.dependency 'TUSKit', '~> 2.1.0'
+  s.dependency 'TUSKit', '~> 3.1.1'
+
 end
