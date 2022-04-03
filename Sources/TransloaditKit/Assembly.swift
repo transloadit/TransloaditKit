@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Assembly.swift
 //  
 //
 //  Created by Tjeerd in ‘t Veen on 07/10/2021.
@@ -83,19 +83,19 @@ public struct AssemblyStatus: Codable {
         case aborted = "REQUEST_ABORTED"
     }
     
-    public let assemblyId: String // Not a UUID type since the server doesn't hyphenate.
+    public let assemblyID: String // Not a UUID type since the server doesn't hyphenate.
     public let message: String
     public let processingStatus: ProcessingStatus
     
     enum CodingKeys: String, CodingKey {
-        case assemblyId
+        case assemblyID = "assemblyId"
         case message
         case processingStatus = "ok"
     }
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(assemblyId, forKey: .assemblyId)
+        try container.encode(assemblyID, forKey: .assemblyID)
         try container.encode(message, forKey: .message)
         try container.encode(processingStatus.rawValue, forKey: .processingStatus)
     }

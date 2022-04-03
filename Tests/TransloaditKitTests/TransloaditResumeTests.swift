@@ -3,7 +3,7 @@ import TransloaditKit // ⚠️ WARNING: We are not performing a testable import
 import AVFoundation
 
 final class TransloaditKitResumeTests: XCTestCase {
-    public var transloadit: Transloadit!
+    var transloadit: Transloadit!
     
     let resizeStep = Step(name: "resize", robot: "/image/resize", options: ["width": 50,
                                                                             "height": 75,

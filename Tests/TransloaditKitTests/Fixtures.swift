@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Fixtures.swift
 //  
 //
 //  Created by Tjeerd in ‘t Veen on 19/10/2021.
@@ -17,7 +17,7 @@ enum Fixtures {
     }
     
     static func makeAssemblyStatus(status: AssemblyStatus.ProcessingStatus) -> AssemblyStatus {
-        AssemblyStatus(assemblyId: "Assembly ID", message: "I am a message", processingStatus: status)
+        AssemblyStatus(assemblyID: "Assembly ID", message: "I am a message", processingStatus: status)
     }
     
     static func makeAssemblyResponse(assembly: Assembly) -> Data {

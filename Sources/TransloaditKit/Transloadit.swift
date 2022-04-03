@@ -20,7 +20,9 @@ public protocol TransloaditFileDelegate: AnyObject {
     
     /// Get the progress of all ongoing uploads combined
     ///
-    /// - Important: The total is based on active uploads, so it will lower once files are uploaded. This is because it's ambiguous what the total is. E.g. You can be uploading 100 bytes, after 50 bytes are uploaded, let's say you add 150 more bytes, is the total then 250 or 200? And what if the upload is done, and you add 50 more. Is the total 50 or 300? or 250?
+    /// - Important: The total is based on active uploads, so it will lower once files are uploaded.
+    /// This is because it's ambiguous what the total is. E.g. You can be uploading 100 bytes, after 50 bytes are uploaded, let's say you add 150 more bytes, is the total then 250 or 200?
+    /// And what if the upload is done, and you add 50 more. Is the total 50 or 300? or 250?
     ///
     /// As a rule of thumb: The total will be highest on the start, a good starting point is to compare the progress against that number.
     func totalProgress(bytesUploaded: Int, totalBytes: Int, client: Transloadit)
@@ -29,7 +31,7 @@ public protocol TransloaditFileDelegate: AnyObject {
     func didError(error: Error, client: Transloadit)
 }
 
-/// Use the `Transloadit` class to uploadi files using the underlying TUS protocol.
+/// Use the `Transloadit` class to upload files using the underlying TUS protocol.
 /// You can either create an Assembly by itself, or create an Assembly and  upload files to it right away.
 ///
 /// To create an Assembly and without uploading files, please refer to `createAssembly(steps: completion)`
@@ -72,7 +74,9 @@ public final class Transloadit {
     /// - Parameters:
     ///   - credentials: The credentials with required key and secret.
     ///   - session: A URLSession to use.
-    ///   - storageDir: A storagedirectory to use. Used by underlying TUSKit mechanism to store files. If left empty, no directory will be made when performing non-file related tasks, such as creating assemblies. However, if you start uploading files, then TUS will make a directory, whether one you specify or a default one in the documents directory.
+    ///   - storageDir: A storagedirectory to use. Used by underlying TUSKit mechanism to store files.
+    ///   If left empty, no directory will be made when performing non-file related tasks, such as creating assemblies. However, if you start uploading files,
+    ///   then TUS will make a directory, whether one you specify or a default one in the documents directory.
     public init(credentials: Transloadit.Credentials, session: URLSession, storageDir: URL? = nil) {
         self.api = TransloaditAPI(credentials: credentials, session: session)
         self.session = session
@@ -277,7 +281,8 @@ extension Transloadit: TUSClientDelegate {
                   return
               }
         
-        // @Improvement: TUSKit handles multi-uploads for a file. But an Assembly also supports multiple files. An improvement would be to track multiple files and pass that.
+        // @Improvement: TUSKit handles multi-uploads for a file. But an Assembly also supports multiple files.
+        // An improvement would be to track multiple files and pass that.
         fileDelegate.progressFor(assembly: assembly, bytesUploaded: bytesUploaded, totalBytes: totalBytes, client: self)
     }
     
