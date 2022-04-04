@@ -77,7 +77,7 @@ final class MockURLProtocol: URLProtocol {
     
     typealias Headers = [String: String]?
     
-    let queue = DispatchQueue(label: "com.transloadit")
+    static let queue = DispatchQueue(label: "com.transloadit")
     
     struct Response {
         let status: Int
@@ -89,8 +89,10 @@ final class MockURLProtocol: URLProtocol {
     static var receivedRequests = [URLRequest]()
     
     static func reset() {
-        responses = [:]
-        receivedRequests = []
+        queue.async {
+            responses = [:]
+            receivedRequests = []
+        }
     }
     
     /// Define a response to be used for a method
@@ -98,8 +100,10 @@ final class MockURLProtocol: URLProtocol {
     ///   - method: The http method (POST PATCH etc)
     ///   - makeResponse: A closure that returns a Response
     static func prepareResponse(for url: URL, method: String, makeResponse: @escaping (Headers) -> Response) {
-        let prepResponseEndpoint = PreparedResponseEndpoint(url: url, method: method)
-        responses[prepResponseEndpoint] = makeResponse
+        queue.async {
+            let prepResponseEndpoint = PreparedResponseEndpoint(url: url, method: method)
+            responses[prepResponseEndpoint] = makeResponse
+        }
     }
     
     override class func canInit(with request: URLRequest) -> Bool {
@@ -113,7 +117,7 @@ final class MockURLProtocol: URLProtocol {
     }
     
     override func startLoading() {
-        queue.async {
+        Self.queue.async {
             guard let client = self.client else { return }
             guard let requestURL = self.request.url, let method = self.request.httpMethod else {
                 return }
