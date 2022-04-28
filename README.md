@@ -2,7 +2,7 @@
 
 An **iOS** and **macOS** integration for [Transloadit](https://transloadit.com)'s file uploading and encoding service
 
-## Installation
+## Install
 
 ### CocoaPods
 
