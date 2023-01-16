@@ -9,3 +9,4 @@
 - [ ] Add documentation (or link to it if it already exists)
 - [ ] Add ability to upload without using the secret in the app
 - [ ] Add ability to upload in background (iOS)
+- [ ] Create a documentation describing the release process
