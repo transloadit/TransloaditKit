@@ -42,6 +42,35 @@ final class TransloaditAPI {
         self.session = session
     }
     
+    func createAssembly(templateId: String, expectedNumberOfFiles: Int, completion: @escaping (Result<Assembly, TransloaditAPIError>) -> Void) {
+        guard let request = try? makeAssemblyRequest(templateId: templateId, expectedNumberOfFiles: expectedNumberOfFiles) else {
+            // Next runloop to make the API consistent with the network runloop. Otherwise it would return instantly, can give weird effects
+            DispatchQueue.main.async {
+                completion(.failure(TransloaditAPIError.cantSerialize))
+            }
+            return
+        }
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
+            if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let assembly = try decoder.decode(Assembly.self, from: data)
+                    
+                    if let error = assembly.error {
+                        completion(.failure(.assemblyError(error)))
+                    } else {
+                        completion(.success(assembly))
+                    }
+                } catch {
+                    completion(.failure(TransloaditAPIError.couldNotCreateAssembly(error)))
+                }
+            }
+        }
+        task.resume()
+    }
+    
     func createAssembly(steps: [Step], expectedNumberOfFiles: Int, completion: @escaping (Result<Assembly, TransloaditAPIError>) -> Void) {
         guard let request = try? makeAssemblyRequest(steps: steps, expectedNumberOfFiles: expectedNumberOfFiles) else {
             // Next runloop to make the API consistent with the network runloop. Otherwise it would return instantly, can give weird effects
@@ -71,6 +100,72 @@ final class TransloaditAPI {
         task.resume()
     }
     
+    private func makeAssemblyRequest(templateId: String, expectedNumberOfFiles: Int) throws -> URLRequest {
+        
+        func makeBody(includeSecret: Bool) throws -> [String: String] {
+            // Time to allow uploads after signing.
+            let secondsInDay: Double = 86400
+            let dateTime: String = type(of: self).formatter.string(from: Date().addingTimeInterval(secondsInDay))
+           
+            let authObject = ["key": credentials.key, "expires": dateTime]
+            
+            let params: [String: Any] = ["auth": authObject, "template_id": templateId]
+            
+            let paramsData: Data
+            if #available(macOS 10.15, iOS 13.0, *) {
+                paramsData = try JSONSerialization.data(withJSONObject: params, options: .withoutEscapingSlashes)
+            } else {
+                paramsData = try! JSONSerialization.data(withJSONObject: params, options: [])
+            }
+            
+            guard let paramsJSONString = String(data: paramsData, encoding: .utf8) else {
+                throw TransloaditAPIError.cantSerialize
+            }
+            
+            var body: [String: String] = ["params": paramsJSONString, "tus_num_expected_upload_files": String(expectedNumberOfFiles)]
+            if !credentials.secret.isEmpty {
+                body["signature"] = "sha384:" + paramsJSONString.hmac(key: credentials.secret)
+            }
+            
+            return body
+        }
+        
+        let boundary = UUID.init().uuidString
+        
+        func makeBodyData() throws -> Data {
+            let formFields = try makeBody(includeSecret: true)
+            var body: Data = Data()
+            for field in formFields {
+                [String(format: "--%@\r\n", boundary),
+                 String(format: "Content-Disposition: form-data; name=\"%@\"\r\n\r\n", field.key),
+                 String(format: "%@\r\n", field.value)]
+                    .forEach { string in
+                        body.append(Data(string.utf8))
+                    }
+            }
+            let string = String(format: "--%@--\r\n", boundary)
+            body.append(Data(string.utf8))
+            return body
+        }
+        
+        func makeRequest() throws -> URLRequest {
+            let path = basePath.appendingPathComponent(Endpoint.assemblies.rawValue)
+            var request: URLRequest = URLRequest(url: path, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
+            
+            let headers = ["Content-Type": String(format: "multipart/form-data; boundary=%@", boundary)]
+            
+            request.httpMethod = "POST"
+            request.allHTTPHeaderFields = headers
+            request.httpBody = try makeBodyData()
+            return request
+        }
+        
+        let request = try makeRequest()
+        
+
+        return request
+    }
+    
     private func makeAssemblyRequest(steps: [Step], expectedNumberOfFiles: Int) throws -> URLRequest {
         
         func makeBody(includeSecret: Bool) throws -> [String: String] {
@@ -95,7 +190,7 @@ final class TransloaditAPI {
             
             var body: [String: String] = ["params": paramsJSONString, "tus_num_expected_upload_files": String(expectedNumberOfFiles)]
             if !credentials.secret.isEmpty {
-                body["signature"] = paramsJSONString.hmac(key: credentials.secret)
+                body["signature"] = "sha384:" + paramsJSONString.hmac(key: credentials.secret)
             }
             
             return body
@@ -171,8 +266,8 @@ final class TransloaditAPI {
 extension String {
 
     func hmac(key: String) -> String {
-        var digest = [UInt8](repeating: 0, count: Int(CC_SHA1_DIGEST_LENGTH))
-        CCHmac(CCHmacAlgorithm(kCCHmacAlgSHA1), key, key.count, self, self.count, &digest)
+        var digest = [UInt8](repeating: 0, count: Int(CC_SHA384_DIGEST_LENGTH))
+        CCHmac(CCHmacAlgorithm(kCCHmacAlgSHA384), key, key.count, self, self.count, &digest)
         let data = Data(digest)
         return data.map { String(format: "%02hhx", $0) }.joined()
     }
@@ -192,4 +287,25 @@ extension Array where Element == Step {
         
         return values
     }
+}
+
+// From Alamofire
+extension CharacterSet {
+    /// Creates a CharacterSet from RFC 3986 allowed characters.
+    ///
+    /// RFC 3986 states that the following characters are "reserved" characters.
+    ///
+    /// - General Delimiters: ":", "#", "[", "]", "@", "?", "/"
+    /// - Sub-Delimiters: "!", "$", "&", "'", "(", ")", "*", "+", ",", ";", "="
+    ///
+    /// In RFC 3986 - Section 3.4, it states that the "?" and "/" characters should not be escaped to allow
+    /// query strings to include a URL. Therefore, all "reserved" characters with the exception of "?" and "/"
+    /// should be percent-escaped in the query string.
+    public static let realURLQueryAllowed: CharacterSet = {
+        let generalDelimitersToEncode = "#[]@/?+:" // does not include "?" or "/" due to RFC 3986 - Section 3.4
+        let subDelimitersToEncode = "!$&'()*;="
+        let encodableDelimiters = CharacterSet(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
+        
+        return CharacterSet.urlHostAllowed.subtracting(encodableDelimiters)
+    }()
 }
