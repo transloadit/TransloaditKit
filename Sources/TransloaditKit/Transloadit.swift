@@ -202,9 +202,7 @@ public final class Transloadit {
     @discardableResult
     public func createAssembly(steps: [Step], andUpload files: [URL], completion: @escaping (Result<Assembly, TransloaditError>) -> Void)  -> TransloaditPoller {
         func makeMetadata(assembly: Assembly) -> [String: String] {
-            ["fieldname": "file-input",
-             "assembly_url": assembly.url.absoluteString,
-             "filename": "file"]
+            [:]
         }
         
         let poller = TransloaditPoller(transloadit: self, didFinish: { [weak self] in
@@ -224,7 +222,7 @@ public final class Transloadit {
                 try self.tusClient.uploadFiles(filePaths: files,
                                                uploadURL: assembly.tusURL,
                                                customHeaders: makeMetadata(assembly: assembly),
-                                               context: ["assembly": assembly.description])
+                                               context: ["assembly": assembly.description, "fieldname": "file-input", "assembly_url": assembly.url.absoluteString])
                 
                 poller.assemblyURL = assembly.url
                 
