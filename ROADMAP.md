@@ -10,3 +10,4 @@
 - [ ] Add ability to upload without using the secret in the app
 - [ ] Add ability to upload in background (iOS)
 - [ ] Create a documentation describing the release process
+- [ ] Implement more API endpoints (e.g. fetching assemblies, templates etc.)

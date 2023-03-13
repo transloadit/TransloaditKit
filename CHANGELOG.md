@@ -6,4 +6,4 @@
 * Headers were set incorrectly when creating an assembly + uploading files immediately
 
 ### Added
-* Allow running an assembly by templateID through bothh `Transloadit.createAssembly(templateId:...` methods
+* Allow running an assembly by templateID through both `Transloadit.createAssembly(templateId:...` methods
