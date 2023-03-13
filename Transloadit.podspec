@@ -24,7 +24,7 @@ Swift client for http://transloadit.com called TransloaditKit. Mac and iOS compa
 
   s.homepage         = 'https://github.com/transloadit/TransloaditKit'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Tjeerd in t Veen' => 'tjeerd@twinapps.co' }
+  s.author           = 'Transloadit'
   s.source           = { :git => 'https://github.com/transloadit/TransloaditKit.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '10.0'
