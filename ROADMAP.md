@@ -11,3 +11,4 @@
 - [ ] Add ability to upload in background (iOS)
 - [ ] Create a documentation describing the release process
 - [ ] Implement more API endpoints (e.g. fetching assemblies, templates etc.)
+- [ ] Add ability (or document it) to set fields, notify_url and allow_steps_override: https://transloadit.com/docs/api/assemblies-post/#param-fields
