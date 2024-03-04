@@ -61,7 +61,7 @@ public final class Transloadit {
     }
     
     lazy var tusClient: TUSClient = {
-        let tusClient = try! TUSClient(server: URL(string:"https://www.transloadit.com")!, sessionIdentifier: "TransloadIt", storageDirectory: storageDir, session: session)
+        let tusClient = try! TUSClient(server: URL(string:"https://www.transloadit.com")!, sessionIdentifier: "TransloadIt", sessionConfiguration: session.configuration, storageDirectory: storageDir)
         tusClient.delegate = self
         return tusClient
     }()
