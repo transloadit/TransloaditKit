@@ -282,6 +282,15 @@ public final class Transloadit {
             completion(result.mapError { error in TransloaditError.couldNotFetchStatus(underlyingError: error) })
         }
     }
+    /// Allows cancellation of an assembly and any in progress uploads associated with it.
+    /// - Parameters:
+    ///   - assembly: The assembly to cancel
+    ///   - completion: A handler that's called when the assembly is cancelled.
+    public func cancelAssembly(_ assembly: Assembly, completion: @escaping (Result<AssemblyStatus, TransloaditError>) -> Void) {
+        api.cancelAssembly(assembly) { result in
+            completion(result.mapError { error in TransloaditError.couldNotFetchStatus(underlyingError: error) })
+        }
+    }
     
     /// For unfinished uploads, schedule background tasks to upload them.
     /// iOS will decide per device when these tasks will be performed. E.g. with a wifi connection and late at night.

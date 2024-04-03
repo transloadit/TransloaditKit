@@ -260,6 +260,34 @@ final class TransloaditAPI {
         
         task.resume()
     }
+    
+    func cancelAssembly(_ assembly: Assembly, completion: @escaping (Result<AssemblyStatus, TransloaditAPIError>) -> Void) {
+        func makeRequest() -> URLRequest {
+            var request = URLRequest(url: assembly.url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
+            request.httpMethod = "DELETE"
+            return request
+        }
+        
+        let task = session.dataTask(request: makeRequest()) { result in
+            switch result {
+            case .success((let data?, _)):
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let status = try decoder.decode(AssemblyStatus.self, from: data)
+                    completion(.success(status))
+                } catch {
+                    completion(.failure(.couldNotFetchStatus))
+                }
+            case .success((nil, _)):
+                completion(.failure(.couldNotFetchStatus))
+            case .failure:
+                completion(.failure(.couldNotFetchStatus))
+            }
+        }
+        
+        task.resume()
+    }
 }
 
 
