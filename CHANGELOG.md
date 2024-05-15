@@ -1,5 +1,13 @@
 # TransloaditKit Changelog
 
+## 3.2.0
+
+### Fixes
+
+### Added
+* It's now possible to cancel a running Assembly 
+* Bumped TUSKit version
+
 ## 3.1.0
 
 ### Fixes
