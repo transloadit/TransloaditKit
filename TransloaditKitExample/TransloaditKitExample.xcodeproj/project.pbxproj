@@ -46,7 +46,9 @@
 				2E5C974E27158BA80090C3C5 /* Products */,
 				2E5C976127158E4E0090C3C5 /* Frameworks */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		2E5C974E27158BA80090C3C5 /* Products */ = {
 			isa = PBXGroup;

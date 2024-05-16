@@ -42,8 +42,17 @@ final class TransloaditAPI {
         self.session = session
     }
     
-    func createAssembly(templateId: String, expectedNumberOfFiles: Int, completion: @escaping (Result<Assembly, TransloaditAPIError>) -> Void) {
-        guard let request = try? makeAssemblyRequest(templateId: templateId, expectedNumberOfFiles: expectedNumberOfFiles) else {
+    func createAssembly(
+      templateId: String,
+      expectedNumberOfFiles: Int,
+      customParameters: [String: Any],
+      completion: @escaping (Result<Assembly, TransloaditAPIError>) -> Void
+    ) {
+        guard let request = try? makeAssemblyRequest(
+          templateId: templateId,
+          expectedNumberOfFiles: expectedNumberOfFiles,
+          customParameters: customParameters
+        ) else {
             // Next runloop to make the API consistent with the network runloop. Otherwise it would return instantly, can give weird effects
             DispatchQueue.main.async {
                 completion(.failure(TransloaditAPIError.cantSerialize))
@@ -71,8 +80,17 @@ final class TransloaditAPI {
         task.resume()
     }
     
-    func createAssembly(steps: [Step], expectedNumberOfFiles: Int, completion: @escaping (Result<Assembly, TransloaditAPIError>) -> Void) {
-        guard let request = try? makeAssemblyRequest(steps: steps, expectedNumberOfFiles: expectedNumberOfFiles) else {
+    func createAssembly(
+      steps: [Step],
+      expectedNumberOfFiles: Int,
+      customParameters: [String: Any],
+      completion: @escaping (Result<Assembly, TransloaditAPIError>) -> Void
+    ) {
+        guard let request = try? makeAssemblyRequest(
+          steps: steps,
+          expectedNumberOfFiles: expectedNumberOfFiles,
+          customParameters: customParameters
+        ) else {
             // Next runloop to make the API consistent with the network runloop. Otherwise it would return instantly, can give weird effects
             DispatchQueue.main.async {
                 completion(.failure(TransloaditAPIError.cantSerialize))
@@ -100,7 +118,11 @@ final class TransloaditAPI {
         task.resume()
     }
     
-    private func makeAssemblyRequest(templateId: String, expectedNumberOfFiles: Int) throws -> URLRequest {
+    private func makeAssemblyRequest(
+      templateId: String, 
+      expectedNumberOfFiles: Int,
+      customParameters: [String: Any]
+    ) throws -> URLRequest {
         
         func makeBody(includeSecret: Bool) throws -> [String: String] {
             // Time to allow uploads after signing.
@@ -109,7 +131,8 @@ final class TransloaditAPI {
            
             let authObject = ["key": credentials.key, "expires": dateTime]
             
-            let params: [String: Any] = ["auth": authObject, "template_id": templateId]
+            var params: [String: Any] = ["auth": authObject, "template_id": templateId]
+            params.merge(customParameters, uniquingKeysWith: { param, _ in param })
             
             let paramsData: Data
             if #available(macOS 10.15, iOS 13.0, *) {
@@ -166,7 +189,11 @@ final class TransloaditAPI {
         return request
     }
     
-    private func makeAssemblyRequest(steps: [Step], expectedNumberOfFiles: Int) throws -> URLRequest {
+    private func makeAssemblyRequest(
+      steps: [Step],
+      expectedNumberOfFiles: Int,
+      customParameters: [String: Any]
+    ) throws -> URLRequest {
         
         func makeBody(includeSecret: Bool) throws -> [String: String] {
             // Time to allow uploads after signing.
@@ -175,13 +202,14 @@ final class TransloaditAPI {
            
             let authObject = ["key": credentials.key, "expires": dateTime]
             
-            let params = ["auth": authObject, "steps": steps.toDictionary]
+            var params: [String: Any] = ["auth": authObject, "steps": steps.toDictionary]
+            params.merge(customParameters, uniquingKeysWith: { param, _ in param })
             
             let paramsData: Data
             if #available(macOS 10.15, iOS 13.0, *) {
                 paramsData = try JSONSerialization.data(withJSONObject: params, options: .withoutEscapingSlashes)
             } else {
-                paramsData = try! JSONSerialization.data(withJSONObject: params, options: [])
+                paramsData = try JSONSerialization.data(withJSONObject: params, options: [])
             }
             
             guard let paramsJSONString = String(data: paramsData, encoding: .utf8) else {
