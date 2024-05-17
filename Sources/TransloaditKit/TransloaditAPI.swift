@@ -45,13 +45,13 @@ final class TransloaditAPI {
     func createAssembly(
       templateId: String,
       expectedNumberOfFiles: Int,
-      customParameters: [String: Any],
+      customFields: [String: String],
       completion: @escaping (Result<Assembly, TransloaditAPIError>) -> Void
     ) {
         guard let request = try? makeAssemblyRequest(
           templateId: templateId,
           expectedNumberOfFiles: expectedNumberOfFiles,
-          customParameters: customParameters
+          customFields: customFields
         ) else {
             // Next runloop to make the API consistent with the network runloop. Otherwise it would return instantly, can give weird effects
             DispatchQueue.main.async {
@@ -83,13 +83,13 @@ final class TransloaditAPI {
     func createAssembly(
       steps: [Step],
       expectedNumberOfFiles: Int,
-      customParameters: [String: Any],
+      customFields: [String: String],
       completion: @escaping (Result<Assembly, TransloaditAPIError>) -> Void
     ) {
         guard let request = try? makeAssemblyRequest(
           steps: steps,
           expectedNumberOfFiles: expectedNumberOfFiles,
-          customParameters: customParameters
+          customFields: customFields
         ) else {
             // Next runloop to make the API consistent with the network runloop. Otherwise it would return instantly, can give weird effects
             DispatchQueue.main.async {
@@ -121,7 +121,7 @@ final class TransloaditAPI {
     private func makeAssemblyRequest(
       templateId: String, 
       expectedNumberOfFiles: Int,
-      customParameters: [String: Any]
+      customFields: [String: String]
     ) throws -> URLRequest {
         
         func makeBody(includeSecret: Bool) throws -> [String: String] {
@@ -132,7 +132,7 @@ final class TransloaditAPI {
             let authObject = ["key": credentials.key, "expires": dateTime]
             
             var params: [String: Any] = ["auth": authObject, "template_id": templateId]
-            params.merge(customParameters, uniquingKeysWith: { param, _ in param })
+            params["fields"] = customFields
             
             let paramsData: Data
             if #available(macOS 10.15, iOS 13.0, *) {
@@ -192,7 +192,7 @@ final class TransloaditAPI {
     private func makeAssemblyRequest(
       steps: [Step],
       expectedNumberOfFiles: Int,
-      customParameters: [String: Any]
+      customFields: [String: String]
     ) throws -> URLRequest {
         
         func makeBody(includeSecret: Bool) throws -> [String: String] {
@@ -203,7 +203,7 @@ final class TransloaditAPI {
             let authObject = ["key": credentials.key, "expires": dateTime]
             
             var params: [String: Any] = ["auth": authObject, "steps": steps.toDictionary]
-            params.merge(customParameters, uniquingKeysWith: { param, _ in param })
+            params["fields"] = customFields
             
             let paramsData: Data
             if #available(macOS 10.15, iOS 13.0, *) {

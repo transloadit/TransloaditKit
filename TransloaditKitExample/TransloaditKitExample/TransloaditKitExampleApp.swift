@@ -7,13 +7,14 @@
 
 import SwiftUI
 import TransloaditKit
+import Atlantis
 
 final class MyUploader: ObservableObject {
     let transloadit: Transloadit
     
     func upload(_ urls: [URL]) {
         let resizeStep = StepFactory.makeResizeStep(width: 200, height: 100)
-        transloadit.createAssembly(steps: [resizeStep], andUpload: urls) { result in
+        transloadit.createAssembly(steps: [resizeStep], andUpload: urls, customFields: ["hello": "world"]) { result in
             switch result {
             case .success(let assembly):
                 print("Retrieved \(assembly)")
@@ -89,6 +90,7 @@ struct TransloaditKitExampleApp: App {
     
     init() {
         self.uploader = MyUploader()
+        // Atlantis.start(hostName: "")
     }
     
     var body: some Scene {

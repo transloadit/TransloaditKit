@@ -124,18 +124,18 @@ public final class Transloadit {
     ///
     /// - Parameter steps: The steps of an Assembly.
     /// - Parameter expectedNumberOfFiles: The number of expected files to upload to this assembly
-    /// - Parameter customParameters: JSON-encodable dictionary of custom parameters to pass to the assembly creation
+    /// - Parameter customFields: JSON-encodable dictionary of custom parameters to pass to the assembly creation
     /// - Parameter completion: The created assembly
     public func createAssembly(
       steps: [Step],
       expectedNumberOfFiles: Int = 1,
-      customParameters: [String: Any] = [:],
+      customFields: [String: String] = [:],
       completion: @escaping (Result<Assembly, TransloaditError>) -> Void
     ) {
         api.createAssembly(
           steps: steps,
           expectedNumberOfFiles: expectedNumberOfFiles,
-          customParameters: customParameters) { result in
+          customFields: customFields) { result in
             let transloaditResult = result.mapError { error in TransloaditError.couldNotCreateAssembly(underlyingError: error) }
             completion(transloaditResult)
         }
@@ -151,18 +151,18 @@ public final class Transloadit {
     /// - Parameters:
     ///   - templateId: The templateId to use for this assembly
     ///   - expectedNumberOfFiles: The number of expected files to upload to this assembly
-    ///   - customParameters: JSON-encodable dictionary of custom parameters to pass to the assembly creation
+    ///   - customFields: JSON-encodable dictionary of custom parameters to pass to the assembly creation
     ///   - completion: The created Assembly
     public func createAssembly(
       templateId: String,
       expectedNumberOfFiles: Int = 1,
-      customParameters: [String: Any] = [:],
+      customFields: [String: String] = [:],
       completion: @escaping (Result<Assembly, TransloaditError>) -> Void
     ) {
         api.createAssembly(
           templateId: templateId,
           expectedNumberOfFiles: expectedNumberOfFiles,
-          customParameters: customParameters
+          customFields: customFields
         ) { result in
             let transloaditResult = result.mapError { error in TransloaditError.couldNotCreateAssembly(underlyingError: error) }
             completion(transloaditResult)
@@ -173,7 +173,7 @@ public final class Transloadit {
     public func createAssembly(
       templateId: String,
       andUpload files: [URL],
-      customParameters: [String: Any] = [:],
+      customFields: [String: String] = [:],
       completion: @escaping (Result<Assembly, TransloaditError>) -> Void
     )  -> TransloaditPoller {
         func makeMetadata(assembly: Assembly) -> [String: String] {
@@ -192,7 +192,7 @@ public final class Transloadit {
         createAssembly(
           templateId: templateId,
           expectedNumberOfFiles: files.count,
-          customParameters: customParameters,
+          customFields: customFields,
           completion: { [weak self] result in
             guard let self = self else { return }
             
@@ -227,7 +227,7 @@ public final class Transloadit {
     /// - Parameters:
     ///   - steps: The steps of an assembly.
     ///   - files: Paths to the files to upload
-    ///   - customParameters: JSON-encodable dictionary of extra parameters to send along with assembly creation
+    ///   - customFields: JSON-encodable dictionary of extra parameters to send along with assembly creation
     ///   - completion: completion handler, called when upload is complete
     ///
     /// Below you can see how you can create an assembly and poll for its upload status
@@ -245,7 +245,7 @@ public final class Transloadit {
     public func createAssembly(
       steps: [Step],
       andUpload files: [URL],
-      customParameters: [String: Any] = [:],
+      customFields: [String: String] = [:],
       completion: @escaping (Result<Assembly, TransloaditError>) -> Void
     )  -> TransloaditPoller {
         func makeMetadata(assembly: Assembly) -> [String: String] {
@@ -264,7 +264,7 @@ public final class Transloadit {
         createAssembly(
             steps: steps,
             expectedNumberOfFiles: files.count,
-            customParameters: customParameters,
+            customFields: customFields,
             completion: { [weak self] result in
                 guard let self = self else { return }
                 
@@ -297,13 +297,13 @@ public final class Transloadit {
     public func createAssembly(
       steps: [Step],
       expectedNumberOfFiles: Int = 1,
-      customParameters: [String: Any] = [:]
+      customFields: [String: String] = [:]
     ) async throws -> Assembly {
         return try await withCheckedThrowingContinuation { continuation in
             createAssembly(
               steps: steps,
               expectedNumberOfFiles: expectedNumberOfFiles,
-              customParameters: customParameters,
+              customFields: customFields,
               completion: { result in
                 switch result {
                 case .success(let assembly):
@@ -319,7 +319,7 @@ public final class Transloadit {
     public func createAssembly(
       steps: [Step],
       andUpload files: [URL],
-      customParameters: [String: Any] = [:]
+      customFields: [String: String] = [:]
     ) async throws -> (Assembly, TransloaditPoller) {
         
         return try await withCheckedThrowingContinuation({ continuation in
@@ -327,7 +327,7 @@ public final class Transloadit {
             poller = createAssembly(
                 steps: steps,
                 andUpload: files,
-                customParameters: customParameters
+                customFields: customFields
             ) { result in
 
                 switch result {
