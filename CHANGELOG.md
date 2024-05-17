@@ -7,6 +7,7 @@
 ### Added
 * It's now possible to cancel a running Assembly 
 * Bumped TUSKit version
+* Allow passing of custom fields to assembly creating by passing them to `createAssembly` methods
 
 ## 3.1.0
 

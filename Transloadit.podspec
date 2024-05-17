@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Transloadit'
-  s.version          = '3.1.0'
+  s.version          = '3.2.0'
   s.summary          = 'Transloadit client in Swift'
   s.swift_version = '5.0'
 
@@ -28,10 +28,10 @@ Swift client for http://transloadit.com called TransloaditKit. Mac and iOS compa
   s.source           = { :git => 'https://github.com/transloadit/TransloaditKit.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '10.0'
-  s.osx.deployment_target  = '10.10'
+  s.osx.deployment_target  = '10.11'
 
   s.source_files = 'Sources/TransloaditKit/**/*'
 
-  s.dependency 'TUSKit', '~> 3.1.5'
+  s.dependency 'TUSKit', '~> 3.3.0'
 
 end
