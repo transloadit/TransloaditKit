@@ -14,6 +14,7 @@
 		2E5C975827158BA90090C3C5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E5C975727158BA90090C3C5 /* Preview Assets.xcassets */; };
 		2E5C975F27158C4F0090C3C5 /* Sources in Resources */ = {isa = PBXBuildFile; fileRef = 2E5C975E27158C4F0090C3C5 /* Sources */; };
 		2E5C976327158E4E0090C3C5 /* TransloaditKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E5C976227158E4E0090C3C5 /* TransloaditKit */; };
+		97E56B402BF73FBC00604536 /* Atlantis in Frameworks */ = {isa = PBXBuildFile; productRef = 97E56B3F2BF73FBC00604536 /* Atlantis */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		2E5C975727158BA90090C3C5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2E5C975E27158C4F0090C3C5 /* Sources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sources; path = ../../../Sources; sourceTree = "<group>"; };
 		2E5C976027158C560090C3C5 /* TransloaditKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TransloaditKit; path = ../../..; sourceTree = "<group>"; };
+		97E56B412BF7401B00604536 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97E56B402BF73FBC00604536 /* Atlantis in Frameworks */,
 				2E5C976327158E4E0090C3C5 /* TransloaditKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -46,7 +49,9 @@
 				2E5C974E27158BA80090C3C5 /* Products */,
 				2E5C976127158E4E0090C3C5 /* Frameworks */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		2E5C974E27158BA80090C3C5 /* Products */ = {
 			isa = PBXGroup;
@@ -59,6 +64,7 @@
 		2E5C974F27158BA80090C3C5 /* TransloaditKitExample */ = {
 			isa = PBXGroup;
 			children = (
+				97E56B412BF7401B00604536 /* Info.plist */,
 				2E5C975027158BA80090C3C5 /* TransloaditKitExampleApp.swift */,
 				2E5C975227158BA80090C3C5 /* ContentView.swift */,
 				2E5C975427158BA90090C3C5 /* Assets.xcassets */,
@@ -103,6 +109,7 @@
 			name = TransloaditKitExample;
 			packageProductDependencies = (
 				2E5C976227158E4E0090C3C5 /* TransloaditKit */,
+				97E56B3F2BF73FBC00604536 /* Atlantis */,
 			);
 			productName = TransloaditKitExample;
 			productReference = 2E5C974D27158BA80090C3C5 /* TransloaditKitExample.app */;
@@ -132,6 +139,9 @@
 				Base,
 			);
 			mainGroup = 2E5C974427158BA80090C3C5;
+			packageReferences = (
+				97E56B3E2BF73FBC00604536 /* XCRemoteSwiftPackageReference "atlantis" */,
+			);
 			productRefGroup = 2E5C974E27158BA80090C3C5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -292,13 +302,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TransloaditKitExample/Preview Content\"";
+				DEVELOPMENT_TEAM = 4JMM8JMG3H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TransloaditKitExample/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Atlantis would use Bonjour Service to discover Proxyman app from your local network.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Select photos to upload to a transloadit server";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -322,13 +334,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TransloaditKitExample/Preview Content\"";
+				DEVELOPMENT_TEAM = 4JMM8JMG3H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TransloaditKitExample/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Atlantis would use Bonjour Service to discover Proxyman app from your local network.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Select photos to upload to a transloadit server";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -367,10 +381,26 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		97E56B3E2BF73FBC00604536 /* XCRemoteSwiftPackageReference "atlantis" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ProxymanApp/atlantis";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.24.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		2E5C976227158E4E0090C3C5 /* TransloaditKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TransloaditKit;
+		};
+		97E56B3F2BF73FBC00604536 /* Atlantis */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97E56B3E2BF73FBC00604536 /* XCRemoteSwiftPackageReference "atlantis" */;
+			productName = Atlantis;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
