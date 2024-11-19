@@ -25,7 +25,11 @@ final class TransloaditAPI {
         case assemblies = "/assemblies"
     }
     
-    private let session: URLSession
+    private let configuration: URLSessionConfiguration
+    private let delegateQueue: OperationQueue
+    private lazy var session: URLSession = {
+        return URLSession(configuration: configuration, delegate: self, delegateQueue: delegateQueue)
+    }()
     
     static private let formatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -36,10 +40,12 @@ final class TransloaditAPI {
     }()
     
     private let credentials: Transloadit.Credentials
+    var callbacks: [URLSessionTask: (Data?, (Result<(Data, URLResponse), Error>) -> Void)] = [:]
     
     init(credentials: Transloadit.Credentials, session: URLSession) {
         self.credentials = credentials
-        self.session = session
+        self.configuration = session.configuration
+        self.delegateQueue = session.delegateQueue
     }
     
     func createAssembly(
@@ -60,13 +66,17 @@ final class TransloaditAPI {
             return
         }
         
-        let task = session.dataTask(with: request) { (data, response, error) in
-            if let data = data {
+        let task = session.dataTask(with: request)
+        callbacks[task] = (Data(), { result in 
+            switch result {
+            case .failure(let error):
+                completion(.failure(.couldNotCreateAssembly(error)))
+            case .success((let data, _)):
                 do {
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     let assembly = try decoder.decode(Assembly.self, from: data)
-                    
+
                     if let error = assembly.error {
                         completion(.failure(.assemblyError(error)))
                     } else {
@@ -76,7 +86,7 @@ final class TransloaditAPI {
                     completion(.failure(TransloaditAPIError.couldNotCreateAssembly(error)))
                 }
             }
-        }
+        })
         task.resume()
     }
     
@@ -98,13 +108,17 @@ final class TransloaditAPI {
             return
         }
         
-        let task = session.dataTask(with: request) { (data, response, error) in
-            if let data = data {
+        let task = session.dataTask(with: request)
+        callbacks[task] = (Data(), { result in 
+            switch result {
+            case .failure(let error):
+                completion(.failure(.couldNotCreateAssembly(error)))
+            case .success((let data, _)):
                 do {
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     let assembly = try decoder.decode(Assembly.self, from: data)
-                    
+
                     if let error = assembly.error {
                         completion(.failure(.assemblyError(error)))
                     } else {
@@ -114,7 +128,7 @@ final class TransloaditAPI {
                     completion(.failure(TransloaditAPIError.couldNotCreateAssembly(error)))
                 }
             }
-        }
+        })
         task.resume()
     }
     
@@ -268,9 +282,12 @@ final class TransloaditAPI {
             return request
         }
         
-        let task = session.dataTask(request: makeRequest()) { result in
+        let task = session.dataTask(request: makeRequest())
+        callbacks[task] = (Data(), { result in
             switch result {
-            case .success((let data?, _)):
+            case .failure:
+                completion(.failure(.couldNotFetchStatus))
+            case .success((let data, _)):
                 do {
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -279,13 +296,8 @@ final class TransloaditAPI {
                 } catch {
                     completion(.failure(.couldNotFetchStatus))
                 }
-            case .success((nil, _)):
-                completion(.failure(.couldNotFetchStatus))
-            case .failure:
-                completion(.failure(.couldNotFetchStatus))
             }
-        }
-        
+        })
         task.resume()
     }
     
@@ -296,9 +308,12 @@ final class TransloaditAPI {
             return request
         }
         
-        let task = session.dataTask(request: makeRequest()) { result in
+        let task = session.dataTask(request: makeRequest())
+        callbacks[task] = (Data(), { result in
             switch result {
-            case .success((let data?, _)):
+            case .failure:
+                completion(.failure(.couldNotFetchStatus))
+            case .success((let data, _)):
                 do {
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -307,13 +322,8 @@ final class TransloaditAPI {
                 } catch {
                     completion(.failure(.couldNotFetchStatus))
                 }
-            case .success((nil, _)):
-                completion(.failure(.couldNotFetchStatus))
-            case .failure:
-                completion(.failure(.couldNotFetchStatus))
             }
-        }
-        
+        })
         task.resume()
     }
 }
