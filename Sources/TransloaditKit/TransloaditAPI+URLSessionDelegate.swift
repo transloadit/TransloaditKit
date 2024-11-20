@@ -1,25 +1,27 @@
 import Foundation
 
-extension TransloaditAPI: URLSessionDelegate {
+extension TransloaditAPI: URLSessionDataDelegate {
   public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-    guard let callback = callbacks[task]?.1 else { 
+    guard let completionHandler = callbacks[task] else { 
       return
     }
 
+    defer { callbacks[task] = nil }
+
     if let error {
-      callback(.failure(error))
+      completionHandler.callback(.failure(error))
       return
     }
     
-    guard let data = callbacks[task]?.0, let response = task.response else {
-      //callback(.failure(TransloaditAPIError.unknown))
+    guard let response = task.response else {
+      completionHandler.callback(.failure(TransloaditAPIError.incompleteServerResponse))
       return
     }
 
-    callback(.success((data, response)))
+    completionHandler.callback(.success((completionHandler.data, response)))
   }
 
   public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-    callbacks[dataTask]?.0?.append(data)
+    callbacks[dataTask]?.data.append(data)
   }
 }

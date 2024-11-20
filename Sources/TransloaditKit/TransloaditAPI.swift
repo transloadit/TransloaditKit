@@ -14,10 +14,11 @@ enum TransloaditAPIError: Error {
     case couldNotFetchStatus
     case couldNotCreateAssembly(Error)
     case assemblyError(String)
+    case incompleteServerResponse
 }
 
 /// The `TransloaditAPI` class makes API calls, such as creating assemblies or checking an assembly's status.
-final class TransloaditAPI {
+final class TransloaditAPI: NSObject {
     
     private let basePath = URL(string: "https://api2.transloadit.com")!
     
@@ -40,12 +41,13 @@ final class TransloaditAPI {
     }()
     
     private let credentials: Transloadit.Credentials
-    var callbacks: [URLSessionTask: (Data?, (Result<(Data, URLResponse), Error>) -> Void)] = [:]
+    var callbacks: [URLSessionTask: URLSessionCompletionHandler] = [:]
     
     init(credentials: Transloadit.Credentials, session: URLSession) {
         self.credentials = credentials
         self.configuration = session.configuration
         self.delegateQueue = session.delegateQueue
+        super.init()
     }
     
     func createAssembly(
@@ -67,7 +69,7 @@ final class TransloaditAPI {
         }
         
         let task = session.dataTask(with: request)
-        callbacks[task] = (Data(), { result in 
+        callbacks[task] = URLSessionCompletionHandler(callback: { result in 
             switch result {
             case .failure(let error):
                 completion(.failure(.couldNotCreateAssembly(error)))
@@ -109,7 +111,8 @@ final class TransloaditAPI {
         }
         
         let task = session.dataTask(with: request)
-        callbacks[task] = (Data(), { result in 
+        //task.delegate = self
+        callbacks[task] = URLSessionCompletionHandler(callback: { result in
             switch result {
             case .failure(let error):
                 completion(.failure(.couldNotCreateAssembly(error)))
@@ -282,8 +285,8 @@ final class TransloaditAPI {
             return request
         }
         
-        let task = session.dataTask(request: makeRequest())
-        callbacks[task] = (Data(), { result in
+        let task = session.dataTask(with: makeRequest())
+        callbacks[task] = URLSessionCompletionHandler(callback: { result in
             switch result {
             case .failure:
                 completion(.failure(.couldNotFetchStatus))
@@ -308,8 +311,8 @@ final class TransloaditAPI {
             return request
         }
         
-        let task = session.dataTask(request: makeRequest())
-        callbacks[task] = (Data(), { result in
+        let task = session.dataTask(with: makeRequest())
+        callbacks[task] = URLSessionCompletionHandler(callback: { result in
             switch result {
             case .failure:
                 completion(.failure(.couldNotFetchStatus))

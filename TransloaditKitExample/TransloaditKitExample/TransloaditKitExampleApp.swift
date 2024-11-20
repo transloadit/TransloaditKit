@@ -12,6 +12,26 @@ import Atlantis
 final class MyUploader: ObservableObject {
     let transloadit: Transloadit
     
+    func upload2(_ urls: [URL]) {
+        let templateID = "1a84d2f1f2584f92981bda285bbc4e84"
+        
+        transloadit.createAssembly(templateId: templateID, andUpload: urls, customFields: ["hello": "world"]) { result in
+            switch result {
+            case .success(let assembly):
+                print("Retrieved \(assembly)")
+            case .failure(let error):
+                print("Assembly error \(error)")
+            }
+        }.pollAssemblyStatus { result in
+            switch result {
+            case .success(let assemblyStatus):
+                print("Received assemblystatus \(assemblyStatus)")
+            case .failure(let error):
+                print("Caught polling error \(error)")
+            }
+        }
+    }
+    
     func upload(_ urls: [URL]) {
         let resizeStep = StepFactory.makeResizeStep(width: 200, height: 100)
         transloadit.createAssembly(steps: [resizeStep], andUpload: urls, customFields: ["hello": "world"]) { result in
@@ -32,7 +52,7 @@ final class MyUploader: ObservableObject {
     }
     
     init() {
-        let credentials = Transloadit.Credentials(key: "my_key", secret: "my_secret")
+        let credentials = Transloadit.Credentials(key: "Ru1rwq3ITrgSEDtgna6SGZa4yY71YJgW", secret: "Xo6xlnn42cfBkNxLSDWJNCQoSNL0j1aFB9wNyaAR")
         self.transloadit = Transloadit(credentials: credentials, session: URLSession.shared)
         self.transloadit.fileDelegate = self
     }
@@ -90,7 +110,7 @@ struct TransloaditKitExampleApp: App {
     
     init() {
         self.uploader = MyUploader()
-        // Atlantis.start(hostName: "")
+        Atlantis.start(hostName: "donnys-macbook-pro-2.local.")
     }
     
     var body: some Scene {
