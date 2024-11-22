@@ -13,7 +13,7 @@ enum Fixtures {
     // We make Assembly and AssemblyStatus here because we can access their initializers (via testable import). Which we can't in TransloaditKitTests (on purpose to test public API). We have no need to expose the memberwise initializers from these types to the public API either.
     
     static func makeAssembly() -> Assembly {
-        Assembly(id: "abc", error: nil, tusURL: URL(string: "https://my-tus.transloadit.com")!, url: URL(string: "https://transloadit.com")!)
+        Assembly(id: UUID().uuidString, error: nil, tusURL: URL(string: "https://my-tus.transloadit.com")!, url: URL(string: "https://transloadit.com")!)
     }
     
     static func makeAssemblyStatus(status: AssemblyStatus.ProcessingStatus) -> AssemblyStatus {

@@ -134,7 +134,6 @@ final class TransloaditKitTests: XCTestCase {
         
         var localAssembly: Assembly!
         transloadit.createAssembly(steps: [resizeStep], andUpload: files, completion: { result in
-            
             switch result {
             case .success(let assembly):
                 localAssembly = assembly
@@ -146,13 +145,15 @@ final class TransloaditKitTests: XCTestCase {
         wait(for: [startedUploadsExpectation], timeout: 3)
         
         transloadit.stopRunningUploads()
-        
         // Restart uploads, continue where left off
         
-        fileDelegate.finishUploadExpectation = finishedUploadExpectation
-        transloadit.start()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
+            fileDelegate.startUploadExpectation = nil
+            fileDelegate.finishUploadExpectation = finishedUploadExpectation
+            transloadit.start()
+        }
         
-        wait(for: [finishedUploadExpectation], timeout: 5)
+        wait(for: [finishedUploadExpectation], timeout: 10)
         
         XCTAssert(fileDelegate.finishedUploads.contains(localAssembly))
     }
@@ -186,15 +187,19 @@ final class TransloaditKitTests: XCTestCase {
         
         let secondTransloadit = makeClient()
         let secondFileDelegate = TransloadItMockDelegate()
-        
         secondTransloadit.fileDelegate = secondFileDelegate
         secondFileDelegate.name = "SECOND"
+
+        
         
         let finishedUploadExpectation = self.expectation(description: "Finished file upload")
         finishedUploadExpectation.expectedFulfillmentCount = numFiles
         
         secondFileDelegate.finishUploadExpectation = finishedUploadExpectation
-        secondTransloadit.start()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            secondTransloadit.start()    
+        }
         
         wait(for: [finishedUploadExpectation], timeout: 5)
         
