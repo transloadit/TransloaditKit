@@ -23,7 +23,7 @@ enum Files {
     
     static func storeFile(data: Data) throws -> URL {
         let docDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let targetLocation = docDir.appendingPathComponent("myfile.txt")
+        let targetLocation = docDir.appendingPathComponent("\(UUID().uuidString).txt")
         try data.write(to: targetLocation)
         return targetLocation
     }
@@ -58,7 +58,7 @@ enum Network {
     }
     
     static func prepareForStatusResponse(data: Data) {
-        let url = URL(string: "www.tus-image-upload-location-returned-for-creation-post.com")!
+        let url = URL(string: "https://my-tus.transloadit.com/www.tus-image-upload-location-returned-for-creation-post.com")!
         MockURLProtocol.prepareResponse(for: url, method: "HEAD") { _ in
             MockURLProtocol.Response(status: 200, headers: ["Upload-Length": String(data.count),
                                                             "Upload-Offset": "0"], data: nil)
@@ -73,7 +73,7 @@ enum Network {
     }
     
     static func prepareForSuccesfulUploads(url: URL, data: Data, lowerCasedKeysInResponses: Bool = false) {
-        let uploadURL = URL(string: "www.tus-image-upload-location-returned-for-creation-post.com")!
+        let uploadURL = URL(string: "https://my-tus.transloadit.com/www.tus-image-upload-location-returned-for-creation-post.com")!
         MockURLProtocol.prepareResponse(for: url, method: "POST") { _ in
             let key: String
             if lowerCasedKeysInResponses {
