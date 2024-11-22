@@ -1,5 +1,10 @@
 # TransloaditKit Changelog
 
+## 3.3.0
+
+### Fixes
+* Allow usage of URLSessions with background configuration to enable background uploads
+
 ## 3.2.0
 
 ### Fixes
