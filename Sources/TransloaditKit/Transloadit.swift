@@ -61,12 +61,11 @@ public final class Transloadit {
     }
     
     lazy var tusClient: TUSClient = {
-        let tusClient = try! TUSClient(server: URL(string:"https://www.transloadit.com")!, sessionIdentifier: "TransloadIt", sessionConfiguration: session.configuration, storageDirectory: storageDir)
+        let config = URLSessionConfiguration.background(withIdentifier: "com.transloadit.tus.background")
+        let tusClient = try! TUSClient(server: URL(string:"https://www.transloadit.com")!, sessionIdentifier: "TransloadIt", sessionConfiguration: config, storageDirectory: storageDir)
         tusClient.delegate = self
         return tusClient
     }()
-    
-    let session: URLSession
     
     public weak var fileDelegate: TransloaditFileDelegate?
     
@@ -77,9 +76,21 @@ public final class Transloadit {
     ///   - storageDir: A storagedirectory to use. Used by underlying TUSKit mechanism to store files.
     ///   If left empty, no directory will be made when performing non-file related tasks, such as creating assemblies. However, if you start uploading files,
     ///   then TUS will make a directory, whether one you specify or a default one in the documents directory.
+    @available(*, deprecated, message: "Use the new init(credentials:sessionConfig:storageDir:) instead.")
     public init(credentials: Transloadit.Credentials, session: URLSession, storageDir: URL? = nil) {
         self.api = TransloaditAPI(credentials: credentials, session: session)
-        self.session = session
+        self.storageDir = storageDir
+    }
+    
+    /// Initialize Transloadit
+    /// - Parameters:
+    ///   - credentials: The credentials with required key and secret.
+    ///   - sessionConfiguration: A URLSessionConfiguration to use.
+    ///   - storageDir: A storagedirectory to use. Used by underlying TUSKit mechanism to store files.
+    ///   If left empty, no directory will be made when performing non-file related tasks, such as creating assemblies. However, if you start uploading files,
+    ///   then TUS will make a directory, whether one you specify or a default one in the documents directory.
+    public init(credentials: Transloadit.Credentials, sessionConfiguration: URLSessionConfiguration, storageDir: URL? = nil) {
+        self.api = TransloaditAPI(credentials: credentials, sessionConfiguration: sessionConfiguration)
         self.storageDir = storageDir
     }
     

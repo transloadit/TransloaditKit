@@ -27,7 +27,7 @@ final class TransloaditAPI: NSObject {
     }
     
     private let configuration: URLSessionConfiguration
-    private let delegateQueue: OperationQueue
+    private let delegateQueue: OperationQueue?
     private lazy var session: URLSession = {
         return URLSession(configuration: configuration, delegate: self, delegateQueue: delegateQueue)
     }()
@@ -45,8 +45,19 @@ final class TransloaditAPI: NSObject {
     
     init(credentials: Transloadit.Credentials, session: URLSession) {
         self.credentials = credentials
-        self.configuration = session.configuration
+        if session.configuration.sessionSendsLaunchEvents {
+            self.configuration = .background(withIdentifier: "com.transloadit.bgurlsession")
+        } else {
+            self.configuration = session.configuration
+        }
         self.delegateQueue = session.delegateQueue
+        super.init()
+    }
+    
+    init(credentials: Transloadit.Credentials, sessionConfiguration: URLSessionConfiguration) {
+        self.credentials = credentials
+        self.configuration = sessionConfiguration
+        self.delegateQueue = nil
         super.init()
     }
     
@@ -68,8 +79,8 @@ final class TransloaditAPI: NSObject {
             return
         }
         
-        let task = session.dataTask(with: request)
-        callbacks[task] = URLSessionCompletionHandler(callback: { result in 
+        let task = session.uploadTask(with: request.request, fromFile: request.httpBody)
+        callbacks[task] = URLSessionCompletionHandler(callback: { result in
             switch result {
             case .failure(let error):
                 completion(.failure(.couldNotCreateAssembly(error)))
@@ -110,8 +121,8 @@ final class TransloaditAPI: NSObject {
             return
         }
         
-        let task = session.dataTask(with: request)
-        //task.delegate = self
+        try! print(Data(contentsOf: request.httpBody))
+        let task = session.uploadTask(with: request.request, fromFile: request.httpBody)
         callbacks[task] = URLSessionCompletionHandler(callback: { result in
             switch result {
             case .failure(let error):
@@ -139,7 +150,7 @@ final class TransloaditAPI: NSObject {
       templateId: String, 
       expectedNumberOfFiles: Int,
       customFields: [String: String]
-    ) throws -> URLRequest {
+    ) throws -> (request: URLRequest, httpBody: URL) {
         
         func makeBody(includeSecret: Bool) throws -> [String: String] {
             // Time to allow uploads after signing.
@@ -196,21 +207,20 @@ final class TransloaditAPI: NSObject {
             
             request.httpMethod = "POST"
             request.allHTTPHeaderFields = headers
-            request.httpBody = try makeBodyData()
             return request
         }
         
         let request = try makeRequest()
+        let bodyData = try makeBodyData()
         
-
-        return request
+        return (request, try writeBodyData(bodyData))
     }
     
     private func makeAssemblyRequest(
       steps: [Step],
       expectedNumberOfFiles: Int,
       customFields: [String: String]
-    ) throws -> URLRequest {
+    ) throws -> (request: URLRequest, httpBody: URL) {
         
         func makeBody(includeSecret: Bool) throws -> [String: String] {
             // Time to allow uploads after signing.
@@ -267,14 +277,27 @@ final class TransloaditAPI: NSObject {
             
             request.httpMethod = "POST"
             request.allHTTPHeaderFields = headers
-            request.httpBody = try makeBodyData()
             return request
         }
         
         let request = try makeRequest()
+        let bodyData = try makeBodyData()
         
-
-        return request
+        return (request, try writeBodyData(bodyData))
+    }
+    
+    private func writeBodyData(_ data: Data) throws -> URL {
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        let bodyDirectory = appSupport.appendingPathComponent("uploads")
+        let dataFile = bodyDirectory.appendingPathComponent(UUID().uuidString + ".uploadData")
+        
+        if !FileManager.default.fileExists(atPath: bodyDirectory.path) {
+            try FileManager.default.createDirectory(at: bodyDirectory, withIntermediateDirectories: true, attributes: nil)
+        }
+        
+        try data.write(to: dataFile)
+        
+        return dataFile
     }
     
     func fetchStatus(assemblyURL: URL, completion: @escaping (Result<AssemblyStatus, TransloaditAPIError>) -> Void) {
@@ -285,7 +308,7 @@ final class TransloaditAPI: NSObject {
             return request
         }
         
-        let task = session.dataTask(with: makeRequest())
+        let task = session.downloadTask(with: makeRequest())
         callbacks[task] = URLSessionCompletionHandler(callback: { result in
             switch result {
             case .failure:
@@ -311,7 +334,7 @@ final class TransloaditAPI: NSObject {
             return request
         }
         
-        let task = session.dataTask(with: makeRequest())
+        let task = session.downloadTask(with: makeRequest())
         callbacks[task] = URLSessionCompletionHandler(callback: { result in
             switch result {
             case .failure:

@@ -52,8 +52,9 @@ final class MyUploader: ObservableObject {
     }
     
     init() {
-        let credentials = Transloadit.Credentials(key: "Ru1rwq3ITrgSEDtgna6SGZa4yY71YJgW", secret: "Xo6xlnn42cfBkNxLSDWJNCQoSNL0j1aFB9wNyaAR")
-        self.transloadit = Transloadit(credentials: credentials, session: URLSession.shared)
+        let credentials = Transloadit.Credentials(key: "", secret: "")
+        self.transloadit = Transloadit(credentials: credentials, sessionConfiguration: .default)
+        //self.transloadit = Transloadit(credentials: credentials, sessionConfiguration: .background(withIdentifier: "com.transloadit.bg_sample"))
         self.transloadit.fileDelegate = self
     }
     

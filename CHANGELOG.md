@@ -1,5 +1,10 @@
 # TransloaditKit Changelog
 
+## 3.3.1
+* Background configuration was not set up fully correctly; this is now fixed
+* TUSKit will always use a background configuration when uploading files
+* Added a new initializer to TransloadIt that allows users to provide a URLSessionConfiguration instead of a URLSession
+
 ## 3.3.0
 
 ### Fixes

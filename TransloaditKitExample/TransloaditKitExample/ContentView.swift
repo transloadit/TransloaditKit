@@ -22,6 +22,7 @@ struct ContentView: View {
                 showingImagePicker.toggle()
             }.sheet(isPresented:$showingImagePicker, content: {
                 PhotoPicker { [weak uploader] urls in
+                    print(urls)
                     uploader?.upload(urls)
                 }
             })
