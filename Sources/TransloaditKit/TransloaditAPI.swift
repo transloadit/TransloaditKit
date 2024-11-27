@@ -45,11 +45,7 @@ final class TransloaditAPI: NSObject {
     
     init(credentials: Transloadit.Credentials, session: URLSession) {
         self.credentials = credentials
-        if session.configuration.sessionSendsLaunchEvents {
-            self.configuration = .background(withIdentifier: "com.transloadit.bgurlsession")
-        } else {
-            self.configuration = session.configuration
-        }
+        self.configuration = session.configuration.copy(withIdentifier: "com.transloadit.bg")
         self.delegateQueue = session.delegateQueue
         super.init()
     }
@@ -121,7 +117,6 @@ final class TransloaditAPI: NSObject {
             return
         }
         
-        try! print(Data(contentsOf: request.httpBody))
         let task = session.uploadTask(with: request.request, fromFile: request.httpBody)
         callbacks[task] = URLSessionCompletionHandler(callback: { result in
             switch result {
@@ -308,7 +303,7 @@ final class TransloaditAPI: NSObject {
             return request
         }
         
-        let task = session.downloadTask(with: makeRequest())
+        let task = session.dataTask(with: makeRequest())
         callbacks[task] = URLSessionCompletionHandler(callback: { result in
             switch result {
             case .failure:
@@ -334,7 +329,7 @@ final class TransloaditAPI: NSObject {
             return request
         }
         
-        let task = session.downloadTask(with: makeRequest())
+        let task = session.dataTask(with: makeRequest())
         callbacks[task] = URLSessionCompletionHandler(callback: { result in
             switch result {
             case .failure:

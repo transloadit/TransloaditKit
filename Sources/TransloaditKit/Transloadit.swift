@@ -60,9 +60,9 @@ public final class Transloadit {
         tusClient.remainingUploads
     }
     
+    private let tusSessionConfig: URLSessionConfiguration
     lazy var tusClient: TUSClient = {
-        let config = URLSessionConfiguration.background(withIdentifier: "com.transloadit.tus.background")
-        let tusClient = try! TUSClient(server: URL(string:"https://www.transloadit.com")!, sessionIdentifier: "TransloadIt", sessionConfiguration: config, storageDirectory: storageDir)
+        let tusClient = try! TUSClient(server: URL(string:"https://www.transloadit.com")!, sessionIdentifier: "TransloadIt", sessionConfiguration: tusSessionConfig, storageDirectory: storageDir)
         tusClient.delegate = self
         return tusClient
     }()
@@ -80,6 +80,7 @@ public final class Transloadit {
     public init(credentials: Transloadit.Credentials, session: URLSession, storageDir: URL? = nil) {
         self.api = TransloaditAPI(credentials: credentials, session: session)
         self.storageDir = storageDir
+        self.tusSessionConfig = session.configuration.copy(withIdentifier: "com.transloadit.tus.bg")
     }
     
     /// Initialize Transloadit
@@ -92,6 +93,7 @@ public final class Transloadit {
     public init(credentials: Transloadit.Credentials, sessionConfiguration: URLSessionConfiguration, storageDir: URL? = nil) {
         self.api = TransloaditAPI(credentials: credentials, sessionConfiguration: sessionConfiguration)
         self.storageDir = storageDir
+        self.tusSessionConfig = sessionConfiguration.copy(withIdentifier: "com.transloadit.tus.bg")
     }
     
     @discardableResult
