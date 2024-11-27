@@ -2,7 +2,6 @@ import Foundation
 
 extension TransloaditAPI: URLSessionDataDelegate {
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        print(error)
         guard let completionHandler = callbacks[task] else {
             return
         }
