@@ -1,5 +1,8 @@
 # TransloaditKit Changelog
 
+## 3.3.2
+* Increased test coverage and utilities for testing in example app
+
 ## 3.3.1
 * Background configuration was not set up fully correctly; this is now fixed
 * TUSKit will always use a background configuration when uploading files
