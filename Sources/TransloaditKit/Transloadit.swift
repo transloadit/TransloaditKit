@@ -71,6 +71,10 @@ public final class Transloadit {
     
     public weak var fileDelegate: TransloaditFileDelegate?
     
+    public var isUsingBackgroundConfiguration: (transloadit: Bool, tus: Bool) {
+        return (api.configuration.identifier != nil, tusSessionConfig.identifier != nil)
+    }
+    
     /// Initialize Transloadit
     /// - Parameters:
     ///   - credentials: The credentials with required key and secret.

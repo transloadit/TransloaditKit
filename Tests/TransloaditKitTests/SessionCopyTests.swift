@@ -76,3 +76,23 @@ func tusAndTransloaditHaveUniqueIdentifiersWhenProvidingSession() async throws {
     #expect(transloadit.tusSessionConfig.identifier == expectedTUSClientConfigIdentifier)
     #expect(transloadit.api.configuration.identifier == expectedTransloaditConfigIdentifier)
 }
+
+@Test("Checking session configurations should report correctly for background config")
+func transloaditReportsCorrectSessionTypesBGConfig() async throws {
+    let config = URLSessionConfiguration.background(withIdentifier: transloaditConfigIdentifierForTesting)
+    let transloadit = Transloadit(
+        credentials: .init(key: "", secret: ""),
+        sessionConfiguration: config)
+    #expect(transloadit.isUsingBackgroundConfiguration.transloadit)
+    #expect(transloadit.isUsingBackgroundConfiguration.tus)
+}
+
+@Test("Checking session configurations should report correctly for default config")
+func transloaditReportsCorrectSessionTypesDefaultConfig() async throws {
+    let config = URLSessionConfiguration.default
+    let transloadit = Transloadit(
+        credentials: .init(key: "", secret: ""),
+        sessionConfiguration: config)
+    #expect(!transloadit.isUsingBackgroundConfiguration.transloadit)
+    #expect(!transloadit.isUsingBackgroundConfiguration.tus)
+}

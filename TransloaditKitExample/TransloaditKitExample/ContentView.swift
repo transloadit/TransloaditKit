@@ -30,8 +30,12 @@ struct ContentView: View {
                 PhotoPicker { [weak uploader, weak backgroundUploader] urls in
                     print(urls)
                     if uploadUsingBackgroundConfig {
+                        assert(backgroundUploader?.transloadit.isUsingBackgroundConfiguration.transloadit == true)
+                        assert(backgroundUploader?.transloadit.isUsingBackgroundConfiguration.tus == true)
                         backgroundUploader?.upload(urls)
                     } else {
+                        assert(uploader?.transloadit.isUsingBackgroundConfiguration.transloadit == false)
+                        assert(uploader?.transloadit.isUsingBackgroundConfiguration.tus == false)
                         uploader?.upload(urls)
                     }
                 }
