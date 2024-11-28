@@ -2,7 +2,7 @@ import XCTest
 import TransloaditKit // ⚠️ WARNING: We are not performing a testable import here. We want to test the real public API. By doing so, we'll know very quicklly if the public API is broken. Which is very important to prevent.
 import AVFoundation
 
-final class TransloaditKitTests: XCTestCase {
+class TransloaditKitTests: XCTestCase {
     public var transloadit: Transloadit!
     
     let resizeStep = Step(name: "resize", robot: "/image/resize", options: ["width": 50,
@@ -32,7 +32,7 @@ final class TransloaditKitTests: XCTestCase {
         transloadit.fileDelegate = nil
     }
     
-    private func makeClient() -> Transloadit {
+    fileprivate func makeClient() -> Transloadit {
         let credentials = Transloadit.Credentials(key: "I am a key", secret: "I am a secret")
         
         let configuration = URLSessionConfiguration.default

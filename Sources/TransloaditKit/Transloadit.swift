@@ -53,14 +53,16 @@ public final class Transloadit {
     typealias FileId = UUID
     var pollers = [[URL]: TransloaditPoller]()
     
-    private let api: TransloaditAPI
+    // "private" -- only exposed for unit testing
+    let api: TransloaditAPI
     private let storageDir: URL?
     
     public var remainingUploads: Int {
         tusClient.remainingUploads
     }
     
-    private let tusSessionConfig: URLSessionConfiguration
+    // "private" -- only exposed for unit testing
+    let tusSessionConfig: URLSessionConfiguration
     lazy var tusClient: TUSClient = {
         let tusClient = try! TUSClient(server: URL(string:"https://www.transloadit.com")!, sessionIdentifier: "TransloadIt", sessionConfiguration: tusSessionConfig, storageDirectory: storageDir)
         tusClient.delegate = self

@@ -10,7 +10,21 @@ import TransloaditKit
 import Atlantis
 
 final class MyUploader: ObservableObject {
+    @Published var progress: Float = 0.0
+    @Published var uploadCompleted = false
+    
     let transloadit: Transloadit
+    
+    init(backgroundUploader: Bool = false) {
+        let credentials = Transloadit.Credentials(key: "OsCOAe4ro8CyNsHTp8pdhSiyEzuqwBue", secret: "jB5gZqmkiu2sdSwc7pko8iajD9ailws1eYUtwoKj")
+
+        if backgroundUploader {
+            self.transloadit = Transloadit(credentials: credentials, sessionConfiguration: .background(withIdentifier: "com.transloadit.bg_sample"))
+        } else {
+            self.transloadit = Transloadit(credentials: credentials, sessionConfiguration: .default)
+        }
+        self.transloadit.fileDelegate = self
+    }
     
     func upload2(_ urls: [URL]) {
         let templateID = "1a84d2f1f2584f92981bda285bbc4e84"
@@ -50,14 +64,6 @@ final class MyUploader: ObservableObject {
             }
         }
     }
-    
-    init() {
-        let credentials = Transloadit.Credentials(key: "", secret: "")
-        self.transloadit = Transloadit(credentials: credentials, sessionConfiguration: .default)
-        //self.transloadit = Transloadit(credentials: credentials, sessionConfiguration: .background(withIdentifier: "com.transloadit.bg_sample"))
-        self.transloadit.fileDelegate = self
-    }
-    
 }
 
 enum StepFactory {
@@ -73,7 +79,9 @@ enum StepFactory {
 extension MyUploader: TransloaditFileDelegate {
     func progressFor(assembly: Assembly, bytesUploaded: Int, totalBytes: Int, client: Transloadit) {
         print("Progress for \(assembly) is \(bytesUploaded) / \(totalBytes)")
-        
+        Task { @MainActor in
+            progress = Float(bytesUploaded) / Float(totalBytes)
+        }
     }
     
     func totalProgress(bytesUploaded: Int, totalBytes: Int, client: Transloadit) {
@@ -94,6 +102,10 @@ extension MyUploader: TransloaditFileDelegate {
     
     func didFinishUpload(assembly: Assembly, client: Transloadit) {
         print("didFinishUpload")
+        Task { @MainActor in
+            progress = 1.0
+            uploadCompleted = true
+        }
         
         transloadit.fetchStatus(assemblyURL: assembly.url) { result in
             print("status result \(result)")
@@ -102,21 +114,25 @@ extension MyUploader: TransloaditFileDelegate {
     
     func didStartUpload(assembly: Assembly, client: Transloadit) {
         print("didStartUpload")
+        Task { @MainActor in
+            progress = 0.0
+            uploadCompleted = false
+        }
     }
 }
 
 @main
 struct TransloaditKitExampleApp: App {
-    @ObservedObject var uploader: MyUploader
+    @StateObject var uploader = MyUploader()
+    @StateObject var backgroundUploader = MyUploader(backgroundUploader: true)
     
     init() {
-        self.uploader = MyUploader()
         Atlantis.start(hostName: "donnys-macbook-pro-2.local.")
     }
     
     var body: some Scene {
         WindowGroup {
-            ContentView(uploader: uploader)
+            ContentView(uploader: uploader, backgroundUploader: backgroundUploader)
         }
     }
 }

@@ -26,7 +26,7 @@ final class TransloaditAPI: NSObject {
         case assemblies = "/assemblies"
     }
     
-    private let configuration: URLSessionConfiguration
+    let configuration: URLSessionConfiguration
     private let delegateQueue: OperationQueue?
     private lazy var session: URLSession = {
         return URLSession(configuration: configuration, delegate: self, delegateQueue: delegateQueue)

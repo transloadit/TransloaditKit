@@ -10,7 +10,13 @@ import SwiftUI
 struct ContentView: View {
     
     @ObservedObject var uploader: MyUploader
+    @ObservedObject var backgroundUploader: MyUploader
     @State private var showingImagePicker = false
+    @State var uploadUsingBackgroundConfig = false
+    
+    var currentUploader: MyUploader {
+        uploadUsingBackgroundConfig ? backgroundUploader : uploader
+    }
     
     var body: some View {
         VStack {
@@ -21,11 +27,27 @@ struct ContentView: View {
             Button("Select image(s)") {
                 showingImagePicker.toggle()
             }.sheet(isPresented:$showingImagePicker, content: {
-                PhotoPicker { [weak uploader] urls in
+                PhotoPicker { [weak uploader, weak backgroundUploader] urls in
                     print(urls)
-                    uploader?.upload(urls)
+                    if uploadUsingBackgroundConfig {
+                        backgroundUploader?.upload(urls)
+                    } else {
+                        uploader?.upload(urls)
+                    }
                 }
             })
+            
+            Toggle(isOn: $uploadUsingBackgroundConfig, label: {
+                Text("Upload using background session")
+            })
+            .padding(.vertical, 8)
+            
+            if currentUploader.progress > 0.0 && !currentUploader.uploadCompleted {
+                Text("Upload progress")
+                ProgressView(value: currentUploader.progress, total: 1.0)
+            } else if currentUploader.uploadCompleted {
+                Text("File uploaded 🟢")
+            }
         }
     }
 }
@@ -33,6 +55,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let uploader = MyUploader()
-        ContentView(uploader: uploader)
+        let bgUploader = MyUploader(backgroundUploader: true)
+        ContentView(uploader: uploader, backgroundUploader: bgUploader)
     }
 }
