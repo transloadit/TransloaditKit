@@ -57,6 +57,7 @@ DerivedData/
 *.perspectivev3
 !default.perspectivev3
 xcuserdata/
+.vscode/
 
 ## Other
 *.moved-aside
@@ -121,7 +122,7 @@ playground.xcworkspace
 # Package.resolved
 .build/
 # Add this line if you want to avoid checking in Xcode SPM integration.
-# .swiftpm/xcode
+.swiftpm/xcode
 
 # CocoaPods
 # We recommend against adding the Pods directory to your .gitignore. However

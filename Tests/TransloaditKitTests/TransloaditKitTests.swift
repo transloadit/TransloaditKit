@@ -2,6 +2,14 @@ import XCTest
 import TransloaditKit // ⚠️ WARNING: We are not performing a testable import here. We want to test the real public API. By doing so, we'll know very quicklly if the public API is broken. Which is very important to prevent.
 import AVFoundation
 
+fileprivate struct CustomFields: Encodable {
+    let hello = "world"
+    let nested = NestedFields()
+    struct NestedFields: Encodable {
+        let nestedHello = "nestedWorld"
+    }
+}
+
 class TransloaditKitTests: XCTestCase {
     public var transloadit: Transloadit!
     
@@ -43,7 +51,6 @@ class TransloaditKitTests: XCTestCase {
     }
     
     // MARK: - File uploading
-    
     func testCreateAssembly_Without_Uploading() throws {
         let serverAssembly = Fixtures.makeAssembly()
         Network.prepareAssemblyResponse(assembly: serverAssembly)
@@ -57,6 +64,40 @@ class TransloaditKitTests: XCTestCase {
             }
         }
         
+        waitForExpectations(timeout: 3.0, handler: nil)
+    }
+
+    func testCreateAssembly_With_Steps_And_CustomFieldsObject() throws {
+        let customFields = CustomFields()
+        let serverAssembly = Fixtures.makeAssembly()
+        Network.prepareAssemblyResponse(assembly: serverAssembly)
+        let serverFinishedExpectation = expectation(description: "Waiting for createAssembly to be called")
+        try transloadit.createAssembly(steps: [resizeStep], customFieldsObject: customFields) { result in
+            switch result {
+            case .success:
+                serverFinishedExpectation.fulfill()
+            case .failure:
+                XCTFail("Creating an assembly should have succeeded")
+            }
+        }
+
+        waitForExpectations(timeout: 3.0, handler: nil)
+    }
+
+    func testCreateAssembly_With_Template_And_CustomFieldsObject() throws {
+        let customFields = CustomFields()
+        let serverAssembly = Fixtures.makeAssembly()
+        Network.prepareAssemblyResponse(assembly: serverAssembly)
+        let serverFinishedExpectation = expectation(description: "Waiting for createAssembly to be called")
+        try transloadit.createAssembly(templateId: "template", customFieldsObject: customFields) { result in
+            switch result {
+            case .success:
+                serverFinishedExpectation.fulfill()
+            case .failure:
+                XCTFail("Creating an assembly should have succeeded")
+            }
+        }
+
         waitForExpectations(timeout: 3.0, handler: nil)
     }
     

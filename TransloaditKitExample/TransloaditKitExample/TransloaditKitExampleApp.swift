@@ -9,6 +9,15 @@ import SwiftUI
 import TransloaditKit
 import Atlantis
 
+struct ComplexFields: Encodable {
+    let hello = "world"
+    let nested = Nested()
+    
+    struct Nested: Encodable {
+        let nestedHello = ["nested", "hello", "world"]
+    }
+}
+
 final class MyUploader: ObservableObject {
     @Published var progress: Float = 0.0
     @Published var uploadCompleted = false
@@ -16,7 +25,7 @@ final class MyUploader: ObservableObject {
     let transloadit: Transloadit
     
     init(backgroundUploader: Bool = false) {
-        let credentials = Transloadit.Credentials(key: "OsCOAe4ro8CyNsHTp8pdhSiyEzuqwBue", secret: "jB5gZqmkiu2sdSwc7pko8iajD9ailws1eYUtwoKj")
+        let credentials = Transloadit.Credentials(key: "", secret: "")
 
         if backgroundUploader {
             self.transloadit = Transloadit(credentials: credentials, sessionConfiguration: .background(withIdentifier: "com.transloadit.bg_sample"))
@@ -29,7 +38,8 @@ final class MyUploader: ObservableObject {
     func upload2(_ urls: [URL]) {
         let templateID = "1a84d2f1f2584f92981bda285bbc4e84"
         
-        transloadit.createAssembly(templateId: templateID, andUpload: urls, customFields: ["hello": "world"]) { result in
+        try! transloadit.createAssembly(templateId: templateID, andUpload: urls, customFieldsObject: ComplexFields()) { result in
+        //transloadit.createAssembly(templateId: templateID, andUpload: urls, customFields: ["hello": "world"]) { result in
             switch result {
             case .success(let assembly):
                 print("Retrieved \(assembly)")
@@ -48,7 +58,8 @@ final class MyUploader: ObservableObject {
     
     func upload(_ urls: [URL]) {
         let resizeStep = StepFactory.makeResizeStep(width: 200, height: 100)
-        transloadit.createAssembly(steps: [resizeStep], andUpload: urls, customFields: ["hello": "world"]) { result in
+        try! transloadit.createAssembly(steps: [resizeStep], andUpload: urls, customFieldsObject: ComplexFields()) { result in
+        //transloadit.createAssembly(steps: [resizeStep], andUpload: urls, customFields: ["hello": "world"]) { result in
             switch result {
             case .success(let assembly):
                 print("Retrieved \(assembly)")

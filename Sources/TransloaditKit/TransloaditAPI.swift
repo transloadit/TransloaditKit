@@ -56,11 +56,25 @@ final class TransloaditAPI: NSObject {
         self.delegateQueue = nil
         super.init()
     }
+
+    func createAssembly<T: Encodable>(
+      templateId: String,
+      expectedNumberOfFiles: Int,
+      customFieldsObject: T,
+      completion: @escaping (Result<Assembly, TransloaditAPIError>) -> Void
+    ) throws {
+        try createAssembly(
+            templateId: templateId,
+            expectedNumberOfFiles: expectedNumberOfFiles,
+            customFields: customFieldsObject.toDictionary(),
+            completion: completion
+        )
+    }
     
     func createAssembly(
       templateId: String,
       expectedNumberOfFiles: Int,
-      customFields: [String: String],
+      customFields: [String: Any],
       completion: @escaping (Result<Assembly, TransloaditAPIError>) -> Void
     ) {
         guard let request = try? makeAssemblyRequest(
@@ -98,11 +112,25 @@ final class TransloaditAPI: NSObject {
         })
         task.resume()
     }
-    
+
+    func createAssembly<T: Encodable>(
+        steps: [Step],
+        expectedNumberOfFiles: Int,
+        customFieldsObject: T,
+        completion: @escaping (Result<Assembly, TransloaditAPIError>) -> Void
+    ) throws {
+        try createAssembly(
+            steps: steps, 
+            expectedNumberOfFiles: expectedNumberOfFiles,
+            customFields: customFieldsObject.toDictionary(), 
+            completion: completion
+        )
+    }
+
     func createAssembly(
       steps: [Step],
       expectedNumberOfFiles: Int,
-      customFields: [String: String],
+      customFields: [String: Any],
       completion: @escaping (Result<Assembly, TransloaditAPIError>) -> Void
     ) {
         guard let request = try? makeAssemblyRequest(
@@ -144,7 +172,7 @@ final class TransloaditAPI: NSObject {
     private func makeAssemblyRequest(
       templateId: String, 
       expectedNumberOfFiles: Int,
-      customFields: [String: String]
+      customFields: [String: Any]
     ) throws -> (request: URLRequest, httpBody: URL) {
         
         func makeBody(includeSecret: Bool) throws -> [String: String] {
@@ -214,7 +242,7 @@ final class TransloaditAPI: NSObject {
     private func makeAssemblyRequest(
       steps: [Step],
       expectedNumberOfFiles: Int,
-      customFields: [String: String]
+      customFields: [String: Any]
     ) throws -> (request: URLRequest, httpBody: URL) {
         
         func makeBody(includeSecret: Bool) throws -> [String: String] {
@@ -349,6 +377,15 @@ final class TransloaditAPI: NSObject {
     }
 }
 
+fileprivate extension Encodable {
+    func toDictionary() throws -> [String: Any] {
+        let data = try JSONEncoder().encode(self)
+        guard let dict = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+            throw TransloaditError.invalidCustomFields
+        }
+        return dict
+    }
+}
 
 extension String {
 
