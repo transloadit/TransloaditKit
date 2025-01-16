@@ -89,12 +89,24 @@ class TransloaditKitTests: XCTestCase {
     }
 
     func testConcurrentAssemblyCreation() throws {
-        let (files, serverAssembly) = try Network.prepareForUploadingFiles(data: data)
-        let numFiles = files.count
-
+        let expect = expectation(description: "Wait for all assemblies to be created")
+        expect.expectedFulfillmentCount = 10
+        
         DispatchQueue.concurrentPerform(iterations: 10) { _ in
-            let _ = createAssembly(files) { _ in }
+            do {
+                let (files, serverAssembly) = try Network.prepareForUploadingFiles(data: data)
+                let numFiles = files.count
+                let _ = createAssembly(files) { _ in
+                    expect.fulfill()
+                }
+            } catch {
+                XCTFail("Failed with error \(error)")
+            }
         }
+        
+        wait(for: [expect], timeout: 10)
+        
+        try transloadit.reset()
     }
     
     func testCanReset() throws {
