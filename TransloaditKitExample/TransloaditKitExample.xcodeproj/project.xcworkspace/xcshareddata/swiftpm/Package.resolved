@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/ProxymanApp/atlantis",
         "state": {
           "branch": null,
-          "revision": "5145a7041ec71421d09653db87dcc80c81792004",
-          "version": "1.24.0"
+          "revision": "7246950a6a36454ed1d7830166284f202dc14ad2",
+          "version": "1.26.0"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/tus/TUSKit",
         "state": {
           "branch": null,
-          "revision": "03d4421a6165a48f8fc1cda785ff30274e06370c",
-          "version": "3.3.0"
+          "revision": "cf691cb712b470088a14e17058c0902f2e2ac2c5",
+          "version": "3.4.2"
         }
       }
     ]

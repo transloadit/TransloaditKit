@@ -16,7 +16,7 @@ final class MyUploader: ObservableObject {
     let transloadit: Transloadit
     
     init(backgroundUploader: Bool = false) {
-        let credentials = Transloadit.Credentials(key: "OsCOAe4ro8CyNsHTp8pdhSiyEzuqwBue", secret: "jB5gZqmkiu2sdSwc7pko8iajD9ailws1eYUtwoKj")
+        let credentials = Transloadit.Credentials(key: "nOumdyAazaiVnkLDLBiERm0gEmIeeIeW", secret: "FfL2HOBEBxyXIp7zsXZguCMjuaIwhWkVqshF48lB")
 
         if backgroundUploader {
             self.transloadit = Transloadit(credentials: credentials, sessionConfiguration: .background(withIdentifier: "com.transloadit.bg_sample"))

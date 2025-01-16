@@ -2,11 +2,11 @@ import Foundation
 
 extension TransloaditAPI: URLSessionDataDelegate {
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        guard let completionHandler = callbacks[task] else {
+        guard let completionHandler = callbacks.get(for: task) else {
             return
         }
         
-        defer { callbacks[task] = nil }
+        defer { callbacks.remove(for: task) }
         
         if let error {
             completionHandler.callback(.failure(error))
@@ -22,6 +22,6 @@ extension TransloaditAPI: URLSessionDataDelegate {
     }
     
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-        callbacks[dataTask]?.data.append(data)
+        callbacks.get(for: dataTask)?.data.append(data)
     }
 }

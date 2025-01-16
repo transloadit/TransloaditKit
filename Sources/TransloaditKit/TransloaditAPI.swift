@@ -41,7 +41,7 @@ final class TransloaditAPI: NSObject {
     }()
     
     private let credentials: Transloadit.Credentials
-    var callbacks: [URLSessionTask: URLSessionCompletionHandler] = [:]
+    let callbacks = TransloaditCallbacks()
     
     init(credentials: Transloadit.Credentials, session: URLSession) {
         self.credentials = credentials
@@ -76,7 +76,7 @@ final class TransloaditAPI: NSObject {
         }
         
         let task = session.uploadTask(with: request.request, fromFile: request.httpBody)
-        callbacks[task] = URLSessionCompletionHandler(callback: { result in
+        callbacks.register(URLSessionCompletionHandler(callback: { result in
             switch result {
             case .failure(let error):
                 completion(.failure(.couldNotCreateAssembly(error)))
@@ -95,7 +95,7 @@ final class TransloaditAPI: NSObject {
                     completion(.failure(TransloaditAPIError.couldNotCreateAssembly(error)))
                 }
             }
-        })
+        }), for: task)
         task.resume()
     }
     
@@ -118,7 +118,7 @@ final class TransloaditAPI: NSObject {
         }
         
         let task = session.uploadTask(with: request.request, fromFile: request.httpBody)
-        callbacks[task] = URLSessionCompletionHandler(callback: { result in
+        callbacks.register(URLSessionCompletionHandler(callback: { result in
             switch result {
             case .failure(let error):
                 completion(.failure(.couldNotCreateAssembly(error)))
@@ -137,7 +137,7 @@ final class TransloaditAPI: NSObject {
                     completion(.failure(TransloaditAPIError.couldNotCreateAssembly(error)))
                 }
             }
-        })
+        }), for: task)
         task.resume()
     }
     
@@ -304,7 +304,7 @@ final class TransloaditAPI: NSObject {
         }
         
         let task = session.dataTask(with: makeRequest())
-        callbacks[task] = URLSessionCompletionHandler(callback: { result in
+        callbacks.register(URLSessionCompletionHandler(callback: { result in
             switch result {
             case .failure:
                 completion(.failure(.couldNotFetchStatus))
@@ -318,7 +318,7 @@ final class TransloaditAPI: NSObject {
                     completion(.failure(.couldNotFetchStatus))
                 }
             }
-        })
+        }), for: task)
         task.resume()
     }
     
@@ -330,7 +330,7 @@ final class TransloaditAPI: NSObject {
         }
         
         let task = session.dataTask(with: makeRequest())
-        callbacks[task] = URLSessionCompletionHandler(callback: { result in
+        callbacks.register(URLSessionCompletionHandler(callback: { result in
             switch result {
             case .failure:
                 completion(.failure(.couldNotFetchStatus))
@@ -344,11 +344,33 @@ final class TransloaditAPI: NSObject {
                     completion(.failure(.couldNotFetchStatus))
                 }
             }
-        })
+        }), for: task)
         task.resume()
     }
 }
 
+class TransloaditCallbacks {
+    private var callbacks = [URLSessionTask: URLSessionCompletionHandler]()
+    private let syncQueue = DispatchQueue(label: "com.transloadit.callbacks")
+
+    func register(_ callback: URLSessionCompletionHandler, for task: URLSessionTask) {
+        syncQueue.sync {
+            callbacks[task] = callback
+        }
+    }
+
+    func remove(for task: URLSessionTask) {
+        syncQueue.sync {
+            callbacks[task] = nil
+        }
+    }
+
+    func get(for task: URLSessionTask) -> URLSessionCompletionHandler? {
+        return syncQueue.sync {
+            return callbacks[task]
+        }
+    }
+}
 
 extension String {
 
