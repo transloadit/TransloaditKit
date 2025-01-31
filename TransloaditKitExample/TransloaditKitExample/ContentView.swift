@@ -13,6 +13,7 @@ struct ContentView: View {
     @ObservedObject var backgroundUploader: MyUploader
     @State private var showingImagePicker = false
     @State var uploadUsingBackgroundConfig = false
+    @State var useConcurrentUploads = false
     
     var currentUploader: MyUploader {
         uploadUsingBackgroundConfig ? backgroundUploader : uploader
@@ -26,20 +27,25 @@ struct ContentView: View {
             
             Button("Select image(s)") {
                 showingImagePicker.toggle()
-            }.sheet(isPresented:$showingImagePicker, content: {
-                PhotoPicker { [weak uploader, weak backgroundUploader] urls in
+            }.sheet(isPresented: $showingImagePicker, content: {
+                PhotoPicker { urls in
                     print(urls)
-                    if uploadUsingBackgroundConfig {
-                        assert(backgroundUploader?.transloadit.isUsingBackgroundConfiguration.transloadit == true)
-                        assert(backgroundUploader?.transloadit.isUsingBackgroundConfiguration.tus == true)
-                        backgroundUploader?.upload(urls)
+                    if useConcurrentUploads {
+                        urls.forEach { url in
+                            DispatchQueue.global().async {
+                                upload([url])
+                            }
+                        }
                     } else {
-                        assert(uploader?.transloadit.isUsingBackgroundConfiguration.transloadit == false)
-                        assert(uploader?.transloadit.isUsingBackgroundConfiguration.tus == false)
-                        uploader?.upload(urls)
+                        upload(urls)
                     }
                 }
             })
+            
+            Toggle(isOn: $useConcurrentUploads, label: {
+                Text("Upload multiple files concurrently")
+            })
+            .padding(.vertical, 8)
             
             Toggle(isOn: $uploadUsingBackgroundConfig, label: {
                 Text("Upload using background session")
@@ -52,6 +58,18 @@ struct ContentView: View {
             } else if currentUploader.uploadCompleted {
                 Text("File uploaded 🟢")
             }
+        }.padding()
+    }
+    
+    func upload(_ urls: [URL]) {
+        if uploadUsingBackgroundConfig {
+            assert(backgroundUploader.transloadit.isUsingBackgroundConfiguration.transloadit == true)
+            assert(backgroundUploader.transloadit.isUsingBackgroundConfiguration.tus == true)
+            backgroundUploader.upload(urls)
+        } else {
+            assert(uploader.transloadit.isUsingBackgroundConfiguration.transloadit == false)
+            assert(uploader.transloadit.isUsingBackgroundConfiguration.tus == false)
+            uploader.upload(urls)
         }
     }
 }

@@ -1,5 +1,9 @@
 # TransloaditKit Changelog
 
+## 3.3.3
+
+* Added data race protections, allowing for concurrent starting of assemblies
+
 ## 3.3.2
 * Increased test coverage and utilities for testing in example app
 
