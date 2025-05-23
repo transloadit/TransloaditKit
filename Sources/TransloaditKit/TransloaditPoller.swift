@@ -103,7 +103,7 @@ public final class TransloaditPoller {
                     self.didFinish()
                 } else {
                     // Call succeeded, but not the finished status
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                         self.pollStatus(assemblyURL: assemblyURL, completion: completion)
                     }
                 }

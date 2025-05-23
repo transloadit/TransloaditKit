@@ -1,5 +1,9 @@
 # TransloaditKit Changelog
 
+## 3.3.4
+
+* Changed polling interval to 0.75s for checking assembly status
+
 ## 3.3.3
 
 * Added data race protections, allowing for concurrent starting of assemblies
