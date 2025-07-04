@@ -1,5 +1,9 @@
 # TransloaditKit Changelog
 
+## 3.4
+
+* Updated Package to depend on exact TUSKit version and removed call to removed method in TUSKit ([#41](https://github.com/transloadit/TransloaditKit/issues/41))
+
 ## 3.3.4
 
 * Changed polling interval to 0.75s for checking assembly status

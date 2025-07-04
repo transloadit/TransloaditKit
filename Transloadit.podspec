@@ -32,6 +32,6 @@ Swift client for http://transloadit.com called TransloaditKit. Mac and iOS compa
 
   s.source_files = 'Sources/TransloaditKit/**/*'
 
-  s.dependency 'TUSKit', '~> 3.4.3'
+  s.dependency 'TUSKit', '~> 3.6.0'
 
 end

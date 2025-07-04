@@ -1,25 +1,23 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "Atlantis",
-        "repositoryURL": "https://github.com/ProxymanApp/atlantis",
-        "state": {
-          "branch": null,
-          "revision": "7246950a6a36454ed1d7830166284f202dc14ad2",
-          "version": "1.26.0"
-        }
-      },
-      {
-        "package": "TUSKit",
-        "repositoryURL": "https://github.com/tus/TUSKit",
-        "state": {
-          "branch": null,
-          "revision": "cf691cb712b470088a14e17058c0902f2e2ac2c5",
-          "version": "3.4.2"
-        }
+  "pins" : [
+    {
+      "identity" : "atlantis",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ProxymanApp/atlantis",
+      "state" : {
+        "revision" : "7246950a6a36454ed1d7830166284f202dc14ad2",
+        "version" : "1.26.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "tuskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tus/TUSKit",
+      "state" : {
+        "revision" : "c9093125cbcd41c381574d1c343d0657ada82398",
+        "version" : "3.6.0"
+      }
+    }
+  ],
+  "version" : 2
 }

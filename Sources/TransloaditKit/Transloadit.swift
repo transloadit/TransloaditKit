@@ -380,16 +380,6 @@ public final class Transloadit {
             completion(result.mapError { error in TransloaditError.couldNotFetchStatus(underlyingError: error) })
         }
     }
-    
-    /// For unfinished uploads, schedule background tasks to upload them.
-    /// iOS will decide per device when these tasks will be performed. E.g. with a wifi connection and late at night.
-    
-#if os(iOS)
-    @available(iOS 13.0, *)
-    public func scheduleBackgroundTasks() {
-        tusClient.scheduleBackgroundTasks()
-    }
-#endif
 }
 
 extension Transloadit: TUSClientDelegate {

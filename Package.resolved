@@ -1,16 +1,14 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "TUSKit",
-        "repositoryURL": "https://github.com/tus/TUSKit",
-        "state": {
-          "branch": null,
-          "revision": "cf691cb712b470088a14e17058c0902f2e2ac2c5",
-          "version": "3.4.2"
-        }
+  "pins" : [
+    {
+      "identity" : "tuskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tus/TUSKit",
+      "state" : {
+        "revision" : "c9093125cbcd41c381574d1c343d0657ada82398",
+        "version" : "3.6.0"
       }
-    ]
-  },
-  "version": 1
+    }
+  ],
+  "version" : 2
 }
