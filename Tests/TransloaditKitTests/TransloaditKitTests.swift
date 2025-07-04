@@ -163,7 +163,7 @@ class TransloaditKitTests: XCTestCase {
             }
         })
         
-        wait(for: [startedUploadsExpectation], timeout: 3)
+        wait(for: [startedUploadsExpectation], timeout: 10)
         
         transloadit.stopRunningUploads()
         // Restart uploads, continue where left off

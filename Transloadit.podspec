@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Transloadit'
-  s.version          = '3.3.4'
+  s.version          = '3.4.0'
   s.summary          = 'Transloadit client in Swift'
   s.swift_version = '5.0'
 
