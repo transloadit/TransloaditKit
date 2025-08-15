@@ -15,6 +15,7 @@ enum TransloaditAPIError: Error {
     case couldNotCreateAssembly(Error)
     case assemblyError(String)
     case incompleteServerResponse
+    case apiIsNil
 }
 
 /// The `TransloaditAPI` class makes API calls, such as creating assemblies or checking an assembly's status.
@@ -41,19 +42,23 @@ final class TransloaditAPI: NSObject {
     }()
     
     private let credentials: Transloadit.Credentials
+    private let signatureGenerator: SignatureGenerator
+    
     let callbacks = TransloaditCallbacks()
     
-    init(credentials: Transloadit.Credentials, session: URLSession) {
+    init(credentials: Transloadit.Credentials, session: URLSession, signatureGenerator: @escaping SignatureGenerator) {
         self.credentials = credentials
         self.configuration = session.configuration.copy(withIdentifier: "com.transloadit.bg")
         self.delegateQueue = session.delegateQueue
+        self.signatureGenerator = signatureGenerator
         super.init()
     }
     
-    init(credentials: Transloadit.Credentials, sessionConfiguration: URLSessionConfiguration) {
+    init(credentials: Transloadit.Credentials, sessionConfiguration: URLSessionConfiguration, signatureGenerator: @escaping SignatureGenerator) {
         self.credentials = credentials
         self.configuration = sessionConfiguration
         self.delegateQueue = nil
+        self.signatureGenerator = signatureGenerator
         super.init()
     }
     
@@ -63,40 +68,17 @@ final class TransloaditAPI: NSObject {
       customFields: [String: String],
       completion: @escaping (Result<Assembly, TransloaditAPIError>) -> Void
     ) {
-        guard let request = try? makeAssemblyRequest(
-          templateId: templateId,
-          expectedNumberOfFiles: expectedNumberOfFiles,
-          customFields: customFields
-        ) else {
-            // Next runloop to make the API consistent with the network runloop. Otherwise it would return instantly, can give weird effects
-            DispatchQueue.main.async {
-                completion(.failure(TransloaditAPIError.cantSerialize))
-            }
-            return
-        }
+        let params: [String: Any] = [
+            "template_id": templateId,
+            "fields": customFields
+        ]
         
-        let task = session.uploadTask(with: request.request, fromFile: request.httpBody)
-        callbacks.register(URLSessionCompletionHandler(callback: { result in
-            switch result {
-            case .failure(let error):
-                completion(.failure(.couldNotCreateAssembly(error)))
-            case .success((let data, _)):
-                do {
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    let assembly = try decoder.decode(Assembly.self, from: data)
-
-                    if let error = assembly.error {
-                        completion(.failure(.assemblyError(error)))
-                    } else {
-                        completion(.success(assembly))
-                    }
-                } catch {
-                    completion(.failure(TransloaditAPIError.couldNotCreateAssembly(error)))
-                }
-            }
-        }), for: task)
-        task.resume()
+        createAssembly(
+            params: params,
+            expectedNumberOfFiles: expectedNumberOfFiles,
+            customFields: customFields,
+            completion: completion
+        )
     }
     
     func createAssembly(
@@ -105,128 +87,152 @@ final class TransloaditAPI: NSObject {
       customFields: [String: String],
       completion: @escaping (Result<Assembly, TransloaditAPIError>) -> Void
     ) {
-        guard let request = try? makeAssemblyRequest(
-          steps: steps,
-          expectedNumberOfFiles: expectedNumberOfFiles,
-          customFields: customFields
-        ) else {
-            // Next runloop to make the API consistent with the network runloop. Otherwise it would return instantly, can give weird effects
-            DispatchQueue.main.async {
-                completion(.failure(TransloaditAPIError.cantSerialize))
-            }
-            return
-        }
+        let params = [
+            "steps": steps.toDictionary
+        ]
         
-        let task = session.uploadTask(with: request.request, fromFile: request.httpBody)
-        callbacks.register(URLSessionCompletionHandler(callback: { result in
+        createAssembly(
+            params: params,
+            expectedNumberOfFiles: expectedNumberOfFiles,
+            customFields: customFields,
+            completion: completion
+        )
+    }
+    
+    private func createAssembly(
+        params: [String: Any],
+        expectedNumberOfFiles: Int,
+        customFields: [String: String],
+        completion: @escaping (Result<Assembly, TransloaditAPIError>) -> Void
+    ) {
+        makeAssemblyRequest(
+            params: params,
+            expectedNumberOfFiles: expectedNumberOfFiles,
+            customFields: customFields
+        ) { result in
             switch result {
-            case .failure(let error):
-                completion(.failure(.couldNotCreateAssembly(error)))
-            case .success((let data, _)):
-                do {
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    let assembly = try decoder.decode(Assembly.self, from: data)
-
-                    if let error = assembly.error {
-                        completion(.failure(.assemblyError(error)))
-                    } else {
-                        completion(.success(assembly))
-                    }
-                } catch {
-                    completion(.failure(TransloaditAPIError.couldNotCreateAssembly(error)))
+            case .failure:
+                DispatchQueue.main.async {
+                    completion(.failure(TransloaditAPIError.cantSerialize))
                 }
+            case .success((let request, let httpBody)):
+                let task = self.session.uploadTask(with: request, fromFile: httpBody)
+                self.callbacks.register(URLSessionCompletionHandler(callback: { result in
+                    switch result {
+                    case .failure(let error):
+                        completion(.failure(.couldNotCreateAssembly(error)))
+                    case .success((let data, _)):
+                        do {
+                            let decoder = JSONDecoder()
+                            decoder.keyDecodingStrategy = .convertFromSnakeCase
+                            let assembly = try decoder.decode(Assembly.self, from: data)
+                            
+                            if let error = assembly.error {
+                                completion(.failure(.assemblyError(error)))
+                            } else {
+                                completion(.success(assembly))
+                            }
+                        } catch {
+                            completion(.failure(.couldNotCreateAssembly(error)))
+                        }
+                    }
+                }), for: task)
+                task.resume()
             }
-        }), for: task)
-        task.resume()
+        }
+
     }
     
     private func makeAssemblyRequest(
-      templateId: String, 
-      expectedNumberOfFiles: Int,
-      customFields: [String: String]
-    ) throws -> (request: URLRequest, httpBody: URL) {
-        
-        func makeBody(includeSecret: Bool) throws -> [String: String] {
-            // Time to allow uploads after signing.
-            let secondsInDay: Double = 86400
-            let dateTime: String = type(of: self).formatter.string(from: Date().addingTimeInterval(secondsInDay))
-           
-            let authObject = ["key": credentials.key, "expires": dateTime]
-            
-            var params: [String: Any] = ["auth": authObject, "template_id": templateId]
-            params["fields"] = customFields
-            
-            let paramsData: Data
-            if #available(macOS 10.15, iOS 13.0, *) {
-                paramsData = try JSONSerialization.data(withJSONObject: params, options: .withoutEscapingSlashes)
-            } else {
-                paramsData = try! JSONSerialization.data(withJSONObject: params, options: [])
-            }
-            
-            guard let paramsJSONString = String(data: paramsData, encoding: .utf8) else {
-                throw TransloaditAPIError.cantSerialize
-            }
-            
-            var body: [String: String] = ["params": paramsJSONString, "tus_num_expected_upload_files": String(expectedNumberOfFiles)]
-            if !credentials.secret.isEmpty {
-                body["signature"] = "sha384:" + paramsJSONString.hmac(key: credentials.secret)
-            }
-            
-            return body
-        }
-        
+        params: [String: Any],
+        expectedNumberOfFiles: Int,
+        customFields: [String: String],
+        assemblyRequestCreated: @escaping (Result<(request: URLRequest, httpBody: URL), Error>) -> Void
+    ) {
         let boundary = UUID.init().uuidString
         
-        func makeBodyData() throws -> Data {
-            let formFields = try makeBody(includeSecret: true)
-            var body: Data = Data()
-            for field in formFields {
-                [String(format: "--%@\r\n", boundary),
-                 String(format: "Content-Disposition: form-data; name=\"%@\"\r\n\r\n", field.key),
-                 String(format: "%@\r\n", field.value)]
-                    .forEach { string in
-                        body.append(Data(string.utf8))
-                    }
+        do {
+            let request = try assemblyURLRequest(boundary: boundary)
+            
+            makeBodyDataForAssemblyRequest(
+                using: params,
+                expectedNumberOfFiles: expectedNumberOfFiles,
+                boundary: boundary
+            ) { [weak self] result in
+                guard let self else {
+                    assemblyRequestCreated(.failure(TransloaditError.couldNotCreateAssembly(underlyingError: TransloaditAPIError.apiIsNil)))
+                    return
+                }
+                do {
+                    let bodyData = try result.get()
+                    let bodyURL = try self.writeBodyData(bodyData)
+                    assemblyRequestCreated(.success((request, bodyURL)))
+                } catch {
+                    assemblyRequestCreated(.failure(TransloaditError.couldNotCreateAssembly(underlyingError: error)))
+                }
             }
-            let string = String(format: "--%@--\r\n", boundary)
-            body.append(Data(string.utf8))
-            return body
+        } catch {
+            assemblyRequestCreated(.failure(TransloaditError.couldNotCreateAssembly(underlyingError: error)))
         }
-        
-        func makeRequest() throws -> URLRequest {
-            let path = basePath.appendingPathComponent(Endpoint.assemblies.rawValue)
-            var request: URLRequest = URLRequest(url: path, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
-            
-            let headers = ["Content-Type": String(format: "multipart/form-data; boundary=%@", boundary)]
-            
-            request.httpMethod = "POST"
-            request.allHTTPHeaderFields = headers
-            return request
-        }
-        
-        let request = try makeRequest()
-        let bodyData = try makeBodyData()
-        
-        return (request, try writeBodyData(bodyData))
     }
     
-    private func makeAssemblyRequest(
-      steps: [Step],
-      expectedNumberOfFiles: Int,
-      customFields: [String: String]
-    ) throws -> (request: URLRequest, httpBody: URL) {
+    private func assemblyURLRequest(boundary: String) throws -> URLRequest {
+        let path = basePath.appendingPathComponent(Endpoint.assemblies.rawValue)
+        var request: URLRequest = URLRequest(url: path, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
         
-        func makeBody(includeSecret: Bool) throws -> [String: String] {
-            // Time to allow uploads after signing.
-            let secondsInDay: Double = 86400
-            let dateTime: String = type(of: self).formatter.string(from: Date().addingTimeInterval(secondsInDay))
-           
-            let authObject = ["key": credentials.key, "expires": dateTime]
-            
-            var params: [String: Any] = ["auth": authObject, "steps": steps.toDictionary]
-            params["fields"] = customFields
-            
+        let headers = ["Content-Type": String(format: "multipart/form-data; boundary=%@", boundary)]
+        
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = headers
+        return request
+    }
+    
+    private func makeBodyDataForAssemblyRequest(
+        using params: [String: Any],
+        expectedNumberOfFiles: Int,
+        boundary: String,
+        bodyDataCreated: @escaping (Result<Data, Error>) -> Void
+    ) {
+        makeBodyForAssemblyRequest(
+            using: params,
+            expectedNumberOfFiles: expectedNumberOfFiles
+        ) { result in
+            do {
+                let formFields = try result.get()
+                var body: Data = Data()
+                for field in formFields {
+                    [String(format: "--%@\r\n", boundary),
+                     String(format: "Content-Disposition: form-data; name=\"%@\"\r\n\r\n", field.key),
+                     String(format: "%@\r\n", field.value)]
+                        .forEach { string in
+                            body.append(Data(string.utf8))
+                        }
+                }
+                let string = String(format: "--%@--\r\n", boundary)
+                body.append(Data(string.utf8))
+                
+                bodyDataCreated(.success(body))
+            } catch {
+                bodyDataCreated(.failure(TransloaditError.couldNotCreateAssembly(underlyingError: error)))
+            }
+        }
+    }
+    
+    private func makeBodyForAssemblyRequest(
+        using params: [String: Any],
+        expectedNumberOfFiles: Int,
+        bodyCreated: @escaping (Result<[String: String], Error>) -> Void
+    ) {
+        var params = params
+        
+        // Time to allow uploads after signing.
+        let secondsInDay: Double = 86400
+        let dateTime: String = type(of: self).formatter.string(from: Date().addingTimeInterval(secondsInDay))
+       
+        let authObject = ["key": credentials.key, "expires": dateTime]
+        params["auth"] = authObject
+        
+        do {
             let paramsData: Data
             if #available(macOS 10.15, iOS 13.0, *) {
                 paramsData = try JSONSerialization.data(withJSONObject: params, options: .withoutEscapingSlashes)
@@ -234,52 +240,27 @@ final class TransloaditAPI: NSObject {
                 paramsData = try JSONSerialization.data(withJSONObject: params, options: [])
             }
             
+            
             guard let paramsJSONString = String(data: paramsData, encoding: .utf8) else {
                 throw TransloaditAPIError.cantSerialize
             }
             
             var body: [String: String] = ["params": paramsJSONString, "tus_num_expected_upload_files": String(expectedNumberOfFiles)]
-            if !credentials.secret.isEmpty {
-                body["signature"] = "sha384:" + paramsJSONString.hmac(key: credentials.secret)
+            signatureGenerator(paramsJSONString) { signatureResult in
+                do {
+                    let signature = try signatureResult.get()
+                    body["signature"] = signature
+                    bodyCreated(.success(body))
+                } catch {
+                    bodyCreated(.failure(TransloaditError.couldNotCreateAssembly(underlyingError: error)))
+                }
             }
+        } catch {
+            bodyCreated(.failure(TransloaditError.couldNotCreateAssembly(underlyingError: error)))
             
-            return body
         }
-        
-        let boundary = UUID.init().uuidString
-        
-        func makeBodyData() throws -> Data {
-            let formFields = try makeBody(includeSecret: true)
-            var body: Data = Data()
-            for field in formFields {
-                [String(format: "--%@\r\n", boundary),
-                 String(format: "Content-Disposition: form-data; name=\"%@\"\r\n\r\n", field.key),
-                 String(format: "%@\r\n", field.value)]
-                    .forEach { string in
-                        body.append(Data(string.utf8))
-                    }
-            }
-            let string = String(format: "--%@--\r\n", boundary)
-            body.append(Data(string.utf8))
-            return body
-        }
-        
-        func makeRequest() throws -> URLRequest {
-            let path = basePath.appendingPathComponent(Endpoint.assemblies.rawValue)
-            var request: URLRequest = URLRequest(url: path, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
-            
-            let headers = ["Content-Type": String(format: "multipart/form-data; boundary=%@", boundary)]
-            
-            request.httpMethod = "POST"
-            request.allHTTPHeaderFields = headers
-            return request
-        }
-        
-        let request = try makeRequest()
-        let bodyData = try makeBodyData()
-        
-        return (request, try writeBodyData(bodyData))
     }
+        
     
     private func writeBodyData(_ data: Data) throws -> URL {
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
