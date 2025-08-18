@@ -37,13 +37,36 @@ class TransloaditKitTests: XCTestCase {
         
         let configuration = URLSessionConfiguration.default
         configuration.protocolClasses = [MockURLProtocol.self]
-        let session = URLSession.init(configuration: configuration)
         
-        return Transloadit(credentials: credentials, session: session)
+        return Transloadit(credentials: credentials, sessionConfiguration: configuration)
+    }
+
+    func testCreateAssembly_Calls_Injected_Signature_Generator() throws {
+        let configuration = URLSessionConfiguration.default
+        configuration.protocolClasses = [MockURLProtocol.self]
+
+        let signatureExpectation = expectation(description: "Waiting for signature to be requested")
+        let client = Transloadit(apiKey: "I am a key", sessionConfiguration: configuration, signatureGenerator: { params, completion in
+            signatureExpectation.fulfill()
+            completion(.success("signed:" + params))
+        })
+
+        let serverAssembly = Fixtures.makeAssembly()
+        Network.prepareAssemblyResponse(assembly: serverAssembly)
+        let serverFinishedExpectation = expectation(description: "Waiting for createAssembly to be called")
+        client.createAssembly(steps: [resizeStep]) { result in
+            switch result {
+            case .success:
+                serverFinishedExpectation.fulfill()
+            case .failure:
+                XCTFail("Creating an assembly should have succeeded")
+            }
+        }
+        
+        waitForExpectations(timeout: 3.0, handler: nil)
     }
     
     // MARK: - File uploading
-    
     func testCreateAssembly_Without_Uploading() throws {
         let serverAssembly = Fixtures.makeAssembly()
         Network.prepareAssemblyResponse(assembly: serverAssembly)
