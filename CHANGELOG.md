@@ -1,6 +1,10 @@
 # TransloaditKit Changelog
 
-## 3.4
+## 3.5.0
+
+* Allow clients to inject only an api key and provide a signature generator closure to calculate signatures for signing requests instead of injecting a key and secret. ([#42](https://github.com/transloadit/TransloaditKit/issues/42))
+
+## 3.4.0
 
 * Updated Package to depend on exact TUSKit version and removed call to removed method in TUSKit ([#41](https://github.com/transloadit/TransloaditKit/issues/41))
 

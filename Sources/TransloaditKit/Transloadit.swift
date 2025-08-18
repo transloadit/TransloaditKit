@@ -3,11 +3,14 @@ import Foundation
 
 /// The errors that `Transloadit` can return
 public enum TransloaditError: Error {
-    
     case couldNotFetchStatus(underlyingError: Error)
     case couldNotCreateAssembly(underlyingError: Error)
     case couldNotUploadFile(underlyingError: Error)
     case couldNotClearCache(underlyingError: Error)
+}
+
+public enum SDKConfigurationError: Error {
+    case missingClientSecret
 }
 
 public protocol TransloaditFileDelegate: AnyObject {
@@ -31,6 +34,9 @@ public protocol TransloaditFileDelegate: AnyObject {
     func didError(error: Error, client: Transloadit)
 }
 
+public typealias SignatureCompletion = (Result<String, Error>) -> Void
+public typealias SignatureGenerator = (String, SignatureCompletion) -> Void
+
 /// Use the `Transloadit` class to upload files using the underlying TUS protocol.
 /// You can either create an Assembly by itself, or create an Assembly and  upload files to it right away.
 ///
@@ -42,9 +48,9 @@ public final class Transloadit {
     
     public struct Credentials {
         let key: String
-        let secret: String
+        let secret: String?
         
-        public init(key: String, secret: String) {
+        public init(key: String, secret: String?) {
             self.key = key
             self.secret = secret
         }
@@ -84,7 +90,18 @@ public final class Transloadit {
     ///   then TUS will make a directory, whether one you specify or a default one in the documents directory.
     @available(*, deprecated, message: "Use the new init(credentials:sessionConfig:storageDir:) instead.")
     public init(credentials: Transloadit.Credentials, session: URLSession, storageDir: URL? = nil) {
-        self.api = TransloaditAPI(credentials: credentials, session: session)
+        self.api = TransloaditAPI(
+            credentials: credentials,
+            session: session,
+            signatureGenerator: { parameterString, generationComplete in
+                guard let secret = credentials.secret, !secret.isEmpty else {
+                    generationComplete(.failure(SDKConfigurationError.missingClientSecret))
+                    return
+                }
+                
+                generationComplete(.success("sha384:" + parameterString.hmac(key: secret)))
+            }
+        )
         self.storageDir = storageDir
         self.tusSessionConfig = session.configuration.copy(withIdentifier: "com.transloadit.tus.bg")
     }
@@ -97,7 +114,47 @@ public final class Transloadit {
     ///   If left empty, no directory will be made when performing non-file related tasks, such as creating assemblies. However, if you start uploading files,
     ///   then TUS will make a directory, whether one you specify or a default one in the documents directory.
     public init(credentials: Transloadit.Credentials, sessionConfiguration: URLSessionConfiguration, storageDir: URL? = nil) {
-        self.api = TransloaditAPI(credentials: credentials, sessionConfiguration: sessionConfiguration)
+        self.api = TransloaditAPI(
+            credentials: credentials,
+            sessionConfiguration: sessionConfiguration,
+            signatureGenerator: { parameterString, generationComplete in
+                guard let secret = credentials.secret, !secret.isEmpty else {
+                    generationComplete(.failure(SDKConfigurationError.missingClientSecret))
+                    return
+                }
+                
+                generationComplete(.success("sha384:" + parameterString.hmac(key: secret)))
+            }
+        )
+        self.storageDir = storageDir
+        self.tusSessionConfig = sessionConfiguration.copy(withIdentifier: "com.transloadit.tus.bg")
+    }
+    
+    /// Initialize Transloadit without a secret, providing a signature generator.
+    /// - Parameters:
+    ///   - apiKey: Transloadit API key.
+    ///   - sessionConfiguration: A URLSessionConfiguration to use.
+    ///   - storageDir: A storagedirectory to use. Used by underlying TUSKit mechanism to store files.
+    ///   If left empty, no directory will be made when performing non-file related tasks, such as creating assemblies. However, if you start uploading files,
+    ///   then TUS will make a directory, whether one you specify or a default one in the documents directory.
+    ///   - signatureGenerator: A closure that's invoked to generate the signature for the API request. Implement your own logic to generate a valid
+    ///   signature. Call the provided completion handler with your signed string or an error as needed.
+    ///
+    ///   For example, you can make a request to your backend to generate the signature for you. The closure is passed a string that holds all request params
+    ///   that need to be signed. See https://transloadit.com/docs/api/authentication/ for more information on signature authentication.
+    ///   The closure is invoked by the TransloaditAPI when needed.
+    ///
+    ///   ** Important:** It's up to the caller to ensure that all codepaths (eventually) call the completion handler. The SDK does not implement any timeouts or fallbacks.
+    public init(
+        apiKey: String, sessionConfiguration: URLSessionConfiguration,
+        storageDir: URL? = nil, signatureGenerator: @escaping SignatureGenerator
+    ) {
+        let credentials = Transloadit.Credentials(key: apiKey, secret: nil)
+        self.api = TransloaditAPI(
+            credentials: credentials,
+            sessionConfiguration: sessionConfiguration,
+            signatureGenerator: signatureGenerator
+        )
         self.storageDir = storageDir
         self.tusSessionConfig = sessionConfiguration.copy(withIdentifier: "com.transloadit.tus.bg")
     }
