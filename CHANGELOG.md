@@ -1,5 +1,10 @@
 # TransloaditKit Changelog
 
+## Next
+
+* Added `tusUploadChunkSize` to Transloadit initializers so apps can tune TUS chunking behavior, including single-request uploads with `0`.
+* Clarified that `createAssembly(... andUpload ..., completion:)` completes after upload scheduling, not after file upload or processing completion.
+
 ## 3.5.0
 
 * Allow clients to inject only an api key and provide a signature generator closure to calculate signatures for signing requests instead of injecting a key and secret. ([#42](https://github.com/transloadit/TransloaditKit/issues/42))
@@ -34,7 +39,7 @@
 ### Fixes
 
 ### Added
-* It's now possible to cancel a running Assembly 
+* It's now possible to cancel a running Assembly
 * Bumped TUSKit version
 * Allow passing of custom fields to assembly creating by passing them to `createAssembly` methods
 

@@ -45,10 +45,10 @@ To do this, use the `Transloadit` initializer that takes an api key and a `signa
 
 ```swift
 let transloadit = Transloadit(
-    apiKey: "YOUR-API-KEY", 
-    sessionConfiguration: .default, 
+    apiKey: "YOUR-API-KEY",
+    sessionConfiguration: .default,
     signatureGenerator: { stringToSign, onSignatureGenerated in
-        mySigningService.sign(stringToSign) { result in 
+        mySigningService.sign(stringToSign) { result in
           onSignatureGenerated(result)
         }
     })
@@ -63,7 +63,7 @@ public typealias SignatureGenerator = (String, SignatureCompletion) -> Void
 
 The generator itself is passed a string that needs to be signed (a JSON representation of the request parameters that you're generating a signature for) and a closure that you _must_ call to inform the SDK when you're done generating the signature (whether it's successful or failed).
 
-**Important** if you don't call the completion handler, your requests will never be sent. The SDK does not implement a fallback or timeout. 
+**Important** if you don't call the completion handler, your requests will never be sent. The SDK does not implement a fallback or timeout.
 
 The SDK will invoke the signature generator for every request that requires a signature. It will pass a parameter string for each request to your closure which you can then send to your service (local or external) for signature generation.
 
@@ -73,6 +73,18 @@ To learn more about signature generation see this page: https://transloadit.com/
 
 To create an `Assembly` you invoke `createAssembly(steps:andUpload:completion)` on `Transloadit`.
 It returns a `TransloaditPoller` that you can use to poll for the `AssemblyStatus` of your `Assembly`.
+The completion handler is called after the Assembly has been created and uploads have been scheduled. It does not mean the files have finished uploading.
+Use `TransloaditFileDelegate.didFinishUpload` to detect file upload completion, and use the returned poller to wait for processing completion.
+
+By default, TUS uploads are split into 500 KiB chunks. For iOS background uploads, this means the system needs to schedule a new upload task for every chunk.
+If that is too aggressive for your app, configure a larger `tusUploadChunkSize`, or pass `0` to let TUSKit upload each file in one request:
+
+```swift
+let transloadit = Transloadit(
+    credentials: credentials,
+    sessionConfiguration: .background(withIdentifier: "com.example.uploads"),
+    tusUploadChunkSize: 0)
+```
 
 ```swift
 let resizeStep = Step(
@@ -83,7 +95,7 @@ let resizeStep = Step(
         "height": 100,
         "resize_strategy": "fit",
         "result": true])
-        
+
 let filesToUpload: [URL] = ...
 transloadit.createAssembly(steps: [resizeStep], andUpload: filesToUpload) { result in
     switch result {

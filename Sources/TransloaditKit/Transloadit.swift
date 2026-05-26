@@ -14,13 +14,13 @@ public enum SDKConfigurationError: Error {
 }
 
 public protocol TransloaditFileDelegate: AnyObject {
-    
+
     func didStartUpload(assembly: Assembly, client: Transloadit)
-    
+
     func didFinishUpload(assembly: Assembly, client: Transloadit)
-    
+
     func progressFor(assembly: Assembly, bytesUploaded: Int, totalBytes: Int, client: Transloadit)
-    
+
     /// Get the progress of all ongoing uploads combined
     ///
     /// - Important: The total is based on active uploads, so it will lower once files are uploaded.
@@ -29,7 +29,7 @@ public protocol TransloaditFileDelegate: AnyObject {
     ///
     /// As a rule of thumb: The total will be highest on the start, a good starting point is to compare the progress against that number.
     func totalProgress(bytesUploaded: Int, totalBytes: Int, client: Transloadit)
-    
+
     /// Any type of error, maybe files couldn't be cleaned up on start. For instance.
     func didError(error: Error, client: Transloadit)
 }
@@ -45,42 +45,49 @@ public typealias SignatureGenerator = (String, SignatureCompletion) -> Void
 ///
 /// To get granular feedback on file uploading and bytes, implement the `fileDelegate` property on `Transloadit`
 public final class Transloadit {
-    
+
     public struct Credentials {
         let key: String
         let secret: String?
-        
+
         public init(key: String, secret: String?) {
             self.key = key
             self.secret = secret
         }
     }
-    
+
     typealias FileId = UUID
     let pollers = TransloaditPollers()
-    
+
     // "private" -- only exposed for unit testing
     let api: TransloaditAPI
     private let storageDir: URL?
-    
+    let tusUploadChunkSize: Int
+
     public var remainingUploads: Int {
         tusClient.remainingUploads
     }
-    
+
     // "private" -- only exposed for unit testing
     let tusSessionConfig: URLSessionConfiguration
     lazy var tusClient: TUSClient = {
-        let tusClient = try! TUSClient(server: URL(string:"https://www.transloadit.com")!, sessionIdentifier: "TransloadIt", sessionConfiguration: tusSessionConfig, storageDirectory: storageDir)
+        let tusClient = try! TUSClient(
+            server: URL(string:"https://www.transloadit.com")!,
+            sessionIdentifier: "TransloadIt",
+            sessionConfiguration: tusSessionConfig,
+            storageDirectory: storageDir,
+            chunkSize: tusUploadChunkSize
+        )
         tusClient.delegate = self
         return tusClient
     }()
-    
+
     public weak var fileDelegate: TransloaditFileDelegate?
-    
+
     public var isUsingBackgroundConfiguration: (transloadit: Bool, tus: Bool) {
         return (api.configuration.identifier != nil, tusSessionConfig.identifier != nil)
     }
-    
+
     /// Initialize Transloadit
     /// - Parameters:
     ///   - credentials: The credentials with required key and secret.
@@ -88,8 +95,14 @@ public final class Transloadit {
     ///   - storageDir: A storagedirectory to use. Used by underlying TUSKit mechanism to store files.
     ///   If left empty, no directory will be made when performing non-file related tasks, such as creating assemblies. However, if you start uploading files,
     ///   then TUS will make a directory, whether one you specify or a default one in the documents directory.
+    ///   - tusUploadChunkSize: The TUS upload chunk size in bytes. Pass `0` to let TUSKit upload each file in one request, which can be useful for iOS background uploads because the system does not need to schedule a new task for every chunk.
     @available(*, deprecated, message: "Use the new init(credentials:sessionConfig:storageDir:) instead.")
-    public init(credentials: Transloadit.Credentials, session: URLSession, storageDir: URL? = nil) {
+    public init(
+        credentials: Transloadit.Credentials,
+        session: URLSession,
+        storageDir: URL? = nil,
+        tusUploadChunkSize: Int = 500 * 1024
+    ) {
         self.api = TransloaditAPI(
             credentials: credentials,
             session: session,
@@ -98,14 +111,15 @@ public final class Transloadit {
                     generationComplete(.failure(SDKConfigurationError.missingClientSecret))
                     return
                 }
-                
+
                 generationComplete(.success("sha384:" + parameterString.hmac(key: secret)))
             }
         )
         self.storageDir = storageDir
         self.tusSessionConfig = session.configuration.copy(withIdentifier: "com.transloadit.tus.bg")
+        self.tusUploadChunkSize = tusUploadChunkSize
     }
-    
+
     /// Initialize Transloadit
     /// - Parameters:
     ///   - credentials: The credentials with required key and secret.
@@ -113,7 +127,13 @@ public final class Transloadit {
     ///   - storageDir: A storagedirectory to use. Used by underlying TUSKit mechanism to store files.
     ///   If left empty, no directory will be made when performing non-file related tasks, such as creating assemblies. However, if you start uploading files,
     ///   then TUS will make a directory, whether one you specify or a default one in the documents directory.
-    public init(credentials: Transloadit.Credentials, sessionConfiguration: URLSessionConfiguration, storageDir: URL? = nil) {
+    ///   - tusUploadChunkSize: The TUS upload chunk size in bytes. Pass `0` to let TUSKit upload each file in one request, which can be useful for iOS background uploads because the system does not need to schedule a new task for every chunk.
+    public init(
+        credentials: Transloadit.Credentials,
+        sessionConfiguration: URLSessionConfiguration,
+        storageDir: URL? = nil,
+        tusUploadChunkSize: Int = 500 * 1024
+    ) {
         self.api = TransloaditAPI(
             credentials: credentials,
             sessionConfiguration: sessionConfiguration,
@@ -122,14 +142,15 @@ public final class Transloadit {
                     generationComplete(.failure(SDKConfigurationError.missingClientSecret))
                     return
                 }
-                
+
                 generationComplete(.success("sha384:" + parameterString.hmac(key: secret)))
             }
         )
         self.storageDir = storageDir
         self.tusSessionConfig = sessionConfiguration.copy(withIdentifier: "com.transloadit.tus.bg")
+        self.tusUploadChunkSize = tusUploadChunkSize
     }
-    
+
     /// Initialize Transloadit without a secret, providing a signature generator.
     /// - Parameters:
     ///   - apiKey: Transloadit API key.
@@ -137,6 +158,7 @@ public final class Transloadit {
     ///   - storageDir: A storagedirectory to use. Used by underlying TUSKit mechanism to store files.
     ///   If left empty, no directory will be made when performing non-file related tasks, such as creating assemblies. However, if you start uploading files,
     ///   then TUS will make a directory, whether one you specify or a default one in the documents directory.
+    ///   - tusUploadChunkSize: The TUS upload chunk size in bytes. Pass `0` to let TUSKit upload each file in one request, which can be useful for iOS background uploads because the system does not need to schedule a new task for every chunk.
     ///   - signatureGenerator: A closure that's invoked to generate the signature for the API request. Implement your own logic to generate a valid
     ///   signature. Call the provided completion handler with your signed string or an error as needed.
     ///
@@ -147,7 +169,9 @@ public final class Transloadit {
     ///   ** Important:** It's up to the caller to ensure that all codepaths (eventually) call the completion handler. The SDK does not implement any timeouts or fallbacks.
     public init(
         apiKey: String, sessionConfiguration: URLSessionConfiguration,
-        storageDir: URL? = nil, signatureGenerator: @escaping SignatureGenerator
+        storageDir: URL? = nil,
+        tusUploadChunkSize: Int = 500 * 1024,
+        signatureGenerator: @escaping SignatureGenerator
     ) {
         let credentials = Transloadit.Credentials(key: apiKey, secret: nil)
         self.api = TransloaditAPI(
@@ -157,8 +181,9 @@ public final class Transloadit {
         )
         self.storageDir = storageDir
         self.tusSessionConfig = sessionConfiguration.copy(withIdentifier: "com.transloadit.tus.bg")
+        self.tusUploadChunkSize = tusUploadChunkSize
     }
-    
+
     @discardableResult
     /// Continue uploads where they were left off.
     /// - Returns: The assemblies that are still queued.
@@ -172,16 +197,16 @@ public final class Transloadit {
                   }
             return assembly
         }
-        
+
         return assemblies
     }
-    
+
     /// Stop all running uploads. But cache is intact so you can continue later.
     /// Also refer to : `reset()` to remove the cache.
     public func stopRunningUploads() {
         tusClient.stopAndCancelAll()
     }
-    
+
     /// Stop all running uploads, reset local upload cache.
     /// - Throws: TransloaditError
     public func reset() throws {
@@ -191,7 +216,7 @@ public final class Transloadit {
             throw TransloaditError.couldNotClearCache(underlyingError: error)
         }
     }
-    
+
     /// Create an assembly, do not upload a file.
     ///
     /// This is useful for when you want to import a file from a different source, such as a third party storage service.
@@ -216,8 +241,8 @@ public final class Transloadit {
             completion(transloaditResult)
         }
     }
-    
-  
+
+
     /// Create an assembly, do not upload a file.
     ///
     /// This is useful for when you want to import a file from a different source, such as a third party storage service.
@@ -244,8 +269,17 @@ public final class Transloadit {
             completion(transloaditResult)
         }
     }
-    
+
     @discardableResult
+    /// Create an assembly from a Template and upload one or more files to it using the TUS protocol.
+    ///
+    /// The completion handler is called after the Assembly is created and the TUS uploads are scheduled.
+    /// Use `TransloaditFileDelegate.didFinishUpload` for upload completion and `pollAssemblyStatus` for processing completion.
+    /// - Parameters:
+    ///   - templateId: The templateId to use for this assembly
+    ///   - files: Paths to the files to upload
+    ///   - customFields: JSON-encodable dictionary of custom parameters to pass to the assembly creation
+    ///   - completion: The created Assembly after TUS uploads have been scheduled
     public func createAssembly(
       templateId: String,
       andUpload files: [URL],
@@ -255,23 +289,23 @@ public final class Transloadit {
         func makeMetadata(assembly: Assembly) -> [String: String] {
             [:]
         }
-        
+
         let poller = TransloaditPoller(transloadit: self, didFinish: { [weak self] in
             guard let self = self else { return }
             self.pollers.remove(for: files)
         })
-        
+
         if let existingPoller = self.pollers.get(for: files), existingPoller === poller {
             assertionFailure("Transloadit: Somehow already got a poller for this url and these files")
         }
-        
+
         createAssembly(
           templateId: templateId,
           expectedNumberOfFiles: files.count,
           customFields: customFields,
           completion: { [weak self] result in
             guard let self = self else { return }
-            
+
             do {
                 let assembly = try result.get()
                 try self.tusClient.uploadFiles(
@@ -280,9 +314,9 @@ public final class Transloadit {
                     customHeaders: makeMetadata(assembly: assembly),
                     context: ["assembly": assembly.description, "fieldname": "file-input", "assembly_url": assembly.url.absoluteString]
                 )
-                
+
                 poller.assemblyURL = assembly.url
-                
+
                 completion(.success(assembly))
             } catch let error where error is TransloaditAPIError {
                 completion(.failure(TransloaditError.couldNotCreateAssembly(underlyingError: error)))
@@ -290,12 +324,12 @@ public final class Transloadit {
                 completion(.failure(TransloaditError.couldNotUploadFile(underlyingError: error)))
             }
         })
-        
+
         pollers.register(poller, for: files)
 
         return poller
     }
-    
+
     /// Create an assembly and upload one or more files to it using the TUS protocol.
     ///
     /// Returns a poller that you can use to check its processing status. You don't need to retain the poller, the `TransloadIt` instance will do that for you.
@@ -305,13 +339,13 @@ public final class Transloadit {
     ///   - steps: The steps of an assembly.
     ///   - files: Paths to the files to upload
     ///   - customFields: JSON-encodable dictionary of extra parameters to send along with assembly creation
-    ///   - completion: completion handler, called when upload is complete
+    ///   - completion: completion handler, called after the Assembly is created and the TUS uploads are scheduled. This does not mean that file uploads or processing have finished. Use `TransloaditFileDelegate.didFinishUpload` for upload completion and `pollAssemblyStatus` for processing completion.
     ///
     /// Below you can see how you can create an assembly and poll for its upload status
     ///```swift
     ///
     ///       transloadit.createAssembly(steps: [resizeStep], andUpload: files, completion: { assemblyResult in
-    ///           // received assembly response
+    ///           // received assembly response; uploads are scheduled, not necessarily finished
     ///           print(assemblyResult)
     ///       }).pollAssemblyStatus { pollingResult in
     ///           // received polling status
@@ -328,23 +362,23 @@ public final class Transloadit {
         func makeMetadata(assembly: Assembly) -> [String: String] {
             [:]
         }
-        
+
         let poller = TransloaditPoller(transloadit: self, didFinish: { [weak self] in
             guard let self = self else { return }
             self.pollers.remove(for: files)
         })
-        
+
         if let existingPoller = self.pollers.get(for: files), existingPoller === poller {
             assertionFailure("Transloadit: Somehow already got a poller for this url and these files")
         }
-        
+
         createAssembly(
             steps: steps,
             expectedNumberOfFiles: files.count,
             customFields: customFields,
             completion: { [weak self] result in
                 guard let self = self else { return }
-                
+
                 do {
                     let assembly = try result.get()
                     try self.tusClient.uploadFiles(
@@ -353,9 +387,9 @@ public final class Transloadit {
                         customHeaders: makeMetadata(assembly: assembly),
                         context: ["assembly": assembly.description, "fieldname": "file-input", "assembly_url": assembly.url.absoluteString]
                     )
-                    
+
                     poller.assemblyURL = assembly.url
-                    
+
                     completion(.success(assembly))
                 } catch let error where error is TransloaditAPIError {
                     completion(.failure(TransloaditError.couldNotCreateAssembly(underlyingError: error)))
@@ -363,11 +397,11 @@ public final class Transloadit {
                     completion(.failure(TransloaditError.couldNotUploadFile(underlyingError: error)))
                 }
             })
-        
+
         pollers.register(poller, for: files)
         return poller
     }
-    
+
  #if compiler(>=5.5) && canImport(_Concurrency)
 
     @available(macOS 10.15, iOS 13, *)
@@ -391,14 +425,14 @@ public final class Transloadit {
             })
         }
     }
-    
+
     @available(macOS 10.15, iOS 13, *)
     public func createAssembly(
       steps: [Step],
       andUpload files: [URL],
       customFields: [String: String] = [:]
     ) async throws -> (Assembly, TransloaditPoller) {
-        
+
         return try await withCheckedThrowingContinuation({ continuation in
             var poller: TransloaditPoller!
             poller = createAssembly(
@@ -416,9 +450,9 @@ public final class Transloadit {
             }
         })
     }
-    
+
 #endif
-    
+
     /// Retrieve the status of an Assembly.
     /// - Parameters:
     ///   - assemblyURL: The url to use
@@ -440,7 +474,7 @@ public final class Transloadit {
 }
 
 extension Transloadit: TUSClientDelegate {
-    
+
     public func didStartUpload(id: UUID, context: [String : String]?, client: TUSClient) {
         guard let fileDelegate = fileDelegate,
               let assembly = context.flatMap(extractAssemblyFrom) else {
@@ -449,7 +483,7 @@ extension Transloadit: TUSClientDelegate {
 
         fileDelegate.didStartUpload(assembly: assembly, client: self)
     }
-    
+
     public func didFinishUpload(id: UUID, url: URL, context: [String : String]?, client: TUSClient) {
         guard let fileDelegate = fileDelegate,
               let assembly = context.flatMap(extractAssemblyFrom) else {
@@ -458,27 +492,27 @@ extension Transloadit: TUSClientDelegate {
 
         fileDelegate.didFinishUpload(assembly: assembly, client: self)
     }
-    
+
     public func fileError(error: TUSClientError, client: TUSClient) {
         fileDelegate?.didError(error: error, client: self)
     }
-    
+
     public func progressFor(id: UUID, context: [String: String]?, bytesUploaded: Int, totalBytes: Int, client: TUSClient) {
-        
+
         guard let fileDelegate = fileDelegate,
               let assembly = context.flatMap(extractAssemblyFrom) else {
                   return
               }
-        
+
         // @Improvement: TUSKit handles multi-uploads for a file. But an Assembly also supports multiple files.
         // An improvement would be to track multiple files and pass that.
         fileDelegate.progressFor(assembly: assembly, bytesUploaded: bytesUploaded, totalBytes: totalBytes, client: self)
     }
-    
+
     public func totalProgress(bytesUploaded: Int, totalBytes: Int, client: TUSClient) {
         fileDelegate?.totalProgress(bytesUploaded: bytesUploaded, totalBytes: totalBytes, client: self)
     }
-    
+
     public func uploadFailed(id: UUID, error: Error, context: [String : String]?, client: TUSClient) {
         fileDelegate?.didError(error: error, client: self)
     }
@@ -516,6 +550,6 @@ private func extractAssemblyFrom(context: [String: String]) -> Assembly? {
           let assembly = Assembly(fromString: assemblyStr) else {
               return nil
     }
-    
+
     return assembly
 }
