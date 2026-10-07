@@ -37,7 +37,12 @@ final class TransloaditAPIHeaderTests: XCTestCase {
         let completed = expectation(description: "Assembly created")
 
         api.createAssembly(steps: [], expectedNumberOfFiles: 0, customFields: [:]) { result in
-            XCTAssertEqual(try result.get(), assembly)
+            switch result {
+            case .success(let receivedAssembly):
+                XCTAssertEqual(receivedAssembly, assembly)
+            case .failure(let error):
+                XCTFail("Creating an assembly failed: \(error)")
+            }
             completed.fulfill()
         }
 
@@ -54,7 +59,12 @@ final class TransloaditAPIHeaderTests: XCTestCase {
         let completed = expectation(description: "Status fetched")
 
         api.fetchStatus(assemblyURL: assembly.url) { result in
-            XCTAssertEqual(try result.get().processingStatus, .completed)
+            switch result {
+            case .success(let status):
+                XCTAssertEqual(status.processingStatus, .completed)
+            case .failure(let error):
+                XCTFail("Fetching status failed: \(error)")
+            }
             completed.fulfill()
         }
 
@@ -71,7 +81,12 @@ final class TransloaditAPIHeaderTests: XCTestCase {
         let completed = expectation(description: "Assembly canceled")
 
         api.cancelAssembly(assembly) { result in
-            XCTAssertEqual(try result.get().processingStatus, .canceled)
+            switch result {
+            case .success(let status):
+                XCTAssertEqual(status.processingStatus, .canceled)
+            case .failure(let error):
+                XCTFail("Canceling an assembly failed: \(error)")
+            }
             completed.fulfill()
         }
 
