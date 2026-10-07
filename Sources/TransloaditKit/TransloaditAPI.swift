@@ -23,7 +23,7 @@ final class TransloaditAPI: NSObject {
     
     private let basePath = URL(string: "https://api2.transloadit.com")!
 
-    // Keep this version and the header tests in sync with Transloadit.podspec when releasing.
+    // Keep this version in sync with Transloadit.podspec when releasing; header tests enforce it.
     private static let clientHeader = "transloaditkit:3.5.0"
     
     enum Endpoint: String {

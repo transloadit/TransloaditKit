@@ -4,9 +4,23 @@ import XCTest
 
 final class TransloaditAPIHeaderTests: XCTestCase {
     private var api: TransloaditAPI!
+    private var expectedClientHeader = ""
 
-    override func setUp() {
-        super.setUp()
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        // Check the transmitted version against release metadata to catch version drift.
+        let repoURL = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+        let podspec = try String(contentsOf: repoURL.appendingPathComponent("Transloadit.podspec"), encoding: .utf8)
+        let versionPattern = try NSRegularExpression(pattern: #"s\.version\s*=\s*['"]([^'"]+)['"]"#)
+        let versionMatch = try XCTUnwrap(
+            versionPattern.firstMatch(in: podspec, range: NSRange(location: 0, length: podspec.utf16.count)),
+            "Transloadit.podspec must declare an SDK version"
+        )
+        let versionRange = try XCTUnwrap(Range(versionMatch.range(at: 1), in: podspec))
+        expectedClientHeader = "transloaditkit:\(podspec[versionRange])"
         MockURLProtocol.reset()
 
         let configuration = URLSessionConfiguration.ephemeral
@@ -94,8 +108,10 @@ final class TransloaditAPIHeaderTests: XCTestCase {
     }
 
     private func prepareResponse(for url: URL, method: String, data: Data) {
+        let expectedClientHeader = self.expectedClientHeader
         MockURLProtocol.prepareResponse(for: url, method: method) { headers in
-            XCTAssertEqual(headers?["Transloadit-Client"], "transloaditkit:3.5.0")
+            XCTAssertEqual(headers?["Transloadit-Client"], expectedClientHeader)
+            // Session headers should survive adding SDK request headers on supported Apple platforms.
             XCTAssertEqual(headers?["X-Test-Header"], "preserved")
             if method == "POST" {
                 XCTAssertTrue(headers?["Content-Type"]?.hasPrefix("multipart/form-data; boundary=") == true)
