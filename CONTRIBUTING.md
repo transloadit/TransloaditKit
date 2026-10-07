@@ -67,8 +67,8 @@ confirm the session through the verification email. Run `pod trunk me` to
 confirm the session is verified and lists `Transloadit` before pushing.
 
 The [3.6.0 release on trunk](https://trunk.cocoapods.org/api/v1/pods/Transloadit/versions/3.6.0)
-was published on `studio1` with CocoaPods 1.17.0 and Xcode 27.0. Connect with
-`ssh studio1`, then use its clean repository checkout:
+was published with CocoaPods 1.17.0 and Xcode 27.0. Use a clean repository checkout
+on a macOS machine with Xcode and CocoaPods:
 
 ```sh
 cd ~/code/TransloaditKit && (
