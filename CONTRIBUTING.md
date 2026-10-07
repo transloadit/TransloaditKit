@@ -54,6 +54,11 @@ as the GitHub release body. Continue only after each command block succeeds.
 Confirm the published release has the expected notes and that the tag points to
 the merged preparation commit.
 
+If the tag was pushed but GitHub release creation failed, fetch the tags and
+confirm `git rev-parse 3.6.0^{commit}` matches the preparation commit. Rerun the
+block with the `git tag -a` line omitted. If the release already exists, inspect
+it with `gh release view 3.6.0` instead of recreating it.
+
 ### CocoaPods publication
 
 Use a macOS machine with Xcode and CocoaPods installed. A pod owner must run
