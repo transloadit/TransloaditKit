@@ -2,6 +2,7 @@
 
 ## Next
 
+* Added `Transloadit-Client` headers with the SDK name and version to assembly creation, status, and cancellation requests.
 * Added `tusUploadChunkSize` to Transloadit initializers so apps can tune TUS chunking behavior, including single-request uploads with `0`.
 * Clarified that `createAssembly(... andUpload ..., completion:)` completes after upload scheduling, not after file upload or processing completion.
 

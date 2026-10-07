@@ -22,6 +22,9 @@ enum TransloaditAPIError: Error {
 final class TransloaditAPI: NSObject {
     
     private let basePath = URL(string: "https://api2.transloadit.com")!
+
+    // Keep this version and the header tests in sync with Transloadit.podspec when releasing.
+    private static let clientHeader = "transloaditkit:3.5.0"
     
     enum Endpoint: String {
         case assemblies = "/assemblies"
@@ -180,7 +183,10 @@ final class TransloaditAPI: NSObject {
         let path = basePath.appendingPathComponent(Endpoint.assemblies.rawValue)
         var request: URLRequest = URLRequest(url: path, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
         
-        let headers = ["Content-Type": String(format: "multipart/form-data; boundary=%@", boundary)]
+        let headers = [
+            "Content-Type": String(format: "multipart/form-data; boundary=%@", boundary),
+            "Transloadit-Client": Self.clientHeader
+        ]
         
         request.httpMethod = "POST"
         request.allHTTPHeaderFields = headers
@@ -281,6 +287,7 @@ final class TransloaditAPI: NSObject {
         func makeRequest() -> URLRequest {
             var request = URLRequest(url: assemblyURL, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
             request.httpMethod = "GET"
+            request.setValue(Self.clientHeader, forHTTPHeaderField: "Transloadit-Client")
             return request
         }
         
@@ -307,6 +314,7 @@ final class TransloaditAPI: NSObject {
         func makeRequest() -> URLRequest {
             var request = URLRequest(url: assembly.url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
             request.httpMethod = "DELETE"
+            request.setValue(Self.clientHeader, forHTTPHeaderField: "Transloadit-Client")
             return request
         }
         
