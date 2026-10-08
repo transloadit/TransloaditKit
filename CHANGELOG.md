@@ -3,7 +3,7 @@
 ## Next
 
 * Added the MIT `LICENSE` file referenced by the CocoaPods specification.
-* Raised the minimum supported versions to iOS 15.0 and macOS 12.0 in CocoaPods and Swift Package Manager, matching the targets used to validate 3.6.0 with Xcode 27. Apps supporting older OS versions must stay on 3.6.0 or earlier.
+* Raised the minimum supported versions to iOS 15.0 and macOS 12.0 in CocoaPods and Swift Package Manager, matching the targets used to validate 3.6.0 with Xcode 27. Aligned the example app's target with iOS 15.0. Apps supporting older OS versions must stay on 3.6.0 or earlier.
 * Removed an unused session configuration binding and its compiler warning.
 
 ## 3.6.0

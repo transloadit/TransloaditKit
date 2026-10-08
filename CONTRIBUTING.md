@@ -8,6 +8,10 @@ swift test
 pod lib lint Transloadit.podspec
 ```
 
+On Xcode 27, pod lint currently fails because TUSKit's CocoaPods deployment
+targets are unsupported. See [CocoaPods publication](#cocoapods-publication) for
+the release blocker.
+
 ## Releasing
 
 Release preparation and publication are separate steps. Prepare a PR that:
