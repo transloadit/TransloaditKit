@@ -5,12 +5,14 @@ Build, run the tests, and validate the pod on macOS with Xcode and CocoaPods ins
 ```sh
 swift build
 swift test
-pod lib lint Transloadit.podspec
+pod lib lint Transloadit.podspec --allow-warnings
 ```
 
-On Xcode 27, pod lint currently fails because TUSKit's CocoaPods deployment
-targets are unsupported. See [CocoaPods publication](#cocoapods-publication) for
-the release blocker.
+`--allow-warnings` is used only to accept deployment-target warnings from TUSKit
+3.6.0's published podspec (iOS 10.0 / macOS 10.11), until TUSKit publishes newer
+minimums or TransloaditKit leaves CocoaPods. Xcode 27 rejects those targets with
+build errors, so the flag alone does not make lint pass on that toolchain; see
+[CocoaPods publication](#cocoapods-publication).
 
 ## Releasing
 
@@ -78,11 +80,13 @@ was published with CocoaPods 1.17.0 and Xcode 27.0. That release predates the
 license and deployment-target fixes. Future releases declare iOS 15.0 and macOS
 12.0 as their minimum supported versions.
 
-Plain validation on Xcode 27 remains blocked by the published TUSKit 3.6.0
-podspec's iOS 10.0 and macOS 10.11 targets. TUSKit 3.6.0 is the latest release
-on CocoaPods; [3.7.0 removed CocoaPods support](https://github.com/tus/TUSKit/blob/3.7.0/CHANGELOG.md).
-Resolve the dependency's deployment targets before publishing with this
-toolchain, and require `pod lib lint Transloadit.podspec` to pass.
+TUSKit 3.6.0 is the latest release on CocoaPods;
+[3.7.0 removed CocoaPods support](https://github.com/tus/TUSKit/blob/3.7.0/CHANGELOG.md).
+The `--allow-warnings` exception applies only to its published podspec's obsolete
+iOS 10.0 / macOS 10.11 deployment targets, until TUSKit publishes newer minimums
+or TransloaditKit leaves CocoaPods. Xcode 27 treats those targets as build errors,
+so publication still needs a compatible toolchain or a dependency fix; accepting
+the limitation for merging PR #50 does not authorize publication.
 
 For a new release, replace both placeholders below with the version and commit
 from its merged preparation PR. Use a clean repository checkout on a macOS
@@ -98,8 +102,8 @@ cd ~/code/TransloaditKit && (
   git fetch origin main --tags
   git checkout --detach "$RELEASE_VERSION"
   test "$(git rev-parse HEAD)" = "$RELEASE_COMMIT"
-  pod lib lint Transloadit.podspec
-  pod trunk push Transloadit.podspec
+  pod lib lint Transloadit.podspec --allow-warnings
+  pod trunk push Transloadit.podspec --allow-warnings
 )
 ```
 
