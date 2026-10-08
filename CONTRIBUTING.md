@@ -1,11 +1,18 @@
 # Contributing
 
-Build and run the tests on macOS with Xcode installed:
+Build, run the tests, and validate the pod on macOS with Xcode and CocoaPods installed:
 
 ```sh
 swift build
 swift test
+pod lib lint Transloadit.podspec --allow-warnings
 ```
+
+`--allow-warnings` is used only to accept deployment-target warnings from TUSKit
+3.6.0's published podspec (iOS 10.0 / macOS 10.11), until TUSKit publishes newer
+minimums or TransloaditKit leaves CocoaPods. Xcode 27 rejects those targets with
+build errors, so the flag alone does not make lint pass on that toolchain; see
+[CocoaPods publication](#cocoapods-publication).
 
 ## Releasing
 
@@ -61,55 +68,44 @@ it with `gh release view 3.6.0` instead of recreating it.
 
 ### CocoaPods publication
 
+Publication requires Kevin's approval after the release preparation PR is merged.
+
 Use a macOS machine with Xcode and CocoaPods installed. A pod owner must run
 `pod trunk register` with their pod-owner email address on that machine and
 confirm the session through the verification email. Run `pod trunk me` to
 confirm the session is verified and lists `Transloadit` before pushing.
 
 The [3.6.0 release on trunk](https://trunk.cocoapods.org/api/v1/pods/Transloadit/versions/3.6.0)
-was published with CocoaPods 1.17.0 and Xcode 27.0. Use a clean repository checkout
-on a macOS machine with Xcode and CocoaPods:
+was published with CocoaPods 1.17.0 and Xcode 27.0. That release predates the
+license and deployment-target fixes. Future releases declare iOS 15.0 and macOS
+12.0 as their minimum supported versions.
+
+TUSKit 3.6.0 is the latest release on CocoaPods;
+[3.7.0 removed CocoaPods support](https://github.com/tus/TUSKit/blob/3.7.0/CHANGELOG.md).
+The `--allow-warnings` exception applies only to its published podspec's obsolete
+iOS 10.0 / macOS 10.11 deployment targets, until TUSKit publishes newer minimums
+or TransloaditKit leaves CocoaPods. Xcode 27 treats those targets as build errors,
+so publication still needs a compatible toolchain or a dependency fix; accepting
+the limitation for merging PR #50 does not authorize publication.
+
+For a new release, replace both placeholders below with the version and commit
+from its merged preparation PR. Use a clean repository checkout on a macOS
+machine with Xcode and CocoaPods, and continue only if validation succeeds:
 
 ```sh
 cd ~/code/TransloaditKit && (
   set -e
   pod trunk me
-  RELEASE_VERSION=3.6.0
-  RELEASE_COMMIT=d6628f3d7fe5b90bc8271f4912d7cadb25360a27
+  RELEASE_VERSION=REPLACE_WITH_RELEASE_VERSION
+  RELEASE_COMMIT=REPLACE_WITH_RELEASE_COMMIT
   test -z "$(git status --porcelain=v1)"
   git fetch origin main --tags
   git checkout --detach "$RELEASE_VERSION"
   test "$(git rev-parse HEAD)" = "$RELEASE_COMMIT"
+  pod lib lint Transloadit.podspec --allow-warnings
+  pod trunk push Transloadit.podspec --allow-warnings
 )
 ```
-
-Publish with `pod trunk push Transloadit.podspec` when the Xcode toolchain supports
-the podspec's deployment targets.
-
-For 3.6.0, the plain push failed because Xcode 27 rejected the podspec's iOS 10.0
-and macOS 10.11 deployment targets. It also warned that the referenced `LICENSE`
-file is missing and that an existing `identifier` binding is unused. The
-successful push used a temporary build configuration with Xcode's supported
-deployment targets and allowed those existing warnings:
-
-```sh
-(
-  set -e
-  RELEASE_VALIDATION_DIR="$(mktemp -d -t transloaditkit-release)"
-  trap 'rm -f "$RELEASE_VALIDATION_DIR/validation.xcconfig"; rmdir "$RELEASE_VALIDATION_DIR"' EXIT
-  cat > "$RELEASE_VALIDATION_DIR/validation.xcconfig" <<'XCCONFIG'
-IPHONEOS_DEPLOYMENT_TARGET = 15.0
-MACOSX_DEPLOYMENT_TARGET = 12.0
-XCCONFIG
-  XCODE_XCCONFIG_FILE="$RELEASE_VALIDATION_DIR/validation.xcconfig" \
-    pod trunk push Transloadit.podspec --allow-warnings
-)
-```
-
-This override applies only to the validation build. The published podspec still
-comes from the release tag; build and import validation remain enabled.
-It validates iOS 15.0 and macOS 12.0, rather than the older deployment targets
-declared by the podspec.
 
 The 3.6.0 push returned GitHub commit API timeouts despite completing publication.
 Run `pod trunk info Transloadit` and confirm the version is absent before retrying
