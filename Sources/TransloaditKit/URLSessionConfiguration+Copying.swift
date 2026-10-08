@@ -9,7 +9,7 @@ import Foundation
 
 extension URLSessionConfiguration {
     func copy(withIdentifier newIdentifier: String) -> URLSessionConfiguration {
-        if let identifier = self.identifier {
+        if self.identifier != nil {
             let copy = URLSessionConfiguration.background(withIdentifier: newIdentifier)
             copy.requestCachePolicy = requestCachePolicy
             copy.timeoutIntervalForRequest = timeoutIntervalForRequest
